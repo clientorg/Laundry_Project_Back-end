@@ -29,6 +29,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # api setup
     path("api/accounts/", include("apps.accounts.urls")),
+    path("api/orders/", include("apps.orders.urls")),
     # Swagger UI:
     path(
         "",
