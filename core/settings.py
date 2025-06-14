@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "apps.organizations",
     "apps.accounts",
     "apps.orders",
+    "apps.customers",
     # pip apps
     "rest_framework",
     "rest_framework_simplejwt",

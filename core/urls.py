@@ -30,6 +30,7 @@ urlpatterns = [
     # api setup
     path("api/accounts/", include("apps.accounts.urls")),
     path("api/orders/", include("apps.orders.urls")),
+    path("api/customers/", include("apps.customers.urls")),
     # Swagger UI:
     path(
         "",

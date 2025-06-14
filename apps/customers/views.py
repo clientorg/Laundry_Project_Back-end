@@ -10,12 +10,12 @@ class CustomerListCreateView(generics.ListCreateAPIView):
     serializer_class = CustomerSerializer
 
 
-class OrderDeleteView(generics.DestroyAPIView):
+class CustomerDeleteView(generics.DestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
 
-class OrderByUserView(generics.ListAPIView):
+class CustomerByUserView(generics.ListAPIView):
     serializer_class = CustomerSerializer
 
     def get_queryset(self):
@@ -23,7 +23,7 @@ class OrderByUserView(generics.ListAPIView):
         return Customer.objects.filter(user_id=user_id).order_by("-created_at")
 
 
-class OrderUpdateView(generics.RetrieveUpdateAPIView):
+class CustomerUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     lookup_field = "pk"
