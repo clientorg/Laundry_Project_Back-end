@@ -19,7 +19,7 @@ class Customer(models.Model):
         if not self.customer_id:
             last_customer = Customer.objects.order_by("-id").first()
             next_id = 1 if not last_customer else last_customer.id + 1
-            self.order_id = f"CUS{next_id:04d}"
+            self.customer_id = f"CUS{next_id:04d}"
         super().save(*args, **kwargs)
 
     def __str__(self):
