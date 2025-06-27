@@ -38,7 +38,7 @@ class Plan(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     max_users = models.PositiveIntegerField(default=1)
-    max_branches = models.PositiveIntegerField(default=0)
+    max_branches = models.PositiveIntegerField(default=1)
 
     duration_days = models.PositiveIntegerField(default=30)
 

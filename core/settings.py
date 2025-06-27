@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # defined apps
     "apps.organizations",
     "apps.accounts",
+    "apps.master",
     "apps.orders",
     "apps.customers",
     # pip apps
