@@ -19,6 +19,7 @@ class ClothTypeAdmin(admin.ModelAdmin):
     )
     list_display = (
         "name",
+        "price",
         "organization",
         "branches_count",
         "is_global",
@@ -42,6 +43,7 @@ class ClothTypeAdmin(admin.ModelAdmin):
                 "fields": (
                     "name",
                     "description",
+                    "price",
                     "is_active",
                     "is_global",
                     "is_pinned",
@@ -104,6 +106,7 @@ class WashingTypeAdmin(admin.ModelAdmin):
     )
     list_display = (
         "name",
+        "price",
         "organization",
         "branches_count",
         "is_global",
@@ -127,6 +130,7 @@ class WashingTypeAdmin(admin.ModelAdmin):
                 "fields": (
                     "name",
                     "description",
+                    "price",
                     "is_active",
                     "is_global",
                     "is_pinned",

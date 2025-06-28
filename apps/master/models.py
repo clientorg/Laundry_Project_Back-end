@@ -16,6 +16,7 @@ class ClothType(models.Model):
     is_active = models.BooleanField(default=True)
     is_global = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     # table non-editable fields
     created_at = models.DateTimeField(auto_now_add=True)
@@ -67,6 +68,7 @@ class WashingType(models.Model):
     is_active = models.BooleanField(default=True)
     is_global = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
