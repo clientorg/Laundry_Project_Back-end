@@ -10,10 +10,15 @@ from .views import (
     ClothTypeUpdateView,
     ClothTypeDeleteView,
     # washing type views
-    WashingTypeListCreateView,
-    WashingTypeDetailView,
-    WashingTypeUpdateView,
-    WashingTypeDeleteView,
+    ServiceTypeListCreateView,
+    ServiceTypeDetailView,
+    ServiceTypeUpdateView,
+    ServiceTypeDeleteView,
+    # handling type views
+    HandlingTypeListCreateView,
+    HandlingTypeDetailView,
+    HandlingTypeUpdateView,
+    HandlingTypeDeleteView,
     # delivery type views
     DeliveryTypeListCreateView,
     DeliveryTypeDetailView,
@@ -54,24 +59,45 @@ urlpatterns = [
     ),
     # washing type urls
     path(
-        "washing-types/",
-        WashingTypeListCreateView.as_view(),
-        name="washing-type-list-create",
+        "service-types/",
+        ServiceTypeListCreateView.as_view(),
+        name="service-type-list-create",
     ),
     path(
-        "washing-types/<int:pk>/",
-        WashingTypeDetailView.as_view(),
-        name="washing-type-detail",
+        "service-types/<int:pk>/",
+        ServiceTypeDetailView.as_view(),
+        name="service-type-detail",
     ),
     path(
-        "washing-types/<int:pk>/update/",
-        WashingTypeUpdateView.as_view(),
-        name="washing-type-update",
+        "service-types/<int:pk>/update/",
+        ServiceTypeUpdateView.as_view(),
+        name="service-type-update",
     ),
     path(
-        "washing-types/<int:pk>/delete/",
-        WashingTypeDeleteView.as_view(),
-        name="washing-type-delete",
+        "service-types/<int:pk>/delete/",
+        ServiceTypeDeleteView.as_view(),
+        name="service-type-delete",
+    ),
+    # handling type urls
+    path(
+        "handling-types/",
+        HandlingTypeListCreateView.as_view(),
+        name="handling-type-list-create",
+    ),
+    path(
+        "handling-types/<int:pk>/",
+        HandlingTypeDetailView.as_view(),
+        name="handling-type-detail",
+    ),
+    path(
+        "handling-types/<int:pk>/update/",
+        HandlingTypeUpdateView.as_view(),
+        name="handling-type-update",
+    ),
+    path(
+        "handling-types/<int:pk>/delete/",
+        HandlingTypeDeleteView.as_view(),
+        name="handling-type-delete",
     ),
     # delivery type urls
     path(

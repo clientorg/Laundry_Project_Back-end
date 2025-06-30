@@ -8,12 +8,13 @@ from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # master model imports
-from .models import ClothType, WashingType, DeliveryType
+from .models import ClothType, ServiceType, HandlingType, DeliveryType
 
 # master serializer imports
 from .serializers import (
     ClothTypeSerializer,
-    WashingTypeSerializer,
+    ServiceTypeSerializer,
+    HandlingTypeSerializer,
     DeliveryTypeSerializer,
 )
 
@@ -79,10 +80,10 @@ class ClothTypeDeleteView(generics.DestroyAPIView):
 
 
 # washing types api
-@extend_schema(tags=["Washing Types"])
-class WashingTypeListCreateView(generics.ListCreateAPIView):
-    queryset = WashingType.objects.all().order_by("name")
-    serializer_class = WashingTypeSerializer
+@extend_schema(tags=["Service Types"])
+class ServiceTypeListCreateView(generics.ListCreateAPIView):
+    queryset = ServiceType.objects.all().order_by("name")
+    serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
@@ -90,18 +91,18 @@ class WashingTypeListCreateView(generics.ListCreateAPIView):
         serializer.save(created_by=self.request.user, updated_by=self.request.user)
 
 
-@extend_schema(tags=["Washing Types"])
-class WashingTypeDetailView(generics.RetrieveAPIView):
-    queryset = WashingType.objects.all()
-    serializer_class = WashingTypeSerializer
+@extend_schema(tags=["Service Types"])
+class ServiceTypeDetailView(generics.RetrieveAPIView):
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
 
-@extend_schema(tags=["Washing Types"])
-class WashingTypeUpdateView(generics.UpdateAPIView):
-    queryset = WashingType.objects.all()
-    serializer_class = WashingTypeSerializer
+@extend_schema(tags=["Service Types"])
+class ServiceTypeUpdateView(generics.UpdateAPIView):
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
@@ -109,10 +110,49 @@ class WashingTypeUpdateView(generics.UpdateAPIView):
         serializer.save(updated_by=self.request.user)
 
 
-@extend_schema(tags=["Washing Types"])
-class WashingTypeDeleteView(generics.DestroyAPIView):
-    queryset = WashingType.objects.all()
-    serializer_class = WashingTypeSerializer
+@extend_schema(tags=["Service Types"])
+class ServiceTypeDeleteView(generics.DestroyAPIView):
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+
+# handling types api
+@extend_schema(tags=["Handling Types"])
+class HandlingTypeListCreateView(generics.ListCreateAPIView):
+    queryset = HandlingType.objects.all().order_by("name")
+    serializer_class = HandlingTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+
+
+@extend_schema(tags=["Handling Types"])
+class HandlingTypeDetailView(generics.RetrieveAPIView):
+    queryset = HandlingType.objects.all()
+    serializer_class = HandlingTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+
+@extend_schema(tags=["Handling Types"])
+class HandlingTypeUpdateView(generics.UpdateAPIView):
+    queryset = HandlingType.objects.all()
+    serializer_class = HandlingTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
+
+
+@extend_schema(tags=["Handling Types"])
+class HandlingTypeDeleteView(generics.DestroyAPIView):
+    queryset = HandlingType.objects.all()
+    serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
