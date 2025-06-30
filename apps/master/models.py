@@ -109,3 +109,52 @@ class WashingType(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DeliveryType(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_global = models.BooleanField(default=False)
+    is_pinned = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="main_delivery_types",
+        help_text="The main/root organization of the delivery type",
+    )
+    branches = models.ManyToManyField(
+        Organization,
+        blank=True,
+        related_name="branch_delivery_types",
+        help_text="Branches where this delivery type is available",
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="delivery_types_created",
+        on_delete=models.SET_NULL,
+    )
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="delivery_types_updated",
+        on_delete=models.SET_NULL,
+    )
+
+    class Meta:
+        verbose_name = "Delivery Type"
+        verbose_name_plural = "Delivery Types"
+
+    def __str__(self):
+        return self.name

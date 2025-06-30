@@ -8,10 +8,14 @@ from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # master model imports
-from .models import ClothType, WashingType
+from .models import ClothType, WashingType, DeliveryType
 
 # master serializer imports
-from .serializers import ClothTypeSerializer, WashingTypeSerializer
+from .serializers import (
+    ClothTypeSerializer,
+    WashingTypeSerializer,
+    DeliveryTypeSerializer,
+)
 
 
 # Create your views here.
@@ -109,5 +113,44 @@ class WashingTypeUpdateView(generics.UpdateAPIView):
 class WashingTypeDeleteView(generics.DestroyAPIView):
     queryset = WashingType.objects.all()
     serializer_class = WashingTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+
+# delivery types api
+@extend_schema(tags=["Delivery Types"])
+class DeliveryTypeListCreateView(generics.ListCreateAPIView):
+    queryset = DeliveryType.objects.all().order_by("name")
+    serializer_class = DeliveryTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+
+
+@extend_schema(tags=["Delivery Types"])
+class DeliveryTypeDetailView(generics.RetrieveAPIView):
+    queryset = DeliveryType.objects.all()
+    serializer_class = DeliveryTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+
+@extend_schema(tags=["Delivery Types"])
+class DeliveryTypeUpdateView(generics.UpdateAPIView):
+    queryset = DeliveryType.objects.all()
+    serializer_class = DeliveryTypeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
+
+
+@extend_schema(tags=["Delivery Types"])
+class DeliveryTypeDeleteView(generics.DestroyAPIView):
+    queryset = DeliveryType.objects.all()
+    serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]

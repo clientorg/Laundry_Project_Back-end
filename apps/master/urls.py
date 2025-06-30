@@ -14,6 +14,11 @@ from .views import (
     WashingTypeDetailView,
     WashingTypeUpdateView,
     WashingTypeDeleteView,
+    # delivery type views
+    DeliveryTypeListCreateView,
+    DeliveryTypeDetailView,
+    DeliveryTypeUpdateView,
+    DeliveryTypeDeleteView,
 )
 
 # urls.py
@@ -67,5 +72,26 @@ urlpatterns = [
         "washing-types/<int:pk>/delete/",
         WashingTypeDeleteView.as_view(),
         name="washing-type-delete",
+    ),
+    # delivery type urls
+    path(
+        "delivery-types/",
+        DeliveryTypeListCreateView.as_view(),
+        name="delivery-type-list-create",
+    ),
+    path(
+        "delivery-types/<int:pk>/",
+        DeliveryTypeDetailView.as_view(),
+        name="delivery-type-detail",
+    ),
+    path(
+        "delivery-types/<int:pk>/update/",
+        DeliveryTypeUpdateView.as_view(),
+        name="delivery-type-update",
+    ),
+    path(
+        "delivery-types/<int:pk>/delete/",
+        DeliveryTypeDeleteView.as_view(),
+        name="delivery-type-delete",
     ),
 ]
