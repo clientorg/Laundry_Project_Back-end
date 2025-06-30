@@ -33,6 +33,16 @@ class ClothTypeListCreateView(generics.ListCreateAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
+class ClothTypeClothOnlyView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = ClothType.objects.filter(is_carpet=False)
+        serializer = ClothTypeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Cloth Types"])
 class ClothTypeStartsWithView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -48,6 +58,36 @@ class ClothTypePinnedView(APIView):
 
     def get(self, request, format=None):
         queryset = ClothType.objects.filter(is_pinned=True)
+        serializer = ClothTypeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Cloth Types"])
+class ClothTypeCarpetOnlyView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = ClothType.objects.filter(is_carpet=True)
+        serializer = ClothTypeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Cloth Types"])
+class ClothTypeCarpetStartsWithView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, letter, format=None):
+        queryset = ClothType.objects.filter(name__istartswith=letter, is_carpet=True)
+        serializer = ClothTypeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Cloth Types"])
+class ClothTypeCarpetPinnedView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = ClothType.objects.filter(is_pinned=True, is_carpet=True)
         serializer = ClothTypeSerializer(queryset, many=True)
         return Response(serializer.data)
 

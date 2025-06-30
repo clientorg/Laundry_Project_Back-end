@@ -4,8 +4,12 @@ from django.urls import path
 from .views import (
     # cloth type views
     ClothTypeListCreateView,
+    ClothTypeClothOnlyView,
     ClothTypeStartsWithView,
     ClothTypePinnedView,
+    ClothTypeCarpetOnlyView,
+    ClothTypeCarpetStartsWithView,
+    ClothTypeCarpetPinnedView,
     ClothTypeRetrieveView,
     ClothTypeUpdateView,
     ClothTypeDeleteView,
@@ -33,14 +37,34 @@ urlpatterns = [
         "cloth-types/", ClothTypeListCreateView.as_view(), name="cloth-type-list-create"
     ),
     path(
-        "cloth-types/starts-with/<str:letter>/",
+        "cloth-types/cloth-only/",
+        ClothTypeClothOnlyView.as_view(),
+        name="cloth-type-cloth-only",
+    ),
+    path(
+        "cloth-types/cloth/starts-with/<str:letter>/",
         ClothTypeStartsWithView.as_view(),
         name="cloth-types-starts-with",
     ),
     path(
-        "cloth-types/pinned/",
+        "cloth-types/cloth/pinned/",
         ClothTypePinnedView.as_view(),
         name="cloth-type-pinned",
+    ),
+    path(
+        "cloth-types/carpet-only/",
+        ClothTypeCarpetOnlyView.as_view(),
+        name="cloth-type-carpet-only",
+    ),
+    path(
+        "cloth-types/carpet/starts-with/<str:letter>/",
+        ClothTypeCarpetStartsWithView.as_view(),
+        name="cloth-types-carpet-starts-with",
+    ),
+    path(
+        "cloth-types/carpet/pinned/",
+        ClothTypeCarpetPinnedView.as_view(),
+        name="cloth-type-carpet-pinned",
     ),
     path(
         "cloth-types/<int:pk>/",
