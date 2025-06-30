@@ -10,7 +10,12 @@ from apps.organizations.models import Organization
 class ClothTypeAdmin(admin.ModelAdmin):
     # table config
     filter_horizontal = ("branches",)
-    list_filter = ("is_global", "is_active", "is_pinned")
+    list_filter = (
+        "is_global",
+        "is_active",
+        "is_pinned",
+        "is_carpet",
+    )
     search_fields = (
         "name",
         "organization__name",
@@ -25,6 +30,7 @@ class ClothTypeAdmin(admin.ModelAdmin):
         "is_global",
         "is_active",
         "is_pinned",
+        "is_carpet",
         "created_by",
         "updated_by",
     )
@@ -47,6 +53,7 @@ class ClothTypeAdmin(admin.ModelAdmin):
                     "is_active",
                     "is_global",
                     "is_pinned",
+                    "is_carpet",
                 ),
             },
         ),

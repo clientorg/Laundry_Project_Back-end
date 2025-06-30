@@ -16,6 +16,7 @@ class ClothType(models.Model):
     is_active = models.BooleanField(default=True)
     is_global = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
+    is_carpet = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
     # table non-editable fields
