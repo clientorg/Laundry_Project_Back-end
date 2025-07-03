@@ -53,7 +53,7 @@ class ClothTypeSerializer(serializers.ModelSerializer):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches", getattr(self.instance, "branches", None))
+        branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
             branches = list(branches.all())
@@ -114,7 +114,7 @@ class ServiceTypeSerializer(serializers.ModelSerializer):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches", getattr(self.instance, "branches", None))
+        branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
             branches = list(branches.all())
@@ -175,7 +175,7 @@ class HandlingTypeSerializer(serializers.ModelSerializer):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches", getattr(self.instance, "branches", None))
+        branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
             branches = list(branches.all())
@@ -236,7 +236,7 @@ class DeliveryTypeSerializer(serializers.ModelSerializer):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches", getattr(self.instance, "branches", None))
+        branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
             branches = list(branches.all())

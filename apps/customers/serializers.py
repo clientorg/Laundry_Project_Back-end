@@ -45,7 +45,7 @@ class CustomerCategorySerializer(serializers.ModelSerializer):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches", getattr(self.instance, "branches", None))
+        branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
             branches = list(branches.all())
@@ -73,6 +73,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
+    category_discount = serializers.SerializerMethodField()
 
     class Meta:
         model = Customer
@@ -103,11 +104,15 @@ class CustomerSerializer(serializers.ModelSerializer):
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
 
+    @extend_schema_field(serializers.DecimalField(max_digits=5, decimal_places=2))
+    def get_category_discount(self, obj):
+        return obj.category.discount_percent if obj.category else None
+
     def validate(self, data):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches", getattr(self.instance, "branches", None))
+        branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
             branches = list(branches.all())
