@@ -5,7 +5,7 @@
     "fields": {
       "name": "Aruba",
       "iso_code": "AW",
-      "dial_code": "",
+      "dial_code": "+297",
       "flag_emoji": "🇦🇼"
     }
   },
@@ -45,7 +45,7 @@
     "fields": {
       "name": "Åland Islands",
       "iso_code": "AX",
-      "dial_code": "",
+      "dial_code": "+358",
       "flag_emoji": "🇦🇽"
     }
   },
@@ -75,7 +75,7 @@
     "fields": {
       "name": "United Arab Emirates",
       "iso_code": "AE",
-      "dial_code": "",
+      "dial_code": "+971",
       "flag_emoji": "🇦🇪"
     }
   },
@@ -95,7 +95,7 @@
     "fields": {
       "name": "Armenia",
       "iso_code": "AM",
-      "dial_code": "",
+      "dial_code": "+374",
       "flag_emoji": "🇦🇲"
     }
   },
@@ -125,7 +125,7 @@
     "fields": {
       "name": "French Southern Territories",
       "iso_code": "TF",
-      "dial_code": "",
+      "dial_code": "+262",
       "flag_emoji": "🇹🇫"
     }
   },
@@ -145,7 +145,7 @@
     "fields": {
       "name": "Australia",
       "iso_code": "AU",
-      "dial_code": "",
+      "dial_code": "+61",
       "flag_emoji": "🇦🇺"
     }
   },
@@ -155,7 +155,7 @@
     "fields": {
       "name": "Austria",
       "iso_code": "AT",
-      "dial_code": "",
+      "dial_code": "+43",
       "flag_emoji": "🇦🇹"
     }
   },
@@ -165,7 +165,7 @@
     "fields": {
       "name": "Azerbaijan",
       "iso_code": "AZ",
-      "dial_code": "",
+      "dial_code": "+994",
       "flag_emoji": "🇦🇿"
     }
   },
@@ -175,7 +175,7 @@
     "fields": {
       "name": "Burundi",
       "iso_code": "BI",
-      "dial_code": "",
+      "dial_code": "+257",
       "flag_emoji": "🇧🇮"
     }
   },
@@ -185,7 +185,7 @@
     "fields": {
       "name": "Belgium",
       "iso_code": "BE",
-      "dial_code": "",
+      "dial_code": "+32",
       "flag_emoji": "🇧🇪"
     }
   },
@@ -195,7 +195,7 @@
     "fields": {
       "name": "Benin",
       "iso_code": "BJ",
-      "dial_code": "",
+      "dial_code": "+229",
       "flag_emoji": "🇧🇯"
     }
   },
@@ -205,7 +205,7 @@
     "fields": {
       "name": "Bonaire, Sint Eustatius and Saba",
       "iso_code": "BQ",
-      "dial_code": "",
+      "dial_code": "+599",
       "flag_emoji": "🇧🇶"
     }
   },
@@ -215,7 +215,7 @@
     "fields": {
       "name": "Burkina Faso",
       "iso_code": "BF",
-      "dial_code": "",
+      "dial_code": "+226",
       "flag_emoji": "🇧🇫"
     }
   },
@@ -225,7 +225,7 @@
     "fields": {
       "name": "Bangladesh",
       "iso_code": "BD",
-      "dial_code": "",
+      "dial_code": "+880",
       "flag_emoji": "🇧🇩"
     }
   },
@@ -235,7 +235,7 @@
     "fields": {
       "name": "Bulgaria",
       "iso_code": "BG",
-      "dial_code": "",
+      "dial_code": "+359",
       "flag_emoji": "🇧🇬"
     }
   },
@@ -245,7 +245,7 @@
     "fields": {
       "name": "Bahrain",
       "iso_code": "BH",
-      "dial_code": "",
+      "dial_code": "+973",
       "flag_emoji": "🇧🇭"
     }
   },
@@ -255,7 +255,7 @@
     "fields": {
       "name": "Bahamas",
       "iso_code": "BS",
-      "dial_code": "",
+      "dial_code": "+1-242",
       "flag_emoji": "🇧🇸"
     }
   },
@@ -265,7 +265,7 @@
     "fields": {
       "name": "Bosnia and Herzegovina",
       "iso_code": "BA",
-      "dial_code": "",
+      "dial_code": "+387",
       "flag_emoji": "🇧🇦"
     }
   },
@@ -275,7 +275,7 @@
     "fields": {
       "name": "Saint Barthélemy",
       "iso_code": "BL",
-      "dial_code": "",
+      "dial_code": "+590",
       "flag_emoji": "🇧🇱"
     }
   },
@@ -285,7 +285,7 @@
     "fields": {
       "name": "Belarus",
       "iso_code": "BY",
-      "dial_code": "",
+      "dial_code": "+375",
       "flag_emoji": "🇧🇾"
     }
   },
@@ -295,7 +295,7 @@
     "fields": {
       "name": "Belize",
       "iso_code": "BZ",
-      "dial_code": "",
+      "dial_code": "+501",
       "flag_emoji": "🇧🇿"
     }
   },
@@ -305,7 +305,7 @@
     "fields": {
       "name": "Bermuda",
       "iso_code": "BM",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇧🇲"
     }
   },
@@ -315,7 +315,7 @@
     "fields": {
       "name": "Bolivia, Plurinational State of",
       "iso_code": "BO",
-      "dial_code": "",
+      "dial_code": "+591",
       "flag_emoji": "🇧🇴"
     }
   },
@@ -325,7 +325,7 @@
     "fields": {
       "name": "Brazil",
       "iso_code": "BR",
-      "dial_code": "",
+      "dial_code": "+55",
       "flag_emoji": "🇧🇷"
     }
   },
@@ -335,7 +335,7 @@
     "fields": {
       "name": "Barbados",
       "iso_code": "BB",
-      "dial_code": "",
+      "dial_code": "+1-246",
       "flag_emoji": "🇧🇧"
     }
   },
@@ -345,7 +345,7 @@
     "fields": {
       "name": "Brunei Darussalam",
       "iso_code": "BN",
-      "dial_code": "",
+      "dial_code": "+673",
       "flag_emoji": "🇧🇳"
     }
   },
@@ -355,7 +355,7 @@
     "fields": {
       "name": "Bhutan",
       "iso_code": "BT",
-      "dial_code": "",
+      "dial_code": "+975",
       "flag_emoji": "🇧🇹"
     }
   },
@@ -365,7 +365,7 @@
     "fields": {
       "name": "Bouvet Island",
       "iso_code": "BV",
-      "dial_code": "",
+      "dial_code": "+47",
       "flag_emoji": "🇧🇻"
     }
   },
@@ -375,7 +375,7 @@
     "fields": {
       "name": "Botswana",
       "iso_code": "BW",
-      "dial_code": "",
+      "dial_code": "+267",
       "flag_emoji": "🇧🇼"
     }
   },
@@ -385,7 +385,7 @@
     "fields": {
       "name": "Central African Republic",
       "iso_code": "CF",
-      "dial_code": "",
+      "dial_code": "+236",
       "flag_emoji": "🇨🇫"
     }
   },
@@ -395,7 +395,7 @@
     "fields": {
       "name": "Canada",
       "iso_code": "CA",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇨🇦"
     }
   },
@@ -405,7 +405,7 @@
     "fields": {
       "name": "Cocos (Keeling) Islands",
       "iso_code": "CC",
-      "dial_code": "",
+      "dial_code": "+61",
       "flag_emoji": "🇨🇨"
     }
   },
@@ -415,7 +415,7 @@
     "fields": {
       "name": "Switzerland",
       "iso_code": "CH",
-      "dial_code": "",
+      "dial_code": "+41",
       "flag_emoji": "🇨🇭"
     }
   },
@@ -425,7 +425,7 @@
     "fields": {
       "name": "Chile",
       "iso_code": "CL",
-      "dial_code": "",
+      "dial_code": "+56",
       "flag_emoji": "🇨🇱"
     }
   },
@@ -435,7 +435,7 @@
     "fields": {
       "name": "China",
       "iso_code": "CN",
-      "dial_code": "",
+      "dial_code": "+86",
       "flag_emoji": "🇨🇳"
     }
   },
@@ -445,7 +445,7 @@
     "fields": {
       "name": "Côte d'Ivoire",
       "iso_code": "CI",
-      "dial_code": "",
+      "dial_code": "+225",
       "flag_emoji": "🇨🇮"
     }
   },
@@ -455,7 +455,7 @@
     "fields": {
       "name": "Cameroon",
       "iso_code": "CM",
-      "dial_code": "",
+      "dial_code": "+237",
       "flag_emoji": "🇨🇲"
     }
   },
@@ -465,7 +465,7 @@
     "fields": {
       "name": "Congo, The Democratic Republic of the",
       "iso_code": "CD",
-      "dial_code": "",
+      "dial_code": "+243",
       "flag_emoji": "🇨🇩"
     }
   },
@@ -475,7 +475,7 @@
     "fields": {
       "name": "Congo",
       "iso_code": "CG",
-      "dial_code": "",
+      "dial_code": "+242",
       "flag_emoji": "🇨🇬"
     }
   },
@@ -485,7 +485,7 @@
     "fields": {
       "name": "Cook Islands",
       "iso_code": "CK",
-      "dial_code": "",
+      "dial_code": "+682",
       "flag_emoji": "🇨🇰"
     }
   },
@@ -495,7 +495,7 @@
     "fields": {
       "name": "Colombia",
       "iso_code": "CO",
-      "dial_code": "",
+      "dial_code": "+57",
       "flag_emoji": "🇨🇴"
     }
   },
@@ -505,7 +505,7 @@
     "fields": {
       "name": "Comoros",
       "iso_code": "KM",
-      "dial_code": "",
+      "dial_code": "+269",
       "flag_emoji": "🇰🇲"
     }
   },
@@ -515,7 +515,7 @@
     "fields": {
       "name": "Cabo Verde",
       "iso_code": "CV",
-      "dial_code": "",
+      "dial_code": "+238",
       "flag_emoji": "🇨🇻"
     }
   },
@@ -525,7 +525,7 @@
     "fields": {
       "name": "Costa Rica",
       "iso_code": "CR",
-      "dial_code": "",
+      "dial_code": "+506",
       "flag_emoji": "🇨🇷"
     }
   },
@@ -535,7 +535,7 @@
     "fields": {
       "name": "Cuba",
       "iso_code": "CU",
-      "dial_code": "",
+      "dial_code": "+53",
       "flag_emoji": "🇨🇺"
     }
   },
@@ -545,7 +545,7 @@
     "fields": {
       "name": "Curaçao",
       "iso_code": "CW",
-      "dial_code": "",
+      "dial_code": "+599",
       "flag_emoji": "🇨🇼"
     }
   },
@@ -555,7 +555,7 @@
     "fields": {
       "name": "Christmas Island",
       "iso_code": "CX",
-      "dial_code": "",
+      "dial_code": "+61",
       "flag_emoji": "🇨🇽"
     }
   },
@@ -565,7 +565,7 @@
     "fields": {
       "name": "Cayman Islands",
       "iso_code": "KY",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇰🇾"
     }
   },
@@ -575,7 +575,7 @@
     "fields": {
       "name": "Cyprus",
       "iso_code": "CY",
-      "dial_code": "",
+      "dial_code": "+357",
       "flag_emoji": "🇨🇾"
     }
   },
@@ -585,7 +585,7 @@
     "fields": {
       "name": "Czechia",
       "iso_code": "CZ",
-      "dial_code": "",
+      "dial_code": "+420",
       "flag_emoji": "🇨🇿"
     }
   },
@@ -595,7 +595,7 @@
     "fields": {
       "name": "Germany",
       "iso_code": "DE",
-      "dial_code": "",
+      "dial_code": "+49",
       "flag_emoji": "🇩🇪"
     }
   },
@@ -605,7 +605,7 @@
     "fields": {
       "name": "Djibouti",
       "iso_code": "DJ",
-      "dial_code": "",
+      "dial_code": "+253",
       "flag_emoji": "🇩🇯"
     }
   },
@@ -615,7 +615,7 @@
     "fields": {
       "name": "Dominica",
       "iso_code": "DM",
-      "dial_code": "",
+      "dial_code": "+1-767",
       "flag_emoji": "🇩🇲"
     }
   },
@@ -625,7 +625,7 @@
     "fields": {
       "name": "Denmark",
       "iso_code": "DK",
-      "dial_code": "",
+      "dial_code": "+45",
       "flag_emoji": "🇩🇰"
     }
   },
@@ -635,7 +635,7 @@
     "fields": {
       "name": "Dominican Republic",
       "iso_code": "DO",
-      "dial_code": "",
+      "dial_code": "+1-809",
       "flag_emoji": "🇩🇴"
     }
   },
@@ -655,7 +655,7 @@
     "fields": {
       "name": "Ecuador",
       "iso_code": "EC",
-      "dial_code": "",
+      "dial_code": "+593",
       "flag_emoji": "🇪🇨"
     }
   },
@@ -665,7 +665,7 @@
     "fields": {
       "name": "Egypt",
       "iso_code": "EG",
-      "dial_code": "",
+      "dial_code": "+20",
       "flag_emoji": "🇪🇬"
     }
   },
@@ -675,7 +675,7 @@
     "fields": {
       "name": "Eritrea",
       "iso_code": "ER",
-      "dial_code": "",
+      "dial_code": "+291",
       "flag_emoji": "🇪🇷"
     }
   },
@@ -685,7 +685,7 @@
     "fields": {
       "name": "Western Sahara",
       "iso_code": "EH",
-      "dial_code": "",
+      "dial_code": "+212",
       "flag_emoji": "🇪🇭"
     }
   },
@@ -695,7 +695,7 @@
     "fields": {
       "name": "Spain",
       "iso_code": "ES",
-      "dial_code": "",
+      "dial_code": "+34",
       "flag_emoji": "🇪🇸"
     }
   },
@@ -705,7 +705,7 @@
     "fields": {
       "name": "Estonia",
       "iso_code": "EE",
-      "dial_code": "",
+      "dial_code": "+372",
       "flag_emoji": "🇪🇪"
     }
   },
@@ -715,7 +715,7 @@
     "fields": {
       "name": "Ethiopia",
       "iso_code": "ET",
-      "dial_code": "",
+      "dial_code": "+251",
       "flag_emoji": "🇪🇹"
     }
   },
@@ -725,7 +725,7 @@
     "fields": {
       "name": "Finland",
       "iso_code": "FI",
-      "dial_code": "",
+      "dial_code": "+358",
       "flag_emoji": "🇫🇮"
     }
   },
@@ -735,7 +735,7 @@
     "fields": {
       "name": "Fiji",
       "iso_code": "FJ",
-      "dial_code": "",
+      "dial_code": "+679",
       "flag_emoji": "🇫🇯"
     }
   },
@@ -745,7 +745,7 @@
     "fields": {
       "name": "Falkland Islands (Malvinas)",
       "iso_code": "FK",
-      "dial_code": "",
+      "dial_code": "+500",
       "flag_emoji": "🇫🇰"
     }
   },
@@ -755,7 +755,7 @@
     "fields": {
       "name": "France",
       "iso_code": "FR",
-      "dial_code": "",
+      "dial_code": "+33",
       "flag_emoji": "🇫🇷"
     }
   },
@@ -765,7 +765,7 @@
     "fields": {
       "name": "Faroe Islands",
       "iso_code": "FO",
-      "dial_code": "",
+      "dial_code": "+298",
       "flag_emoji": "🇫🇴"
     }
   },
@@ -775,7 +775,7 @@
     "fields": {
       "name": "Micronesia, Federated States of",
       "iso_code": "FM",
-      "dial_code": "",
+      "dial_code": "+691",
       "flag_emoji": "🇫🇲"
     }
   },
@@ -785,7 +785,7 @@
     "fields": {
       "name": "Gabon",
       "iso_code": "GA",
-      "dial_code": "",
+      "dial_code": "+241",
       "flag_emoji": "🇬🇦"
     }
   },
@@ -795,7 +795,7 @@
     "fields": {
       "name": "United Kingdom",
       "iso_code": "GB",
-      "dial_code": "",
+      "dial_code": "+44",
       "flag_emoji": "🇬🇧"
     }
   },
@@ -805,7 +805,7 @@
     "fields": {
       "name": "Georgia",
       "iso_code": "GE",
-      "dial_code": "",
+      "dial_code": "+995",
       "flag_emoji": "🇬🇪"
     }
   },
@@ -815,7 +815,7 @@
     "fields": {
       "name": "Guernsey",
       "iso_code": "GG",
-      "dial_code": "",
+      "dial_code": "+44",
       "flag_emoji": "🇬🇬"
     }
   },
@@ -825,7 +825,7 @@
     "fields": {
       "name": "Ghana",
       "iso_code": "GH",
-      "dial_code": "",
+      "dial_code": "+233",
       "flag_emoji": "🇬🇭"
     }
   },
@@ -835,7 +835,7 @@
     "fields": {
       "name": "Gibraltar",
       "iso_code": "GI",
-      "dial_code": "",
+      "dial_code": "+350",
       "flag_emoji": "🇬🇮"
     }
   },
@@ -845,7 +845,7 @@
     "fields": {
       "name": "Guinea",
       "iso_code": "GN",
-      "dial_code": "",
+      "dial_code": "+224",
       "flag_emoji": "🇬🇳"
     }
   },
@@ -855,7 +855,7 @@
     "fields": {
       "name": "Guadeloupe",
       "iso_code": "GP",
-      "dial_code": "",
+      "dial_code": "+590",
       "flag_emoji": "🇬🇵"
     }
   },
@@ -865,7 +865,7 @@
     "fields": {
       "name": "Gambia",
       "iso_code": "GM",
-      "dial_code": "",
+      "dial_code": "+220",
       "flag_emoji": "🇬🇲"
     }
   },
@@ -875,7 +875,7 @@
     "fields": {
       "name": "Guinea-Bissau",
       "iso_code": "GW",
-      "dial_code": "",
+      "dial_code": "+245",
       "flag_emoji": "🇬🇼"
     }
   },
@@ -885,7 +885,7 @@
     "fields": {
       "name": "Equatorial Guinea",
       "iso_code": "GQ",
-      "dial_code": "",
+      "dial_code": "+240",
       "flag_emoji": "🇬🇶"
     }
   },
@@ -895,7 +895,7 @@
     "fields": {
       "name": "Greece",
       "iso_code": "GR",
-      "dial_code": "",
+      "dial_code": "+30",
       "flag_emoji": "🇬🇷"
     }
   },
@@ -905,7 +905,7 @@
     "fields": {
       "name": "Grenada",
       "iso_code": "GD",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇬🇩"
     }
   },
@@ -915,7 +915,7 @@
     "fields": {
       "name": "Greenland",
       "iso_code": "GL",
-      "dial_code": "",
+      "dial_code": "+299",
       "flag_emoji": "🇬🇱"
     }
   },
@@ -925,7 +925,7 @@
     "fields": {
       "name": "Guatemala",
       "iso_code": "GT",
-      "dial_code": "",
+      "dial_code": "+502",
       "flag_emoji": "🇬🇹"
     }
   },
@@ -935,7 +935,7 @@
     "fields": {
       "name": "French Guiana",
       "iso_code": "GF",
-      "dial_code": "",
+      "dial_code": "+594",
       "flag_emoji": "🇬🇫"
     }
   },
@@ -945,7 +945,7 @@
     "fields": {
       "name": "Guam",
       "iso_code": "GU",
-      "dial_code": "",
+      "dial_code": "+1-671",
       "flag_emoji": "🇬🇺"
     }
   },
@@ -955,7 +955,7 @@
     "fields": {
       "name": "Guyana",
       "iso_code": "GY",
-      "dial_code": "",
+      "dial_code": "+592",
       "flag_emoji": "🇬🇾"
     }
   },
@@ -965,7 +965,7 @@
     "fields": {
       "name": "Hong Kong",
       "iso_code": "HK",
-      "dial_code": "",
+      "dial_code": "+852",
       "flag_emoji": "🇭🇰"
     }
   },
@@ -975,7 +975,7 @@
     "fields": {
       "name": "Heard Island and McDonald Islands",
       "iso_code": "HM",
-      "dial_code": "",
+      "dial_code": "+672",
       "flag_emoji": "🇭🇲"
     }
   },
@@ -985,7 +985,7 @@
     "fields": {
       "name": "Honduras",
       "iso_code": "HN",
-      "dial_code": "",
+      "dial_code": "+504",
       "flag_emoji": "🇭🇳"
     }
   },
@@ -995,7 +995,7 @@
     "fields": {
       "name": "Croatia",
       "iso_code": "HR",
-      "dial_code": "",
+      "dial_code": "+385",
       "flag_emoji": "🇭🇷"
     }
   },
@@ -1005,7 +1005,7 @@
     "fields": {
       "name": "Haiti",
       "iso_code": "HT",
-      "dial_code": "",
+      "dial_code": "+509",
       "flag_emoji": "🇭🇹"
     }
   },
@@ -1015,7 +1015,7 @@
     "fields": {
       "name": "Hungary",
       "iso_code": "HU",
-      "dial_code": "",
+      "dial_code": "+36",
       "flag_emoji": "🇭🇺"
     }
   },
@@ -1025,7 +1025,7 @@
     "fields": {
       "name": "Indonesia",
       "iso_code": "ID",
-      "dial_code": "",
+      "dial_code": "+62",
       "flag_emoji": "🇮🇩"
     }
   },
@@ -1035,7 +1035,7 @@
     "fields": {
       "name": "Isle of Man",
       "iso_code": "IM",
-      "dial_code": "",
+      "dial_code": "+44",
       "flag_emoji": "🇮🇲"
     }
   },
@@ -1045,7 +1045,7 @@
     "fields": {
       "name": "India",
       "iso_code": "IN",
-      "dial_code": "",
+      "dial_code": "+91",
       "flag_emoji": "🇮🇳"
     }
   },
@@ -1055,7 +1055,7 @@
     "fields": {
       "name": "British Indian Ocean Territory",
       "iso_code": "IO",
-      "dial_code": "",
+      "dial_code": "+246",
       "flag_emoji": "🇮🇴"
     }
   },
@@ -1065,7 +1065,7 @@
     "fields": {
       "name": "Ireland",
       "iso_code": "IE",
-      "dial_code": "",
+      "dial_code": "+353",
       "flag_emoji": "🇮🇪"
     }
   },
@@ -1075,7 +1075,7 @@
     "fields": {
       "name": "Iran, Islamic Republic of",
       "iso_code": "IR",
-      "dial_code": "",
+      "dial_code": "+98",
       "flag_emoji": "🇮🇷"
     }
   },
@@ -1085,7 +1085,7 @@
     "fields": {
       "name": "Iraq",
       "iso_code": "IQ",
-      "dial_code": "",
+      "dial_code": "+964",
       "flag_emoji": "🇮🇶"
     }
   },
@@ -1095,7 +1095,7 @@
     "fields": {
       "name": "Iceland",
       "iso_code": "IS",
-      "dial_code": "",
+      "dial_code": "+354",
       "flag_emoji": "🇮🇸"
     }
   },
@@ -1105,7 +1105,7 @@
     "fields": {
       "name": "Israel",
       "iso_code": "IL",
-      "dial_code": "",
+      "dial_code": "+972",
       "flag_emoji": "🇮🇱"
     }
   },
@@ -1115,7 +1115,7 @@
     "fields": {
       "name": "Italy",
       "iso_code": "IT",
-      "dial_code": "",
+      "dial_code": "+39",
       "flag_emoji": "🇮🇹"
     }
   },
@@ -1125,7 +1125,7 @@
     "fields": {
       "name": "Jamaica",
       "iso_code": "JM",
-      "dial_code": "",
+      "dial_code": "+1-876",
       "flag_emoji": "🇯🇲"
     }
   },
@@ -1135,7 +1135,7 @@
     "fields": {
       "name": "Jersey",
       "iso_code": "JE",
-      "dial_code": "",
+      "dial_code": "+44",
       "flag_emoji": "🇯🇪"
     }
   },
@@ -1145,7 +1145,7 @@
     "fields": {
       "name": "Jordan",
       "iso_code": "JO",
-      "dial_code": "",
+      "dial_code": "+962",
       "flag_emoji": "🇯🇴"
     }
   },
@@ -1155,7 +1155,7 @@
     "fields": {
       "name": "Japan",
       "iso_code": "JP",
-      "dial_code": "",
+      "dial_code": "+81",
       "flag_emoji": "🇯🇵"
     }
   },
@@ -1165,7 +1165,7 @@
     "fields": {
       "name": "Kazakhstan",
       "iso_code": "KZ",
-      "dial_code": "",
+      "dial_code": "+7",
       "flag_emoji": "🇰🇿"
     }
   },
@@ -1175,7 +1175,7 @@
     "fields": {
       "name": "Kenya",
       "iso_code": "KE",
-      "dial_code": "",
+      "dial_code": "+254",
       "flag_emoji": "🇰🇪"
     }
   },
@@ -1185,7 +1185,7 @@
     "fields": {
       "name": "Kyrgyzstan",
       "iso_code": "KG",
-      "dial_code": "",
+      "dial_code": "+996",
       "flag_emoji": "🇰🇬"
     }
   },
@@ -1195,7 +1195,7 @@
     "fields": {
       "name": "Cambodia",
       "iso_code": "KH",
-      "dial_code": "",
+      "dial_code": "+855",
       "flag_emoji": "🇰🇭"
     }
   },
@@ -1205,7 +1205,7 @@
     "fields": {
       "name": "Kiribati",
       "iso_code": "KI",
-      "dial_code": "",
+      "dial_code": "+686",
       "flag_emoji": "🇰🇮"
     }
   },
@@ -1215,7 +1215,7 @@
     "fields": {
       "name": "Saint Kitts and Nevis",
       "iso_code": "KN",
-      "dial_code": "",
+      "dial_code": "+1-869",
       "flag_emoji": "🇰🇳"
     }
   },
@@ -1225,7 +1225,7 @@
     "fields": {
       "name": "Korea, Republic of",
       "iso_code": "KR",
-      "dial_code": "",
+      "dial_code": "+82",
       "flag_emoji": "🇰🇷"
     }
   },
@@ -1235,7 +1235,7 @@
     "fields": {
       "name": "Kuwait",
       "iso_code": "KW",
-      "dial_code": "",
+      "dial_code": "+965",
       "flag_emoji": "🇰🇼"
     }
   },
@@ -1245,7 +1245,7 @@
     "fields": {
       "name": "Lao People's Democratic Republic",
       "iso_code": "LA",
-      "dial_code": "",
+      "dial_code": "+856",
       "flag_emoji": "🇱🇦"
     }
   },
@@ -1255,7 +1255,7 @@
     "fields": {
       "name": "Lebanon",
       "iso_code": "LB",
-      "dial_code": "",
+      "dial_code": "+961",
       "flag_emoji": "🇱🇧"
     }
   },
@@ -1265,7 +1265,7 @@
     "fields": {
       "name": "Liberia",
       "iso_code": "LR",
-      "dial_code": "",
+      "dial_code": "+231",
       "flag_emoji": "🇱🇷"
     }
   },
@@ -1275,7 +1275,7 @@
     "fields": {
       "name": "Libya",
       "iso_code": "LY",
-      "dial_code": "",
+      "dial_code": "+218",
       "flag_emoji": "🇱🇾"
     }
   },
@@ -1285,7 +1285,7 @@
     "fields": {
       "name": "Saint Lucia",
       "iso_code": "LC",
-      "dial_code": "",
+      "dial_code": "+1-758",
       "flag_emoji": "🇱🇨"
     }
   },
@@ -1295,7 +1295,7 @@
     "fields": {
       "name": "Liechtenstein",
       "iso_code": "LI",
-      "dial_code": "",
+      "dial_code": "+423",
       "flag_emoji": "🇱🇮"
     }
   },
@@ -1305,7 +1305,7 @@
     "fields": {
       "name": "Sri Lanka",
       "iso_code": "LK",
-      "dial_code": "",
+      "dial_code": "+94",
       "flag_emoji": "🇱🇰"
     }
   },
@@ -1315,7 +1315,7 @@
     "fields": {
       "name": "Lesotho",
       "iso_code": "LS",
-      "dial_code": "",
+      "dial_code": "+266",
       "flag_emoji": "🇱🇸"
     }
   },
@@ -1325,7 +1325,7 @@
     "fields": {
       "name": "Lithuania",
       "iso_code": "LT",
-      "dial_code": "",
+      "dial_code": "+370",
       "flag_emoji": "🇱🇹"
     }
   },
@@ -1335,7 +1335,7 @@
     "fields": {
       "name": "Luxembourg",
       "iso_code": "LU",
-      "dial_code": "",
+      "dial_code": "+352",
       "flag_emoji": "🇱🇺"
     }
   },
@@ -1345,7 +1345,7 @@
     "fields": {
       "name": "Latvia",
       "iso_code": "LV",
-      "dial_code": "",
+      "dial_code": "+371",
       "flag_emoji": "🇱🇻"
     }
   },
@@ -1355,7 +1355,7 @@
     "fields": {
       "name": "Macao",
       "iso_code": "MO",
-      "dial_code": "",
+      "dial_code": "+853",
       "flag_emoji": "🇲🇴"
     }
   },
@@ -1365,7 +1365,7 @@
     "fields": {
       "name": "Saint Martin (French part)",
       "iso_code": "MF",
-      "dial_code": "",
+      "dial_code": "+590",
       "flag_emoji": "🇲🇫"
     }
   },
@@ -1375,7 +1375,7 @@
     "fields": {
       "name": "Morocco",
       "iso_code": "MA",
-      "dial_code": "",
+      "dial_code": "+212",
       "flag_emoji": "🇲🇦"
     }
   },
@@ -1385,7 +1385,7 @@
     "fields": {
       "name": "Monaco",
       "iso_code": "MC",
-      "dial_code": "",
+      "dial_code": "+377",
       "flag_emoji": "🇲🇨"
     }
   },
@@ -1395,7 +1395,7 @@
     "fields": {
       "name": "Moldova, Republic of",
       "iso_code": "MD",
-      "dial_code": "",
+      "dial_code": "+373",
       "flag_emoji": "🇲🇩"
     }
   },
@@ -1405,7 +1405,7 @@
     "fields": {
       "name": "Madagascar",
       "iso_code": "MG",
-      "dial_code": "",
+      "dial_code": "+261",
       "flag_emoji": "🇲🇬"
     }
   },
@@ -1415,7 +1415,7 @@
     "fields": {
       "name": "Maldives",
       "iso_code": "MV",
-      "dial_code": "",
+      "dial_code": "+960",
       "flag_emoji": "🇲🇻"
     }
   },
@@ -1425,7 +1425,7 @@
     "fields": {
       "name": "Mexico",
       "iso_code": "MX",
-      "dial_code": "",
+      "dial_code": "+52",
       "flag_emoji": "🇲🇽"
     }
   },
@@ -1435,7 +1435,7 @@
     "fields": {
       "name": "Marshall Islands",
       "iso_code": "MH",
-      "dial_code": "",
+      "dial_code": "+692",
       "flag_emoji": "🇲🇭"
     }
   },
@@ -1445,7 +1445,7 @@
     "fields": {
       "name": "North Macedonia",
       "iso_code": "MK",
-      "dial_code": "",
+      "dial_code": "+389",
       "flag_emoji": "🇲🇰"
     }
   },
@@ -1455,7 +1455,7 @@
     "fields": {
       "name": "Mali",
       "iso_code": "ML",
-      "dial_code": "",
+      "dial_code": "+223",
       "flag_emoji": "🇲🇱"
     }
   },
@@ -1465,7 +1465,7 @@
     "fields": {
       "name": "Malta",
       "iso_code": "MT",
-      "dial_code": "",
+      "dial_code": "+356",
       "flag_emoji": "🇲🇹"
     }
   },
@@ -1475,7 +1475,7 @@
     "fields": {
       "name": "Myanmar",
       "iso_code": "MM",
-      "dial_code": "",
+      "dial_code": "+95",
       "flag_emoji": "🇲🇲"
     }
   },
@@ -1485,7 +1485,7 @@
     "fields": {
       "name": "Montenegro",
       "iso_code": "ME",
-      "dial_code": "",
+      "dial_code": "+382",
       "flag_emoji": "🇲🇪"
     }
   },
@@ -1495,7 +1495,7 @@
     "fields": {
       "name": "Mongolia",
       "iso_code": "MN",
-      "dial_code": "",
+      "dial_code": "+976",
       "flag_emoji": "🇲🇳"
     }
   },
@@ -1505,7 +1505,7 @@
     "fields": {
       "name": "Northern Mariana Islands",
       "iso_code": "MP",
-      "dial_code": "",
+      "dial_code": "+1-670",
       "flag_emoji": "🇲🇵"
     }
   },
@@ -1515,7 +1515,7 @@
     "fields": {
       "name": "Mozambique",
       "iso_code": "MZ",
-      "dial_code": "",
+      "dial_code": "+258",
       "flag_emoji": "🇲🇿"
     }
   },
@@ -1525,7 +1525,7 @@
     "fields": {
       "name": "Mauritania",
       "iso_code": "MR",
-      "dial_code": "",
+      "dial_code": "+222",
       "flag_emoji": "🇲🇷"
     }
   },
@@ -1535,7 +1535,7 @@
     "fields": {
       "name": "Montserrat",
       "iso_code": "MS",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇲🇸"
     }
   },
@@ -1545,7 +1545,7 @@
     "fields": {
       "name": "Martinique",
       "iso_code": "MQ",
-      "dial_code": "",
+      "dial_code": "+596",
       "flag_emoji": "🇲🇶"
     }
   },
@@ -1555,7 +1555,7 @@
     "fields": {
       "name": "Mauritius",
       "iso_code": "MU",
-      "dial_code": "",
+      "dial_code": "+230",
       "flag_emoji": "🇲🇺"
     }
   },
@@ -1565,7 +1565,7 @@
     "fields": {
       "name": "Malawi",
       "iso_code": "MW",
-      "dial_code": "",
+      "dial_code": "+265",
       "flag_emoji": "🇲🇼"
     }
   },
@@ -1575,7 +1575,7 @@
     "fields": {
       "name": "Malaysia",
       "iso_code": "MY",
-      "dial_code": "",
+      "dial_code": "+60",
       "flag_emoji": "🇲🇾"
     }
   },
@@ -1585,7 +1585,7 @@
     "fields": {
       "name": "Mayotte",
       "iso_code": "YT",
-      "dial_code": "",
+      "dial_code": "+262",
       "flag_emoji": "🇾🇹"
     }
   },
@@ -1595,7 +1595,7 @@
     "fields": {
       "name": "Namibia",
       "iso_code": "NA",
-      "dial_code": "",
+      "dial_code": "+264",
       "flag_emoji": "🇳🇦"
     }
   },
@@ -1605,7 +1605,7 @@
     "fields": {
       "name": "New Caledonia",
       "iso_code": "NC",
-      "dial_code": "",
+      "dial_code": "+687",
       "flag_emoji": "🇳🇨"
     }
   },
@@ -1615,7 +1615,7 @@
     "fields": {
       "name": "Niger",
       "iso_code": "NE",
-      "dial_code": "",
+      "dial_code": "+227",
       "flag_emoji": "🇳🇪"
     }
   },
@@ -1625,7 +1625,7 @@
     "fields": {
       "name": "Norfolk Island",
       "iso_code": "NF",
-      "dial_code": "",
+      "dial_code": "+672",
       "flag_emoji": "🇳🇫"
     }
   },
@@ -1635,7 +1635,7 @@
     "fields": {
       "name": "Nigeria",
       "iso_code": "NG",
-      "dial_code": "",
+      "dial_code": "+234",
       "flag_emoji": "🇳🇬"
     }
   },
@@ -1645,7 +1645,7 @@
     "fields": {
       "name": "Nicaragua",
       "iso_code": "NI",
-      "dial_code": "",
+      "dial_code": "+505",
       "flag_emoji": "🇳🇮"
     }
   },
@@ -1655,7 +1655,7 @@
     "fields": {
       "name": "Niue",
       "iso_code": "NU",
-      "dial_code": "",
+      "dial_code": "+683",
       "flag_emoji": "🇳🇺"
     }
   },
@@ -1665,7 +1665,7 @@
     "fields": {
       "name": "Netherlands",
       "iso_code": "NL",
-      "dial_code": "",
+      "dial_code": "+31",
       "flag_emoji": "🇳🇱"
     }
   },
@@ -1675,7 +1675,7 @@
     "fields": {
       "name": "Norway",
       "iso_code": "NO",
-      "dial_code": "",
+      "dial_code": "+47",
       "flag_emoji": "🇳🇴"
     }
   },
@@ -1685,7 +1685,7 @@
     "fields": {
       "name": "Nepal",
       "iso_code": "NP",
-      "dial_code": "",
+      "dial_code": "+977",
       "flag_emoji": "🇳🇵"
     }
   },
@@ -1695,7 +1695,7 @@
     "fields": {
       "name": "Nauru",
       "iso_code": "NR",
-      "dial_code": "",
+      "dial_code": "+674",
       "flag_emoji": "🇳🇷"
     }
   },
@@ -1705,7 +1705,7 @@
     "fields": {
       "name": "New Zealand",
       "iso_code": "NZ",
-      "dial_code": "",
+      "dial_code": "+64",
       "flag_emoji": "🇳🇿"
     }
   },
@@ -1715,7 +1715,7 @@
     "fields": {
       "name": "Oman",
       "iso_code": "OM",
-      "dial_code": "",
+      "dial_code": "+968",
       "flag_emoji": "🇴🇲"
     }
   },
@@ -1725,7 +1725,7 @@
     "fields": {
       "name": "Pakistan",
       "iso_code": "PK",
-      "dial_code": "",
+      "dial_code": "+92",
       "flag_emoji": "🇵🇰"
     }
   },
@@ -1735,7 +1735,7 @@
     "fields": {
       "name": "Panama",
       "iso_code": "PA",
-      "dial_code": "",
+      "dial_code": "+507",
       "flag_emoji": "🇵🇦"
     }
   },
@@ -1745,7 +1745,7 @@
     "fields": {
       "name": "Pitcairn",
       "iso_code": "PN",
-      "dial_code": "",
+      "dial_code": "+64",
       "flag_emoji": "🇵🇳"
     }
   },
@@ -1755,7 +1755,7 @@
     "fields": {
       "name": "Peru",
       "iso_code": "PE",
-      "dial_code": "",
+      "dial_code": "+51",
       "flag_emoji": "🇵🇪"
     }
   },
@@ -1765,7 +1765,7 @@
     "fields": {
       "name": "Philippines",
       "iso_code": "PH",
-      "dial_code": "",
+      "dial_code": "+63",
       "flag_emoji": "🇵🇭"
     }
   },
@@ -1775,7 +1775,7 @@
     "fields": {
       "name": "Palau",
       "iso_code": "PW",
-      "dial_code": "",
+      "dial_code": "+680",
       "flag_emoji": "🇵🇼"
     }
   },
@@ -1785,7 +1785,7 @@
     "fields": {
       "name": "Papua New Guinea",
       "iso_code": "PG",
-      "dial_code": "",
+      "dial_code": "+675",
       "flag_emoji": "🇵🇬"
     }
   },
@@ -1795,7 +1795,7 @@
     "fields": {
       "name": "Poland",
       "iso_code": "PL",
-      "dial_code": "",
+      "dial_code": "+48",
       "flag_emoji": "🇵🇱"
     }
   },
@@ -1805,7 +1805,7 @@
     "fields": {
       "name": "Puerto Rico",
       "iso_code": "PR",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇵🇷"
     }
   },
@@ -1815,7 +1815,7 @@
     "fields": {
       "name": "Korea, Democratic People's Republic of",
       "iso_code": "KP",
-      "dial_code": "",
+      "dial_code": "+850",
       "flag_emoji": "🇰🇵"
     }
   },
@@ -1825,7 +1825,7 @@
     "fields": {
       "name": "Portugal",
       "iso_code": "PT",
-      "dial_code": "",
+      "dial_code": "+351",
       "flag_emoji": "🇵🇹"
     }
   },
@@ -1835,7 +1835,7 @@
     "fields": {
       "name": "Paraguay",
       "iso_code": "PY",
-      "dial_code": "",
+      "dial_code": "+595",
       "flag_emoji": "🇵🇾"
     }
   },
@@ -1843,9 +1843,9 @@
     "model": "master.country",
     "pk": 185,
     "fields": {
-      "name": "Palestine, State of",
+      "name": "Palestine, State of Palestine",
       "iso_code": "PS",
-      "dial_code": "",
+      "dial_code": "+970",
       "flag_emoji": "🇵🇸"
     }
   },
@@ -1855,7 +1855,7 @@
     "fields": {
       "name": "French Polynesia",
       "iso_code": "PF",
-      "dial_code": "",
+      "dial_code": "+689",
       "flag_emoji": "🇵🇫"
     }
   },
@@ -1865,7 +1865,7 @@
     "fields": {
       "name": "Qatar",
       "iso_code": "QA",
-      "dial_code": "",
+      "dial_code": "+974",
       "flag_emoji": "🇶🇦"
     }
   },
@@ -1875,7 +1875,7 @@
     "fields": {
       "name": "Réunion",
       "iso_code": "RE",
-      "dial_code": "",
+      "dial_code": "+262",
       "flag_emoji": "🇷🇪"
     }
   },
@@ -1885,7 +1885,7 @@
     "fields": {
       "name": "Romania",
       "iso_code": "RO",
-      "dial_code": "",
+      "dial_code": "+40",
       "flag_emoji": "🇷🇴"
     }
   },
@@ -1895,7 +1895,7 @@
     "fields": {
       "name": "Russian Federation",
       "iso_code": "RU",
-      "dial_code": "",
+      "dial_code": "+7",
       "flag_emoji": "🇷🇺"
     }
   },
@@ -1905,7 +1905,7 @@
     "fields": {
       "name": "Rwanda",
       "iso_code": "RW",
-      "dial_code": "",
+      "dial_code": "+250",
       "flag_emoji": "🇷🇼"
     }
   },
@@ -1915,7 +1915,7 @@
     "fields": {
       "name": "Saudi Arabia",
       "iso_code": "SA",
-      "dial_code": "",
+      "dial_code": "+966",
       "flag_emoji": "🇸🇦"
     }
   },
@@ -1925,7 +1925,7 @@
     "fields": {
       "name": "Sudan",
       "iso_code": "SD",
-      "dial_code": "",
+      "dial_code": "+249",
       "flag_emoji": "🇸🇩"
     }
   },
@@ -1935,7 +1935,7 @@
     "fields": {
       "name": "Senegal",
       "iso_code": "SN",
-      "dial_code": "",
+      "dial_code": "+221",
       "flag_emoji": "🇸🇳"
     }
   },
@@ -1945,7 +1945,7 @@
     "fields": {
       "name": "Singapore",
       "iso_code": "SG",
-      "dial_code": "",
+      "dial_code": "+65",
       "flag_emoji": "🇸🇬"
     }
   },
@@ -1955,7 +1955,7 @@
     "fields": {
       "name": "South Georgia and the South Sandwich Islands",
       "iso_code": "GS",
-      "dial_code": "",
+      "dial_code": "+500",
       "flag_emoji": "🇬🇸"
     }
   },
@@ -1965,7 +1965,7 @@
     "fields": {
       "name": "Saint Helena, Ascension and Tristan da Cunha",
       "iso_code": "SH",
-      "dial_code": "",
+      "dial_code": "+290",
       "flag_emoji": "🇸🇭"
     }
   },
@@ -1975,7 +1975,7 @@
     "fields": {
       "name": "Svalbard and Jan Mayen",
       "iso_code": "SJ",
-      "dial_code": "",
+      "dial_code": "+47",
       "flag_emoji": "🇸🇯"
     }
   },
@@ -1985,7 +1985,7 @@
     "fields": {
       "name": "Solomon Islands",
       "iso_code": "SB",
-      "dial_code": "",
+      "dial_code": "+677",
       "flag_emoji": "🇸🇧"
     }
   },
@@ -1995,7 +1995,7 @@
     "fields": {
       "name": "Sierra Leone",
       "iso_code": "SL",
-      "dial_code": "",
+      "dial_code": "+232",
       "flag_emoji": "🇸🇱"
     }
   },
@@ -2005,7 +2005,7 @@
     "fields": {
       "name": "El Salvador",
       "iso_code": "SV",
-      "dial_code": "",
+      "dial_code": "+503",
       "flag_emoji": "🇸🇻"
     }
   },
@@ -2015,7 +2015,7 @@
     "fields": {
       "name": "San Marino",
       "iso_code": "SM",
-      "dial_code": "",
+      "dial_code": "+378",
       "flag_emoji": "🇸🇲"
     }
   },
@@ -2025,7 +2025,7 @@
     "fields": {
       "name": "Somalia",
       "iso_code": "SO",
-      "dial_code": "",
+      "dial_code": "+252",
       "flag_emoji": "🇸🇴"
     }
   },
@@ -2035,7 +2035,7 @@
     "fields": {
       "name": "Saint Pierre and Miquelon",
       "iso_code": "PM",
-      "dial_code": "",
+      "dial_code": "+508",
       "flag_emoji": "🇵🇲"
     }
   },
@@ -2045,7 +2045,7 @@
     "fields": {
       "name": "Serbia",
       "iso_code": "RS",
-      "dial_code": "",
+      "dial_code": "+381",
       "flag_emoji": "🇷🇸"
     }
   },
@@ -2055,7 +2055,7 @@
     "fields": {
       "name": "South Sudan",
       "iso_code": "SS",
-      "dial_code": "",
+      "dial_code": "+211",
       "flag_emoji": "🇸🇸"
     }
   },
@@ -2065,7 +2065,7 @@
     "fields": {
       "name": "Sao Tome and Principe",
       "iso_code": "ST",
-      "dial_code": "",
+      "dial_code": "+239",
       "flag_emoji": "🇸🇹"
     }
   },
@@ -2075,7 +2075,7 @@
     "fields": {
       "name": "Suriname",
       "iso_code": "SR",
-      "dial_code": "",
+      "dial_code": "+597",
       "flag_emoji": "🇸🇷"
     }
   },
@@ -2085,7 +2085,7 @@
     "fields": {
       "name": "Slovakia",
       "iso_code": "SK",
-      "dial_code": "",
+      "dial_code": "+421",
       "flag_emoji": "🇸🇰"
     }
   },
@@ -2095,7 +2095,7 @@
     "fields": {
       "name": "Slovenia",
       "iso_code": "SI",
-      "dial_code": "",
+      "dial_code": "+386",
       "flag_emoji": "🇸🇮"
     }
   },
@@ -2105,7 +2105,7 @@
     "fields": {
       "name": "Sweden",
       "iso_code": "SE",
-      "dial_code": "",
+      "dial_code": "+46",
       "flag_emoji": "🇸🇪"
     }
   },
@@ -2115,7 +2115,7 @@
     "fields": {
       "name": "Eswatini",
       "iso_code": "SZ",
-      "dial_code": "",
+      "dial_code": "+268",
       "flag_emoji": "🇸🇿"
     }
   },
@@ -2125,7 +2125,7 @@
     "fields": {
       "name": "Sint Maarten (Dutch part)",
       "iso_code": "SX",
-      "dial_code": "",
+      "dial_code": "+590",
       "flag_emoji": "🇸🇽"
     }
   },
@@ -2135,7 +2135,7 @@
     "fields": {
       "name": "Seychelles",
       "iso_code": "SC",
-      "dial_code": "",
+      "dial_code": "+248",
       "flag_emoji": "🇸🇨"
     }
   },
@@ -2145,7 +2145,7 @@
     "fields": {
       "name": "Syrian Arab Republic",
       "iso_code": "SY",
-      "dial_code": "",
+      "dial_code": "+963",
       "flag_emoji": "🇸🇾"
     }
   },
@@ -2155,7 +2155,7 @@
     "fields": {
       "name": "Turks and Caicos Islands",
       "iso_code": "TC",
-      "dial_code": "",
+      "dial_code": "+1 649",
       "flag_emoji": "🇹🇨"
     }
   },
@@ -2165,7 +2165,7 @@
     "fields": {
       "name": "Chad",
       "iso_code": "TD",
-      "dial_code": "",
+      "dial_code": "+235",
       "flag_emoji": "🇹🇩"
     }
   },
@@ -2175,7 +2175,7 @@
     "fields": {
       "name": "Togo",
       "iso_code": "TG",
-      "dial_code": "",
+      "dial_code": "+228",
       "flag_emoji": "🇹🇬"
     }
   },
@@ -2185,7 +2185,7 @@
     "fields": {
       "name": "Thailand",
       "iso_code": "TH",
-      "dial_code": "",
+      "dial_code": "+66",
       "flag_emoji": "🇹🇭"
     }
   },
@@ -2195,7 +2195,7 @@
     "fields": {
       "name": "Tajikistan",
       "iso_code": "TJ",
-      "dial_code": "",
+      "dial_code": "+992",
       "flag_emoji": "🇹🇯"
     }
   },
@@ -2205,7 +2205,7 @@
     "fields": {
       "name": "Tokelau",
       "iso_code": "TK",
-      "dial_code": "",
+      "dial_code": "+690",
       "flag_emoji": "🇹🇰"
     }
   },
@@ -2215,7 +2215,7 @@
     "fields": {
       "name": "Turkmenistan",
       "iso_code": "TM",
-      "dial_code": "",
+      "dial_code": "+993",
       "flag_emoji": "🇹🇲"
     }
   },
@@ -2225,7 +2225,7 @@
     "fields": {
       "name": "Timor-Leste",
       "iso_code": "TL",
-      "dial_code": "",
+      "dial_code": "+670",
       "flag_emoji": "🇹🇱"
     }
   },
@@ -2235,7 +2235,7 @@
     "fields": {
       "name": "Tonga",
       "iso_code": "TO",
-      "dial_code": "",
+      "dial_code": "+676",
       "flag_emoji": "🇹🇴"
     }
   },
@@ -2245,7 +2245,7 @@
     "fields": {
       "name": "Trinidad and Tobago",
       "iso_code": "TT",
-      "dial_code": "",
+      "dial_code": "+1-868",
       "flag_emoji": "🇹🇹"
     }
   },
@@ -2255,7 +2255,7 @@
     "fields": {
       "name": "Tunisia",
       "iso_code": "TN",
-      "dial_code": "",
+      "dial_code": "+216",
       "flag_emoji": "🇹🇳"
     }
   },
@@ -2265,7 +2265,7 @@
     "fields": {
       "name": "Turkey",
       "iso_code": "TR",
-      "dial_code": "",
+      "dial_code": "+90",
       "flag_emoji": "🇹🇷"
     }
   },
@@ -2275,7 +2275,7 @@
     "fields": {
       "name": "Tuvalu",
       "iso_code": "TV",
-      "dial_code": "",
+      "dial_code": "+688",
       "flag_emoji": "🇹🇻"
     }
   },
@@ -2285,7 +2285,7 @@
     "fields": {
       "name": "Taiwan, Province of China",
       "iso_code": "TW",
-      "dial_code": "",
+      "dial_code": "+886",
       "flag_emoji": "🇹🇼"
     }
   },
@@ -2295,7 +2295,7 @@
     "fields": {
       "name": "Tanzania, United Republic of",
       "iso_code": "TZ",
-      "dial_code": "",
+      "dial_code": "+255",
       "flag_emoji": "🇹🇿"
     }
   },
@@ -2305,7 +2305,7 @@
     "fields": {
       "name": "Uganda",
       "iso_code": "UG",
-      "dial_code": "",
+      "dial_code": "+256",
       "flag_emoji": "🇺🇬"
     }
   },
@@ -2315,7 +2315,7 @@
     "fields": {
       "name": "Ukraine",
       "iso_code": "UA",
-      "dial_code": "",
+      "dial_code": "+380",
       "flag_emoji": "🇺🇦"
     }
   },
@@ -2325,7 +2325,7 @@
     "fields": {
       "name": "United States Minor Outlying Islands",
       "iso_code": "UM",
-      "dial_code": "",
+      "dial_code": "+1-684",
       "flag_emoji": "🇺🇲"
     }
   },
@@ -2335,7 +2335,7 @@
     "fields": {
       "name": "Uruguay",
       "iso_code": "UY",
-      "dial_code": "",
+      "dial_code": "+598",
       "flag_emoji": "🇺🇾"
     }
   },
@@ -2345,7 +2345,7 @@
     "fields": {
       "name": "United States",
       "iso_code": "US",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇺🇸"
     }
   },
@@ -2355,7 +2355,7 @@
     "fields": {
       "name": "Uzbekistan",
       "iso_code": "UZ",
-      "dial_code": "",
+      "dial_code": "+998",
       "flag_emoji": "🇺🇿"
     }
   },
@@ -2365,7 +2365,7 @@
     "fields": {
       "name": "Holy See (Vatican City State)",
       "iso_code": "VA",
-      "dial_code": "",
+      "dial_code": "+379",
       "flag_emoji": "🇻🇦"
     }
   },
@@ -2375,7 +2375,7 @@
     "fields": {
       "name": "Saint Vincent and the Grenadines",
       "iso_code": "VC",
-      "dial_code": "",
+      "dial_code": "+1-784",
       "flag_emoji": "🇻🇨"
     }
   },
@@ -2385,7 +2385,7 @@
     "fields": {
       "name": "Venezuela, Bolivarian Republic of",
       "iso_code": "VE",
-      "dial_code": "",
+      "dial_code": "+58",
       "flag_emoji": "🇻🇪"
     }
   },
@@ -2395,7 +2395,7 @@
     "fields": {
       "name": "Virgin Islands, British",
       "iso_code": "VG",
-      "dial_code": "",
+      "dial_code": "+1 284",
       "flag_emoji": "🇻🇬"
     }
   },
@@ -2405,7 +2405,7 @@
     "fields": {
       "name": "Virgin Islands, U.S.",
       "iso_code": "VI",
-      "dial_code": "",
+      "dial_code": "+1",
       "flag_emoji": "🇻🇮"
     }
   },
@@ -2415,7 +2415,7 @@
     "fields": {
       "name": "Viet Nam",
       "iso_code": "VN",
-      "dial_code": "",
+      "dial_code": "+84",
       "flag_emoji": "🇻🇳"
     }
   },
@@ -2425,7 +2425,7 @@
     "fields": {
       "name": "Vanuatu",
       "iso_code": "VU",
-      "dial_code": "",
+      "dial_code": "+678",
       "flag_emoji": "🇻🇺"
     }
   },
@@ -2435,7 +2435,7 @@
     "fields": {
       "name": "Wallis and Futuna",
       "iso_code": "WF",
-      "dial_code": "",
+      "dial_code": "+681",
       "flag_emoji": "🇼🇫"
     }
   },
@@ -2445,7 +2445,7 @@
     "fields": {
       "name": "Samoa",
       "iso_code": "WS",
-      "dial_code": "",
+      "dial_code": "+685",
       "flag_emoji": "🇼🇸"
     }
   },
@@ -2455,7 +2455,7 @@
     "fields": {
       "name": "Yemen",
       "iso_code": "YE",
-      "dial_code": "",
+      "dial_code": "+967",
       "flag_emoji": "🇾🇪"
     }
   },
@@ -2465,7 +2465,7 @@
     "fields": {
       "name": "South Africa",
       "iso_code": "ZA",
-      "dial_code": "",
+      "dial_code": "+27",
       "flag_emoji": "🇿🇦"
     }
   },
@@ -2475,7 +2475,7 @@
     "fields": {
       "name": "Zambia",
       "iso_code": "ZM",
-      "dial_code": "",
+      "dial_code": "+260",
       "flag_emoji": "🇿🇲"
     }
   },
@@ -2485,7 +2485,7 @@
     "fields": {
       "name": "Zimbabwe",
       "iso_code": "ZW",
-      "dial_code": "",
+      "dial_code": "+263",
       "flag_emoji": "🇿🇼"
     }
   }

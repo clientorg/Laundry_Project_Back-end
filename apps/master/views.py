@@ -33,6 +33,17 @@ class CountryMasterView(APIView):
         return Response(serializer.data)
 
 
+@extend_schema(tags=["Master"])
+class CountryMasterView(APIView):
+    serializer_class = CountrySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = Country.objects.all().order_by("name")
+        serializer = CountrySerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
 # cloth type views
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeListCreateView(generics.ListCreateAPIView):

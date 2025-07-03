@@ -13,6 +13,8 @@ class CustomerAdmin(admin.ModelAdmin):
     list_filter = ("is_active",)
     search_fields = (
         "name",
+        "tax_number",
+        "email",
         "country_code",
         "mobile_number",
         "organization__name",
@@ -21,6 +23,8 @@ class CustomerAdmin(admin.ModelAdmin):
     )
     list_display = (
         "name",
+        "tax_number",
+        "email",
         "mobile_no",
         "credit_limit",
         "category",
@@ -45,6 +49,8 @@ class CustomerAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "name",
+                    "tax_number",
+                    "email",
                     "address",
                     "country_code",
                     "mobile_number",

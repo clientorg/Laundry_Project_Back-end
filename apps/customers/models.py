@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import EmailValidator
 
 # Laundry Models
 from apps.master.models import Country
@@ -63,11 +64,19 @@ class CustomerCategory(models.Model):
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=255, null=True, blank=True)
-    address = models.TextField(blank=True, null=True)
-    country_code = models.CharField(max_length=255, null=True, blank=True)
-    mobile_number = models.CharField(max_length=15, null=True, blank=True)
     is_active = models.BooleanField(default=True)
+    address = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    country_code = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    mobile_number = models.CharField(
+        max_length=15,
+        null=True,
+        blank=True,
+    )
     customer_id = models.CharField(
         max_length=20,
         unique=True,
@@ -78,6 +87,19 @@ class Customer(models.Model):
         decimal_places=2,
         default=0.00,
         help_text="Maximum credit allowed for this customer.",
+    )
+    tax_number = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        help_text="Tax Identification Number (TIN/VAT/etc.) for this customer.",
+    )
+    email = models.EmailField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Customer's email address.",
+        validators=[EmailValidator()],
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
