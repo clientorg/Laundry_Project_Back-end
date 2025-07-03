@@ -1,11 +1,20 @@
 # package imports
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 
-# master model imports
-from .models import ClothType, ServiceType, HandlingType, DeliveryType
+# laundry model imports
+from .models import Country, ClothType, ServiceType, HandlingType, DeliveryType
 
 
 # serializers.py
+# country serializers
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = "__all__"
+
+
+# cloth type serializers
 class ClothTypeSerializer(serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -22,15 +31,21 @@ class ClothTypeSerializer(serializers.ModelSerializer):
             "updated_at",
         )
 
+    @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_updated_by_name(self, obj):
         return obj.updated_by.username if obj.updated_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_organization_name(self, obj):
         return obj.organization.name if obj.organization else None
 
+    @extend_schema_field(
+        serializers.ListSerializer(child=serializers.CharField()),
+    )
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
 
@@ -60,6 +75,7 @@ class ClothTypeSerializer(serializers.ModelSerializer):
         return branch.parent == organization
 
 
+# service type serializer
 class ServiceTypeSerializer(serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -76,15 +92,21 @@ class ServiceTypeSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+    @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_updated_by_name(self, obj):
         return obj.updated_by.username if obj.updated_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_organization_name(self, obj):
         return obj.organization.name if obj.organization else None
 
+    @extend_schema_field(
+        serializers.ListSerializer(child=serializers.CharField()),
+    )
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
 
@@ -114,6 +136,7 @@ class ServiceTypeSerializer(serializers.ModelSerializer):
         return branch.parent == organization
 
 
+# handling type serializer
 class HandlingTypeSerializer(serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -130,15 +153,21 @@ class HandlingTypeSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+    @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_updated_by_name(self, obj):
         return obj.updated_by.username if obj.updated_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_organization_name(self, obj):
         return obj.organization.name if obj.organization else None
 
+    @extend_schema_field(
+        serializers.ListSerializer(child=serializers.CharField()),
+    )
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
 
@@ -168,6 +197,7 @@ class HandlingTypeSerializer(serializers.ModelSerializer):
         return branch.parent == organization
 
 
+# delivery type serializer
 class DeliveryTypeSerializer(serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -184,15 +214,21 @@ class DeliveryTypeSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+    @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_updated_by_name(self, obj):
         return obj.updated_by.username if obj.updated_by else None
 
+    @extend_schema_field(serializers.CharField())
     def get_organization_name(self, obj):
         return obj.organization.name if obj.organization else None
 
+    @extend_schema_field(
+        serializers.ListSerializer(child=serializers.CharField()),
+    )
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
 

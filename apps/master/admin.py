@@ -1,11 +1,17 @@
 from django.contrib import admin
 
 # Laundry Models
-from .models import ClothType, ServiceType, HandlingType, DeliveryType
 from apps.organizations.models import Organization
+from .models import Country, ClothType, ServiceType, HandlingType, DeliveryType
 
 
 # Register your models here.
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ("name", "flag_emoji", "iso_code", "dial_code")
+    search_fields = ("name", "iso_code", "dial_code")
+
+
 @admin.register(ClothType)
 class ClothTypeAdmin(admin.ModelAdmin):
     # table config
@@ -18,12 +24,14 @@ class ClothTypeAdmin(admin.ModelAdmin):
     )
     search_fields = (
         "name",
+        "arabic_name",
         "organization__name",
         "created_by__username",
         "updated_by__username",
     )
     list_display = (
         "name",
+        "arabic_name",
         "price",
         "organization",
         "branches_count",
@@ -48,6 +56,7 @@ class ClothTypeAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "name",
+                    "arabic_name",
                     "description",
                     "price",
                     "is_active",
@@ -287,7 +296,7 @@ class DeliveryTypeAdmin(admin.ModelAdmin):
     )
     list_display = (
         "name",
-        "price",
+        "charge_percent",
         "organization",
         "branches_count",
         "is_global",
@@ -311,7 +320,7 @@ class DeliveryTypeAdmin(admin.ModelAdmin):
                 "fields": (
                     "name",
                     "description",
-                    "price",
+                    "charge_percent",
                     "is_active",
                     "is_global",
                     "is_pinned",

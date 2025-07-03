@@ -7,11 +7,12 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-# master model imports
-from .models import ClothType, ServiceType, HandlingType, DeliveryType
+# laundry model imports
+from .models import Country, ClothType, ServiceType, HandlingType, DeliveryType
 
-# master serializer imports
+# laundry serializer imports
 from .serializers import (
+    CountrySerializer,
     ClothTypeSerializer,
     ServiceTypeSerializer,
     HandlingTypeSerializer,
@@ -20,7 +21,19 @@ from .serializers import (
 
 
 # Create your views here.
-# cloth types api
+# master views
+@extend_schema(tags=["Master"])
+class CountryMasterView(APIView):
+    serializer_class = CountrySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = Country.objects.all().order_by("name")
+        serializer = CountrySerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+# cloth type views
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeListCreateView(generics.ListCreateAPIView):
     queryset = ClothType.objects.all().order_by("name")
@@ -34,6 +47,7 @@ class ClothTypeListCreateView(generics.ListCreateAPIView):
 
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeClothOnlyView(APIView):
+    serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
@@ -44,26 +58,29 @@ class ClothTypeClothOnlyView(APIView):
 
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeStartsWithView(APIView):
+    serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, letter, format=None):
-        queryset = ClothType.objects.filter(name__istartswith=letter)
+        queryset = ClothType.objects.filter(name__istartswith=letter, is_carpet=False)
         serializer = ClothTypeSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
 @extend_schema(tags=["Cloth Types"])
 class ClothTypePinnedView(APIView):
+    serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
-        queryset = ClothType.objects.filter(is_pinned=True)
+        queryset = ClothType.objects.filter(is_pinned=True, is_carpet=False)
         serializer = ClothTypeSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeCarpetOnlyView(APIView):
+    serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
@@ -74,6 +91,7 @@ class ClothTypeCarpetOnlyView(APIView):
 
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeCarpetStartsWithView(APIView):
+    serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, letter, format=None):
@@ -84,6 +102,7 @@ class ClothTypeCarpetStartsWithView(APIView):
 
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeCarpetPinnedView(APIView):
+    serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
@@ -119,7 +138,7 @@ class ClothTypeDeleteView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
-# washing types api
+# service type views
 @extend_schema(tags=["Service Types"])
 class ServiceTypeListCreateView(generics.ListCreateAPIView):
     queryset = ServiceType.objects.all().order_by("name")
@@ -158,7 +177,7 @@ class ServiceTypeDeleteView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
-# handling types api
+# handling type views
 @extend_schema(tags=["Handling Types"])
 class HandlingTypeListCreateView(generics.ListCreateAPIView):
     queryset = HandlingType.objects.all().order_by("name")
@@ -197,7 +216,7 @@ class HandlingTypeDeleteView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
-# delivery types api
+# delivery type views
 @extend_schema(tags=["Delivery Types"])
 class DeliveryTypeListCreateView(generics.ListCreateAPIView):
     queryset = DeliveryType.objects.all().order_by("name")

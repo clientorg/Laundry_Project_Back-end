@@ -1,11 +1,14 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+
+# package imports
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
+from rest_framework_simplejwt.tokens import RefreshToken
+
+# laundry serializer imports
 from .serializers import LoginSerializer
 
 
@@ -14,10 +17,8 @@ User = get_user_model()
 
 
 class LoginAPIView(APIView):
-    @extend_schema(
-        request=LoginSerializer,
-        auth=[],
-    )
+    serializer_class = LoginSerializer
+
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")

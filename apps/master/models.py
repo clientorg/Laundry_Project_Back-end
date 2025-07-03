@@ -9,9 +9,29 @@ from apps.organizations.models import Organization
 User = get_user_model()
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=100)
+    dial_code = models.CharField(max_length=10)
+    iso_code = models.CharField(max_length=3, unique=True)
+    flag_emoji = models.CharField(
+        max_length=5,
+        blank=True,
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = "Country"
+        verbose_name_plural = "Countries"
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.flag_emoji} {self.name} ({self.dial_code})"
+
+
 class ClothType(models.Model):
     # table fields
     name = models.CharField(max_length=100)
+    arabic_name = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_global = models.BooleanField(default=False)
@@ -167,7 +187,7 @@ class DeliveryType(models.Model):
     is_active = models.BooleanField(default=True)
     is_global = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
-    price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
+    charge_percent = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

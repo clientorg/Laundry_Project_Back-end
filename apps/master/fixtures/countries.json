@@ -1,0 +1,2492 @@
+[
+  {
+    "model": "master.country",
+    "pk": 1,
+    "fields": {
+      "name": "Aruba",
+      "iso_code": "AW",
+      "dial_code": "",
+      "flag_emoji": "🇦🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 2,
+    "fields": {
+      "name": "Afghanistan",
+      "iso_code": "AF",
+      "dial_code": "+93",
+      "flag_emoji": "🇦🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 3,
+    "fields": {
+      "name": "Angola",
+      "iso_code": "AO",
+      "dial_code": "+244",
+      "flag_emoji": "🇦🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 4,
+    "fields": {
+      "name": "Anguilla",
+      "iso_code": "AI",
+      "dial_code": "+1-264",
+      "flag_emoji": "🇦🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 5,
+    "fields": {
+      "name": "Åland Islands",
+      "iso_code": "AX",
+      "dial_code": "",
+      "flag_emoji": "🇦🇽"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 6,
+    "fields": {
+      "name": "Albania",
+      "iso_code": "AL",
+      "dial_code": "+355",
+      "flag_emoji": "🇦🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 7,
+    "fields": {
+      "name": "Andorra",
+      "iso_code": "AD",
+      "dial_code": "+376",
+      "flag_emoji": "🇦🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 8,
+    "fields": {
+      "name": "United Arab Emirates",
+      "iso_code": "AE",
+      "dial_code": "",
+      "flag_emoji": "🇦🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 9,
+    "fields": {
+      "name": "Argentina",
+      "iso_code": "AR",
+      "dial_code": "+54",
+      "flag_emoji": "🇦🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 10,
+    "fields": {
+      "name": "Armenia",
+      "iso_code": "AM",
+      "dial_code": "",
+      "flag_emoji": "🇦🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 11,
+    "fields": {
+      "name": "American Samoa",
+      "iso_code": "AS",
+      "dial_code": "+1-684",
+      "flag_emoji": "🇦🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 12,
+    "fields": {
+      "name": "Antarctica",
+      "iso_code": "AQ",
+      "dial_code": "+672",
+      "flag_emoji": "🇦🇶"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 13,
+    "fields": {
+      "name": "French Southern Territories",
+      "iso_code": "TF",
+      "dial_code": "",
+      "flag_emoji": "🇹🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 14,
+    "fields": {
+      "name": "Antigua and Barbuda",
+      "iso_code": "AG",
+      "dial_code": "+1-268",
+      "flag_emoji": "🇦🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 15,
+    "fields": {
+      "name": "Australia",
+      "iso_code": "AU",
+      "dial_code": "",
+      "flag_emoji": "🇦🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 16,
+    "fields": {
+      "name": "Austria",
+      "iso_code": "AT",
+      "dial_code": "",
+      "flag_emoji": "🇦🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 17,
+    "fields": {
+      "name": "Azerbaijan",
+      "iso_code": "AZ",
+      "dial_code": "",
+      "flag_emoji": "🇦🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 18,
+    "fields": {
+      "name": "Burundi",
+      "iso_code": "BI",
+      "dial_code": "",
+      "flag_emoji": "🇧🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 19,
+    "fields": {
+      "name": "Belgium",
+      "iso_code": "BE",
+      "dial_code": "",
+      "flag_emoji": "🇧🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 20,
+    "fields": {
+      "name": "Benin",
+      "iso_code": "BJ",
+      "dial_code": "",
+      "flag_emoji": "🇧🇯"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 21,
+    "fields": {
+      "name": "Bonaire, Sint Eustatius and Saba",
+      "iso_code": "BQ",
+      "dial_code": "",
+      "flag_emoji": "🇧🇶"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 22,
+    "fields": {
+      "name": "Burkina Faso",
+      "iso_code": "BF",
+      "dial_code": "",
+      "flag_emoji": "🇧🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 23,
+    "fields": {
+      "name": "Bangladesh",
+      "iso_code": "BD",
+      "dial_code": "",
+      "flag_emoji": "🇧🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 24,
+    "fields": {
+      "name": "Bulgaria",
+      "iso_code": "BG",
+      "dial_code": "",
+      "flag_emoji": "🇧🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 25,
+    "fields": {
+      "name": "Bahrain",
+      "iso_code": "BH",
+      "dial_code": "",
+      "flag_emoji": "🇧🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 26,
+    "fields": {
+      "name": "Bahamas",
+      "iso_code": "BS",
+      "dial_code": "",
+      "flag_emoji": "🇧🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 27,
+    "fields": {
+      "name": "Bosnia and Herzegovina",
+      "iso_code": "BA",
+      "dial_code": "",
+      "flag_emoji": "🇧🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 28,
+    "fields": {
+      "name": "Saint Barthélemy",
+      "iso_code": "BL",
+      "dial_code": "",
+      "flag_emoji": "🇧🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 29,
+    "fields": {
+      "name": "Belarus",
+      "iso_code": "BY",
+      "dial_code": "",
+      "flag_emoji": "🇧🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 30,
+    "fields": {
+      "name": "Belize",
+      "iso_code": "BZ",
+      "dial_code": "",
+      "flag_emoji": "🇧🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 31,
+    "fields": {
+      "name": "Bermuda",
+      "iso_code": "BM",
+      "dial_code": "",
+      "flag_emoji": "🇧🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 32,
+    "fields": {
+      "name": "Bolivia, Plurinational State of",
+      "iso_code": "BO",
+      "dial_code": "",
+      "flag_emoji": "🇧🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 33,
+    "fields": {
+      "name": "Brazil",
+      "iso_code": "BR",
+      "dial_code": "",
+      "flag_emoji": "🇧🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 34,
+    "fields": {
+      "name": "Barbados",
+      "iso_code": "BB",
+      "dial_code": "",
+      "flag_emoji": "🇧🇧"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 35,
+    "fields": {
+      "name": "Brunei Darussalam",
+      "iso_code": "BN",
+      "dial_code": "",
+      "flag_emoji": "🇧🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 36,
+    "fields": {
+      "name": "Bhutan",
+      "iso_code": "BT",
+      "dial_code": "",
+      "flag_emoji": "🇧🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 37,
+    "fields": {
+      "name": "Bouvet Island",
+      "iso_code": "BV",
+      "dial_code": "",
+      "flag_emoji": "🇧🇻"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 38,
+    "fields": {
+      "name": "Botswana",
+      "iso_code": "BW",
+      "dial_code": "",
+      "flag_emoji": "🇧🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 39,
+    "fields": {
+      "name": "Central African Republic",
+      "iso_code": "CF",
+      "dial_code": "",
+      "flag_emoji": "🇨🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 40,
+    "fields": {
+      "name": "Canada",
+      "iso_code": "CA",
+      "dial_code": "",
+      "flag_emoji": "🇨🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 41,
+    "fields": {
+      "name": "Cocos (Keeling) Islands",
+      "iso_code": "CC",
+      "dial_code": "",
+      "flag_emoji": "🇨🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 42,
+    "fields": {
+      "name": "Switzerland",
+      "iso_code": "CH",
+      "dial_code": "",
+      "flag_emoji": "🇨🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 43,
+    "fields": {
+      "name": "Chile",
+      "iso_code": "CL",
+      "dial_code": "",
+      "flag_emoji": "🇨🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 44,
+    "fields": {
+      "name": "China",
+      "iso_code": "CN",
+      "dial_code": "",
+      "flag_emoji": "🇨🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 45,
+    "fields": {
+      "name": "Côte d'Ivoire",
+      "iso_code": "CI",
+      "dial_code": "",
+      "flag_emoji": "🇨🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 46,
+    "fields": {
+      "name": "Cameroon",
+      "iso_code": "CM",
+      "dial_code": "",
+      "flag_emoji": "🇨🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 47,
+    "fields": {
+      "name": "Congo, The Democratic Republic of the",
+      "iso_code": "CD",
+      "dial_code": "",
+      "flag_emoji": "🇨🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 48,
+    "fields": {
+      "name": "Congo",
+      "iso_code": "CG",
+      "dial_code": "",
+      "flag_emoji": "🇨🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 49,
+    "fields": {
+      "name": "Cook Islands",
+      "iso_code": "CK",
+      "dial_code": "",
+      "flag_emoji": "🇨🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 50,
+    "fields": {
+      "name": "Colombia",
+      "iso_code": "CO",
+      "dial_code": "",
+      "flag_emoji": "🇨🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 51,
+    "fields": {
+      "name": "Comoros",
+      "iso_code": "KM",
+      "dial_code": "",
+      "flag_emoji": "🇰🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 52,
+    "fields": {
+      "name": "Cabo Verde",
+      "iso_code": "CV",
+      "dial_code": "",
+      "flag_emoji": "🇨🇻"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 53,
+    "fields": {
+      "name": "Costa Rica",
+      "iso_code": "CR",
+      "dial_code": "",
+      "flag_emoji": "🇨🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 54,
+    "fields": {
+      "name": "Cuba",
+      "iso_code": "CU",
+      "dial_code": "",
+      "flag_emoji": "🇨🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 55,
+    "fields": {
+      "name": "Curaçao",
+      "iso_code": "CW",
+      "dial_code": "",
+      "flag_emoji": "🇨🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 56,
+    "fields": {
+      "name": "Christmas Island",
+      "iso_code": "CX",
+      "dial_code": "",
+      "flag_emoji": "🇨🇽"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 57,
+    "fields": {
+      "name": "Cayman Islands",
+      "iso_code": "KY",
+      "dial_code": "",
+      "flag_emoji": "🇰🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 58,
+    "fields": {
+      "name": "Cyprus",
+      "iso_code": "CY",
+      "dial_code": "",
+      "flag_emoji": "🇨🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 59,
+    "fields": {
+      "name": "Czechia",
+      "iso_code": "CZ",
+      "dial_code": "",
+      "flag_emoji": "🇨🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 60,
+    "fields": {
+      "name": "Germany",
+      "iso_code": "DE",
+      "dial_code": "",
+      "flag_emoji": "🇩🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 61,
+    "fields": {
+      "name": "Djibouti",
+      "iso_code": "DJ",
+      "dial_code": "",
+      "flag_emoji": "🇩🇯"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 62,
+    "fields": {
+      "name": "Dominica",
+      "iso_code": "DM",
+      "dial_code": "",
+      "flag_emoji": "🇩🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 63,
+    "fields": {
+      "name": "Denmark",
+      "iso_code": "DK",
+      "dial_code": "",
+      "flag_emoji": "🇩🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 64,
+    "fields": {
+      "name": "Dominican Republic",
+      "iso_code": "DO",
+      "dial_code": "",
+      "flag_emoji": "🇩🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 65,
+    "fields": {
+      "name": "Algeria",
+      "iso_code": "DZ",
+      "dial_code": "+213",
+      "flag_emoji": "🇩🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 66,
+    "fields": {
+      "name": "Ecuador",
+      "iso_code": "EC",
+      "dial_code": "",
+      "flag_emoji": "🇪🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 67,
+    "fields": {
+      "name": "Egypt",
+      "iso_code": "EG",
+      "dial_code": "",
+      "flag_emoji": "🇪🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 68,
+    "fields": {
+      "name": "Eritrea",
+      "iso_code": "ER",
+      "dial_code": "",
+      "flag_emoji": "🇪🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 69,
+    "fields": {
+      "name": "Western Sahara",
+      "iso_code": "EH",
+      "dial_code": "",
+      "flag_emoji": "🇪🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 70,
+    "fields": {
+      "name": "Spain",
+      "iso_code": "ES",
+      "dial_code": "",
+      "flag_emoji": "🇪🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 71,
+    "fields": {
+      "name": "Estonia",
+      "iso_code": "EE",
+      "dial_code": "",
+      "flag_emoji": "🇪🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 72,
+    "fields": {
+      "name": "Ethiopia",
+      "iso_code": "ET",
+      "dial_code": "",
+      "flag_emoji": "🇪🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 73,
+    "fields": {
+      "name": "Finland",
+      "iso_code": "FI",
+      "dial_code": "",
+      "flag_emoji": "🇫🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 74,
+    "fields": {
+      "name": "Fiji",
+      "iso_code": "FJ",
+      "dial_code": "",
+      "flag_emoji": "🇫🇯"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 75,
+    "fields": {
+      "name": "Falkland Islands (Malvinas)",
+      "iso_code": "FK",
+      "dial_code": "",
+      "flag_emoji": "🇫🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 76,
+    "fields": {
+      "name": "France",
+      "iso_code": "FR",
+      "dial_code": "",
+      "flag_emoji": "🇫🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 77,
+    "fields": {
+      "name": "Faroe Islands",
+      "iso_code": "FO",
+      "dial_code": "",
+      "flag_emoji": "🇫🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 78,
+    "fields": {
+      "name": "Micronesia, Federated States of",
+      "iso_code": "FM",
+      "dial_code": "",
+      "flag_emoji": "🇫🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 79,
+    "fields": {
+      "name": "Gabon",
+      "iso_code": "GA",
+      "dial_code": "",
+      "flag_emoji": "🇬🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 80,
+    "fields": {
+      "name": "United Kingdom",
+      "iso_code": "GB",
+      "dial_code": "",
+      "flag_emoji": "🇬🇧"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 81,
+    "fields": {
+      "name": "Georgia",
+      "iso_code": "GE",
+      "dial_code": "",
+      "flag_emoji": "🇬🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 82,
+    "fields": {
+      "name": "Guernsey",
+      "iso_code": "GG",
+      "dial_code": "",
+      "flag_emoji": "🇬🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 83,
+    "fields": {
+      "name": "Ghana",
+      "iso_code": "GH",
+      "dial_code": "",
+      "flag_emoji": "🇬🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 84,
+    "fields": {
+      "name": "Gibraltar",
+      "iso_code": "GI",
+      "dial_code": "",
+      "flag_emoji": "🇬🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 85,
+    "fields": {
+      "name": "Guinea",
+      "iso_code": "GN",
+      "dial_code": "",
+      "flag_emoji": "🇬🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 86,
+    "fields": {
+      "name": "Guadeloupe",
+      "iso_code": "GP",
+      "dial_code": "",
+      "flag_emoji": "🇬🇵"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 87,
+    "fields": {
+      "name": "Gambia",
+      "iso_code": "GM",
+      "dial_code": "",
+      "flag_emoji": "🇬🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 88,
+    "fields": {
+      "name": "Guinea-Bissau",
+      "iso_code": "GW",
+      "dial_code": "",
+      "flag_emoji": "🇬🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 89,
+    "fields": {
+      "name": "Equatorial Guinea",
+      "iso_code": "GQ",
+      "dial_code": "",
+      "flag_emoji": "🇬🇶"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 90,
+    "fields": {
+      "name": "Greece",
+      "iso_code": "GR",
+      "dial_code": "",
+      "flag_emoji": "🇬🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 91,
+    "fields": {
+      "name": "Grenada",
+      "iso_code": "GD",
+      "dial_code": "",
+      "flag_emoji": "🇬🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 92,
+    "fields": {
+      "name": "Greenland",
+      "iso_code": "GL",
+      "dial_code": "",
+      "flag_emoji": "🇬🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 93,
+    "fields": {
+      "name": "Guatemala",
+      "iso_code": "GT",
+      "dial_code": "",
+      "flag_emoji": "🇬🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 94,
+    "fields": {
+      "name": "French Guiana",
+      "iso_code": "GF",
+      "dial_code": "",
+      "flag_emoji": "🇬🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 95,
+    "fields": {
+      "name": "Guam",
+      "iso_code": "GU",
+      "dial_code": "",
+      "flag_emoji": "🇬🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 96,
+    "fields": {
+      "name": "Guyana",
+      "iso_code": "GY",
+      "dial_code": "",
+      "flag_emoji": "🇬🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 97,
+    "fields": {
+      "name": "Hong Kong",
+      "iso_code": "HK",
+      "dial_code": "",
+      "flag_emoji": "🇭🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 98,
+    "fields": {
+      "name": "Heard Island and McDonald Islands",
+      "iso_code": "HM",
+      "dial_code": "",
+      "flag_emoji": "🇭🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 99,
+    "fields": {
+      "name": "Honduras",
+      "iso_code": "HN",
+      "dial_code": "",
+      "flag_emoji": "🇭🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 100,
+    "fields": {
+      "name": "Croatia",
+      "iso_code": "HR",
+      "dial_code": "",
+      "flag_emoji": "🇭🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 101,
+    "fields": {
+      "name": "Haiti",
+      "iso_code": "HT",
+      "dial_code": "",
+      "flag_emoji": "🇭🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 102,
+    "fields": {
+      "name": "Hungary",
+      "iso_code": "HU",
+      "dial_code": "",
+      "flag_emoji": "🇭🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 103,
+    "fields": {
+      "name": "Indonesia",
+      "iso_code": "ID",
+      "dial_code": "",
+      "flag_emoji": "🇮🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 104,
+    "fields": {
+      "name": "Isle of Man",
+      "iso_code": "IM",
+      "dial_code": "",
+      "flag_emoji": "🇮🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 105,
+    "fields": {
+      "name": "India",
+      "iso_code": "IN",
+      "dial_code": "",
+      "flag_emoji": "🇮🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 106,
+    "fields": {
+      "name": "British Indian Ocean Territory",
+      "iso_code": "IO",
+      "dial_code": "",
+      "flag_emoji": "🇮🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 107,
+    "fields": {
+      "name": "Ireland",
+      "iso_code": "IE",
+      "dial_code": "",
+      "flag_emoji": "🇮🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 108,
+    "fields": {
+      "name": "Iran, Islamic Republic of",
+      "iso_code": "IR",
+      "dial_code": "",
+      "flag_emoji": "🇮🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 109,
+    "fields": {
+      "name": "Iraq",
+      "iso_code": "IQ",
+      "dial_code": "",
+      "flag_emoji": "🇮🇶"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 110,
+    "fields": {
+      "name": "Iceland",
+      "iso_code": "IS",
+      "dial_code": "",
+      "flag_emoji": "🇮🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 111,
+    "fields": {
+      "name": "Israel",
+      "iso_code": "IL",
+      "dial_code": "",
+      "flag_emoji": "🇮🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 112,
+    "fields": {
+      "name": "Italy",
+      "iso_code": "IT",
+      "dial_code": "",
+      "flag_emoji": "🇮🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 113,
+    "fields": {
+      "name": "Jamaica",
+      "iso_code": "JM",
+      "dial_code": "",
+      "flag_emoji": "🇯🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 114,
+    "fields": {
+      "name": "Jersey",
+      "iso_code": "JE",
+      "dial_code": "",
+      "flag_emoji": "🇯🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 115,
+    "fields": {
+      "name": "Jordan",
+      "iso_code": "JO",
+      "dial_code": "",
+      "flag_emoji": "🇯🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 116,
+    "fields": {
+      "name": "Japan",
+      "iso_code": "JP",
+      "dial_code": "",
+      "flag_emoji": "🇯🇵"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 117,
+    "fields": {
+      "name": "Kazakhstan",
+      "iso_code": "KZ",
+      "dial_code": "",
+      "flag_emoji": "🇰🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 118,
+    "fields": {
+      "name": "Kenya",
+      "iso_code": "KE",
+      "dial_code": "",
+      "flag_emoji": "🇰🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 119,
+    "fields": {
+      "name": "Kyrgyzstan",
+      "iso_code": "KG",
+      "dial_code": "",
+      "flag_emoji": "🇰🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 120,
+    "fields": {
+      "name": "Cambodia",
+      "iso_code": "KH",
+      "dial_code": "",
+      "flag_emoji": "🇰🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 121,
+    "fields": {
+      "name": "Kiribati",
+      "iso_code": "KI",
+      "dial_code": "",
+      "flag_emoji": "🇰🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 122,
+    "fields": {
+      "name": "Saint Kitts and Nevis",
+      "iso_code": "KN",
+      "dial_code": "",
+      "flag_emoji": "🇰🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 123,
+    "fields": {
+      "name": "Korea, Republic of",
+      "iso_code": "KR",
+      "dial_code": "",
+      "flag_emoji": "🇰🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 124,
+    "fields": {
+      "name": "Kuwait",
+      "iso_code": "KW",
+      "dial_code": "",
+      "flag_emoji": "🇰🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 125,
+    "fields": {
+      "name": "Lao People's Democratic Republic",
+      "iso_code": "LA",
+      "dial_code": "",
+      "flag_emoji": "🇱🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 126,
+    "fields": {
+      "name": "Lebanon",
+      "iso_code": "LB",
+      "dial_code": "",
+      "flag_emoji": "🇱🇧"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 127,
+    "fields": {
+      "name": "Liberia",
+      "iso_code": "LR",
+      "dial_code": "",
+      "flag_emoji": "🇱🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 128,
+    "fields": {
+      "name": "Libya",
+      "iso_code": "LY",
+      "dial_code": "",
+      "flag_emoji": "🇱🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 129,
+    "fields": {
+      "name": "Saint Lucia",
+      "iso_code": "LC",
+      "dial_code": "",
+      "flag_emoji": "🇱🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 130,
+    "fields": {
+      "name": "Liechtenstein",
+      "iso_code": "LI",
+      "dial_code": "",
+      "flag_emoji": "🇱🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 131,
+    "fields": {
+      "name": "Sri Lanka",
+      "iso_code": "LK",
+      "dial_code": "",
+      "flag_emoji": "🇱🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 132,
+    "fields": {
+      "name": "Lesotho",
+      "iso_code": "LS",
+      "dial_code": "",
+      "flag_emoji": "🇱🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 133,
+    "fields": {
+      "name": "Lithuania",
+      "iso_code": "LT",
+      "dial_code": "",
+      "flag_emoji": "🇱🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 134,
+    "fields": {
+      "name": "Luxembourg",
+      "iso_code": "LU",
+      "dial_code": "",
+      "flag_emoji": "🇱🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 135,
+    "fields": {
+      "name": "Latvia",
+      "iso_code": "LV",
+      "dial_code": "",
+      "flag_emoji": "🇱🇻"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 136,
+    "fields": {
+      "name": "Macao",
+      "iso_code": "MO",
+      "dial_code": "",
+      "flag_emoji": "🇲🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 137,
+    "fields": {
+      "name": "Saint Martin (French part)",
+      "iso_code": "MF",
+      "dial_code": "",
+      "flag_emoji": "🇲🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 138,
+    "fields": {
+      "name": "Morocco",
+      "iso_code": "MA",
+      "dial_code": "",
+      "flag_emoji": "🇲🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 139,
+    "fields": {
+      "name": "Monaco",
+      "iso_code": "MC",
+      "dial_code": "",
+      "flag_emoji": "🇲🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 140,
+    "fields": {
+      "name": "Moldova, Republic of",
+      "iso_code": "MD",
+      "dial_code": "",
+      "flag_emoji": "🇲🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 141,
+    "fields": {
+      "name": "Madagascar",
+      "iso_code": "MG",
+      "dial_code": "",
+      "flag_emoji": "🇲🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 142,
+    "fields": {
+      "name": "Maldives",
+      "iso_code": "MV",
+      "dial_code": "",
+      "flag_emoji": "🇲🇻"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 143,
+    "fields": {
+      "name": "Mexico",
+      "iso_code": "MX",
+      "dial_code": "",
+      "flag_emoji": "🇲🇽"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 144,
+    "fields": {
+      "name": "Marshall Islands",
+      "iso_code": "MH",
+      "dial_code": "",
+      "flag_emoji": "🇲🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 145,
+    "fields": {
+      "name": "North Macedonia",
+      "iso_code": "MK",
+      "dial_code": "",
+      "flag_emoji": "🇲🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 146,
+    "fields": {
+      "name": "Mali",
+      "iso_code": "ML",
+      "dial_code": "",
+      "flag_emoji": "🇲🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 147,
+    "fields": {
+      "name": "Malta",
+      "iso_code": "MT",
+      "dial_code": "",
+      "flag_emoji": "🇲🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 148,
+    "fields": {
+      "name": "Myanmar",
+      "iso_code": "MM",
+      "dial_code": "",
+      "flag_emoji": "🇲🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 149,
+    "fields": {
+      "name": "Montenegro",
+      "iso_code": "ME",
+      "dial_code": "",
+      "flag_emoji": "🇲🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 150,
+    "fields": {
+      "name": "Mongolia",
+      "iso_code": "MN",
+      "dial_code": "",
+      "flag_emoji": "🇲🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 151,
+    "fields": {
+      "name": "Northern Mariana Islands",
+      "iso_code": "MP",
+      "dial_code": "",
+      "flag_emoji": "🇲🇵"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 152,
+    "fields": {
+      "name": "Mozambique",
+      "iso_code": "MZ",
+      "dial_code": "",
+      "flag_emoji": "🇲🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 153,
+    "fields": {
+      "name": "Mauritania",
+      "iso_code": "MR",
+      "dial_code": "",
+      "flag_emoji": "🇲🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 154,
+    "fields": {
+      "name": "Montserrat",
+      "iso_code": "MS",
+      "dial_code": "",
+      "flag_emoji": "🇲🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 155,
+    "fields": {
+      "name": "Martinique",
+      "iso_code": "MQ",
+      "dial_code": "",
+      "flag_emoji": "🇲🇶"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 156,
+    "fields": {
+      "name": "Mauritius",
+      "iso_code": "MU",
+      "dial_code": "",
+      "flag_emoji": "🇲🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 157,
+    "fields": {
+      "name": "Malawi",
+      "iso_code": "MW",
+      "dial_code": "",
+      "flag_emoji": "🇲🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 158,
+    "fields": {
+      "name": "Malaysia",
+      "iso_code": "MY",
+      "dial_code": "",
+      "flag_emoji": "🇲🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 159,
+    "fields": {
+      "name": "Mayotte",
+      "iso_code": "YT",
+      "dial_code": "",
+      "flag_emoji": "🇾🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 160,
+    "fields": {
+      "name": "Namibia",
+      "iso_code": "NA",
+      "dial_code": "",
+      "flag_emoji": "🇳🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 161,
+    "fields": {
+      "name": "New Caledonia",
+      "iso_code": "NC",
+      "dial_code": "",
+      "flag_emoji": "🇳🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 162,
+    "fields": {
+      "name": "Niger",
+      "iso_code": "NE",
+      "dial_code": "",
+      "flag_emoji": "🇳🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 163,
+    "fields": {
+      "name": "Norfolk Island",
+      "iso_code": "NF",
+      "dial_code": "",
+      "flag_emoji": "🇳🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 164,
+    "fields": {
+      "name": "Nigeria",
+      "iso_code": "NG",
+      "dial_code": "",
+      "flag_emoji": "🇳🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 165,
+    "fields": {
+      "name": "Nicaragua",
+      "iso_code": "NI",
+      "dial_code": "",
+      "flag_emoji": "🇳🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 166,
+    "fields": {
+      "name": "Niue",
+      "iso_code": "NU",
+      "dial_code": "",
+      "flag_emoji": "🇳🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 167,
+    "fields": {
+      "name": "Netherlands",
+      "iso_code": "NL",
+      "dial_code": "",
+      "flag_emoji": "🇳🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 168,
+    "fields": {
+      "name": "Norway",
+      "iso_code": "NO",
+      "dial_code": "",
+      "flag_emoji": "🇳🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 169,
+    "fields": {
+      "name": "Nepal",
+      "iso_code": "NP",
+      "dial_code": "",
+      "flag_emoji": "🇳🇵"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 170,
+    "fields": {
+      "name": "Nauru",
+      "iso_code": "NR",
+      "dial_code": "",
+      "flag_emoji": "🇳🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 171,
+    "fields": {
+      "name": "New Zealand",
+      "iso_code": "NZ",
+      "dial_code": "",
+      "flag_emoji": "🇳🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 172,
+    "fields": {
+      "name": "Oman",
+      "iso_code": "OM",
+      "dial_code": "",
+      "flag_emoji": "🇴🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 173,
+    "fields": {
+      "name": "Pakistan",
+      "iso_code": "PK",
+      "dial_code": "",
+      "flag_emoji": "🇵🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 174,
+    "fields": {
+      "name": "Panama",
+      "iso_code": "PA",
+      "dial_code": "",
+      "flag_emoji": "🇵🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 175,
+    "fields": {
+      "name": "Pitcairn",
+      "iso_code": "PN",
+      "dial_code": "",
+      "flag_emoji": "🇵🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 176,
+    "fields": {
+      "name": "Peru",
+      "iso_code": "PE",
+      "dial_code": "",
+      "flag_emoji": "🇵🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 177,
+    "fields": {
+      "name": "Philippines",
+      "iso_code": "PH",
+      "dial_code": "",
+      "flag_emoji": "🇵🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 178,
+    "fields": {
+      "name": "Palau",
+      "iso_code": "PW",
+      "dial_code": "",
+      "flag_emoji": "🇵🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 179,
+    "fields": {
+      "name": "Papua New Guinea",
+      "iso_code": "PG",
+      "dial_code": "",
+      "flag_emoji": "🇵🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 180,
+    "fields": {
+      "name": "Poland",
+      "iso_code": "PL",
+      "dial_code": "",
+      "flag_emoji": "🇵🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 181,
+    "fields": {
+      "name": "Puerto Rico",
+      "iso_code": "PR",
+      "dial_code": "",
+      "flag_emoji": "🇵🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 182,
+    "fields": {
+      "name": "Korea, Democratic People's Republic of",
+      "iso_code": "KP",
+      "dial_code": "",
+      "flag_emoji": "🇰🇵"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 183,
+    "fields": {
+      "name": "Portugal",
+      "iso_code": "PT",
+      "dial_code": "",
+      "flag_emoji": "🇵🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 184,
+    "fields": {
+      "name": "Paraguay",
+      "iso_code": "PY",
+      "dial_code": "",
+      "flag_emoji": "🇵🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 185,
+    "fields": {
+      "name": "Palestine, State of",
+      "iso_code": "PS",
+      "dial_code": "",
+      "flag_emoji": "🇵🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 186,
+    "fields": {
+      "name": "French Polynesia",
+      "iso_code": "PF",
+      "dial_code": "",
+      "flag_emoji": "🇵🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 187,
+    "fields": {
+      "name": "Qatar",
+      "iso_code": "QA",
+      "dial_code": "",
+      "flag_emoji": "🇶🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 188,
+    "fields": {
+      "name": "Réunion",
+      "iso_code": "RE",
+      "dial_code": "",
+      "flag_emoji": "🇷🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 189,
+    "fields": {
+      "name": "Romania",
+      "iso_code": "RO",
+      "dial_code": "",
+      "flag_emoji": "🇷🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 190,
+    "fields": {
+      "name": "Russian Federation",
+      "iso_code": "RU",
+      "dial_code": "",
+      "flag_emoji": "🇷🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 191,
+    "fields": {
+      "name": "Rwanda",
+      "iso_code": "RW",
+      "dial_code": "",
+      "flag_emoji": "🇷🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 192,
+    "fields": {
+      "name": "Saudi Arabia",
+      "iso_code": "SA",
+      "dial_code": "",
+      "flag_emoji": "🇸🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 193,
+    "fields": {
+      "name": "Sudan",
+      "iso_code": "SD",
+      "dial_code": "",
+      "flag_emoji": "🇸🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 194,
+    "fields": {
+      "name": "Senegal",
+      "iso_code": "SN",
+      "dial_code": "",
+      "flag_emoji": "🇸🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 195,
+    "fields": {
+      "name": "Singapore",
+      "iso_code": "SG",
+      "dial_code": "",
+      "flag_emoji": "🇸🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 196,
+    "fields": {
+      "name": "South Georgia and the South Sandwich Islands",
+      "iso_code": "GS",
+      "dial_code": "",
+      "flag_emoji": "🇬🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 197,
+    "fields": {
+      "name": "Saint Helena, Ascension and Tristan da Cunha",
+      "iso_code": "SH",
+      "dial_code": "",
+      "flag_emoji": "🇸🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 198,
+    "fields": {
+      "name": "Svalbard and Jan Mayen",
+      "iso_code": "SJ",
+      "dial_code": "",
+      "flag_emoji": "🇸🇯"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 199,
+    "fields": {
+      "name": "Solomon Islands",
+      "iso_code": "SB",
+      "dial_code": "",
+      "flag_emoji": "🇸🇧"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 200,
+    "fields": {
+      "name": "Sierra Leone",
+      "iso_code": "SL",
+      "dial_code": "",
+      "flag_emoji": "🇸🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 201,
+    "fields": {
+      "name": "El Salvador",
+      "iso_code": "SV",
+      "dial_code": "",
+      "flag_emoji": "🇸🇻"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 202,
+    "fields": {
+      "name": "San Marino",
+      "iso_code": "SM",
+      "dial_code": "",
+      "flag_emoji": "🇸🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 203,
+    "fields": {
+      "name": "Somalia",
+      "iso_code": "SO",
+      "dial_code": "",
+      "flag_emoji": "🇸🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 204,
+    "fields": {
+      "name": "Saint Pierre and Miquelon",
+      "iso_code": "PM",
+      "dial_code": "",
+      "flag_emoji": "🇵🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 205,
+    "fields": {
+      "name": "Serbia",
+      "iso_code": "RS",
+      "dial_code": "",
+      "flag_emoji": "🇷🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 206,
+    "fields": {
+      "name": "South Sudan",
+      "iso_code": "SS",
+      "dial_code": "",
+      "flag_emoji": "🇸🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 207,
+    "fields": {
+      "name": "Sao Tome and Principe",
+      "iso_code": "ST",
+      "dial_code": "",
+      "flag_emoji": "🇸🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 208,
+    "fields": {
+      "name": "Suriname",
+      "iso_code": "SR",
+      "dial_code": "",
+      "flag_emoji": "🇸🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 209,
+    "fields": {
+      "name": "Slovakia",
+      "iso_code": "SK",
+      "dial_code": "",
+      "flag_emoji": "🇸🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 210,
+    "fields": {
+      "name": "Slovenia",
+      "iso_code": "SI",
+      "dial_code": "",
+      "flag_emoji": "🇸🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 211,
+    "fields": {
+      "name": "Sweden",
+      "iso_code": "SE",
+      "dial_code": "",
+      "flag_emoji": "🇸🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 212,
+    "fields": {
+      "name": "Eswatini",
+      "iso_code": "SZ",
+      "dial_code": "",
+      "flag_emoji": "🇸🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 213,
+    "fields": {
+      "name": "Sint Maarten (Dutch part)",
+      "iso_code": "SX",
+      "dial_code": "",
+      "flag_emoji": "🇸🇽"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 214,
+    "fields": {
+      "name": "Seychelles",
+      "iso_code": "SC",
+      "dial_code": "",
+      "flag_emoji": "🇸🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 215,
+    "fields": {
+      "name": "Syrian Arab Republic",
+      "iso_code": "SY",
+      "dial_code": "",
+      "flag_emoji": "🇸🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 216,
+    "fields": {
+      "name": "Turks and Caicos Islands",
+      "iso_code": "TC",
+      "dial_code": "",
+      "flag_emoji": "🇹🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 217,
+    "fields": {
+      "name": "Chad",
+      "iso_code": "TD",
+      "dial_code": "",
+      "flag_emoji": "🇹🇩"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 218,
+    "fields": {
+      "name": "Togo",
+      "iso_code": "TG",
+      "dial_code": "",
+      "flag_emoji": "🇹🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 219,
+    "fields": {
+      "name": "Thailand",
+      "iso_code": "TH",
+      "dial_code": "",
+      "flag_emoji": "🇹🇭"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 220,
+    "fields": {
+      "name": "Tajikistan",
+      "iso_code": "TJ",
+      "dial_code": "",
+      "flag_emoji": "🇹🇯"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 221,
+    "fields": {
+      "name": "Tokelau",
+      "iso_code": "TK",
+      "dial_code": "",
+      "flag_emoji": "🇹🇰"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 222,
+    "fields": {
+      "name": "Turkmenistan",
+      "iso_code": "TM",
+      "dial_code": "",
+      "flag_emoji": "🇹🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 223,
+    "fields": {
+      "name": "Timor-Leste",
+      "iso_code": "TL",
+      "dial_code": "",
+      "flag_emoji": "🇹🇱"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 224,
+    "fields": {
+      "name": "Tonga",
+      "iso_code": "TO",
+      "dial_code": "",
+      "flag_emoji": "🇹🇴"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 225,
+    "fields": {
+      "name": "Trinidad and Tobago",
+      "iso_code": "TT",
+      "dial_code": "",
+      "flag_emoji": "🇹🇹"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 226,
+    "fields": {
+      "name": "Tunisia",
+      "iso_code": "TN",
+      "dial_code": "",
+      "flag_emoji": "🇹🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 227,
+    "fields": {
+      "name": "Turkey",
+      "iso_code": "TR",
+      "dial_code": "",
+      "flag_emoji": "🇹🇷"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 228,
+    "fields": {
+      "name": "Tuvalu",
+      "iso_code": "TV",
+      "dial_code": "",
+      "flag_emoji": "🇹🇻"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 229,
+    "fields": {
+      "name": "Taiwan, Province of China",
+      "iso_code": "TW",
+      "dial_code": "",
+      "flag_emoji": "🇹🇼"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 230,
+    "fields": {
+      "name": "Tanzania, United Republic of",
+      "iso_code": "TZ",
+      "dial_code": "",
+      "flag_emoji": "🇹🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 231,
+    "fields": {
+      "name": "Uganda",
+      "iso_code": "UG",
+      "dial_code": "",
+      "flag_emoji": "🇺🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 232,
+    "fields": {
+      "name": "Ukraine",
+      "iso_code": "UA",
+      "dial_code": "",
+      "flag_emoji": "🇺🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 233,
+    "fields": {
+      "name": "United States Minor Outlying Islands",
+      "iso_code": "UM",
+      "dial_code": "",
+      "flag_emoji": "🇺🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 234,
+    "fields": {
+      "name": "Uruguay",
+      "iso_code": "UY",
+      "dial_code": "",
+      "flag_emoji": "🇺🇾"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 235,
+    "fields": {
+      "name": "United States",
+      "iso_code": "US",
+      "dial_code": "",
+      "flag_emoji": "🇺🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 236,
+    "fields": {
+      "name": "Uzbekistan",
+      "iso_code": "UZ",
+      "dial_code": "",
+      "flag_emoji": "🇺🇿"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 237,
+    "fields": {
+      "name": "Holy See (Vatican City State)",
+      "iso_code": "VA",
+      "dial_code": "",
+      "flag_emoji": "🇻🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 238,
+    "fields": {
+      "name": "Saint Vincent and the Grenadines",
+      "iso_code": "VC",
+      "dial_code": "",
+      "flag_emoji": "🇻🇨"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 239,
+    "fields": {
+      "name": "Venezuela, Bolivarian Republic of",
+      "iso_code": "VE",
+      "dial_code": "",
+      "flag_emoji": "🇻🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 240,
+    "fields": {
+      "name": "Virgin Islands, British",
+      "iso_code": "VG",
+      "dial_code": "",
+      "flag_emoji": "🇻🇬"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 241,
+    "fields": {
+      "name": "Virgin Islands, U.S.",
+      "iso_code": "VI",
+      "dial_code": "",
+      "flag_emoji": "🇻🇮"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 242,
+    "fields": {
+      "name": "Viet Nam",
+      "iso_code": "VN",
+      "dial_code": "",
+      "flag_emoji": "🇻🇳"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 243,
+    "fields": {
+      "name": "Vanuatu",
+      "iso_code": "VU",
+      "dial_code": "",
+      "flag_emoji": "🇻🇺"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 244,
+    "fields": {
+      "name": "Wallis and Futuna",
+      "iso_code": "WF",
+      "dial_code": "",
+      "flag_emoji": "🇼🇫"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 245,
+    "fields": {
+      "name": "Samoa",
+      "iso_code": "WS",
+      "dial_code": "",
+      "flag_emoji": "🇼🇸"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 246,
+    "fields": {
+      "name": "Yemen",
+      "iso_code": "YE",
+      "dial_code": "",
+      "flag_emoji": "🇾🇪"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 247,
+    "fields": {
+      "name": "South Africa",
+      "iso_code": "ZA",
+      "dial_code": "",
+      "flag_emoji": "🇿🇦"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 248,
+    "fields": {
+      "name": "Zambia",
+      "iso_code": "ZM",
+      "dial_code": "",
+      "flag_emoji": "🇿🇲"
+    }
+  },
+  {
+    "model": "master.country",
+    "pk": 249,
+    "fields": {
+      "name": "Zimbabwe",
+      "iso_code": "ZW",
+      "dial_code": "",
+      "flag_emoji": "🇿🇼"
+    }
+  }
+]

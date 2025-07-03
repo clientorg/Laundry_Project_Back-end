@@ -1,7 +1,9 @@
 from django.urls import path
 
-# master view imports
+# laundry view imports
 from .views import (
+    # master views
+    CountryMasterView,
     # cloth type views
     ClothTypeListCreateView,
     ClothTypeClothOnlyView,
@@ -32,6 +34,12 @@ from .views import (
 
 # urls.py
 urlpatterns = [
+    # master urls
+    path(
+        "countries/",
+        CountryMasterView.as_view(),
+        name="countries-list",
+    ),
     # cloth type urls
     path(
         "cloth-types/", ClothTypeListCreateView.as_view(), name="cloth-type-list-create"

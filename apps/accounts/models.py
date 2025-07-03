@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser, Group, Permission
+
+# laundry model imports
 from apps.organizations.models import Organization
 
 

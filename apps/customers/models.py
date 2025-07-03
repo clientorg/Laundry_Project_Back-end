@@ -1,26 +1,132 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+# Laundry Models
+from apps.master.models import Country
+from apps.organizations.models import Organization
+
 # Create your models here.
 User = get_user_model()
 
 
-class Customer(models.Model):
-    customer_id = models.CharField(max_length=20, unique=True, blank=True)
-    status = models.CharField(max_length=50)
-    data = models.JSONField(default=dict)
+class CustomerCategory(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    description = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_global = models.BooleanField(default=False)
+    discount_percent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0,
+        help_text="Discount percentage applied to customers in this category (e.g., 10.00 for 10%)",
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="customer_categories",
+        help_text="The main organization this customer category belongs to. Optional if shared across branches.",
+    )
+    branches = models.ManyToManyField(
+        Organization,
+        blank=True,
+        related_name="branch_customer_categories",
+        help_text="Branches where this customer category is available.",
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="customer_categories_created",
+        on_delete=models.SET_NULL,
+    )
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="customer_categories_updated",
+        on_delete=models.SET_NULL,
+    )
+
+    class Meta:
+        verbose_name = "Customer Category"
+        verbose_name_plural = "Customer Categories"
+
+    def __str__(self):
+        return f"{self.name} ({self.discount_percent}%)"
+
+
+class Customer(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
+    address = models.TextField(blank=True, null=True)
+    country_code = models.CharField(max_length=255, null=True, blank=True)
+    mobile_number = models.CharField(max_length=15, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    customer_id = models.CharField(
+        max_length=20,
+        unique=True,
+        blank=True,
+    )
+    credit_limit = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0.00,
+        help_text="Maximum credit allowed for this customer.",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    category = models.ForeignKey(
+        CustomerCategory,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="customers",
+        help_text="The category of the customer, e.g., Family, Friends, Employee",
+    )
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="main_customers",
+        help_text="The main organization this customer belongs to. Optional if shared across branches.",
+    )
+    branches = models.ManyToManyField(
+        Organization,
+        blank=True,
+        related_name="branch_customers",
+        help_text="Branches where this customer is available.",
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="customers_created",
+        on_delete=models.SET_NULL,
+    )
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="customers_updated",
+        on_delete=models.SET_NULL,
+    )
 
     def save(self, *args, **kwargs):
         if not self.customer_id:
             last_customer = Customer.objects.order_by("-id").first()
             next_id = 1 if not last_customer else last_customer.id + 1
-            self.customer_id = f"CUS{next_id:04d}"
+            self.customer_id = f"LCS{next_id:04d}"
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Customer #{self.id} by {self.user}"
+        return f"Customer #{self.id} by {self.created_by}"
