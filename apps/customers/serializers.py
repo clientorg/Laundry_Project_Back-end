@@ -73,6 +73,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
+    category_name = serializers.SerializerMethodField()
     category_discount = serializers.SerializerMethodField()
 
     class Meta:
@@ -98,15 +99,19 @@ class CustomerSerializer(serializers.ModelSerializer):
     def get_organization_name(self, obj):
         return obj.organization.name if obj.organization else None
 
+    @extend_schema_field(serializers.CharField())
+    def get_category_name(self, obj):
+        return obj.category.name if obj.category else None
+
+    @extend_schema_field(serializers.DecimalField(max_digits=5, decimal_places=2))
+    def get_category_discount(self, obj):
+        return obj.category.discount_percent if obj.category else None
+
     @extend_schema_field(
         serializers.ListSerializer(child=serializers.CharField()),
     )
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
-
-    @extend_schema_field(serializers.DecimalField(max_digits=5, decimal_places=2))
-    def get_category_discount(self, obj):
-        return obj.category.discount_percent if obj.category else None
 
     def validate(self, data):
         organization = data.get(
