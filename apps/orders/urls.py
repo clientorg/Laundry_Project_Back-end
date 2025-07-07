@@ -1,14 +1,34 @@
 from django.urls import path
 from .views import (
+    # order views
     OrderListCreateView,
-    OrderDeleteView,
-    OrderByUserView,
-    OrderUpdateView,
+    OrderRetrieveUpdateDestroyView,
+    # order item views
+    OrderItemListCreateView,
+    OrderItemRetrieveUpdateDestroyView,
 )
 
 urlpatterns = [
-    path("", OrderListCreateView.as_view(), name="order-list-create"),
-    path("<int:pk>/", OrderDeleteView.as_view(), name="order-delete"),
-    path("user/<int:user_id>/", OrderByUserView.as_view(), name="orders-by-user"),
-    path("<int:pk>/edit/", OrderUpdateView.as_view(), name="order-update"),
+    # order URLs
+    path(
+        "orders/",
+        OrderListCreateView.as_view(),
+        name="order-list-create",
+    ),
+    path(
+        "orders/<int:pk>/",
+        OrderRetrieveUpdateDestroyView.as_view(),
+        name="order-detail",
+    ),
+    # order item URLs
+    path(
+        "order-items/",
+        OrderItemListCreateView.as_view(),
+        name="orderitem-list-create",
+    ),
+    path(
+        "order-items/<int:pk>/",
+        OrderItemRetrieveUpdateDestroyView.as_view(),
+        name="orderitem-detail",
+    ),
 ]
