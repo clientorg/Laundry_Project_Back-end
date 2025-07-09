@@ -123,10 +123,10 @@ class OrderItem(models.Model):
         default=0,
     )
 
-    service_name = models.CharField(max_length=100)
+    service_name = models.CharField(max_length=100, blank=True, null=True)
     service_price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
-    handling_name = models.CharField(max_length=100)
+    handling_name = models.CharField(max_length=100, blank=True, null=True)
     handling_price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
     delivery_name = models.CharField(max_length=100)
