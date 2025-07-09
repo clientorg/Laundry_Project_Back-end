@@ -59,6 +59,8 @@ class OrderItemInlineSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     customer_name = serializers.SerializerMethodField()
+    customer_mobile_number = serializers.SerializerMethodField()
+    customer_country_code = serializers.SerializerMethodField()
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -79,6 +81,14 @@ class OrderSerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_customer_name(self, obj):
         return obj.customer.name if obj.customer else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_customer_mobile_number(self, obj):
+        return obj.customer.mobile_number if obj.customer else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_customer_country_code(self, obj):
+        return obj.customer.country_code if obj.customer else None
 
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
