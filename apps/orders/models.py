@@ -136,7 +136,7 @@ class OrderItem(models.Model):
         default=0,
     )
 
-    customer_category_name = models.CharField(max_length=50, unique=True)
+    customer_category_name = models.CharField(max_length=50)
     customer_category_discount_percent = models.DecimalField(
         max_digits=5,
         decimal_places=2,
