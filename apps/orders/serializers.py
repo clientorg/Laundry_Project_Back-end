@@ -33,6 +33,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderItemInlineSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
 
@@ -108,6 +109,44 @@ class OrderSerializer(serializers.ModelSerializer):
                 order=order, created_by=user, updated_by=user, **item_data
             )
         return order
+
+    def update(self, instance, validated_data):
+        items_data = validated_data.pop("items", None)
+        user = self.context["request"].user
+
+        # Update order fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.updated_by = user
+        instance.save()
+
+        if items_data is not None:
+            existing_items = {item.id: item for item in instance.items.all()}
+            updated_item_ids = []
+
+            for item_data in items_data:
+                item_id = item_data.get("id", None)
+                item_data["updated_by"] = user
+
+                if item_id and item_id in existing_items:
+                    # Update existing item
+                    item = existing_items[item_id]
+                    for attr, value in item_data.items():
+                        setattr(item, attr, value)
+                    item.save()
+                    updated_item_ids.append(item_id)
+                else:
+                    # Create new item
+                    OrderItem.objects.create(
+                        order=instance, created_by=user, updated_by=user, **item_data
+                    )
+
+            # Optionally: Delete removed items (not present in payload)
+            for item_id, item in existing_items.items():
+                if item_id not in updated_item_ids:
+                    item.delete()
+
+        return instance
 
     def validate(self, data):
         organization = data.get(
