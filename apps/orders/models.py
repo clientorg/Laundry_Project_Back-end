@@ -59,18 +59,6 @@ class Order(models.Model):
         default=0.000,
     )
 
-    inward_date = models.DateField(
-        blank=True,
-        null=True,
-        auto_now_add=True,
-        help_text="Date when the order was received.",
-    )
-    delivery_date = models.DateField(
-        blank=True,
-        null=True,
-        help_text="Planned delivery date.",
-    )
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -125,9 +113,10 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    remarks = models.TextField(blank=True, null=True)
+
     cloth_name = models.CharField(max_length=100)
     cloth_arabic_name = models.CharField(max_length=100, blank=True, null=True)
-    cloth_description = models.TextField(blank=True, null=True)
     cloth_price = price = models.DecimalField(
         max_digits=10,
         decimal_places=3,
@@ -135,23 +124,15 @@ class OrderItem(models.Model):
     )
 
     service_name = models.CharField(max_length=100)
-    service_description = models.TextField(blank=True, null=True)
     service_price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
     handling_name = models.CharField(max_length=100)
-    handling_description = models.TextField(blank=True, null=True)
     handling_price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
     delivery_name = models.CharField(max_length=100)
-    delivery_description = models.TextField(blank=True, null=True)
     delivery_charge_percent = models.DecimalField(
         max_digits=5,
         decimal_places=2,
-        default=0,
-    )
-    delivery_charge_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=3,
         default=0,
     )
 
@@ -208,22 +189,24 @@ class OrderItem(models.Model):
         decimal_places=3,
         default=0.000,
     )
-    vat_percent = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        default=0.00,
-    )
-    vat_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=3,
-        default=0.000,
-    )
 
     total = models.DecimalField(
         max_digits=12,
         decimal_places=3,
         blank=True,
         default=0.000,
+    )
+
+    inward_date = models.DateField(
+        blank=True,
+        null=True,
+        auto_now_add=True,
+        help_text="Date when the order was received.",
+    )
+    delivery_date = models.DateField(
+        blank=True,
+        null=True,
+        help_text="Planned delivery date.",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
