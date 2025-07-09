@@ -32,6 +32,30 @@ class OrderItemSerializer(serializers.ModelSerializer):
         return obj.updated_by.username if obj.updated_by else None
 
 
+class OrderItemInlineSerializer(serializers.ModelSerializer):
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = OrderItem
+        fields = "__all__"
+        read_only_fields = (
+            "order",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        )
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+
 class OrderSerializer(serializers.ModelSerializer):
     customer_name = serializers.SerializerMethodField()
     created_by_name = serializers.SerializerMethodField()
@@ -39,7 +63,7 @@ class OrderSerializer(serializers.ModelSerializer):
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
 
-    items = OrderItemSerializer(many=True, write_only=True)
+    items = OrderItemInlineSerializer(many=True, write_only=True)
 
     class Meta:
         model = Order
@@ -75,6 +99,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         items_data = validated_data.pop("items", [])
+        validated_data.pop("created_by", None)
+        validated_data.pop("updated_by", None)
         user = self.context["request"].user
         order = Order.objects.create(created_by=user, updated_by=user, **validated_data)
         for item_data in items_data:
