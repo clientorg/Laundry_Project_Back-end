@@ -5,14 +5,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # laundry model imports
-from .models import Country, ClothType, ServiceType, HandlingType, DeliveryType
+from .models import Country, Item, ClothType, ServiceType, HandlingType, DeliveryType
 
 # laundry serializer imports
 from .serializers import (
     CountrySerializer,
+    ItemSerializer,
     ClothTypeSerializer,
     ServiceTypeSerializer,
     HandlingTypeSerializer,
@@ -42,6 +44,34 @@ class CountryMasterView(APIView):
         queryset = Country.objects.all().order_by("name")
         serializer = CountrySerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+# item views
+@extend_schema(tags=["Items"])
+class ItemListCreateView(generics.ListCreateAPIView):
+    queryset = Item.objects.all().order_by("name")
+    serializer_class = ItemSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def perform_create(self, serializer):
+        serializer.save(
+            created_by=self.request.user,
+            updated_by=self.request.user,
+        )
+
+
+@extend_schema(tags=["Items"])
+class ItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
 
 
 # cloth type views

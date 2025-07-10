@@ -28,6 +28,92 @@ class Country(models.Model):
         return f"{self.flag_emoji} {self.name} ({self.dial_code})"
 
 
+class Item(models.Model):
+    # table fields
+    name = models.CharField(max_length=100)
+    secondary_name = models.CharField(blank=True, null=True, max_length=100)
+    description = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_global = models.BooleanField(default=False)
+    is_pinned = models.BooleanField(default=False)
+    is_size_based_price = models.BooleanField(default=False)
+
+    is_laundry = models.BooleanField(default=False)
+    laundry_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        default=0.000,
+    )
+    is_pressing = models.BooleanField(default=False)
+    pressing_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        default=0.000,
+    )
+    is_dry_clean = models.BooleanField(default=False)
+    dry_clean_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        default=0.000,
+    )
+    is_steam = models.BooleanField(default=False)
+    steam_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        default=0.000,
+    )
+
+    image = models.ImageField(
+        upload_to="item_images/",
+        null=True,
+        blank=True,
+        help_text="Upload an image of the item",
+    )
+
+    # table non-editable fields
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # relations
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="main_items",
+        help_text="The main organization this item belongs to. Optional if shared across branches.",
+    )
+    branches = models.ManyToManyField(
+        Organization,
+        blank=True,
+        related_name="branch_items",
+        help_text="Branches where this item is available.",
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="item_created",
+        on_delete=models.SET_NULL,
+    )
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="item_updated",
+        on_delete=models.SET_NULL,
+    )
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Item"
+        verbose_name_plural = "Items"
+
+    def __str__(self):
+        return self.name
+
+
 class ClothType(models.Model):
     # table fields
     name = models.CharField(max_length=100)

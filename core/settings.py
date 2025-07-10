@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -174,3 +175,7 @@ SPECTACULAR_SETTINGS = {
     },
     "DEFAULT_SECURITY": [{"BearerAuth": []}],
 }
+
+# Media files (uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

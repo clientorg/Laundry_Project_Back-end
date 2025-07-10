@@ -4,6 +4,9 @@ from django.urls import path
 from .views import (
     # master views
     CountryMasterView,
+    # item views
+    ItemListCreateView,
+    ItemRetrieveUpdateDestroyView,
     # cloth type views
     ClothTypeListCreateView,
     ClothTypeClothOnlyView,
@@ -39,6 +42,11 @@ urlpatterns = [
         "countries/",
         CountryMasterView.as_view(),
         name="countries-list",
+    ),
+    # item urls
+    path("items/", ItemListCreateView.as_view(), name="item-list-create"),
+    path(
+        "items/<int:pk>/", ItemRetrieveUpdateDestroyView.as_view(), name="item-detail"
     ),
     # cloth type urls
     path(
