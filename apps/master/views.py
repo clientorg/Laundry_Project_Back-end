@@ -74,6 +74,76 @@ class ItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         serializer.save(updated_by=self.request.user)
 
 
+@extend_schema(tags=["Items"])
+class ItemClothOnlyView(APIView):
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = Item.objects.filter(is_size_based_price=False)
+        serializer = ItemSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Items"])
+class ItemClothOnlyPinnedView(APIView):
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = Item.objects.filter(is_pinned=True, is_size_based_price=False)
+        serializer = ItemSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Items"])
+class ItemClothOnlyStartsWithView(APIView):
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, letter, format=None):
+        queryset = Item.objects.filter(
+            name__istartswith=letter, is_size_based_price=False
+        )
+        serializer = ItemSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Items"])
+class ItemCarpetOnlyView(APIView):
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = Item.objects.filter(is_size_based_price=True)
+        serializer = ItemSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Items"])
+class ItemCarpetOnlyPinnedView(APIView):
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        queryset = Item.objects.filter(is_pinned=True, is_size_based_price=True)
+        serializer = ItemSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Items"])
+class ItemCarpetOnlyStartsWithView(APIView):
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, letter, format=None):
+        queryset = Item.objects.filter(
+            name__istartswith=letter, is_size_based_price=True
+        )
+        serializer = ItemSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
 # cloth type views
 @extend_schema(tags=["Cloth Types"])
 class ClothTypeListCreateView(generics.ListCreateAPIView):

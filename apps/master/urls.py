@@ -7,6 +7,12 @@ from .views import (
     # item views
     ItemListCreateView,
     ItemRetrieveUpdateDestroyView,
+    ItemClothOnlyView,
+    ItemClothOnlyPinnedView,
+    ItemClothOnlyStartsWithView,
+    ItemCarpetOnlyView,
+    ItemCarpetOnlyPinnedView,
+    ItemCarpetOnlyStartsWithView,
     # cloth type views
     ClothTypeListCreateView,
     ClothTypeClothOnlyView,
@@ -47,6 +53,36 @@ urlpatterns = [
     path("items/", ItemListCreateView.as_view(), name="item-list-create"),
     path(
         "items/<int:pk>/", ItemRetrieveUpdateDestroyView.as_view(), name="item-detail"
+    ),
+    path(
+        "items/cloth-only/",
+        ItemClothOnlyView.as_view(),
+        name="item-cloth-only",
+    ),
+    path(
+        "items/cloth-only/pinned/",
+        ItemClothOnlyPinnedView.as_view(),
+        name="item-cloth-only-pinned",
+    ),
+    path(
+        "items/cloth-only/starts-with/<str:letter>/",
+        ItemClothOnlyStartsWithView.as_view(),
+        name="item-cloth-only-starts-with",
+    ),
+    path(
+        "item/carpet-only/",
+        ItemCarpetOnlyView.as_view(),
+        name="item-carpet-only",
+    ),
+    path(
+        "item/carpet-only/pinned/",
+        ItemCarpetOnlyPinnedView.as_view(),
+        name="item-carpet-only-pinned",
+    ),
+    path(
+        "item/carpet-only/starts-with/<str:letter>/",
+        ItemCarpetOnlyStartsWithView.as_view(),
+        name="item-carpet-only-starts-with",
     ),
     # cloth type urls
     path(
