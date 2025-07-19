@@ -1,7 +1,8 @@
 from django.contrib import admin
+from django.db.models import Sum, Q
 
 # laundry model imports
-from .models import Order, OrderItem
+from .models import Order, OrderItem, OrderPayment
 from apps.organizations.models import Organization
 
 
@@ -77,18 +78,86 @@ class OrderItemAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(OrderPayment)
+class OrderPaymentAdmin(admin.ModelAdmin):
+    list_display = (
+        "order",
+        "payment_type",
+        "received_amount",
+        "change_return",
+        "apply_rounding",
+        "rounding_amount",
+        "created_by",
+        "updated_by",
+        "created_at",
+        "updated_at",
+    )
+    search_fields = (
+        "order__order_id",
+        "payment_type",
+        "created_by__username",
+        "updated_by__username",
+    )
+    list_filter = ("payment_type", "apply_rounding")
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "created_by",
+        "updated_by",
+    )
+
+    fieldsets = (
+        (
+            "",
+            {
+                "fields": (
+                    "order",
+                    "payment_type",
+                    "received_amount",
+                    "change_return",
+                    "apply_rounding",
+                    "rounding_amount",
+                    "note",
+                )
+            },
+        ),
+        (
+            "Feedback",
+            {
+                "fields": (
+                    "rating",
+                    "rating_link",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Metadata",
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                    "created_by",
+                    "updated_by",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         "order_id",
         "customer",
-        "status",
-        "price",
-        "discount_price",
-        "vat_price",
         "total",
-        "created_by",
+        "amount_paid",
+        "remaining_amount",
+        "is_paid",
+        "status",
         "created_at",
+        "updated_at",
     )
     list_filter = ("status", "created_at")
     search_fields = ("order_id", "customer__name", "status")
@@ -145,6 +214,28 @@ class OrderAdmin(admin.ModelAdmin):
     # custom fields
     def branches_count(self, obj):
         return obj.branches.count()
+
+    def amount_paid(self, obj):
+        return (
+            obj.payments.exclude(payment_type="credit").aggregate(
+                total=Sum("received_amount")
+            )["total"]
+            or 0
+        )
+
+    amount_paid.short_description = "Amount Paid"
+
+    def remaining_amount(self, obj):
+        paid = self.amount_paid(obj)
+        return max(obj.total - paid, 0)
+
+    remaining_amount.short_description = "Remaining Amount"
+
+    def is_paid(self, obj):
+        return self.remaining_amount(obj) <= 0
+
+    is_paid.boolean = True  # Show a tick/cross icon in admin
+    is_paid.short_description = "Paid?"
 
     # relation config
     def formfield_for_foreignkey(self, db_field, request, **kwargs):

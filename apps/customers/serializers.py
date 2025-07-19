@@ -75,6 +75,8 @@ class CustomerSerializer(serializers.ModelSerializer):
     branch_names = serializers.SerializerMethodField()
     category_name = serializers.SerializerMethodField()
     category_discount = serializers.SerializerMethodField()
+    credit_used = serializers.SerializerMethodField()
+    credit_remaining = serializers.SerializerMethodField()
 
     class Meta:
         model = Customer
@@ -106,6 +108,14 @@ class CustomerSerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.DecimalField(max_digits=5, decimal_places=2))
     def get_category_discount(self, obj):
         return obj.category.discount_percent if obj.category else None
+
+    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=2))
+    def get_credit_used(self, obj):
+        return obj.credit_used()
+
+    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=2))
+    def get_credit_remaining(self, obj):
+        return obj.credit_remaining()
 
     @extend_schema_field(
         serializers.ListSerializer(child=serializers.CharField()),

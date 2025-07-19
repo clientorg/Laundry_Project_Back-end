@@ -239,3 +239,69 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.cloth_name} x {self.quantity} (Order #{self.order.order_id})"
+
+
+class OrderPayment(models.Model):
+    PAYMENT_TYPES = [
+        ("cash", "Cash"),
+        ("card", "Card"),
+        ("upi", "UPI"),
+        ("wallet", "Wallet"),
+        ("credit", "Credit"),
+        ("other", "Other"),
+    ]
+
+    note = models.TextField(blank=True, null=True)
+    apply_rounding = models.BooleanField(default=False)
+    rating = models.CharField(max_length=10, blank=True, null=True)
+    rating_link = models.BooleanField(
+        default=False,
+    )
+    rounding_amount = models.DecimalField(
+        max_digits=10, decimal_places=3, default=0.000
+    )
+    received_amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=3,
+        default=0.000,
+        help_text="Amount received in this payment",
+    )
+    change_return = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        default=0.000,
+        help_text="Change returned to the customer",
+    )
+    payment_type = models.CharField(
+        max_length=20,
+        choices=PAYMENT_TYPES,
+        help_text="Payment method (cash, card, credit, etc.)",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    order = models.ForeignKey(
+        Order,
+        related_name="payments",
+        on_delete=models.CASCADE,
+        help_text="The order this payment belongs to.",
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="payment_created",
+        on_delete=models.SET_NULL,
+    )
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="payment_updated",
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return f"{self.payment_type.title()} payment of {self.received_amount} for Order #{self.order.order_id}"

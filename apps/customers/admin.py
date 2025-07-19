@@ -27,6 +27,8 @@ class CustomerAdmin(admin.ModelAdmin):
         "email",
         "mobile_no",
         "credit_limit",
+        "credit_used",
+        "credit_remaining",
         "category",
         "organization",
         "branches_count",
@@ -84,6 +86,12 @@ class CustomerAdmin(admin.ModelAdmin):
     # custom fields
     def mobile_no(self, obj):
         return f"{obj.country_code} {obj.mobile_number}"
+
+    def credit_used(self, obj):
+        return obj.credit_used()
+
+    def credit_remaining(self, obj):
+        return obj.credit_remaining()
 
     def branches_count(self, obj):
         return obj.branches.count()

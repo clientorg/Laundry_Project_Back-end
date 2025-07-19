@@ -1,4 +1,6 @@
 from django.db import models
+from django.apps import apps
+from django.db.models import Sum
 from django.contrib.auth import get_user_model
 from django.core.validators import EmailValidator
 
@@ -142,6 +144,19 @@ class Customer(models.Model):
         related_name="customers_updated",
         on_delete=models.SET_NULL,
     )
+
+    def credit_used(self):
+        OrderPayment = apps.get_model("orders", "OrderPayment")
+        return (
+            OrderPayment.objects.filter(
+                order__customer=self,
+                payment_type="credit",
+            ).aggregate(total=Sum("received_amount"))["total"]
+            or 0
+        )
+
+    def credit_remaining(self):
+        return (max(self.credit_limit - self.credit_used(), 0),)
 
     def save(self, *args, **kwargs):
         if not self.customer_id:

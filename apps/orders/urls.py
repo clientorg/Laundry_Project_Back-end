@@ -6,6 +6,9 @@ from .views import (
     # order item views
     OrderItemListCreateView,
     OrderItemRetrieveUpdateDestroyView,
+    # order payment views
+    OrderPaymentListCreateView,
+    OrderPaymentRetrieveUpdateDestroyView,
 )
 
 urlpatterns = [
@@ -30,5 +33,16 @@ urlpatterns = [
         "order-items/<int:pk>/",
         OrderItemRetrieveUpdateDestroyView.as_view(),
         name="orderitem-detail",
+    ),
+    # order payment URLs
+    path(
+        "order-payments/",
+        OrderPaymentListCreateView.as_view(),
+        name="order-payment-list-create",
+    ),
+    path(
+        "order-payments/<int:pk>/",
+        OrderPaymentRetrieveUpdateDestroyView.as_view(),
+        name="order-payment-detail",
     ),
 ]

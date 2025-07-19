@@ -1,9 +1,11 @@
+from django.db.models import Sum
+
 # package imports
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
 # laundry model imports
-from .models import Order, OrderItem
+from .models import Order, OrderItem, OrderPayment
 
 # laundry serializer imports
 from apps.customers.serializers import CustomerSerializer
@@ -57,16 +59,68 @@ class OrderItemInlineSerializer(serializers.ModelSerializer):
         return obj.updated_by.username if obj.updated_by else None
 
 
+class OrderPaymentSerializer(serializers.ModelSerializer):
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = OrderPayment
+        fields = "__all__"
+        read_only_fields = (
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        )
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+
+class OrderPaymentInlineSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = OrderPayment
+        fields = "__all__"
+        read_only_fields = (
+            "order",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        )
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+
 class OrderSerializer(serializers.ModelSerializer):
     customer_name = serializers.SerializerMethodField()
     customer_mobile_number = serializers.SerializerMethodField()
     customer_country_code = serializers.SerializerMethodField()
+    is_paid = serializers.SerializerMethodField()
+    amount_paid = serializers.SerializerMethodField()
+    remaining_amount = serializers.SerializerMethodField()
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
 
     items = OrderItemInlineSerializer(many=True, write_only=True)
+    payments = OrderPaymentInlineSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
@@ -89,6 +143,23 @@ class OrderSerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_customer_country_code(self, obj):
         return obj.customer.country_code if obj.customer else None
+
+    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    def get_amount_paid(self, obj):
+        return (
+            obj.payments.exclude(payment_type="credit").aggregate(
+                total=Sum("received_amount")
+            )["total"]
+            or 0
+        )
+
+    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    def get_remaining_amount(self, obj):
+        return max(obj.total - self.get_amount_paid(obj), 0)
+
+    @extend_schema_field(serializers.BooleanField())
+    def get_is_paid(self, obj):
+        return self.get_remaining_amount(obj) <= 0
 
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
@@ -191,6 +262,11 @@ class OrderDetailSerializer(OrderSerializer):
     )
     order_items = OrderItemSerializer(
         source="items",
+        many=True,
+        read_only=True,
+    )
+    order_payments = OrderPaymentSerializer(
+        source="payments",
         many=True,
         read_only=True,
     )
