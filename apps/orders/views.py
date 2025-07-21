@@ -49,6 +49,17 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         serializer.save(updated_by=self.request.user)
 
 
+@extend_schema(tags=["Orders"])
+class OrdersByCustomerView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        customer_id = self.kwargs.get("customer_id")
+        return Order.objects.filter(customer__id=customer_id).order_by("-created_at")
+
+
 # order item views
 @extend_schema(tags=["Order Items"])
 class OrderItemListCreateView(generics.ListCreateAPIView):
@@ -86,3 +97,16 @@ class OrderPaymentRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIVie
     serializer_class = OrderPaymentSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
+
+@extend_schema(tags=["Order Payments"])
+class OrderPaymentsByCustomerView(generics.ListAPIView):
+    serializer_class = OrderPaymentSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        customer_id = self.kwargs.get("customer_id")
+        return OrderPayment.objects.filter(order__customer__id=customer_id).order_by(
+            "-created_at"
+        )

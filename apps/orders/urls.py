@@ -3,12 +3,14 @@ from .views import (
     # order views
     OrderListCreateView,
     OrderRetrieveUpdateDestroyView,
+    OrdersByCustomerView,
     # order item views
     OrderItemListCreateView,
     OrderItemRetrieveUpdateDestroyView,
     # order payment views
     OrderPaymentListCreateView,
     OrderPaymentRetrieveUpdateDestroyView,
+    OrderPaymentsByCustomerView,
 )
 
 urlpatterns = [
@@ -22,6 +24,11 @@ urlpatterns = [
         "orders/<int:pk>/",
         OrderRetrieveUpdateDestroyView.as_view(),
         name="order-detail",
+    ),
+    path(
+        "orders/by-customer/<int:customer_id>/",
+        OrdersByCustomerView.as_view(),
+        name="orders-by-customer",
     ),
     # order item URLs
     path(
@@ -44,5 +51,10 @@ urlpatterns = [
         "order-payments/<int:pk>/",
         OrderPaymentRetrieveUpdateDestroyView.as_view(),
         name="order-payment-detail",
+    ),
+    path(
+        "order-payments/by-customer/<int:customer_id>/",
+        OrderPaymentsByCustomerView.as_view(),
+        name="payments-by-customer",
     ),
 ]

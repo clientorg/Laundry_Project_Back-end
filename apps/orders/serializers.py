@@ -120,7 +120,6 @@ class OrderSerializer(serializers.ModelSerializer):
     branch_names = serializers.SerializerMethodField()
 
     items = OrderItemInlineSerializer(many=True, write_only=True)
-    payments = OrderPaymentInlineSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
