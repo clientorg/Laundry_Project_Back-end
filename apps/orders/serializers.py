@@ -60,6 +60,7 @@ class OrderItemInlineSerializer(serializers.ModelSerializer):
 
 
 class OrderPaymentSerializer(serializers.ModelSerializer):
+    order_id = serializers.SerializerMethodField()
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
 
@@ -74,6 +75,10 @@ class OrderPaymentSerializer(serializers.ModelSerializer):
         )
 
     @extend_schema_field(serializers.CharField())
+    def get_order_id(self, obj):
+        return obj.order.order_id if obj.order else None
+
+    @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
 
@@ -84,6 +89,7 @@ class OrderPaymentSerializer(serializers.ModelSerializer):
 
 class OrderPaymentInlineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    order_id = serializers.SerializerMethodField()
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
 
@@ -97,6 +103,10 @@ class OrderPaymentInlineSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+
+    @extend_schema_field(serializers.CharField())
+    def get_order_id(self, obj):
+        return obj.order.order_id if obj.order else None
 
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
