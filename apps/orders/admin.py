@@ -16,15 +16,12 @@ class OrderItemAdmin(admin.ModelAdmin):
         "price",
         "total",
         "order",
-        "inward_date",
-        "delivery_date",
         "created_by",
         "created_at",
     )
     search_fields = ("cloth_name", "service_name")
     list_filter = ("created_at", "order", "cloth_name", "service_name")
     readonly_fields = (
-        "inward_date",
         "created_at",
         "updated_at",
         "created_by",
@@ -58,7 +55,6 @@ class OrderItemAdmin(admin.ModelAdmin):
                     "quantity",
                     "price",
                     "total",
-                    "delivery_date",
                 )
             },
         ),
@@ -66,7 +62,6 @@ class OrderItemAdmin(admin.ModelAdmin):
             "Meta",
             {
                 "fields": (
-                    "inward_date",
                     "created_at",
                     "updated_at",
                     "created_by",
@@ -156,13 +151,14 @@ class OrderAdmin(admin.ModelAdmin):
         "remaining_amount",
         "is_paid",
         "status",
-        "created_at",
-        "updated_at",
+        "inward_date",
+        "delivery_date",
     )
     list_filter = ("status", "created_at")
     search_fields = ("order_id", "customer__name", "status")
     readonly_fields = (
         "order_id",
+        "inward_date",
         "created_at",
         "updated_at",
         "created_by",
@@ -180,6 +176,7 @@ class OrderAdmin(admin.ModelAdmin):
                     "customer",
                     "organization",
                     "branches",
+                    "delivery_date",
                 )
             },
         ),
@@ -202,6 +199,7 @@ class OrderAdmin(admin.ModelAdmin):
             "Meta",
             {
                 "fields": (
+                    "inward_date",
                     "created_by",
                     "updated_by",
                     "created_at",

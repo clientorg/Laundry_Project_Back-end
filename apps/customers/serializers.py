@@ -109,11 +109,11 @@ class CustomerSerializer(serializers.ModelSerializer):
     def get_category_discount(self, obj):
         return obj.category.discount_percent if obj.category else None
 
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=2))
+    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
     def get_credit_used(self, obj):
         return obj.credit_used()
 
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=2))
+    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
     def get_credit_remaining(self, obj):
         return obj.credit_remaining()
 

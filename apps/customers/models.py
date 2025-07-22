@@ -85,9 +85,9 @@ class Customer(models.Model):
         blank=True,
     )
     credit_limit = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0.00,
+        max_digits=12,
+        decimal_places=3,
+        default=0.000,
         help_text="Maximum credit allowed for this customer.",
     )
     tax_number = models.CharField(
@@ -156,7 +156,7 @@ class Customer(models.Model):
         )
 
     def credit_remaining(self):
-        return (max(self.credit_limit - self.credit_used(), 0),)
+        return max(self.credit_limit - self.credit_used(), 0)
 
     def save(self, *args, **kwargs):
         if not self.customer_id:

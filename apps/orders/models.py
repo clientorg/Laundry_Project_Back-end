@@ -60,6 +60,18 @@ class Order(models.Model):
         default=0.000,
     )
 
+    inward_date = models.DateField(
+        blank=True,
+        null=True,
+        auto_now_add=True,
+        help_text="Date when the order was received.",
+    )
+    delivery_date = models.DateField(
+        blank=True,
+        null=True,
+        help_text="Planned delivery date.",
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -196,18 +208,6 @@ class OrderItem(models.Model):
         decimal_places=3,
         blank=True,
         default=0.000,
-    )
-
-    inward_date = models.DateField(
-        blank=True,
-        null=True,
-        auto_now_add=True,
-        help_text="Date when the order was received.",
-    )
-    delivery_date = models.DateField(
-        blank=True,
-        null=True,
-        help_text="Planned delivery date.",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
