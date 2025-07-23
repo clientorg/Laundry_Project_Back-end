@@ -158,7 +158,8 @@ class Customer(models.Model):
         )
 
     def credit_remaining(self):
-        return max(self.credit_limit - self.credit_used(), 0)
+        credit_limit = self.credit_limit or 0
+        return max(credit_limit - self.credit_used(), 0)
 
     def save(self, *args, **kwargs):
         if not self.customer_id:
