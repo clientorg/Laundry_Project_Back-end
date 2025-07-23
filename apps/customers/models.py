@@ -88,6 +88,8 @@ class Customer(models.Model):
         max_digits=12,
         decimal_places=3,
         default=0.000,
+        null=True,
+        blank=True,
         help_text="Maximum credit allowed for this customer.",
     )
     tax_number = models.CharField(
