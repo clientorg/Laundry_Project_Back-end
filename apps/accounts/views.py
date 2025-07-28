@@ -1,19 +1,102 @@
+from django.db.models import Q
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission, Group
 
 # package imports
-from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
+from rest_framework import status, generics, permissions
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.parsers import JSONParser
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # laundry serializer imports
-from .serializers import LoginSerializer
+from .serializers import PermissionSerializer, GroupSerializer, LoginSerializer
 
 
 # Create your views here.
 User = get_user_model()
+
+
+@extend_schema(tags=["Permissions"])
+class PermissionView(APIView):
+    serializer_class = PermissionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        permissions = (
+            Permission.objects.all()
+            .select_related("content_type")
+            .filter(Q(detail__isnull=True) | Q(detail__is_staff_only=False))
+        )
+        serializer = PermissionSerializer(permissions, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Groups"])
+class GroupListCreateView(generics.ListCreateAPIView):
+    queryset = Group.objects.all().order_by("name")
+    serializer_class = GroupSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [JSONParser]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+@extend_schema(tags=["Groups"])
+class GroupRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [JSONParser]
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+
+@extend_schema(tags=["Groups"])
+class GroupAssignedPermissionsView(APIView):
+    serializer_class = PermissionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            group = Group.objects.get(pk=pk)
+        except Group.DoesNotExist:
+            return Response({"detail": "Group not found"}, status=404)
+
+        permissions_qs = group.permissions.select_related("content_type").filter(
+            Q(detail__isnull=True) | Q(detail__is_staff_only=False)
+        )
+        serializer = PermissionSerializer(permissions_qs, many=True)
+        return Response(serializer.data)
+
+
+@extend_schema(tags=["Groups"])
+class GroupUnassignedPermissionsView(APIView):
+    serializer_class = PermissionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            group = Group.objects.get(pk=pk)
+        except Group.DoesNotExist:
+            return Response({"detail": "Group not found"}, status=404)
+
+        assigned_ids = group.permissions.values_list("id", flat=True)
+        unassigned_permissions = (
+            Permission.objects.exclude(id__in=assigned_ids)
+            .filter(Q(detail__isnull=True) | Q(detail__is_staff_only=False))
+            .select_related("content_type")
+        )
+
+        serializer = PermissionSerializer(unassigned_permissions, many=True)
+        return Response(serializer.data)
 
 
 class LoginAPIView(APIView):
