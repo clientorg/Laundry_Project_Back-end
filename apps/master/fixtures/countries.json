@@ -6,7 +6,19 @@
       "name": "Aruba",
       "iso_code": "AW",
       "dial_code": "+297",
-      "flag_emoji": "🇦🇼"
+      "flag_emoji": "🇦🇼",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 6.0,
+      "currency_name": "Aruban Florin",
+      "currency_code": "AWG",
+      "currency_symbol": "ƒ",
+      "service_vat_percent": 7.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.554939,
+      "language_name": ["Dutch", "Papiamento"],
+      "language_code": ["nl", "pap"],
+      "company_code": "AW001",
+      "is_active": true
     }
   },
   {
@@ -16,7 +28,19 @@
       "name": "Afghanistan",
       "iso_code": "AF",
       "dial_code": "+93",
-      "flag_emoji": "🇦🇫"
+      "flag_emoji": "🇦🇫",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Afghan Afghani",
+      "currency_code": "AFN",
+      "currency_symbol": "؋",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.014,
+      "language_name": ["Pashto", "Dari"],
+      "language_code": ["ps", "prs"],
+      "company_code": "AF001",
+      "is_active": true
     }
   },
   {
@@ -26,7 +50,19 @@
       "name": "Angola",
       "iso_code": "AO",
       "dial_code": "+244",
-      "flag_emoji": "🇦🇴"
+      "flag_emoji": "🇦🇴",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Angolan Kwanza",
+      "currency_code": "AOA",
+      "currency_symbol": "Kz",
+      "service_vat_percent": 14.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00109,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "AO001",
+      "is_active": true
     }
   },
   {
@@ -36,7 +72,19 @@
       "name": "Anguilla",
       "iso_code": "AI",
       "dial_code": "+1-264",
-      "flag_emoji": "🇦🇮"
+      "flag_emoji": "🇦🇮",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 13.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37037,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "AI001",
+      "is_active": true
     }
   },
   {
@@ -46,7 +94,19 @@
       "name": "Åland Islands",
       "iso_code": "AX",
       "dial_code": "+358",
-      "flag_emoji": "🇦🇽"
+      "flag_emoji": "🇦🇽",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 25.5,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Swedish"],
+      "language_code": ["sv"],
+      "company_code": "AX001",
+      "is_active": true
     }
   },
   {
@@ -56,7 +116,19 @@
       "name": "Albania",
       "iso_code": "AL",
       "dial_code": "+355",
-      "flag_emoji": "🇦🇱"
+      "flag_emoji": "🇦🇱",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Albanian Lek",
+      "currency_code": "ALL",
+      "currency_symbol": "L",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Albanian"],
+      "language_code": ["sq"],
+      "company_code": "AX001",
+      "is_active": true
     }
   },
   {
@@ -66,7 +138,19 @@
       "name": "Andorra",
       "iso_code": "AD",
       "dial_code": "+376",
-      "flag_emoji": "🇦🇩"
+      "flag_emoji": "🇦🇩",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 4.5,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 4.5,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Catalan"],
+      "language_code": ["ca"],
+      "company_code": "AD001",
+      "is_active": true
     }
   },
   {
@@ -76,7 +160,19 @@
       "name": "United Arab Emirates",
       "iso_code": "AE",
       "dial_code": "+971",
-      "flag_emoji": "🇦🇪"
+      "flag_emoji": "🇦🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "UAE Dirham",
+      "currency_code": "AED",
+      "currency_symbol": "د.إ",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.272294,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "AE001",
+      "is_active": true
     }
   },
   {
@@ -86,7 +182,19 @@
       "name": "Argentina",
       "iso_code": "AR",
       "dial_code": "+54",
-      "flag_emoji": "🇦🇷"
+      "flag_emoji": "🇦🇷",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 30.0,
+      "currency_name": "Argentine Peso",
+      "currency_code": "ARS",
+      "currency_symbol": "$",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000786324,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "AR001",
+      "is_active": true
     }
   },
   {
@@ -96,7 +204,19 @@
       "name": "Armenia",
       "iso_code": "AM",
       "dial_code": "+374",
-      "flag_emoji": "🇦🇲"
+      "flag_emoji": "🇦🇲",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 20.0,
+      "currency_name": "Armenian Dram",
+      "currency_code": "AMD",
+      "currency_symbol": "֏",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0026,
+      "language_name": ["Armenian"],
+      "language_code": ["hy"],
+      "company_code": "AM001",
+      "is_active": true
     }
   },
   {
@@ -106,7 +226,19 @@
       "name": "American Samoa",
       "iso_code": "AS",
       "dial_code": "+1-684",
-      "flag_emoji": "🇦🇸"
+      "flag_emoji": "🇦🇸",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "US Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English", "Samoan"],
+      "language_code": ["en", "sm"],
+      "company_code": "AS001",
+      "is_active": true
     }
   },
   {
@@ -116,7 +248,19 @@
       "name": "Antarctica",
       "iso_code": "AQ",
       "dial_code": "+672",
-      "flag_emoji": "🇦🇶"
+      "flag_emoji": "🇦🇶",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Antarctica has no official currency",
+      "currency_code": "N/A",
+      "currency_symbol": "N/A",
+      "service_vat_percent": 0.0,
+      "is_main_currency": false,
+      "exchange_rate": 0.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "AQ001",
+      "is_active": true
     }
   },
   {
@@ -126,7 +270,19 @@
       "name": "French Southern Territories",
       "iso_code": "TF",
       "dial_code": "+262",
-      "flag_emoji": "🇹🇫"
+      "flag_emoji": "🇹🇫",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "TF001",
+      "is_active": true
     }
   },
   {
@@ -136,7 +292,19 @@
       "name": "Antigua and Barbuda",
       "iso_code": "AG",
       "dial_code": "+1-268",
-      "flag_emoji": "🇦🇬"
+      "flag_emoji": "🇦🇬",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37037,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "AG001",
+      "is_active": true
     }
   },
   {
@@ -146,7 +314,19 @@
       "name": "Australia",
       "iso_code": "AU",
       "dial_code": "+61",
-      "flag_emoji": "🇦🇺"
+      "flag_emoji": "🇦🇺",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "$",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6693,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "AU001",
+      "is_active": true
     }
   },
   {
@@ -156,7 +336,19 @@
       "name": "Austria",
       "iso_code": "AT",
       "dial_code": "+43",
-      "flag_emoji": "🇦🇹"
+      "flag_emoji": "🇦🇹",
+      "mobile_number_max_digits": 11,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["German"],
+      "language_code": ["de"],
+      "company_code": "AT001",
+      "is_active": true
     }
   },
   {
@@ -166,7 +358,19 @@
       "name": "Azerbaijan",
       "iso_code": "AZ",
       "dial_code": "+994",
-      "flag_emoji": "🇦🇿"
+      "flag_emoji": "🇦🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Azerbaijani Manat",
+      "currency_code": "AZN",
+      "currency_symbol": "₼",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.588235,
+      "language_name": ["Azerbaijani"],
+      "language_code": ["az"],
+      "company_code": "AZ001",
+      "is_active": true
     }
   },
   {
@@ -176,7 +380,19 @@
       "name": "Burundi",
       "iso_code": "BI",
       "dial_code": "+257",
-      "flag_emoji": "🇧🇮"
+      "flag_emoji": "🇧🇮",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Burundian Franc",
+      "currency_code": "BIF",
+      "currency_symbol": "FBu",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00035,
+      "language_name": ["Kirundi", "French", "English"],
+      "language_code": ["rn", "fr", "en"],
+      "company_code": "BI001",
+      "is_active": true
     }
   },
   {
@@ -186,7 +402,19 @@
       "name": "Belgium",
       "iso_code": "BE",
       "dial_code": "+32",
-      "flag_emoji": "🇧🇪"
+      "flag_emoji": "🇧🇪",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Dutch", "French", "German"],
+      "language_code": ["nl", "fr", "de"],
+      "company_code": "BE001",
+      "is_active": true
     }
   },
   {
@@ -196,7 +424,19 @@
       "name": "Benin",
       "iso_code": "BJ",
       "dial_code": "+229",
-      "flag_emoji": "🇧🇯"
+      "flag_emoji": "🇧🇯",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA franc",
+      "currency_code": "XOF",
+      "currency_symbol": "Fr",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0016,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "BJ001",
+      "is_active": true
     }
   },
   {
@@ -206,7 +446,19 @@
       "name": "Bonaire, Sint Eustatius and Saba",
       "iso_code": "BQ",
       "dial_code": "+599",
-      "flag_emoji": "🇧🇶"
+      "flag_emoji": "🇧🇶",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "US Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 8.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Dutch", "English"],
+      "language_code": ["nl", "en"],
+      "company_code": "BQ001",
+      "is_active": true
     }
   },
   {
@@ -216,7 +468,19 @@
       "name": "Burkina Faso",
       "iso_code": "BF",
       "dial_code": "+226",
-      "flag_emoji": "🇧🇫"
+      "flag_emoji": "🇧🇫",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0016,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "BF001",
+      "is_active": true
     }
   },
   {
@@ -226,7 +490,19 @@
       "name": "Bangladesh",
       "iso_code": "BD",
       "dial_code": "+880",
-      "flag_emoji": "🇧🇩"
+      "flag_emoji": "🇧🇩",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 20.0,
+      "currency_name": "Bangladeshi Taka",
+      "currency_code": "BDT",
+      "currency_symbol": "৳",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0083,
+      "language_name": ["Bengali"],
+      "language_code": ["bn"],
+      "company_code": "BD001",
+      "is_active": true
     }
   },
   {
@@ -236,7 +512,19 @@
       "name": "Bulgaria",
       "iso_code": "BG",
       "dial_code": "+359",
-      "flag_emoji": "🇧🇬"
+      "flag_emoji": "🇧🇬",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bulgarian Lev",
+      "currency_code": "BGN",
+      "currency_symbol": "лв",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.54,
+      "language_name": ["Bulgarian"],
+      "language_code": ["bg"],
+      "company_code": "BG001",
+      "is_active": true
     }
   },
   {
@@ -246,7 +534,19 @@
       "name": "Bahrain",
       "iso_code": "BH",
       "dial_code": "+973",
-      "flag_emoji": "🇧🇭"
+      "flag_emoji": "🇧🇭",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bahraini Dinar",
+      "currency_code": "BHD",
+      "currency_symbol": "BD",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 2.65263,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "BH001",
+      "is_active": true
     }
   },
   {
@@ -256,7 +556,19 @@
       "name": "Bahamas",
       "iso_code": "BS",
       "dial_code": "+1-242",
-      "flag_emoji": "🇧🇸"
+      "flag_emoji": "🇧🇸",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bahamian Dollar",
+      "currency_code": "BSD",
+      "currency_symbol": "$",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "BS001",
+      "is_active": true
     }
   },
   {
@@ -266,7 +578,19 @@
       "name": "Bosnia and Herzegovina",
       "iso_code": "BA",
       "dial_code": "+387",
-      "flag_emoji": "🇧🇦"
+      "flag_emoji": "🇧🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bosnia and Herzegovina Convertible Mark",
+      "currency_code": "BAM",
+      "currency_symbol": "KM",
+      "service_vat_percent": 17.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.54,
+      "language_name": ["Bosnian", "Serbian", "Croatian"],
+      "language_code": ["bs", "sr", "hr"],
+      "company_code": "BA001",
+      "is_active": true
     }
   },
   {
@@ -276,7 +600,19 @@
       "name": "Saint Barthélemy",
       "iso_code": "BL",
       "dial_code": "+590",
-      "flag_emoji": "🇧🇱"
+      "flag_emoji": "🇧🇱",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "BL001",
+      "is_active": true
     }
   },
   {
@@ -286,7 +622,19 @@
       "name": "Belarus",
       "iso_code": "BY",
       "dial_code": "+375",
-      "flag_emoji": "🇧🇾"
+      "flag_emoji": "🇧🇾",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Belarusian Ruble",
+      "currency_code": "BYN",
+      "currency_symbol": "Br",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.31,
+      "language_name": ["Belarusian", "Russian"],
+      "language_code": ["be", "ru"],
+      "company_code": "BY001",
+      "is_active": true
     }
   },
   {
@@ -296,7 +644,18 @@
       "name": "Belize",
       "iso_code": "BZ",
       "dial_code": "+501",
-      "flag_emoji": "🇧🇿"
+      "flag_emoji": "🇧🇿",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Belize Dollar",
+      "currency_code": "BZD",
+      "currency_symbol": "BZ$",
+      "service_vat_percent": 12.5,
+      "is_main_currency": true,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "BZ001",
+      "is_active": true
     }
   },
   {
@@ -305,8 +664,20 @@
     "fields": {
       "name": "Bermuda",
       "iso_code": "BM",
-      "dial_code": "+1",
-      "flag_emoji": "🇧🇲"
+      "dial_code": "+1-441",
+      "flag_emoji": "🇧🇲",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bermudian Dollar",
+      "currency_code": "BMD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "BM001",
+      "is_active": true
     }
   },
   {
@@ -316,7 +687,19 @@
       "name": "Bolivia, Plurinational State of",
       "iso_code": "BO",
       "dial_code": "+591",
-      "flag_emoji": "🇧🇴"
+      "flag_emoji": "🇧🇴",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bolivian Boliviano",
+      "currency_code": "BOB",
+      "currency_symbol": "$b",
+      "service_vat_percent": 13.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.1444,
+      "language_name": ["Spanish", "Quechua", "Aymara", "Guarani"],
+      "language_code": ["es", "qu", "ay", "gnw"],
+      "company_code": "BO001",
+      "is_active": true
     }
   },
   {
@@ -326,7 +709,19 @@
       "name": "Brazil",
       "iso_code": "BR",
       "dial_code": "+55",
-      "flag_emoji": "🇧🇷"
+      "flag_emoji": "🇧🇷",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Brazilian Real",
+      "currency_code": "BRL",
+      "currency_symbol": "R$",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.1843,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "BR001",
+      "is_active": true
     }
   },
   {
@@ -336,7 +731,19 @@
       "name": "Barbados",
       "iso_code": "BB",
       "dial_code": "+1-246",
-      "flag_emoji": "🇧🇧"
+      "flag_emoji": "🇧🇧",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Barbadian Dollar",
+      "currency_code": "BBD",
+      "currency_symbol": "Bds$",
+      "service_vat_percent": 17.5,
+      "is_main_currency": true,
+      "exchange_rate": 0.5,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "BB001",
+      "is_active": true
     }
   },
   {
@@ -346,7 +753,19 @@
       "name": "Brunei Darussalam",
       "iso_code": "BN",
       "dial_code": "+673",
-      "flag_emoji": "🇧🇳"
+      "flag_emoji": "🇧🇳",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Brunei Dollar",
+      "currency_code": "BND",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.74,
+      "language_name": ["Malay", "Brunei Malay", "English"],
+      "language_code": ["es", "kxd", "en"],
+      "company_code": "BN001",
+      "is_active": true
     }
   },
   {
@@ -356,7 +775,19 @@
       "name": "Bhutan",
       "iso_code": "BT",
       "dial_code": "+975",
-      "flag_emoji": "🇧🇹"
+      "flag_emoji": "🇧🇹",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Bhutanese Ngultrum",
+      "currency_code": "BTN",
+      "currency_symbol": "Nu.",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.012,
+      "language_name": ["Dzongkha"],
+      "language_code": ["dz"],
+      "company_code": "BT001",
+      "is_active": true
     }
   },
   {
@@ -366,7 +797,19 @@
       "name": "Bouvet Island",
       "iso_code": "BV",
       "dial_code": "+47",
-      "flag_emoji": "🇧🇻"
+      "flag_emoji": "🇧🇻",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Norwegian Krone",
+      "currency_code": "NOK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 25.0,
+      "is_main_currency": false,
+      "exchange_rate": 0.094,
+      "language_name": ["Norwegian"],
+      "language_code": ["no"],
+      "company_code": "BV001",
+      "is_active": false
     }
   },
   {
@@ -376,7 +819,19 @@
       "name": "Botswana",
       "iso_code": "BW",
       "dial_code": "+267",
-      "flag_emoji": "🇧🇼"
+      "flag_emoji": "🇧🇼",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Botswana Pula",
+      "currency_code": "BWP",
+      "currency_symbol": "P",
+      "service_vat_percent": 14.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.074,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "BW001",
+      "is_active": true
     }
   },
   {
@@ -386,7 +841,19 @@
       "name": "Central African Republic",
       "iso_code": "CF",
       "dial_code": "+236",
-      "flag_emoji": "🇨🇫"
+      "flag_emoji": "🇨🇫",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Central African CFA franc",
+      "currency_code": "XAF",
+      "currency_symbol": "F.CFA",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0018,
+      "language_name": ["French", "Sango"],
+      "language_code": ["fr", "sg"],
+      "company_code": "CF001",
+      "is_active": true
     }
   },
   {
@@ -396,7 +863,19 @@
       "name": "Canada",
       "iso_code": "CA",
       "dial_code": "+1",
-      "flag_emoji": "🇨🇦"
+      "flag_emoji": "🇨🇦",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Canadian Dollar",
+      "currency_code": "CAD",
+      "currency_symbol": "$",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.73,
+      "language_name": ["English", "French"],
+      "language_code": ["en", "fr"],
+      "company_code": "CA001",
+      "is_active": true
     }
   },
   {
@@ -406,7 +885,19 @@
       "name": "Cocos (Keeling) Islands",
       "iso_code": "CC",
       "dial_code": "+61",
-      "flag_emoji": "🇨🇨"
+      "flag_emoji": "🇨🇨",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6693,
+      "language_name": ["English", "Cocos Malay"],
+      "language_code": ["en", "coa"],
+      "company_code": "CC001",
+      "is_active": true
     }
   },
   {
@@ -416,7 +907,19 @@
       "name": "Switzerland",
       "iso_code": "CH",
       "dial_code": "+41",
-      "flag_emoji": "🇨🇭"
+      "flag_emoji": "🇨🇭",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Swiss Franc",
+      "currency_code": "CHF",
+      "currency_symbol": "CHF",
+      "service_vat_percent": 8.1,
+      "is_main_currency": true,
+      "exchange_rate": 1.12,
+      "language_name": ["German", "French", "Italian", "Romansh"],
+      "language_code": ["de", "fr", "it", "rm"],
+      "company_code": "CHE-NNN.NNN.NNN",
+      "is_active": true
     }
   },
   {
@@ -426,7 +929,19 @@
       "name": "Chile",
       "iso_code": "CL",
       "dial_code": "+56",
-      "flag_emoji": "🇨🇱"
+      "flag_emoji": "🇨🇱",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 2.0,
+      "currency_name": "Chilean Peso",
+      "currency_code": "CLP",
+      "currency_symbol": "$",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.001,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "CL001",
+      "is_active": true
     }
   },
   {
@@ -436,7 +951,19 @@
       "name": "China",
       "iso_code": "CN",
       "dial_code": "+86",
-      "flag_emoji": "🇨🇳"
+      "flag_emoji": "🇨🇳",
+      "mobile_number_max_digits": 11,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Chinese Yuan Renminbi",
+      "currency_code": "CNY",
+      "currency_symbol": "¥",
+      "service_vat_percent": 6.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.1379,
+      "language_name": ["Mandarin Chinese"],
+      "language_code": ["zh"],
+      "company_code": "CN001",
+      "is_active": true
     }
   },
   {
@@ -446,7 +973,19 @@
       "name": "Côte d'Ivoire",
       "iso_code": "CI",
       "dial_code": "+225",
-      "flag_emoji": "🇨🇮"
+      "flag_emoji": "🇨🇮",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0016,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "CI001",
+      "is_active": true
     }
   },
   {
@@ -456,7 +995,19 @@
       "name": "Cameroon",
       "iso_code": "CM",
       "dial_code": "+237",
-      "flag_emoji": "🇨🇲"
+      "flag_emoji": "🇨🇲",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Central African CFA franc",
+      "currency_code": "XAF",
+      "currency_symbol": "F.CFA",
+      "service_vat_percent": 19.25,
+      "is_main_currency": true,
+      "exchange_rate": 0.0018,
+      "language_name": ["English", "French"],
+      "language_code": ["en", "fr"],
+      "company_code": "CM001",
+      "is_active": true
     }
   },
   {
@@ -466,7 +1017,19 @@
       "name": "Congo, The Democratic Republic of the",
       "iso_code": "CD",
       "dial_code": "+243",
-      "flag_emoji": "🇨🇩"
+      "flag_emoji": "🇨🇩",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Congolese Franc",
+      "currency_code": "CDF",
+      "currency_symbol": "FC",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00035,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "CD001",
+      "is_active": true
     }
   },
   {
@@ -476,7 +1039,19 @@
       "name": "Congo",
       "iso_code": "CG",
       "dial_code": "+242",
-      "flag_emoji": "🇨🇬"
+      "flag_emoji": "🇨🇬",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Central African CFA franc",
+      "currency_code": "XAF",
+      "currency_symbol": "F.CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0018,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "CG001",
+      "is_active": true
     }
   },
   {
@@ -486,7 +1061,19 @@
       "name": "Cook Islands",
       "iso_code": "CK",
       "dial_code": "+682",
-      "flag_emoji": "🇨🇰"
+      "flag_emoji": "🇨🇰",
+      "mobile_number_max_digits": 5,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "New Zealand Dollar",
+      "currency_code": "NZD",
+      "currency_symbol": "$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.61,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "CK001",
+      "is_active": true
     }
   },
   {
@@ -496,7 +1083,19 @@
       "name": "Colombia",
       "iso_code": "CO",
       "dial_code": "+57",
-      "flag_emoji": "🇨🇴"
+      "flag_emoji": "🇨🇴",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 16.0,
+      "currency_name": "Colombian Peso",
+      "currency_code": "COP",
+      "currency_symbol": "$",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00024,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "CO001",
+      "is_active": true
     }
   },
   {
@@ -506,7 +1105,19 @@
       "name": "Comoros",
       "iso_code": "KM",
       "dial_code": "+269",
-      "flag_emoji": "🇰🇲"
+      "flag_emoji": "🇰🇲",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Comorian Franc",
+      "currency_code": "KMF",
+      "currency_symbol": "CF",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0022,
+      "language_name": ["Comorian", "French", "Arabic"],
+      "language_code": ["wni", "fr", "ar"],
+      "company_code": "KM001",
+      "is_active": true
     }
   },
   {
@@ -516,7 +1127,19 @@
       "name": "Cabo Verde",
       "iso_code": "CV",
       "dial_code": "+238",
-      "flag_emoji": "🇨🇻"
+      "flag_emoji": "🇨🇻",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Cape Verdean Escudo",
+      "currency_code": "CVE",
+      "currency_symbol": "$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0097,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "CV001",
+      "is_active": true
     }
   },
   {
@@ -526,7 +1149,19 @@
       "name": "Costa Rica",
       "iso_code": "CR",
       "dial_code": "+506",
-      "flag_emoji": "🇨🇷"
+      "flag_emoji": "🇨🇷",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.55,
+      "currency_name": "Costa Rican Colón",
+      "currency_code": "CRC",
+      "currency_symbol": "₡",
+      "service_vat_percent": 13.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.002,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "CR001",
+      "is_active": true
     }
   },
   {
@@ -536,7 +1171,19 @@
       "name": "Cuba",
       "iso_code": "CU",
       "dial_code": "+53",
-      "flag_emoji": "🇨🇺"
+      "flag_emoji": "🇨🇺",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Cuban Peso",
+      "currency_code": "CUP",
+      "currency_symbol": "₱",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.038,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "CU001",
+      "is_active": true
     }
   },
   {
@@ -546,7 +1193,19 @@
       "name": "Curaçao",
       "iso_code": "CW",
       "dial_code": "+599",
-      "flag_emoji": "🇨🇼"
+      "flag_emoji": "🇨🇼",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Netherlands Antillean Guilder",
+      "currency_code": "ANG",
+      "currency_symbol": "ƒ",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.556,
+      "language_name": ["Papiamentu", "Dutch", "English", "Spanish"],
+      "language_code": ["pap", "nl", "en", "es"],
+      "company_code": "CW001",
+      "is_active": true
     }
   },
   {
@@ -556,7 +1215,19 @@
       "name": "Christmas Island",
       "iso_code": "CX",
       "dial_code": "+61",
-      "flag_emoji": "🇨🇽"
+      "flag_emoji": "🇨🇽",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6693,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "CX001",
+      "is_active": true
     }
   },
   {
@@ -565,8 +1236,20 @@
     "fields": {
       "name": "Cayman Islands",
       "iso_code": "KY",
-      "dial_code": "+1",
-      "flag_emoji": "🇰🇾"
+      "dial_code": "+1-345",
+      "flag_emoji": "🇰🇾",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Cayman Islands Dollar",
+      "currency_code": "KYD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.2,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "KY001",
+      "is_active": true
     }
   },
   {
@@ -576,7 +1259,19 @@
       "name": "Cyprus",
       "iso_code": "CY",
       "dial_code": "+357",
-      "flag_emoji": "🇨🇾"
+      "flag_emoji": "🇨🇾",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Greek", "Turkish"],
+      "language_code": ["el", "tr"],
+      "company_code": "HE123456",
+      "is_active": true
     }
   },
   {
@@ -586,7 +1281,19 @@
       "name": "Czechia",
       "iso_code": "CZ",
       "dial_code": "+420",
-      "flag_emoji": "🇨🇿"
+      "flag_emoji": "🇨🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Czech Koruna",
+      "currency_code": "CZK",
+      "currency_symbol": "Kč",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.043,
+      "language_name": ["Czech"],
+      "language_code": ["cs"],
+      "company_code": "12345678",
+      "is_active": true
     }
   },
   {
@@ -596,7 +1303,19 @@
       "name": "Germany",
       "iso_code": "DE",
       "dial_code": "+49",
-      "flag_emoji": "🇩🇪"
+      "flag_emoji": "🇩🇪",
+      "mobile_number_max_digits": 11,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["German"],
+      "language_code": ["de"],
+      "company_code": "HRB 12345",
+      "is_active": true
     }
   },
   {
@@ -606,7 +1325,19 @@
       "name": "Djibouti",
       "iso_code": "DJ",
       "dial_code": "+253",
-      "flag_emoji": "🇩🇯"
+      "flag_emoji": "🇩🇯",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Djiboutian Franc",
+      "currency_code": "DJF",
+      "currency_symbol": "Fdj",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0056,
+      "language_name": ["Arabic", "French"],
+      "language_code": ["ar", "fr"],
+      "company_code": "DJ001",
+      "is_active": true
     }
   },
   {
@@ -616,7 +1347,19 @@
       "name": "Dominica",
       "iso_code": "DM",
       "dial_code": "+1-767",
-      "flag_emoji": "🇩🇲"
+      "flag_emoji": "🇩🇲",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37037,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "DM001",
+      "is_active": true
     }
   },
   {
@@ -626,7 +1369,19 @@
       "name": "Denmark",
       "iso_code": "DK",
       "dial_code": "+45",
-      "flag_emoji": "🇩🇰"
+      "flag_emoji": "🇩🇰",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Danish Krone",
+      "currency_code": "DKK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.14,
+      "language_name": ["Danish"],
+      "language_code": ["da"],
+      "company_code": "CVR 12345678",
+      "is_active": true
     }
   },
   {
@@ -636,7 +1391,19 @@
       "name": "Dominican Republic",
       "iso_code": "DO",
       "dial_code": "+1-809",
-      "flag_emoji": "🇩🇴"
+      "flag_emoji": "🇩🇴",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Dominican Peso",
+      "currency_code": "DOP",
+      "currency_symbol": "RD$",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.017,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "DO001",
+      "is_active": true
     }
   },
   {
@@ -646,7 +1413,19 @@
       "name": "Algeria",
       "iso_code": "DZ",
       "dial_code": "+213",
-      "flag_emoji": "🇩🇿"
+      "flag_emoji": "🇩🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Algerian Dinar",
+      "currency_code": "DZD",
+      "currency_symbol": "DA",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0074,
+      "language_name": ["Arabic", "Berber"],
+      "language_code": ["ar", "be"],
+      "company_code": "DZ001",
+      "is_active": true
     }
   },
   {
@@ -656,7 +1435,19 @@
       "name": "Ecuador",
       "iso_code": "EC",
       "dial_code": "+593",
-      "flag_emoji": "🇪🇨"
+      "flag_emoji": "🇪🇨",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "US Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "EC001",
+      "is_active": true
     }
   },
   {
@@ -666,7 +1457,19 @@
       "name": "Egypt",
       "iso_code": "EG",
       "dial_code": "+20",
-      "flag_emoji": "🇪🇬"
+      "flag_emoji": "🇪🇬",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Egyptian Pound",
+      "currency_code": "EGP",
+      "currency_symbol": "E£",
+      "service_vat_percent": 14.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.021,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "EG001",
+      "is_active": true
     }
   },
   {
@@ -676,7 +1479,19 @@
       "name": "Eritrea",
       "iso_code": "ER",
       "dial_code": "+291",
-      "flag_emoji": "🇪🇷"
+      "flag_emoji": "🇪🇷",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Eritrean Nakfa",
+      "currency_code": "ERN",
+      "currency_symbol": "Nfk",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.066,
+      "language_name": ["Tigrinya", "Arabic", "English"],
+      "language_code": ["ti", "ar", "en"],
+      "company_code": "ER001",
+      "is_active": true
     }
   },
   {
@@ -686,7 +1501,19 @@
       "name": "Western Sahara",
       "iso_code": "EH",
       "dial_code": "+212",
-      "flag_emoji": "🇪🇭"
+      "flag_emoji": "🇪🇭",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Moroccan Dirham",
+      "currency_code": "MAD",
+      "currency_symbol": "DH",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.11111,
+      "language_name": ["Spanish", "Arabic", "French"],
+      "language_code": ["es", "ar", "fr"],
+      "company_code": "EH001",
+      "is_active": false
     }
   },
   {
@@ -696,7 +1523,19 @@
       "name": "Spain",
       "iso_code": "ES",
       "dial_code": "+34",
-      "flag_emoji": "🇪🇸"
+      "flag_emoji": "🇪🇸",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 2.5,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "ES12345678X",
+      "is_active": true
     }
   },
   {
@@ -706,7 +1545,19 @@
       "name": "Estonia",
       "iso_code": "EE",
       "dial_code": "+372",
-      "flag_emoji": "🇪🇪"
+      "flag_emoji": "🇪🇪",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Estonia"],
+      "language_code": ["et"],
+      "company_code": "123456789",
+      "is_active": true
     }
   },
   {
@@ -716,7 +1567,19 @@
       "name": "Ethiopia",
       "iso_code": "ET",
       "dial_code": "+251",
-      "flag_emoji": "🇪🇹"
+      "flag_emoji": "🇪🇹",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Ethiopian Birr",
+      "currency_code": "ETB",
+      "currency_symbol": "Br",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.017,
+      "language_name": ["Amharic", "Oromo", "Somali"],
+      "language_code": ["am", "om", "so"],
+      "company_code": "ET001",
+      "is_active": true
     }
   },
   {
@@ -726,7 +1589,19 @@
       "name": "Finland",
       "iso_code": "FI",
       "dial_code": "+358",
-      "flag_emoji": "🇫🇮"
+      "flag_emoji": "🇫🇮",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 25.5,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Finnish", "Swedish"],
+      "language_code": ["fi", "sv"],
+      "company_code": "Y-tunnus",
+      "is_active": true
     }
   },
   {
@@ -736,7 +1611,19 @@
       "name": "Fiji",
       "iso_code": "FJ",
       "dial_code": "+679",
-      "flag_emoji": "🇫🇯"
+      "flag_emoji": "🇫🇯",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Fiji Dollar",
+      "currency_code": "FJD",
+      "currency_symbol": "$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.4446,
+      "language_name": ["English", "Fijian"],
+      "language_code": ["en", "fj"],
+      "company_code": "TIN NNN-NNNNN-N-N",
+      "is_active": true
     }
   },
   {
@@ -746,7 +1633,19 @@
       "name": "Falkland Islands (Malvinas)",
       "iso_code": "FK",
       "dial_code": "+500",
-      "flag_emoji": "🇫🇰"
+      "flag_emoji": "🇫🇰",
+      "mobile_number_max_digits": 5,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Falkland Islands Pound",
+      "currency_code": "FKP",
+      "currency_symbol": "£",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "FK001",
+      "is_active": true
     }
   },
   {
@@ -756,7 +1655,19 @@
       "name": "France",
       "iso_code": "FR",
       "dial_code": "+33",
-      "flag_emoji": "🇫🇷"
+      "flag_emoji": "🇫🇷",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "SIREN 123456789",
+      "is_active": true
     }
   },
   {
@@ -766,7 +1677,19 @@
       "name": "Faroe Islands",
       "iso_code": "FO",
       "dial_code": "+298",
-      "flag_emoji": "🇫🇴"
+      "flag_emoji": "🇫🇴",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Faroese Króna",
+      "currency_code": "DKK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.14,
+      "language_name": ["Faroese", "Danish"],
+      "language_code": ["fo", "da"],
+      "company_code": "FO001",
+      "is_active": true
     }
   },
   {
@@ -776,7 +1699,19 @@
       "name": "Micronesia, Federated States of",
       "iso_code": "FM",
       "dial_code": "+691",
-      "flag_emoji": "🇫🇲"
+      "flag_emoji": "🇫🇲",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "US Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "FSM001",
+      "is_active": true
     }
   },
   {
@@ -786,7 +1721,19 @@
       "name": "Gabon",
       "iso_code": "GA",
       "dial_code": "+241",
-      "flag_emoji": "🇬🇦"
+      "flag_emoji": "🇬🇦",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Central African CFA franc",
+      "currency_code": "XAF",
+      "currency_symbol": "F.CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0018,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "GA001",
+      "is_active": true
     }
   },
   {
@@ -796,7 +1743,19 @@
       "name": "United Kingdom",
       "iso_code": "GB",
       "dial_code": "+44",
-      "flag_emoji": "🇬🇧"
+      "flag_emoji": "🇬🇧",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Pound Sterling",
+      "currency_code": "GBP",
+      "currency_symbol": "£",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "12345678",
+      "is_active": true
     }
   },
   {
@@ -806,7 +1765,19 @@
       "name": "Georgia",
       "iso_code": "GE",
       "dial_code": "+995",
-      "flag_emoji": "🇬🇪"
+      "flag_emoji": "🇬🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Georgian Lari",
+      "currency_code": "GEL",
+      "currency_symbol": "₾",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.369,
+      "language_name": ["Georgian"],
+      "language_code": ["ka"],
+      "company_code": "GE001",
+      "is_active": true
     }
   },
   {
@@ -816,7 +1787,19 @@
       "name": "Guernsey",
       "iso_code": "GG",
       "dial_code": "+44",
-      "flag_emoji": "🇬🇬"
+      "flag_emoji": "🇬🇬",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Guernsey Pound",
+      "currency_code": "GGP",
+      "currency_symbol": "£",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English", "French"],
+      "language_code": ["en", "fr"],
+      "company_code": "GYXXXXXX",
+      "is_active": true
     }
   },
   {
@@ -826,7 +1809,19 @@
       "name": "Ghana",
       "iso_code": "GH",
       "dial_code": "+233",
-      "flag_emoji": "🇬🇭"
+      "flag_emoji": "🇬🇭",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Ghanaian Cedi",
+      "currency_code": "GHS",
+      "currency_symbol": "₵",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.067,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "G-123456789",
+      "is_active": true
     }
   },
   {
@@ -836,7 +1831,19 @@
       "name": "Gibraltar",
       "iso_code": "GI",
       "dial_code": "+350",
-      "flag_emoji": "🇬🇮"
+      "flag_emoji": "🇬🇮",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Gibraltar Pound",
+      "currency_code": "GIP",
+      "currency_symbol": "£",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "GI001",
+      "is_active": true
     }
   },
   {
@@ -846,7 +1853,19 @@
       "name": "Guinea",
       "iso_code": "GN",
       "dial_code": "+224",
-      "flag_emoji": "🇬🇳"
+      "flag_emoji": "🇬🇳",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 20.0,
+      "currency_name": "Guinean Franc",
+      "currency_code": "GNF",
+      "currency_symbol": "FG",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00012,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "GN001",
+      "is_active": true
     }
   },
   {
@@ -856,7 +1875,19 @@
       "name": "Guadeloupe",
       "iso_code": "GP",
       "dial_code": "+590",
-      "flag_emoji": "🇬🇵"
+      "flag_emoji": "🇬🇵",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 8.5,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "GP001",
+      "is_active": true
     }
   },
   {
@@ -866,7 +1897,19 @@
       "name": "Gambia",
       "iso_code": "GM",
       "dial_code": "+220",
-      "flag_emoji": "🇬🇲"
+      "flag_emoji": "🇬🇲",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Gambian Dalasi",
+      "currency_code": "GMD",
+      "currency_symbol": "D",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.016,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "GM001",
+      "is_active": true
     }
   },
   {
@@ -876,7 +1919,19 @@
       "name": "Guinea-Bissau",
       "iso_code": "GW",
       "dial_code": "+245",
-      "flag_emoji": "🇬🇼"
+      "flag_emoji": "🇬🇼",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0016,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "GW001",
+      "is_active": true
     }
   },
   {
@@ -886,7 +1941,19 @@
       "name": "Equatorial Guinea",
       "iso_code": "GQ",
       "dial_code": "+240",
-      "flag_emoji": "🇬🇶"
+      "flag_emoji": "🇬🇶",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Central African CFA franc",
+      "currency_code": "XAF",
+      "currency_symbol": "F.CFA",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0018,
+      "language_name": ["Spanish", "French", "Portuguese"],
+      "language_code": ["es", "fr", "pt"],
+      "company_code": "GQ001",
+      "is_active": true
     }
   },
   {
@@ -896,7 +1963,19 @@
       "name": "Greece",
       "iso_code": "GR",
       "dial_code": "+30",
-      "flag_emoji": "🇬🇷"
+      "flag_emoji": "🇬🇷",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 24.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Greek"],
+      "language_code": ["el"],
+      "company_code": "GR001",
+      "is_active": true
     }
   },
   {
@@ -905,8 +1984,20 @@
     "fields": {
       "name": "Grenada",
       "iso_code": "GD",
-      "dial_code": "+1",
-      "flag_emoji": "🇬🇩"
+      "dial_code": "+1-473",
+      "flag_emoji": "🇬🇩",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37037,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "GD001",
+      "is_active": true
     }
   },
   {
@@ -916,7 +2007,19 @@
       "name": "Greenland",
       "iso_code": "GL",
       "dial_code": "+299",
-      "flag_emoji": "🇬🇱"
+      "flag_emoji": "🇬🇱",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Danish Krone",
+      "currency_code": "DKK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.14,
+      "language_name": ["Greenlandic", "Danish"],
+      "language_code": ["kl", "da"],
+      "company_code": "GL001",
+      "is_active": true
     }
   },
   {
@@ -926,7 +2029,19 @@
       "name": "Guatemala",
       "iso_code": "GT",
       "dial_code": "+502",
-      "flag_emoji": "🇬🇹"
+      "flag_emoji": "🇬🇹",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Guatemalan Quetzal",
+      "currency_code": "GTQ",
+      "currency_symbol": "Q",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.1287,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "GT001",
+      "is_active": true
     }
   },
   {
@@ -936,7 +2051,19 @@
       "name": "French Guiana",
       "iso_code": "GF",
       "dial_code": "+594",
-      "flag_emoji": "🇬🇫"
+      "flag_emoji": "🇬🇫",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "GF001",
+      "is_active": true
     }
   },
   {
@@ -946,7 +2073,19 @@
       "name": "Guam",
       "iso_code": "GU",
       "dial_code": "+1-671",
-      "flag_emoji": "🇬🇺"
+      "flag_emoji": "🇬🇺",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "US Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 2.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English", "Chamorro"],
+      "language_code": ["en", "ch"],
+      "company_code": "GU001",
+      "is_active": true
     }
   },
   {
@@ -956,7 +2095,19 @@
       "name": "Guyana",
       "iso_code": "GY",
       "dial_code": "+592",
-      "flag_emoji": "🇬🇾"
+      "flag_emoji": "🇬🇾",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Guyanese Dollar",
+      "currency_code": "GYD",
+      "currency_symbol": "GY$",
+      "service_vat_percent": 14.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0048,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "GY001",
+      "is_active": true
     }
   },
   {
@@ -966,7 +2117,19 @@
       "name": "Hong Kong",
       "iso_code": "HK",
       "dial_code": "+852",
-      "flag_emoji": "🇭🇰"
+      "flag_emoji": "🇭🇰",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Hong Kong Dollar",
+      "currency_code": "HKD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.1278,
+      "language_name": ["Chinese", "English"],
+      "language_code": ["zh", "en"],
+      "company_code": "CRN 1234567",
+      "is_active": true
     }
   },
   {
@@ -976,7 +2139,19 @@
       "name": "Heard Island and McDonald Islands",
       "iso_code": "HM",
       "dial_code": "+672",
-      "flag_emoji": "🇭🇲"
+      "flag_emoji": "🇭🇲",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "$",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6693,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "HM001",
+      "is_active": false
     }
   },
   {
@@ -986,7 +2161,19 @@
       "name": "Honduras",
       "iso_code": "HN",
       "dial_code": "+504",
-      "flag_emoji": "🇭🇳"
+      "flag_emoji": "🇭🇳",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Honduran Lempira",
+      "currency_code": "HNL",
+      "currency_symbol": "L",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.04,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "HN001",
+      "is_active": true
     }
   },
   {
@@ -996,7 +2183,19 @@
       "name": "Croatia",
       "iso_code": "HR",
       "dial_code": "+385",
-      "flag_emoji": "🇭🇷"
+      "flag_emoji": "🇭🇷",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Croatian"],
+      "language_code": ["hr"],
+      "company_code": "HR12345678901",
+      "is_active": true
     }
   },
   {
@@ -1006,7 +2205,19 @@
       "name": "Haiti",
       "iso_code": "HT",
       "dial_code": "+509",
-      "flag_emoji": "🇭🇹"
+      "flag_emoji": "🇭🇹",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Haitian Gourde",
+      "currency_code": "HTG",
+      "currency_symbol": "G",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0075,
+      "language_name": ["Haitian Creole", "French"],
+      "language_code": ["ht", "fr"],
+      "company_code": "HT001",
+      "is_active": true
     }
   },
   {
@@ -1016,7 +2227,19 @@
       "name": "Hungary",
       "iso_code": "HU",
       "dial_code": "+36",
-      "flag_emoji": "🇭🇺"
+      "flag_emoji": "🇭🇺",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Hungarian Forint",
+      "currency_code": "HUF",
+      "currency_symbol": "Ft",
+      "service_vat_percent": 27.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0029,
+      "language_name": ["Hungarian"],
+      "language_code": ["hu"],
+      "company_code": "HU12345678",
+      "is_active": true
     }
   },
   {
@@ -1026,7 +2249,19 @@
       "name": "Indonesia",
       "iso_code": "ID",
       "dial_code": "+62",
-      "flag_emoji": "🇮🇩"
+      "flag_emoji": "🇮🇩",
+      "mobile_number_max_digits": 12,
+      "luxury_tax_percent": 12.0,
+      "currency_name": "Indonesian Rupiah",
+      "currency_code": "IDR",
+      "currency_symbol": "Rp",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0000609,
+      "language_name": ["Indonesian"],
+      "language_code": ["id"],
+      "company_code": "NPWP 12.345.678.9-012.000",
+      "is_active": true
     }
   },
   {
@@ -1036,7 +2271,19 @@
       "name": "Isle of Man",
       "iso_code": "IM",
       "dial_code": "+44",
-      "flag_emoji": "🇮🇲"
+      "flag_emoji": "🇮🇲",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Manx Pound",
+      "currency_code": "IMP",
+      "currency_symbol": "£",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English", "Manx Gaelic"],
+      "language_code": ["en", "gv"],
+      "company_code": "123456F",
+      "is_active": true
     }
   },
   {
@@ -1046,7 +2293,19 @@
       "name": "India",
       "iso_code": "IN",
       "dial_code": "+91",
-      "flag_emoji": "🇮🇳"
+      "flag_emoji": "🇮🇳",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Indian Rupee",
+      "currency_code": "INR",
+      "currency_symbol": "₹",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.012,
+      "language_name": ["English", "Hindi", "Tamil"],
+      "language_code": ["en", "hi", "ta"],
+      "company_code": "IN001",
+      "is_active": true
     }
   },
   {
@@ -1056,7 +2315,19 @@
       "name": "British Indian Ocean Territory",
       "iso_code": "IO",
       "dial_code": "+246",
-      "flag_emoji": "🇮🇴"
+      "flag_emoji": "🇮🇴",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "US Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "IO001",
+      "is_active": false
     }
   },
   {
@@ -1066,7 +2337,19 @@
       "name": "Ireland",
       "iso_code": "IE",
       "dial_code": "+353",
-      "flag_emoji": "🇮🇪"
+      "flag_emoji": "🇮🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 23.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Irish", "English"],
+      "language_code": ["ga", "en"],
+      "company_code": "IE1234567X",
+      "is_active": true
     }
   },
   {
@@ -1076,7 +2359,19 @@
       "name": "Iran, Islamic Republic of",
       "iso_code": "IR",
       "dial_code": "+98",
-      "flag_emoji": "🇮🇷"
+      "flag_emoji": "🇮🇷",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 9.0,
+      "currency_name": "Iranian Rial",
+      "currency_code": "IRR",
+      "currency_symbol": "﷼",
+      "service_vat_percent": 9.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000024,
+      "language_name": ["Persian"],
+      "language_code": ["fa"],
+      "company_code": "IR001",
+      "is_active": true
     }
   },
   {
@@ -1086,7 +2381,19 @@
       "name": "Iraq",
       "iso_code": "IQ",
       "dial_code": "+964",
-      "flag_emoji": "🇮🇶"
+      "flag_emoji": "🇮🇶",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "Iraqi Dinar",
+      "currency_code": "IQD",
+      "currency_symbol": "د.ع",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00076,
+      "language_name": ["Arabic", "Kurdish"],
+      "language_code": ["ar", "ku"],
+      "company_code": "IQ001",
+      "is_active": true
     }
   },
   {
@@ -1096,7 +2403,19 @@
       "name": "Iceland",
       "iso_code": "IS",
       "dial_code": "+354",
-      "flag_emoji": "🇮🇸"
+      "flag_emoji": "🇮🇸",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Icelandic Króna",
+      "currency_code": "ISK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 24.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0072,
+      "language_name": ["Icelandic"],
+      "language_code": ["is"],
+      "company_code": "ID.NNNNNN-NNNN",
+      "is_active": true
     }
   },
   {
@@ -1106,7 +2425,19 @@
       "name": "Israel",
       "iso_code": "IL",
       "dial_code": "+972",
-      "flag_emoji": "🇮🇱"
+      "flag_emoji": "🇮🇱",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 20.0,
+      "currency_name": "Israeli New Shekel",
+      "currency_code": "ILS",
+      "currency_symbol": "₪",
+      "service_vat_percent": 17.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.27,
+      "language_name": ["Hebrew"],
+      "language_code": ["he"],
+      "company_code": "IL001",
+      "is_active": true
     }
   },
   {
@@ -1116,7 +2447,19 @@
       "name": "Italy",
       "iso_code": "IT",
       "dial_code": "+39",
-      "flag_emoji": "🇮🇹"
+      "flag_emoji": "🇮🇹",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Italian"],
+      "language_code": ["it"],
+      "company_code": "IT12345678901",
+      "is_active": true
     }
   },
   {
@@ -1126,7 +2469,19 @@
       "name": "Jamaica",
       "iso_code": "JM",
       "dial_code": "+1-876",
-      "flag_emoji": "🇯🇲"
+      "flag_emoji": "🇯🇲",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Jamaican Dollar",
+      "currency_code": "JMD",
+      "currency_symbol": "$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0064,
+      "language_name": ["English", "Jamaican Patois"],
+      "language_code": ["en", "ja"],
+      "company_code": "JM001",
+      "is_active": true
     }
   },
   {
@@ -1136,7 +2491,19 @@
       "name": "Jersey",
       "iso_code": "JE",
       "dial_code": "+44",
-      "flag_emoji": "🇯🇪"
+      "flag_emoji": "🇯🇪",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Jersey Pound",
+      "currency_code": "JEP",
+      "currency_symbol": "£",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English", "French"],
+      "language_code": ["en", "fr"],
+      "company_code": "JE001",
+      "is_active": true
     }
   },
   {
@@ -1146,7 +2513,19 @@
       "name": "Jordan",
       "iso_code": "JO",
       "dial_code": "+962",
-      "flag_emoji": "🇯🇴"
+      "flag_emoji": "🇯🇴",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Jordanian Dinar",
+      "currency_code": "JOD",
+      "currency_symbol": "JD",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.41,
+      "language_name": ["Arabic", "English"],
+      "language_code": ["ar", "en"],
+      "company_code": "JO001",
+      "is_active": true
     }
   },
   {
@@ -1156,7 +2535,19 @@
       "name": "Japan",
       "iso_code": "JP",
       "dial_code": "+81",
-      "flag_emoji": "🇯🇵"
+      "flag_emoji": "🇯🇵",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Japanese Yen",
+      "currency_code": "JPY",
+      "currency_symbol": "¥",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0064,
+      "language_name": ["Japanese"],
+      "language_code": ["js"],
+      "company_code": "1234-56-789012",
+      "is_active": true
     }
   },
   {
@@ -1166,7 +2557,19 @@
       "name": "Kazakhstan",
       "iso_code": "KZ",
       "dial_code": "+7",
-      "flag_emoji": "🇰🇿"
+      "flag_emoji": "🇰🇿",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Kazakhstani Tenge",
+      "currency_code": "KZT",
+      "currency_symbol": "₸",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0021,
+      "language_name": ["Kazakh", "Russian"],
+      "language_code": ["kk", "ru"],
+      "company_code": "BN 1234567890",
+      "is_active": true
     }
   },
   {
@@ -1176,7 +2579,19 @@
       "name": "Kenya",
       "iso_code": "KE",
       "dial_code": "+254",
-      "flag_emoji": "🇰🇪"
+      "flag_emoji": "🇰🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Kenyan Shilling",
+      "currency_code": "KES",
+      "currency_symbol": "KSh",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0076,
+      "language_name": ["Swahili", "English"],
+      "language_code": ["sw", "en"],
+      "company_code": "P012345678W",
+      "is_active": true
     }
   },
   {
@@ -1186,7 +2601,19 @@
       "name": "Kyrgyzstan",
       "iso_code": "KG",
       "dial_code": "+996",
-      "flag_emoji": "🇰🇬"
+      "flag_emoji": "🇰🇬",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Kyrgyzstani Som",
+      "currency_code": "KGS",
+      "currency_symbol": "сом",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.011,
+      "language_name": ["Kyrgyz", "Russian"],
+      "language_code": ["kg", "ru"],
+      "company_code": "KG001",
+      "is_active": true
     }
   },
   {
@@ -1196,7 +2623,19 @@
       "name": "Cambodia",
       "iso_code": "KH",
       "dial_code": "+855",
-      "flag_emoji": "🇰🇭"
+      "flag_emoji": "🇰🇭",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Cambodian Riel",
+      "currency_code": "KHR",
+      "currency_symbol": "៛",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00024,
+      "language_name": ["Khmer"],
+      "language_code": ["km"],
+      "company_code": "KH001",
+      "is_active": true
     }
   },
   {
@@ -1206,7 +2645,19 @@
       "name": "Kiribati",
       "iso_code": "KI",
       "dial_code": "+686",
-      "flag_emoji": "🇰🇮"
+      "flag_emoji": "🇰🇮",
+      "mobile_number_max_digits": 5,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "$",
+      "service_vat_percent": 12.5,
+      "is_main_currency": true,
+      "exchange_rate": 0.6693,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "KI001",
+      "is_active": true
     }
   },
   {
@@ -1216,7 +2667,19 @@
       "name": "Saint Kitts and Nevis",
       "iso_code": "KN",
       "dial_code": "+1-869",
-      "flag_emoji": "🇰🇳"
+      "flag_emoji": "🇰🇳",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 17.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37037,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "KN001",
+      "is_active": true
     }
   },
   {
@@ -1226,7 +2689,19 @@
       "name": "Korea, Republic of",
       "iso_code": "KR",
       "dial_code": "+82",
-      "flag_emoji": "🇰🇷"
+      "flag_emoji": "🇰🇷",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "South Korean Won",
+      "currency_code": "KRW",
+      "currency_symbol": "₩",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00072,
+      "language_name": ["Korean"],
+      "language_code": ["ko"],
+      "company_code": "NNNNNNNNNN",
+      "is_active": true
     }
   },
   {
@@ -1236,7 +2711,19 @@
       "name": "Kuwait",
       "iso_code": "KW",
       "dial_code": "+965",
-      "flag_emoji": "🇰🇼"
+      "flag_emoji": "🇰🇼",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Kuwaiti Dinar",
+      "currency_code": "KWD",
+      "currency_symbol": "KD",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 3.25,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "KW001",
+      "is_active": true
     }
   },
   {
@@ -1246,7 +2733,19 @@
       "name": "Lao People's Democratic Republic",
       "iso_code": "LA",
       "dial_code": "+856",
-      "flag_emoji": "🇱🇦"
+      "flag_emoji": "🇱🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Laotian Kip",
+      "currency_code": "LAK",
+      "currency_symbol": "₭",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000045,
+      "language_name": ["Lao"],
+      "language_code": ["lo"],
+      "company_code": "LA001",
+      "is_active": true
     }
   },
   {
@@ -1256,7 +2755,19 @@
       "name": "Lebanon",
       "iso_code": "LB",
       "dial_code": "+961",
-      "flag_emoji": "🇱🇧"
+      "flag_emoji": "🇱🇧",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Lebanese Pound",
+      "currency_code": "LBP",
+      "currency_symbol": "£",
+      "service_vat_percent": 11.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000011,
+      "language_name": ["Arabic", "French", "English"],
+      "language_code": ["lo", "fr", "en"],
+      "company_code": "LB001",
+      "is_active": true
     }
   },
   {
@@ -1266,7 +2777,19 @@
       "name": "Liberia",
       "iso_code": "LR",
       "dial_code": "+231",
-      "flag_emoji": "🇱🇷"
+      "flag_emoji": "🇱🇷",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Liberian Dollar",
+      "currency_code": "LRD",
+      "currency_symbol": "L$",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0053,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "LR001",
+      "is_active": true
     }
   },
   {
@@ -1276,7 +2799,19 @@
       "name": "Libya",
       "iso_code": "LY",
       "dial_code": "+218",
-      "flag_emoji": "🇱🇾"
+      "flag_emoji": "🇱🇾",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Libyan Dinar",
+      "currency_code": "LYD",
+      "currency_symbol": "LD",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.2078,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "LY001",
+      "is_active": true
     }
   },
   {
@@ -1286,7 +2821,19 @@
       "name": "Saint Lucia",
       "iso_code": "LC",
       "dial_code": "+1-758",
-      "flag_emoji": "🇱🇨"
+      "flag_emoji": "🇱🇨",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37037,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "LC001",
+      "is_active": true
     }
   },
   {
@@ -1296,7 +2843,19 @@
       "name": "Liechtenstein",
       "iso_code": "LI",
       "dial_code": "+423",
-      "flag_emoji": "🇱🇮"
+      "flag_emoji": "🇱🇮",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Swiss Franc",
+      "currency_code": "CHF",
+      "currency_symbol": "CHF",
+      "service_vat_percent": 7.7,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["German"],
+      "language_code": ["de"],
+      "company_code": "LI001",
+      "is_active": true
     }
   },
   {
@@ -1306,7 +2865,19 @@
       "name": "Sri Lanka",
       "iso_code": "LK",
       "dial_code": "+94",
-      "flag_emoji": "🇱🇰"
+      "flag_emoji": "🇱🇰",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "Sri Lankan Rupee",
+      "currency_code": "LKR",
+      "currency_symbol": "Rs",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 335.0,
+      "language_name": ["Sinhala", "Tamil"],
+      "language_code": ["si", "ta"],
+      "company_code": "LK001",
+      "is_active": true
     }
   },
   {
@@ -1316,7 +2887,19 @@
       "name": "Lesotho",
       "iso_code": "LS",
       "dial_code": "+266",
-      "flag_emoji": "🇱🇸"
+      "flag_emoji": "🇱🇸",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Lesotho Loti",
+      "currency_code": "LSL",
+      "currency_symbol": "L",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 18.0,
+      "language_name": ["Sesotho ", "English"],
+      "language_code": ["so", "en"],
+      "company_code": "LS001",
+      "is_active": true
     }
   },
   {
@@ -1326,7 +2909,19 @@
       "name": "Lithuania",
       "iso_code": "LT",
       "dial_code": "+370",
-      "flag_emoji": "🇱🇹"
+      "flag_emoji": "🇱🇹",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Lithuanian"],
+      "language_code": ["lt"],
+      "company_code": "LT001",
+      "is_active": true
     }
   },
   {
@@ -1336,7 +2931,19 @@
       "name": "Luxembourg",
       "iso_code": "LU",
       "dial_code": "+352",
-      "flag_emoji": "🇱🇺"
+      "flag_emoji": "🇱🇺",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["French", "German", "Luxembourgish"],
+      "language_code": ["fr", "de", "lb"],
+      "company_code": "LU001",
+      "is_active": true
     }
   },
   {
@@ -1346,7 +2953,19 @@
       "name": "Latvia",
       "iso_code": "LV",
       "dial_code": "+371",
-      "flag_emoji": "🇱🇻"
+      "flag_emoji": "🇱🇻",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Latvian"],
+      "language_code": ["lv"],
+      "company_code": "LV001",
+      "is_active": true
     }
   },
   {
@@ -1356,7 +2975,19 @@
       "name": "Macao",
       "iso_code": "MO",
       "dial_code": "+853",
-      "flag_emoji": "🇲🇴"
+      "flag_emoji": "🇲🇴",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Macanese Pataca",
+      "currency_code": "MOP",
+      "currency_symbol": "MOP$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 8.05,
+      "language_name": ["Chinese"],
+      "language_code": ["zh"],
+      "company_code": "MO001",
+      "is_active": true
     }
   },
   {
@@ -1366,7 +2997,19 @@
       "name": "Saint Martin (French part)",
       "iso_code": "MF",
       "dial_code": "+590",
-      "flag_emoji": "🇲🇫"
+      "flag_emoji": "🇲🇫",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 8.5,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "MF001",
+      "is_active": true
     }
   },
   {
@@ -1376,7 +3019,19 @@
       "name": "Morocco",
       "iso_code": "MA",
       "dial_code": "+212",
-      "flag_emoji": "🇲🇦"
+      "flag_emoji": "🇲🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 20.0,
+      "currency_name": "Moroccan Dirham",
+      "currency_code": "MAD",
+      "currency_symbol": "DH",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 9.8,
+      "language_name": ["Arabic", "Berber"],
+      "language_code": ["ar", "be"],
+      "company_code": "MA001",
+      "is_active": true
     }
   },
   {
@@ -1386,7 +3041,19 @@
       "name": "Monaco",
       "iso_code": "MC",
       "dial_code": "+377",
-      "flag_emoji": "🇲🇨"
+      "flag_emoji": "🇲🇨",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "MC001",
+      "is_active": true
     }
   },
   {
@@ -1396,7 +3063,19 @@
       "name": "Moldova, Republic of",
       "iso_code": "MD",
       "dial_code": "+373",
-      "flag_emoji": "🇲🇩"
+      "flag_emoji": "🇲🇩",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Moldovan Leu",
+      "currency_code": "MDL",
+      "currency_symbol": "L",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 17.7,
+      "language_name": ["Romanian"],
+      "language_code": ["ro"],
+      "company_code": "MD001",
+      "is_active": true
     }
   },
   {
@@ -1406,7 +3085,19 @@
       "name": "Madagascar",
       "iso_code": "MG",
       "dial_code": "+261",
-      "flag_emoji": "🇲🇬"
+      "flag_emoji": "🇲🇬",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Malagasy Ariary",
+      "currency_code": "MGA",
+      "currency_symbol": "Ar",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 4520.0,
+      "language_name": ["Malagasy", "French"],
+      "language_code": ["mg", "fr"],
+      "company_code": "MG001",
+      "is_active": true
     }
   },
   {
@@ -1416,7 +3107,19 @@
       "name": "Maldives",
       "iso_code": "MV",
       "dial_code": "+960",
-      "flag_emoji": "🇲🇻"
+      "flag_emoji": "🇲🇻",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 12.0,
+      "currency_name": "Maldivian Rufiyaa",
+      "currency_code": "MVR",
+      "currency_symbol": "Rf",
+      "service_vat_percent": 8.0,
+      "is_main_currency": true,
+      "exchange_rate": 15.4,
+      "language_name": ["Dhivehi", "English"],
+      "language_code": ["dv", "en"],
+      "company_code": "MV001",
+      "is_active": true
     }
   },
   {
@@ -1426,7 +3129,19 @@
       "name": "Mexico",
       "iso_code": "MX",
       "dial_code": "+52",
-      "flag_emoji": "🇲🇽"
+      "flag_emoji": "🇲🇽",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 16.0,
+      "currency_name": "Mexican Peso",
+      "currency_code": "MXN",
+      "currency_symbol": "$",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 18.0,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "MX001",
+      "is_active": true
     }
   },
   {
@@ -1436,7 +3151,19 @@
       "name": "Marshall Islands",
       "iso_code": "MH",
       "dial_code": "+692",
-      "flag_emoji": "🇲🇭"
+      "flag_emoji": "🇲🇭",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Marshallese", "English"],
+      "language_code": ["mh", "en"],
+      "company_code": "MH001",
+      "is_active": true
     }
   },
   {
@@ -1446,7 +3173,19 @@
       "name": "North Macedonia",
       "iso_code": "MK",
       "dial_code": "+389",
-      "flag_emoji": "🇲🇰"
+      "flag_emoji": "🇲🇰",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 18.0,
+      "currency_name": "Macedonian Denar",
+      "currency_code": "MKD",
+      "currency_symbol": "ден",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 57.0,
+      "language_name": ["Macedonian"],
+      "language_code": ["mk"],
+      "company_code": "MK001",
+      "is_active": true
     }
   },
   {
@@ -1456,7 +3195,19 @@
       "name": "Mali",
       "iso_code": "ML",
       "dial_code": "+223",
-      "flag_emoji": "🇲🇱"
+      "flag_emoji": "🇲🇱",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 18.0,
+      "currency_name": "West African CFA franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 602.0,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "ML001",
+      "is_active": true
     }
   },
   {
@@ -1466,7 +3217,19 @@
       "name": "Malta",
       "iso_code": "MT",
       "dial_code": "+356",
-      "flag_emoji": "🇲🇹"
+      "flag_emoji": "🇲🇹",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 18.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Maltese"],
+      "language_code": ["mt"],
+      "company_code": "MT001",
+      "is_active": true
     }
   },
   {
@@ -1476,7 +3239,19 @@
       "name": "Myanmar",
       "iso_code": "MM",
       "dial_code": "+95",
-      "flag_emoji": "🇲🇲"
+      "flag_emoji": "🇲🇲",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 5.0,
+      "currency_name": "Myanmar Kyat",
+      "currency_code": "MMK",
+      "currency_symbol": "Ks",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 2100.0,
+      "language_name": ["Burmese"],
+      "language_code": ["bu"],
+      "company_code": "MM001",
+      "is_active": true
     }
   },
   {
@@ -1486,7 +3261,19 @@
       "name": "Montenegro",
       "iso_code": "ME",
       "dial_code": "+382",
-      "flag_emoji": "🇲🇪"
+      "flag_emoji": "🇲🇪",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 21.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Montenegrin"],
+      "language_code": ["cn"],
+      "company_code": "ME001",
+      "is_active": true
     }
   },
   {
@@ -1496,7 +3283,19 @@
       "name": "Mongolia",
       "iso_code": "MN",
       "dial_code": "+976",
-      "flag_emoji": "🇲🇳"
+      "flag_emoji": "🇲🇳",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Mongolian Tögrög",
+      "currency_code": "MNT",
+      "currency_symbol": "₮",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 3500.0,
+      "language_name": ["Mongolian"],
+      "language_code": ["mn"],
+      "company_code": "MN001",
+      "is_active": true
     }
   },
   {
@@ -1506,7 +3305,19 @@
       "name": "Northern Mariana Islands",
       "iso_code": "MP",
       "dial_code": "+1-670",
-      "flag_emoji": "🇲🇵"
+      "flag_emoji": "🇲🇵",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English", "Chamorro"],
+      "language_code": ["en", "ch"],
+      "company_code": "MP001",
+      "is_active": true
     }
   },
   {
@@ -1516,7 +3327,19 @@
       "name": "Mozambique",
       "iso_code": "MZ",
       "dial_code": "+258",
-      "flag_emoji": "🇲🇿"
+      "flag_emoji": "🇲🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 17.0,
+      "currency_name": "Mozambican Metical",
+      "currency_code": "MZN",
+      "currency_symbol": "MT",
+      "service_vat_percent": 17.0,
+      "is_main_currency": true,
+      "exchange_rate": 63.5,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "MZ001",
+      "is_active": true
     }
   },
   {
@@ -1526,7 +3349,19 @@
       "name": "Mauritania",
       "iso_code": "MR",
       "dial_code": "+222",
-      "flag_emoji": "🇲🇷"
+      "flag_emoji": "🇲🇷",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 14.0,
+      "currency_name": "Ouguiya",
+      "currency_code": "MRU",
+      "currency_symbol": "UM",
+      "service_vat_percent": 14.0,
+      "is_main_currency": true,
+      "exchange_rate": 39.0,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "MR001",
+      "is_active": true
     }
   },
   {
@@ -1536,7 +3371,19 @@
       "name": "Montserrat",
       "iso_code": "MS",
       "dial_code": "+1",
-      "flag_emoji": "🇲🇸"
+      "flag_emoji": "🇲🇸",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 2.7,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "MS001",
+      "is_active": true
     }
   },
   {
@@ -1546,7 +3393,19 @@
       "name": "Martinique",
       "iso_code": "MQ",
       "dial_code": "+596",
-      "flag_emoji": "🇲🇶"
+      "flag_emoji": "🇲🇶",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 8.5,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 8.5,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "MQ001",
+      "is_active": true
     }
   },
   {
@@ -1556,7 +3415,19 @@
       "name": "Mauritius",
       "iso_code": "MU",
       "dial_code": "+230",
-      "flag_emoji": "🇲🇺"
+      "flag_emoji": "🇲🇺",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "Mauritian Rupee",
+      "currency_code": "MUR",
+      "currency_symbol": "Rs",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 45.2,
+      "language_name": ["English", "French"],
+      "language_code": ["en", "fr"],
+      "company_code": "MU001",
+      "is_active": true
     }
   },
   {
@@ -1566,7 +3437,19 @@
       "name": "Malawi",
       "iso_code": "MW",
       "dial_code": "+265",
-      "flag_emoji": "🇲🇼"
+      "flag_emoji": "🇲🇼",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 16.5,
+      "currency_name": "Malawian Kwacha",
+      "currency_code": "MWK",
+      "currency_symbol": "MK",
+      "service_vat_percent": 16.5,
+      "is_main_currency": true,
+      "exchange_rate": 1720.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "MW001",
+      "is_active": true
     }
   },
   {
@@ -1576,7 +3459,19 @@
       "name": "Malaysia",
       "iso_code": "MY",
       "dial_code": "+60",
-      "flag_emoji": "🇲🇾"
+      "flag_emoji": "🇲🇾",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Malaysian Ringgit",
+      "currency_code": "MYR",
+      "currency_symbol": "RM",
+      "service_vat_percent": 8.0,
+      "is_main_currency": true,
+      "exchange_rate": 4.7,
+      "language_name": ["Malay"],
+      "language_code": ["ms"],
+      "company_code": "MY001",
+      "is_active": true
     }
   },
   {
@@ -1586,7 +3481,19 @@
       "name": "Mayotte",
       "iso_code": "YT",
       "dial_code": "+262",
-      "flag_emoji": "🇾🇹"
+      "flag_emoji": "🇾🇹",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 8.5,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 8.5,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "YT001",
+      "is_active": true
     }
   },
   {
@@ -1596,7 +3503,19 @@
       "name": "Namibia",
       "iso_code": "NA",
       "dial_code": "+264",
-      "flag_emoji": "🇳🇦"
+      "flag_emoji": "🇳🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "Namibian Dollar",
+      "currency_code": "NAD",
+      "currency_symbol": "N$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 18.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "NA001",
+      "is_active": true
     }
   },
   {
@@ -1606,7 +3525,19 @@
       "name": "New Caledonia",
       "iso_code": "NC",
       "dial_code": "+687",
-      "flag_emoji": "🇳🇨"
+      "flag_emoji": "🇳🇨",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "CFP Franc",
+      "currency_code": "XPF",
+      "currency_symbol": "₣",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0084,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "NC001",
+      "is_active": true
     }
   },
   {
@@ -1616,7 +3547,19 @@
       "name": "Niger",
       "iso_code": "NE",
       "dial_code": "+227",
-      "flag_emoji": "🇳🇪"
+      "flag_emoji": "🇳🇪",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA Franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 650.0,
+      "language_name": ["Hausa"],
+      "language_code": ["ha"],
+      "company_code": "NE001",
+      "is_active": true
     }
   },
   {
@@ -1626,7 +3569,19 @@
       "name": "Norfolk Island",
       "iso_code": "NF",
       "dial_code": "+672",
-      "flag_emoji": "🇳🇫"
+      "flag_emoji": "🇳🇫",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "AU$",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.5,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "NF001",
+      "is_active": true
     }
   },
   {
@@ -1636,7 +3591,19 @@
       "name": "Nigeria",
       "iso_code": "NG",
       "dial_code": "+234",
-      "flag_emoji": "🇳🇬"
+      "flag_emoji": "🇳🇬",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Nigerian Naira",
+      "currency_code": "NGN",
+      "currency_symbol": "₦",
+      "service_vat_percent": 7.5,
+      "is_main_currency": true,
+      "exchange_rate": 1555.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "NG001",
+      "is_active": true
     }
   },
   {
@@ -1646,7 +3613,19 @@
       "name": "Nicaragua",
       "iso_code": "NI",
       "dial_code": "+505",
-      "flag_emoji": "🇳🇮"
+      "flag_emoji": "🇳🇮",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "Nicaraguan Córdoba",
+      "currency_code": "NIO",
+      "currency_symbol": "C$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 36.0,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "NI001",
+      "is_active": true
     }
   },
   {
@@ -1656,7 +3635,19 @@
       "name": "Niue",
       "iso_code": "NU",
       "dial_code": "+683",
-      "flag_emoji": "🇳🇺"
+      "flag_emoji": "🇳🇺",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "New Zealand Dollar",
+      "currency_code": "NZD",
+      "currency_symbol": "NZ$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.6,
+      "language_name": ["Niuean", "English"],
+      "language_code": ["ni", "en"],
+      "company_code": "NU001",
+      "is_active": true
     }
   },
   {
@@ -1666,7 +3657,19 @@
       "name": "Netherlands",
       "iso_code": "NL",
       "dial_code": "+31",
-      "flag_emoji": "🇳🇱"
+      "flag_emoji": "🇳🇱",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 21.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Dutch"],
+      "language_code": ["nl"],
+      "company_code": "NL001",
+      "is_active": true
     }
   },
   {
@@ -1676,7 +3679,19 @@
       "name": "Norway",
       "iso_code": "NO",
       "dial_code": "+47",
-      "flag_emoji": "🇳🇴"
+      "flag_emoji": "🇳🇴",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 25.0,
+      "currency_name": "Norwegian Krone",
+      "currency_code": "NOK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 11.0,
+      "language_name": ["Norwegian"],
+      "language_code": ["no"],
+      "company_code": "NO001",
+      "is_active": true
     }
   },
   {
@@ -1686,7 +3701,19 @@
       "name": "Nepal",
       "iso_code": "NP",
       "dial_code": "+977",
-      "flag_emoji": "🇳🇵"
+      "flag_emoji": "🇳🇵",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 13.0,
+      "currency_name": "Nepalese Rupee",
+      "currency_code": "NPR",
+      "currency_symbol": "₨",
+      "service_vat_percent": 13.0,
+      "is_main_currency": true,
+      "exchange_rate": 131.0,
+      "language_name": ["Nepali"],
+      "language_code": ["ne"],
+      "company_code": "NP001",
+      "is_active": true
     }
   },
   {
@@ -1696,7 +3723,19 @@
       "name": "Nauru",
       "iso_code": "NR",
       "dial_code": "+674",
-      "flag_emoji": "🇳🇷"
+      "flag_emoji": "🇳🇷",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "AU$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.5,
+      "language_name": ["Nauruan"],
+      "language_code": ["na"],
+      "company_code": "NR001",
+      "is_active": true
     }
   },
   {
@@ -1706,7 +3745,19 @@
       "name": "New Zealand",
       "iso_code": "NZ",
       "dial_code": "+64",
-      "flag_emoji": "🇳🇿"
+      "flag_emoji": "🇳🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "New Zealand Dollar",
+      "currency_code": "NZD",
+      "currency_symbol": "NZ$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6,
+      "language_name": ["English", "Maori"],
+      "language_code": ["en", "mi"],
+      "company_code": "NZ001",
+      "is_active": true
     }
   },
   {
@@ -1716,7 +3767,19 @@
       "name": "Oman",
       "iso_code": "OM",
       "dial_code": "+968",
-      "flag_emoji": "🇴🇲"
+      "flag_emoji": "🇴🇲",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Omani Rial",
+      "currency_code": "OMR",
+      "currency_symbol": "OMR",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 2.6,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "OM001",
+      "is_active": true
     }
   },
   {
@@ -1726,7 +3789,19 @@
       "name": "Pakistan",
       "iso_code": "PK",
       "dial_code": "+92",
-      "flag_emoji": "🇵🇰"
+      "flag_emoji": "🇵🇰",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Pakistani Rupee",
+      "currency_code": "PKR",
+      "currency_symbol": "₨",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 279.0,
+      "language_name": ["Urdu", "English"],
+      "language_code": ["ur", "en"],
+      "company_code": "PK001",
+      "is_active": true
     }
   },
   {
@@ -1736,7 +3811,19 @@
       "name": "Panama",
       "iso_code": "PA",
       "dial_code": "+507",
-      "flag_emoji": "🇵🇦"
+      "flag_emoji": "🇵🇦",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Panamanian Balboa",
+      "currency_code": "PAB",
+      "currency_symbol": "B/.",
+      "service_vat_percent": 7.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "PA001",
+      "is_active": true
     }
   },
   {
@@ -1746,7 +3833,19 @@
       "name": "Pitcairn",
       "iso_code": "PN",
       "dial_code": "+64",
-      "flag_emoji": "🇵🇳"
+      "flag_emoji": "🇵🇳",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "New Zealand Dollar",
+      "currency_code": "NZD",
+      "currency_symbol": "NZ$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "PN001",
+      "is_active": true
     }
   },
   {
@@ -1756,7 +3855,19 @@
       "name": "Peru",
       "iso_code": "PE",
       "dial_code": "+51",
-      "flag_emoji": "🇵🇪"
+      "flag_emoji": "🇵🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Peruvian Sol",
+      "currency_code": "PEN",
+      "currency_symbol": "S/.",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 3.8,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "PE001",
+      "is_active": true
     }
   },
   {
@@ -1766,7 +3877,19 @@
       "name": "Philippines",
       "iso_code": "PH",
       "dial_code": "+63",
-      "flag_emoji": "🇵🇭"
+      "flag_emoji": "🇵🇭",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Philippine Peso",
+      "currency_code": "PHP",
+      "currency_symbol": "₱",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 56.0,
+      "language_name": ["Filipino", "English"],
+      "language_code": ["tl", "en"],
+      "company_code": "PH001",
+      "is_active": true
     }
   },
   {
@@ -1776,7 +3899,19 @@
       "name": "Palau",
       "iso_code": "PW",
       "dial_code": "+680",
-      "flag_emoji": "🇵🇼"
+      "flag_emoji": "🇵🇼",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Palauan", "English"],
+      "language_code": ["pau", "en"],
+      "company_code": "PW001",
+      "is_active": true
     }
   },
   {
@@ -1786,7 +3921,19 @@
       "name": "Papua New Guinea",
       "iso_code": "PG",
       "dial_code": "+675",
-      "flag_emoji": "🇵🇬"
+      "flag_emoji": "🇵🇬",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Papua New Guinea Kina",
+      "currency_code": "PGK",
+      "currency_symbol": "K",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.29,
+      "language_name": ["Tok Pisin", "English"],
+      "language_code": ["tpi", "en"],
+      "company_code": "PG001",
+      "is_active": true
     }
   },
   {
@@ -1796,7 +3943,19 @@
       "name": "Poland",
       "iso_code": "PL",
       "dial_code": "+48",
-      "flag_emoji": "🇵🇱"
+      "flag_emoji": "🇵🇱",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Polish Złoty",
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "service_vat_percent": 23.0,
+      "is_main_currency": true,
+      "exchange_rate": 4.3,
+      "language_name": ["Polish"],
+      "language_code": ["pl"],
+      "company_code": "PL001",
+      "is_active": true
     }
   },
   {
@@ -1806,7 +3965,19 @@
       "name": "Puerto Rico",
       "iso_code": "PR",
       "dial_code": "+1",
-      "flag_emoji": "🇵🇷"
+      "flag_emoji": "🇵🇷",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 11.5,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Spanish", "English"],
+      "language_code": ["es", "en"],
+      "company_code": "PR001",
+      "is_active": true
     }
   },
   {
@@ -1816,7 +3987,19 @@
       "name": "Korea, Democratic People's Republic of",
       "iso_code": "KP",
       "dial_code": "+850",
-      "flag_emoji": "🇰🇵"
+      "flag_emoji": "🇰🇵",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "North Korean Won",
+      "currency_code": "KPW",
+      "currency_symbol": "₩",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 900.0,
+      "language_name": ["Korean"],
+      "language_code": ["ko"],
+      "company_code": "KP001",
+      "is_active": true
     }
   },
   {
@@ -1826,7 +4009,19 @@
       "name": "Portugal",
       "iso_code": "PT",
       "dial_code": "+351",
-      "flag_emoji": "🇵🇹"
+      "flag_emoji": "🇵🇹",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 23.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.56,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "PT001",
+      "is_active": true
     }
   },
   {
@@ -1836,17 +4031,41 @@
       "name": "Paraguay",
       "iso_code": "PY",
       "dial_code": "+595",
-      "flag_emoji": "🇵🇾"
+      "flag_emoji": "🇵🇾",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Paraguayan Guaraní",
+      "currency_code": "PYG",
+      "currency_symbol": "₲",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 2700.0,
+      "language_name": ["Guaraní", "Spanish"],
+      "language_code": ["gn", "es"],
+      "company_code": "PY001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 185,
     "fields": {
-      "name": "Palestine, State of Palestine",
+      "name": "State of Palestine",
       "iso_code": "PS",
       "dial_code": "+970",
-      "flag_emoji": "🇵🇸"
+      "flag_emoji": "🇵🇸",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Israeli New Shekel",
+      "currency_code": "ILS",
+      "currency_symbol": "₪",
+      "service_vat_percent": 17.0,
+      "is_main_currency": true,
+      "exchange_rate": 3.5,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "PS001",
+      "is_active": true
     }
   },
   {
@@ -1856,7 +4075,19 @@
       "name": "French Polynesia",
       "iso_code": "PF",
       "dial_code": "+689",
-      "flag_emoji": "🇵🇫"
+      "flag_emoji": "🇵🇫",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 22.0,
+      "currency_name": "CFP Franc",
+      "currency_code": "XPF",
+      "currency_symbol": "₣",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0084,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "PF001",
+      "is_active": true
     }
   },
   {
@@ -1866,7 +4097,19 @@
       "name": "Qatar",
       "iso_code": "QA",
       "dial_code": "+974",
-      "flag_emoji": "🇶🇦"
+      "flag_emoji": "🇶🇦",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Qatari Riyal",
+      "currency_code": "QAR",
+      "currency_symbol": "QR",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.274,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "QA001",
+      "is_active": true
     }
   },
   {
@@ -1876,7 +4119,19 @@
       "name": "Réunion",
       "iso_code": "RE",
       "dial_code": "+262",
-      "flag_emoji": "🇷🇪"
+      "flag_emoji": "🇷🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.56,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "RE001",
+      "is_active": true
     }
   },
   {
@@ -1886,7 +4141,19 @@
       "name": "Romania",
       "iso_code": "RO",
       "dial_code": "+40",
-      "flag_emoji": "🇷🇴"
+      "flag_emoji": "🇷🇴",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Romanian Leu",
+      "currency_code": "RON",
+      "currency_symbol": "lei",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.92,
+      "language_name": ["Romanian"],
+      "language_code": ["ro"],
+      "company_code": "RO001",
+      "is_active": true
     }
   },
   {
@@ -1896,7 +4163,19 @@
       "name": "Russian Federation",
       "iso_code": "RU",
       "dial_code": "+7",
-      "flag_emoji": "🇷🇺"
+      "flag_emoji": "🇷🇺",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Russian Ruble",
+      "currency_code": "RUB",
+      "currency_symbol": "₽",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 32.11,
+      "language_name": ["Russian"],
+      "language_code": ["ru"],
+      "company_code": "RU001",
+      "is_active": true
     }
   },
   {
@@ -1906,7 +4185,19 @@
       "name": "Rwanda",
       "iso_code": "RW",
       "dial_code": "+250",
-      "flag_emoji": "🇷🇼"
+      "flag_emoji": "🇷🇼",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Rwandan Franc",
+      "currency_code": "RWF",
+      "currency_symbol": "R₣",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00088,
+      "language_name": ["Kinyarwanda", "English", "French"],
+      "language_code": ["rw", "en", "fr"],
+      "company_code": "RW001",
+      "is_active": true
     }
   },
   {
@@ -1916,7 +4207,19 @@
       "name": "Saudi Arabia",
       "iso_code": "SA",
       "dial_code": "+966",
-      "flag_emoji": "🇸🇦"
+      "flag_emoji": "🇸🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Saudi Riyal",
+      "currency_code": "SAR",
+      "currency_symbol": "﷼",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.27,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "SA001",
+      "is_active": true
     }
   },
   {
@@ -1926,7 +4229,19 @@
       "name": "Sudan",
       "iso_code": "SD",
       "dial_code": "+249",
-      "flag_emoji": "🇸🇩"
+      "flag_emoji": "🇸🇩",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Sudanese Pound",
+      "currency_code": "SDG",
+      "currency_symbol": "£",
+      "service_vat_percent": 17.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0022,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "SD001",
+      "is_active": true
     }
   },
   {
@@ -1936,7 +4251,19 @@
       "name": "Senegal",
       "iso_code": "SN",
       "dial_code": "+221",
-      "flag_emoji": "🇸🇳"
+      "flag_emoji": "🇸🇳",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA Franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0017,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "SN001",
+      "is_active": true
     }
   },
   {
@@ -1946,7 +4273,19 @@
       "name": "Singapore",
       "iso_code": "SG",
       "dial_code": "+65",
-      "flag_emoji": "🇸🇬"
+      "flag_emoji": "🇸🇬",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Singapore Dollar",
+      "currency_code": "SGD",
+      "currency_symbol": "S$",
+      "service_vat_percent": 9.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.74,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "SG001",
+      "is_active": true
     }
   },
   {
@@ -1956,7 +4295,19 @@
       "name": "South Georgia and the South Sandwich Islands",
       "iso_code": "GS",
       "dial_code": "+500",
-      "flag_emoji": "🇬🇸"
+      "flag_emoji": "🇬🇸",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "British Pound Sterling",
+      "currency_code": "GBP",
+      "currency_symbol": "£",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "GS001",
+      "is_active": true
     }
   },
   {
@@ -1966,7 +4317,19 @@
       "name": "Saint Helena, Ascension and Tristan da Cunha",
       "iso_code": "SH",
       "dial_code": "+290",
-      "flag_emoji": "🇸🇭"
+      "flag_emoji": "🇸🇭",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Saint Helena Pound",
+      "currency_code": "SHP",
+      "currency_symbol": "£",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.27,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "SH001",
+      "is_active": true
     }
   },
   {
@@ -1976,7 +4339,19 @@
       "name": "Svalbard and Jan Mayen",
       "iso_code": "SJ",
       "dial_code": "+47",
-      "flag_emoji": "🇸🇯"
+      "flag_emoji": "🇸🇯",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Norwegian Krone",
+      "currency_code": "NOK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.11,
+      "language_name": ["Norwegian"],
+      "language_code": ["no"],
+      "company_code": "SJ001",
+      "is_active": true
     }
   },
   {
@@ -1986,7 +4361,19 @@
       "name": "Solomon Islands",
       "iso_code": "SB",
       "dial_code": "+677",
-      "flag_emoji": "🇸🇧"
+      "flag_emoji": "🇸🇧",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Solomon Islands Dollar",
+      "currency_code": "SBD",
+      "currency_symbol": "SI$",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.12,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "SB001",
+      "is_active": true
     }
   },
   {
@@ -1996,7 +4383,19 @@
       "name": "Sierra Leone",
       "iso_code": "SL",
       "dial_code": "+232",
-      "flag_emoji": "🇸🇱"
+      "flag_emoji": "🇸🇱",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Sierra Leonean Leone",
+      "currency_code": "SLL",
+      "currency_symbol": "Le",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000051,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "SL001",
+      "is_active": true
     }
   },
   {
@@ -2006,7 +4405,19 @@
       "name": "El Salvador",
       "iso_code": "SV",
       "dial_code": "+503",
-      "flag_emoji": "🇸🇻"
+      "flag_emoji": "🇸🇻",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 13.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "SV001",
+      "is_active": true
     }
   },
   {
@@ -2016,7 +4427,19 @@
       "name": "San Marino",
       "iso_code": "SM",
       "dial_code": "+378",
-      "flag_emoji": "🇸🇲"
+      "flag_emoji": "🇸🇲",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Italian"],
+      "language_code": ["it"],
+      "company_code": "SM001",
+      "is_active": true
     }
   },
   {
@@ -2026,7 +4449,19 @@
       "name": "Somalia",
       "iso_code": "SO",
       "dial_code": "+252",
-      "flag_emoji": "🇸🇴"
+      "flag_emoji": "🇸🇴",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Somali Shilling",
+      "currency_code": "SOS",
+      "currency_symbol": "Sh.So.",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000037,
+      "language_name": ["Somali"],
+      "language_code": ["so"],
+      "company_code": "SO001",
+      "is_active": true
     }
   },
   {
@@ -2036,7 +4471,19 @@
       "name": "Saint Pierre and Miquelon",
       "iso_code": "PM",
       "dial_code": "+508",
-      "flag_emoji": "🇵🇲"
+      "flag_emoji": "🇵🇲",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "PM001",
+      "is_active": true
     }
   },
   {
@@ -2046,7 +4493,19 @@
       "name": "Serbia",
       "iso_code": "RS",
       "dial_code": "+381",
-      "flag_emoji": "🇷🇸"
+      "flag_emoji": "🇷🇸",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Serbian Dinar",
+      "currency_code": "RSD",
+      "currency_symbol": "дин.",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 107.0,
+      "language_name": ["Serbian"],
+      "language_code": ["sr"],
+      "company_code": "RS001",
+      "is_active": true
     }
   },
   {
@@ -2056,7 +4515,19 @@
       "name": "South Sudan",
       "iso_code": "SS",
       "dial_code": "+211",
-      "flag_emoji": "🇸🇸"
+      "flag_emoji": "🇸🇸",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "South Sudanese Pound",
+      "currency_code": "SSP",
+      "currency_symbol": "SSP",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.002,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "SS001",
+      "is_active": true
     }
   },
   {
@@ -2066,7 +4537,19 @@
       "name": "Sao Tome and Principe",
       "iso_code": "ST",
       "dial_code": "+239",
-      "flag_emoji": "🇸🇹"
+      "flag_emoji": "🇸🇹",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "São Tomé and Príncipe Dobra",
+      "currency_code": "STN",
+      "currency_symbol": "Db",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 24.5,
+      "language_name": ["Portuguese"],
+      "language_code": ["pt"],
+      "company_code": "ST001",
+      "is_active": true
     }
   },
   {
@@ -2076,7 +4559,19 @@
       "name": "Suriname",
       "iso_code": "SR",
       "dial_code": "+597",
-      "flag_emoji": "🇸🇷"
+      "flag_emoji": "🇸🇷",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 8.0,
+      "currency_name": "Surinamese Dollar",
+      "currency_code": "SRD",
+      "currency_symbol": "$",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 14.3,
+      "language_name": ["Dutch"],
+      "language_code": ["nl"],
+      "company_code": "SR001",
+      "is_active": true
     }
   },
   {
@@ -2086,7 +4581,19 @@
       "name": "Slovakia",
       "iso_code": "SK",
       "dial_code": "+421",
-      "flag_emoji": "🇸🇰"
+      "flag_emoji": "🇸🇰",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Slovak"],
+      "language_code": ["sk"],
+      "company_code": "SK001",
+      "is_active": true
     }
   },
   {
@@ -2096,7 +4603,19 @@
       "name": "Slovenia",
       "iso_code": "SI",
       "dial_code": "+386",
-      "flag_emoji": "🇸🇮"
+      "flag_emoji": "🇸🇮",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Slovenian"],
+      "language_code": ["sl"],
+      "company_code": "SI001",
+      "is_active": true
     }
   },
   {
@@ -2106,7 +4625,19 @@
       "name": "Sweden",
       "iso_code": "SE",
       "dial_code": "+46",
-      "flag_emoji": "🇸🇪"
+      "flag_emoji": "🇸🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Swedish krona",
+      "currency_code": "SEK",
+      "currency_symbol": "kr",
+      "service_vat_percent": 25.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.094,
+      "language_name": ["Swedish"],
+      "language_code": ["sv"],
+      "company_code": "SE001",
+      "is_active": true
     }
   },
   {
@@ -2116,7 +4647,19 @@
       "name": "Eswatini",
       "iso_code": "SZ",
       "dial_code": "+268",
-      "flag_emoji": "🇸🇿"
+      "flag_emoji": "🇸🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Swazi Lilangeni",
+      "currency_code": "SZL",
+      "currency_symbol": "L",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.055,
+      "language_name": ["Siswati", "English"],
+      "language_code": ["ss", "en"],
+      "company_code": "SZ001",
+      "is_active": true
     }
   },
   {
@@ -2126,7 +4669,19 @@
       "name": "Sint Maarten (Dutch part)",
       "iso_code": "SX",
       "dial_code": "+590",
-      "flag_emoji": "🇸🇽"
+      "flag_emoji": "🇸🇽",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Netherlands Antillean Guilder",
+      "currency_code": "ANG",
+      "currency_symbol": "ƒ",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.56,
+      "language_name": ["Dutch", "English"],
+      "language_code": ["nl", "en"],
+      "company_code": "SX001",
+      "is_active": true
     }
   },
   {
@@ -2136,7 +4691,19 @@
       "name": "Seychelles",
       "iso_code": "SC",
       "dial_code": "+248",
-      "flag_emoji": "🇸🇨"
+      "flag_emoji": "🇸🇨",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 15.0,
+      "currency_name": "Seychellois Rupee",
+      "currency_code": "SCR",
+      "currency_symbol": "₨",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.074,
+      "language_name": ["Seychellois Creole", "English", "French"],
+      "language_code": ["crs", "en", "fr"],
+      "company_code": "SC001",
+      "is_active": true
     }
   },
   {
@@ -2146,7 +4713,19 @@
       "name": "Syrian Arab Republic",
       "iso_code": "SY",
       "dial_code": "+963",
-      "flag_emoji": "🇸🇾"
+      "flag_emoji": "🇸🇾",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Syrian Pound",
+      "currency_code": "SYP",
+      "currency_symbol": "£",
+      "service_vat_percent": 10.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00039,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "SY001",
+      "is_active": true
     }
   },
   {
@@ -2155,8 +4734,20 @@
     "fields": {
       "name": "Turks and Caicos Islands",
       "iso_code": "TC",
-      "dial_code": "+1 649",
-      "flag_emoji": "🇹🇨"
+      "dial_code": "+1‑649",
+      "flag_emoji": "🇹🇨",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "TC001",
+      "is_active": true
     }
   },
   {
@@ -2166,7 +4757,19 @@
       "name": "Chad",
       "iso_code": "TD",
       "dial_code": "+235",
-      "flag_emoji": "🇹🇩"
+      "flag_emoji": "🇹🇩",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Central African CFA Franc",
+      "currency_code": "XAF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0018,
+      "language_name": ["French", "Arabic"],
+      "language_code": ["fr", "ar"],
+      "company_code": "TD001",
+      "is_active": true
     }
   },
   {
@@ -2176,7 +4779,19 @@
       "name": "Togo",
       "iso_code": "TG",
       "dial_code": "+228",
-      "flag_emoji": "🇹🇬"
+      "flag_emoji": "🇹🇬",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "West African CFA Franc",
+      "currency_code": "XOF",
+      "currency_symbol": "CFA",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0017,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "TG001",
+      "is_active": true
     }
   },
   {
@@ -2186,7 +4801,19 @@
       "name": "Thailand",
       "iso_code": "TH",
       "dial_code": "+66",
-      "flag_emoji": "🇹🇭"
+      "flag_emoji": "🇹🇭",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 10.0,
+      "currency_name": "Thai Baht",
+      "currency_code": "THB",
+      "currency_symbol": "฿",
+      "service_vat_percent": 7.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.028,
+      "language_name": ["Thai"],
+      "language_code": ["th"],
+      "company_code": "TH001",
+      "is_active": true
     }
   },
   {
@@ -2196,7 +4823,19 @@
       "name": "Tajikistan",
       "iso_code": "TJ",
       "dial_code": "+992",
-      "flag_emoji": "🇹🇯"
+      "flag_emoji": "🇹🇯",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Tajikistani Somoni",
+      "currency_code": "TJS",
+      "currency_symbol": "SM",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.09,
+      "language_name": ["Tajik", "Russian"],
+      "language_code": ["tg", "ru"],
+      "company_code": "TJ001",
+      "is_active": true
     }
   },
   {
@@ -2206,7 +4845,19 @@
       "name": "Tokelau",
       "iso_code": "TK",
       "dial_code": "+690",
-      "flag_emoji": "🇹🇰"
+      "flag_emoji": "🇹🇰",
+      "mobile_number_max_digits": 5,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "New Zealand Dollar",
+      "currency_code": "NZD",
+      "currency_symbol": "NZ$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.6,
+      "language_name": ["Tokelauan", "English"],
+      "language_code": ["tkl", "en"],
+      "company_code": "TK001",
+      "is_active": true
     }
   },
   {
@@ -2216,7 +4867,19 @@
       "name": "Turkmenistan",
       "iso_code": "TM",
       "dial_code": "+993",
-      "flag_emoji": "🇹🇲"
+      "flag_emoji": "🇹🇲",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Turkmenistan Manat",
+      "currency_code": "TMT",
+      "currency_symbol": "T",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.29,
+      "language_name": ["Turkmen"],
+      "language_code": ["tk"],
+      "company_code": "TM001",
+      "is_active": true
     }
   },
   {
@@ -2226,7 +4889,19 @@
       "name": "Timor-Leste",
       "iso_code": "TL",
       "dial_code": "+670",
-      "flag_emoji": "🇹🇱"
+      "flag_emoji": "🇹🇱",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["Tetum", "Portuguese"],
+      "language_code": ["tet", "pt"],
+      "company_code": "TL001",
+      "is_active": true
     }
   },
   {
@@ -2236,7 +4911,19 @@
       "name": "Tonga",
       "iso_code": "TO",
       "dial_code": "+676",
-      "flag_emoji": "🇹🇴"
+      "flag_emoji": "🇹🇴",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Tongan Paʻanga",
+      "currency_code": "TOP",
+      "currency_symbol": "T$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.4,
+      "language_name": ["Tongan", "English"],
+      "language_code": ["to", "en"],
+      "company_code": "TO001",
+      "is_active": true
     }
   },
   {
@@ -2245,8 +4932,20 @@
     "fields": {
       "name": "Trinidad and Tobago",
       "iso_code": "TT",
-      "dial_code": "+1-868",
-      "flag_emoji": "🇹🇹"
+      "dial_code": "+1‑868",
+      "flag_emoji": "🇹🇹",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Trinidad and Tobago Dollar",
+      "currency_code": "TTD",
+      "currency_symbol": "TT$",
+      "service_vat_percent": 12.5,
+      "is_main_currency": true,
+      "exchange_rate": 0.15,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "TT001",
+      "is_active": true
     }
   },
   {
@@ -2256,7 +4955,19 @@
       "name": "Tunisia",
       "iso_code": "TN",
       "dial_code": "+216",
-      "flag_emoji": "🇹🇳"
+      "flag_emoji": "🇹🇳",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Tunisian Dinar",
+      "currency_code": "TND",
+      "currency_symbol": "د.ت",
+      "service_vat_percent": 19.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.34,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "TN001",
+      "is_active": true
     }
   },
   {
@@ -2266,7 +4977,19 @@
       "name": "Turkey",
       "iso_code": "TR",
       "dial_code": "+90",
-      "flag_emoji": "🇹🇷"
+      "flag_emoji": "🇹🇷",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Turkish Lira",
+      "currency_code": "TRY",
+      "currency_symbol": "₺",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.054,
+      "language_name": ["Turkish"],
+      "language_code": ["tr"],
+      "company_code": "TR001",
+      "is_active": true
     }
   },
   {
@@ -2276,17 +4999,41 @@
       "name": "Tuvalu",
       "iso_code": "TV",
       "dial_code": "+688",
-      "flag_emoji": "🇹🇻"
+      "flag_emoji": "🇹🇻",
+      "mobile_number_max_digits": 6,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Australian Dollar",
+      "currency_code": "AUD",
+      "currency_symbol": "AU$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.5,
+      "language_name": ["Tuvaluan", "English"],
+      "language_code": ["tvl", "en"],
+      "company_code": "TV001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 229,
     "fields": {
-      "name": "Taiwan, Province of China",
+      "name": "Taiwan",
       "iso_code": "TW",
       "dial_code": "+886",
-      "flag_emoji": "🇹🇼"
+      "flag_emoji": "🇹🇼",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "New Taiwan Dollar",
+      "currency_code": "TWD",
+      "currency_symbol": "NT$",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.033,
+      "language_name": ["Chinese"],
+      "language_code": ["zh"],
+      "company_code": "TW001",
+      "is_active": true
     }
   },
   {
@@ -2296,7 +5043,19 @@
       "name": "Tanzania, United Republic of",
       "iso_code": "TZ",
       "dial_code": "+255",
-      "flag_emoji": "🇹🇿"
+      "flag_emoji": "🇹🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Tanzanian Shilling",
+      "currency_code": "TZS",
+      "currency_symbol": "TSh",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00043,
+      "language_name": ["Swahili", "English"],
+      "language_code": ["sw", "en"],
+      "company_code": "TZ001",
+      "is_active": true
     }
   },
   {
@@ -2306,7 +5065,19 @@
       "name": "Uganda",
       "iso_code": "UG",
       "dial_code": "+256",
-      "flag_emoji": "🇺🇬"
+      "flag_emoji": "🇺🇬",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Ugandan Shilling",
+      "currency_code": "UGX",
+      "currency_symbol": "USh",
+      "service_vat_percent": 18.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00027,
+      "language_name": ["Swahili", "English"],
+      "language_code": ["sw", "en"],
+      "company_code": "UG001",
+      "is_active": true
     }
   },
   {
@@ -2316,7 +5087,19 @@
       "name": "Ukraine",
       "iso_code": "UA",
       "dial_code": "+380",
-      "flag_emoji": "🇺🇦"
+      "flag_emoji": "🇺🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Ukrainian Hryvnia",
+      "currency_code": "UAH",
+      "currency_symbol": "₴",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.036,
+      "language_name": ["Ukrainian"],
+      "language_code": ["uk"],
+      "company_code": "UA001",
+      "is_active": true
     }
   },
   {
@@ -2326,7 +5109,19 @@
       "name": "United States Minor Outlying Islands",
       "iso_code": "UM",
       "dial_code": "+1-684",
-      "flag_emoji": "🇺🇲"
+      "flag_emoji": "🇺🇲",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "UM001",
+      "is_active": true
     }
   },
   {
@@ -2336,7 +5131,19 @@
       "name": "Uruguay",
       "iso_code": "UY",
       "dial_code": "+598",
-      "flag_emoji": "🇺🇾"
+      "flag_emoji": "🇺🇾",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Uruguayan Peso",
+      "currency_code": "UYU",
+      "currency_symbol": "$U",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.025,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "UY001",
+      "is_active": true
     }
   },
   {
@@ -2346,7 +5153,19 @@
       "name": "United States",
       "iso_code": "US",
       "dial_code": "+1",
-      "flag_emoji": "🇺🇸"
+      "flag_emoji": "🇺🇸",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "US001",
+      "is_active": true
     }
   },
   {
@@ -2356,17 +5175,41 @@
       "name": "Uzbekistan",
       "iso_code": "UZ",
       "dial_code": "+998",
-      "flag_emoji": "🇺🇿"
+      "flag_emoji": "🇺🇿",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Uzbekistani Som",
+      "currency_code": "UZS",
+      "currency_symbol": "soʻm",
+      "service_vat_percent": 12.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000088,
+      "language_name": ["Uzbek"],
+      "language_code": ["uz"],
+      "company_code": "UZ001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 237,
     "fields": {
-      "name": "Holy See (Vatican City State)",
+      "name": "Vatican City",
       "iso_code": "VA",
       "dial_code": "+379",
-      "flag_emoji": "🇻🇦"
+      "flag_emoji": "🇻🇦",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_symbol": "€",
+      "service_vat_percent": 22.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.92,
+      "language_name": ["Latin", "Italian"],
+      "language_code": ["la", "it"],
+      "company_code": "VA001",
+      "is_active": true
     }
   },
   {
@@ -2376,47 +5219,107 @@
       "name": "Saint Vincent and the Grenadines",
       "iso_code": "VC",
       "dial_code": "+1-784",
-      "flag_emoji": "🇻🇨"
+      "flag_emoji": "🇻🇨",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "East Caribbean Dollar",
+      "currency_code": "XCD",
+      "currency_symbol": "EC$",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "VC001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 239,
     "fields": {
-      "name": "Venezuela, Bolivarian Republic of",
+      "name": "Venezuela",
       "iso_code": "VE",
       "dial_code": "+58",
-      "flag_emoji": "🇻🇪"
+      "flag_emoji": "🇻🇪",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Venezuelan Bolívar",
+      "currency_code": "VES",
+      "currency_symbol": "Bs.S",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.00025,
+      "language_name": ["Spanish"],
+      "language_code": ["es"],
+      "company_code": "VE001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 240,
     "fields": {
-      "name": "Virgin Islands, British",
+      "name": "British Virgin Islands",
       "iso_code": "VG",
-      "dial_code": "+1 284",
-      "flag_emoji": "🇻🇬"
+      "dial_code": "+1-284",
+      "flag_emoji": "🇻🇬",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "VG001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 241,
     "fields": {
-      "name": "Virgin Islands, U.S.",
+      "name": "U.S. Virgin Islands",
       "iso_code": "VI",
       "dial_code": "+1",
-      "flag_emoji": "🇻🇮"
+      "flag_emoji": "🇻🇮",
+      "mobile_number_max_digits": 10,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "United States Dollar",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "service_vat_percent": 0.0,
+      "is_main_currency": true,
+      "exchange_rate": 1.0,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "VI001",
+      "is_active": true
     }
   },
   {
     "model": "master.country",
     "pk": 242,
     "fields": {
-      "name": "Viet Nam",
+      "name": "Vietnam",
       "iso_code": "VN",
       "dial_code": "+84",
-      "flag_emoji": "🇻🇳"
+      "flag_emoji": "🇻🇳",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Vietnamese Dong",
+      "currency_code": "VND",
+      "currency_symbol": "₫",
+      "service_vat_percent": 8.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.000042,
+      "language_name": ["Vietnamese"],
+      "language_code": ["vi"],
+      "company_code": "VN001",
+      "is_active": true
     }
   },
   {
@@ -2426,7 +5329,19 @@
       "name": "Vanuatu",
       "iso_code": "VU",
       "dial_code": "+678",
-      "flag_emoji": "🇻🇺"
+      "flag_emoji": "🇻🇺",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Vanuatu Vatu",
+      "currency_code": "VUV",
+      "currency_symbol": "VT",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0088,
+      "language_name": ["Bislama", "English", "French"],
+      "language_code": ["bi", "en", "fr"],
+      "company_code": "VU001",
+      "is_active": true
     }
   },
   {
@@ -2436,7 +5351,19 @@
       "name": "Wallis and Futuna",
       "iso_code": "WF",
       "dial_code": "+681",
-      "flag_emoji": "🇼🇫"
+      "flag_emoji": "🇼🇫",
+      "mobile_number_max_digits": 8,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "CFP Franc",
+      "currency_code": "XPF",
+      "currency_symbol": "₣",
+      "service_vat_percent": 20.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0084,
+      "language_name": ["French"],
+      "language_code": ["fr"],
+      "company_code": "WF001",
+      "is_active": true
     }
   },
   {
@@ -2446,7 +5373,19 @@
       "name": "Samoa",
       "iso_code": "WS",
       "dial_code": "+685",
-      "flag_emoji": "🇼🇸"
+      "flag_emoji": "🇼🇸",
+      "mobile_number_max_digits": 7,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Samoan Tala",
+      "currency_code": "WST",
+      "currency_symbol": "T",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.37,
+      "language_name": ["Samoan", "English"],
+      "language_code": ["sm", "en"],
+      "company_code": "WS001",
+      "is_active": true
     }
   },
   {
@@ -2456,7 +5395,19 @@
       "name": "Yemen",
       "iso_code": "YE",
       "dial_code": "+967",
-      "flag_emoji": "🇾🇪"
+      "flag_emoji": "🇾🇪",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Yemeni Rial",
+      "currency_code": "YER",
+      "currency_symbol": "﷼",
+      "service_vat_percent": 5.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.004,
+      "language_name": ["Arabic"],
+      "language_code": ["ar"],
+      "company_code": "YE001",
+      "is_active": true
     }
   },
   {
@@ -2466,7 +5417,19 @@
       "name": "South Africa",
       "iso_code": "ZA",
       "dial_code": "+27",
-      "flag_emoji": "🇿🇦"
+      "flag_emoji": "🇿🇦",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "South African Rand",
+      "currency_code": "ZAR",
+      "currency_symbol": "R",
+      "service_vat_percent": 15.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.055,
+      "language_name": ["Afrikaans", "English"],
+      "language_code": ["af", "en"],
+      "company_code": "ZA001",
+      "is_active": true
     }
   },
   {
@@ -2476,7 +5439,19 @@
       "name": "Zambia",
       "iso_code": "ZM",
       "dial_code": "+260",
-      "flag_emoji": "🇿🇲"
+      "flag_emoji": "🇿🇲",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Zambian Kwacha",
+      "currency_code": "ZMW",
+      "currency_symbol": "ZK",
+      "service_vat_percent": 16.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.032,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "ZM001",
+      "is_active": true
     }
   },
   {
@@ -2486,7 +5461,19 @@
       "name": "Zimbabwe",
       "iso_code": "ZW",
       "dial_code": "+263",
-      "flag_emoji": "🇿🇼"
+      "flag_emoji": "🇿🇼",
+      "mobile_number_max_digits": 9,
+      "luxury_tax_percent": 0.0,
+      "currency_name": "Zimbabwean Dollar",
+      "currency_code": "ZWL",
+      "currency_symbol": "Z$",
+      "service_vat_percent": 14.0,
+      "is_main_currency": true,
+      "exchange_rate": 0.0025,
+      "language_name": ["English"],
+      "language_code": ["en"],
+      "company_code": "ZW001",
+      "is_active": true
     }
   }
 ]

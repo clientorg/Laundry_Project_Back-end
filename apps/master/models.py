@@ -12,9 +12,57 @@ User = get_user_model()
 class Country(models.Model):
     name = models.CharField(max_length=100)
     dial_code = models.CharField(max_length=10)
+    is_active = models.BooleanField(default=True)
+    is_main_currency = models.BooleanField(default=False)
     iso_code = models.CharField(max_length=3, unique=True)
+    mobile_number_max_digits = models.PositiveIntegerField(default=10)
     flag_emoji = models.CharField(
         max_length=5,
+        blank=True,
+        null=True,
+    )
+    luxury_tax_percent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0.00,
+    )
+    currency_name = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+    currency_code = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    currency_symbol = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    service_vat_percent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0.00,
+    )
+    exchange_rate = models.DecimalField(
+        max_digits=10,
+        decimal_places=4,
+        default=1.0,
+    )
+    language_name = models.JSONField(
+        default=list,
+        blank=True,
+        null=True,
+    )
+    language_code = models.JSONField(
+        default=list,
+        blank=True,
+        null=True,
+    )
+    company_code = models.CharField(
+        max_length=255,
         blank=True,
         null=True,
     )
