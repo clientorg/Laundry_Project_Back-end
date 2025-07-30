@@ -52,8 +52,12 @@ class GroupSerializer(serializers.ModelSerializer):
         group.permissions.set(permissions_data)
 
         if detail_data:
-            GroupDetail.objects.create(group=group, **detail_data)
+            detail_instance, _ = GroupDetail.objects.get_or_create(group=group)
+            for attr, value in detail_data.items():
+                setattr(detail_instance, attr, value)
+            detail_instance.save()
 
+        group.refresh_from_db()
         return group
 
     def update(self, instance, validated_data):
