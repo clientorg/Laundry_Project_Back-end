@@ -87,22 +87,36 @@ class OrdersByCustomerView(PermissionRequiredMixin, generics.ListAPIView):
 
 # order item views
 @extend_schema(tags=["Order Items"])
-class OrderItemListCreateView(generics.ListCreateAPIView):
+class OrderItemListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
     queryset = OrderItem.objects.all().order_by("-created_at")
     serializer_class = OrderItemSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_orderitem",
+        "POST": "orders.add_orderitem",
+    }
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, updated_by=self.request.user)
 
 
 @extend_schema(tags=["Order Items"])
-class OrderItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class OrderItemRetrieveUpdateDestroyView(
+    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_orderitem",
+        "PUT": "orders.change_orderitem",
+        "PATCH": "orders.change_orderitem",
+        "DELETE": "orders.delete_orderitem",
+    }
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
@@ -125,13 +139,22 @@ class OrderPaymentRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIVie
 
 
 @extend_schema(tags=["Order Payments"])
-class OrderPaymentsByCustomerView(generics.ListAPIView):
+class OrderPaymentsByCustomerView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = OrderPaymentSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "customers.view_customer",
+    }
 
     def get_queryset(self):
         customer_id = self.kwargs.get("customer_id")
+        try:
+            customer = Customer.objects.get(id=customer_id)
+        except Customer.DoesNotExist:
+            raise NotFound("Customer not found")
+
         return OrderPayment.objects.filter(order__customer__id=customer_id).order_by(
             "-created_at"
         )

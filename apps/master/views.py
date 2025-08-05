@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # package imports
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
@@ -9,6 +10,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # laundry model imports
+from apps.orders.models import OrderItem
 from .models import Country, Item, ClothType, ServiceType, HandlingType, DeliveryType
 
 # laundry serializer imports
@@ -72,6 +74,23 @@ class ItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        is_used = OrderItem.objects.filter(
+            cloth_name=instance.name, order__payments__isnull=False
+        ).exists()
+
+        if is_used:
+            return Response(
+                {
+                    "detail": "Cannot delete this item. It is used in one or more paid orders."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return super().destroy(request, *args, **kwargs)
 
 
 @extend_schema(tags=["Items"])

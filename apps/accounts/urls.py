@@ -11,6 +11,7 @@ from .views import (
     GroupAssignedPermissionsView,
     GroupUnassignedPermissionsView,
     LoginAPIView,
+    UserTokenDetailAPIView,
 )
 
 urlpatterns = [
@@ -37,4 +38,5 @@ urlpatterns = [
     ),
     path("login/", LoginAPIView.as_view(), name="login"),
     path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token-details/", UserTokenDetailAPIView.as_view(), name="user-token-detail"),
 ]

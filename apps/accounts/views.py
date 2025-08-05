@@ -136,12 +136,48 @@ class LoginAPIView(APIView):
                     "id": user.id,
                     "username": user.username,
                     "email": user.email,
-                    "organization": (
+                    "organization_name": (
                         user.organization.name if user.organization else None
+                    ),
+                    "organization_currency_code": (
+                        user.organization.currency_code if user.organization else None
+                    ),
+                    "organization_service_vat_percent": (
+                        user.organization.service_vat_percent
+                        if user.organization
+                        else None
                     ),
                     "branches": list(user.branches.values("id", "name")),
                     "is_superuser": user.is_superuser,
                     "is_staff": user.is_staff,
                 },
             }
+        )
+
+
+class UserTokenDetailAPIView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response(
+            {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "organization_name": (
+                    user.organization.name if user.organization else None
+                ),
+                "organization_currency_code": (
+                    user.organization.currency_code if user.organization else None
+                ),
+                "organization_service_vat_percent": (
+                    user.organization.service_vat_percent if user.organization else None
+                ),
+                "branches": list(user.branches.values("id", "name")),
+                "is_superuser": user.is_superuser,
+                "is_staff": user.is_staff,
+            },
+            status=status.HTTP_200_OK,
         )

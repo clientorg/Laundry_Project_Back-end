@@ -8,6 +8,18 @@ class Organization(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
 
+    # country details
+    currency_code = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    service_vat_percent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0.00,
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
