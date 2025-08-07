@@ -82,3 +82,17 @@ class GroupSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
+
+
+class UserTokenSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    username = serializers.CharField()
+    email = serializers.EmailField()
+    organization_name = serializers.CharField(allow_null=True)
+    organization_currency_code = serializers.CharField(allow_null=True)
+    organization_service_vat_percent = serializers.DecimalField(
+        max_digits=5, decimal_places=2, allow_null=True
+    )
+    branches = serializers.ListField(child=serializers.DictField(), allow_empty=True)
+    is_superuser = serializers.BooleanField()
+    is_staff = serializers.BooleanField()

@@ -13,7 +13,12 @@ from rest_framework.parsers import JSONParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # laundry serializer imports
-from .serializers import PermissionSerializer, GroupSerializer, LoginSerializer
+from .serializers import (
+    PermissionSerializer,
+    GroupSerializer,
+    LoginSerializer,
+    UserTokenSerializer,
+)
 
 
 # Create your views here.
@@ -158,6 +163,7 @@ class LoginAPIView(APIView):
 class UserTokenDetailAPIView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserTokenSerializer
 
     def get(self, request):
         user = request.user

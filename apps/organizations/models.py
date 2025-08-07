@@ -7,8 +7,12 @@ from django.utils import timezone
 class Organization(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-
-    # country details
+    address = models.TextField(blank=True, null=True)
+    contact_name = models.CharField(max_length=255, blank=True, null=True)
+    contact_mobile_number = models.CharField(max_length=20, blank=True, null=True)
+    contact_email = models.EmailField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    country_code = models.CharField(max_length=5, blank=True, null=True)
     currency_code = models.CharField(
         max_length=10,
         blank=True,
