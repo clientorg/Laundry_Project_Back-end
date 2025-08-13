@@ -239,6 +239,9 @@ class OrderSerializer(serializers.ModelSerializer):
         return instance
 
     def validate(self, data):
+        if not data.get("customer") and not getattr(self.instance, "customer", None):
+            raise serializers.ValidationError({"customer": "Customer is required."})
+
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
