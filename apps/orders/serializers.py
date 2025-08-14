@@ -201,6 +201,9 @@ class OrderSerializer(serializers.ModelSerializer):
         return order
 
     def update(self, instance, validated_data):
+        if "customer" in validated_data:
+            validated_data.pop("customer")
+
         items_data = validated_data.pop("items", None)
         user = self.context["request"].user
 
@@ -239,8 +242,9 @@ class OrderSerializer(serializers.ModelSerializer):
         return instance
 
     def validate(self, data):
-        if not data.get("customer") and not getattr(self.instance, "customer", None):
-            raise serializers.ValidationError({"customer": "Customer is required."})
+        if self.instance is None:
+            if not data.get("customer"):
+                raise serializers.ValidationError({"customer": "Customer is required."})
 
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
