@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # package imports
+from rest_framework import status
 from rest_framework import generics
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
