@@ -5,6 +5,8 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 # laundry view imports
 from .views import (
+    UserListCreateView,
+    UserRetrieveUpdateDestroyView,
     PermissionView,
     GroupListCreateView,
     GroupRetrieveUpdateDestroyView,
@@ -39,4 +41,8 @@ urlpatterns = [
     path("login/", LoginAPIView.as_view(), name="login"),
     path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("token-details/", UserTokenDetailAPIView.as_view(), name="user-token-detail"),
+    path("users/", UserListCreateView.as_view(), name="user-list-create"),
+    path(
+        "users/<int:pk>/", UserRetrieveUpdateDestroyView.as_view(), name="user-detail"
+    ),
 ]

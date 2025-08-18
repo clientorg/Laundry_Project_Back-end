@@ -8,6 +8,25 @@ from apps.organizations.models import Organization
 
 # Create your models here.
 class AuthUser(AbstractUser):
+    address = models.TextField(blank=True, null=True)
+    country_code = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    mobile_number = models.CharField(
+        max_length=15,
+        null=True,
+        blank=True,
+    )
+
+    profile_picture = models.ImageField(
+        upload_to="user_profiles/",
+        null=True,
+        blank=True,
+        help_text="Upload a profile picture for the user",
+    )
+
     organization = models.ForeignKey(
         Organization,
         null=True,

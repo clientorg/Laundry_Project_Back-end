@@ -3,9 +3,47 @@ from django.contrib.auth.models import Permission, Group
 
 # package imports
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 
 # laundry model imports
-from .models import GroupDetail
+from .models import AuthUser, GroupDetail
+
+
+class AuthUserSerializer(serializers.ModelSerializer):
+    organization_name = serializers.CharField(
+        source="organization.name", read_only=True
+    )
+    branch_names = serializers.SerializerMethodField()
+    profile_picture = serializers.ImageField(required=False, allow_null=True)
+
+    class Meta:
+        model = AuthUser
+        fields = [
+            "id",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_active",
+            "organization",
+            "organization_name",
+            "branches",
+            "branch_names",
+            "address",
+            "country_code",
+            "mobile_number",
+            "profile_picture",
+        ]
+        extra_kwargs = {
+            "organization": {"required": False, "allow_null": True},
+            "branches": {"required": False},
+        }
+
+    @extend_schema_field(
+        serializers.ListSerializer(child=serializers.CharField()),
+    )
+    def get_branch_names(self, obj):
+        return [b.name for b in obj.branches.all()]
 
 
 class PermissionSerializer(serializers.ModelSerializer):

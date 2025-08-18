@@ -6,14 +6,19 @@ from django.contrib.auth.models import Permission, Group
 # package imports
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 from drf_spectacular.utils import extend_schema
 from rest_framework import status, generics, permissions
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
+
+# laundry model imports
+from .models import AuthUser
 
 # laundry serializer imports
 from .serializers import (
+    AuthUserSerializer,
     PermissionSerializer,
     GroupSerializer,
     LoginSerializer,
@@ -23,6 +28,24 @@ from .serializers import (
 
 # Create your views here.
 User = get_user_model()
+
+
+@extend_schema(tags=["Users"])
+class UserListCreateView(generics.ListCreateAPIView):
+    queryset = AuthUser.objects.all().order_by("id")
+    serializer_class = AuthUserSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+
+@extend_schema(tags=["Users"])
+class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AuthUser.objects.all()
+    serializer_class = AuthUserSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
 
 @extend_schema(tags=["Permissions"])

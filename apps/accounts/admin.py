@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from django.utils.html import format_html
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
 from .models import AuthUser, GroupDetail, PermissionDetail
@@ -43,11 +44,18 @@ class PermissionDetailInline(admin.StackedInline):
 class AuthUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ("Organization & Branches", {"fields": ("organization", "branches")}),
+        (
+            "Contact Information",
+            {"fields": ("address", "country_code", "mobile_number", "profile_picture")},
+        ),
     )
     list_display = UserAdmin.list_display + (
         "is_super_admin",
         "organization_name",
         "branches_count",
+        "mobile_number",
+        "country_code",
+        "profile_picture_preview",  # 👈 show small preview
     )
 
     filter_horizontal = ("groups", "user_permissions", "branches")
@@ -79,6 +87,17 @@ class AuthUserAdmin(UserAdmin):
         if db_field.name == "branches":
             kwargs["queryset"] = Organization.objects.filter(parent__isnull=False)
         return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+    # 👇 Add preview in list view
+    def profile_picture_preview(self, obj):
+        if obj.profile_picture:
+            return format_html(
+                '<img src="{}" width="40" height="40" style="border-radius:50%;" />',
+                obj.profile_picture.url,
+            )
+        return "-"
+
+    profile_picture_preview.short_description = "Profile Picture"
 
 
 @admin.register(Group)
