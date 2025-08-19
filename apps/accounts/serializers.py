@@ -9,12 +9,19 @@ from drf_spectacular.utils import extend_schema_field
 from .models import AuthUser, GroupDetail
 
 
+from django.contrib.auth.models import Group
+
+
 class AuthUserSerializer(serializers.ModelSerializer):
     organization_name = serializers.CharField(
         source="organization.name", read_only=True
     )
     branch_names = serializers.SerializerMethodField()
     profile_picture = serializers.ImageField(required=False, allow_null=True)
+
+    groups = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Group.objects.all(), required=False
+    )
 
     class Meta:
         model = AuthUser
@@ -33,10 +40,12 @@ class AuthUserSerializer(serializers.ModelSerializer):
             "country_code",
             "mobile_number",
             "profile_picture",
+            "groups",
         ]
         extra_kwargs = {
             "organization": {"required": False, "allow_null": True},
             "branches": {"required": False},
+            "groups": {"required": False},
         }
 
     @extend_schema_field(
