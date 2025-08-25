@@ -26,16 +26,19 @@ from .views import (
     ClothTypeDeleteView,
     # washing type views
     ServiceTypeListCreateView,
+    ServiceTypeListInwardView,
     ServiceTypeDetailView,
     ServiceTypeUpdateView,
     ServiceTypeDeleteView,
     # handling type views
     HandlingTypeListCreateView,
+    HandlingTypeListInwardView,
     HandlingTypeDetailView,
     HandlingTypeUpdateView,
     HandlingTypeDeleteView,
     # delivery type views
     DeliveryTypeListCreateView,
+    DeliveryTypeListInwardView,
     DeliveryTypeDetailView,
     DeliveryTypeUpdateView,
     DeliveryTypeDeleteView,
@@ -55,32 +58,32 @@ urlpatterns = [
         "items/<int:pk>/", ItemRetrieveUpdateDestroyView.as_view(), name="item-detail"
     ),
     path(
-        "items/cloth-only/",
+        "items/inward/cloth-only/",
         ItemClothOnlyView.as_view(),
         name="item-cloth-only",
     ),
     path(
-        "items/cloth-only/pinned/",
+        "items/inward/cloth-only/pinned/",
         ItemClothOnlyPinnedView.as_view(),
         name="item-cloth-only-pinned",
     ),
     path(
-        "items/cloth-only/starts-with/<str:letter>/",
+        "items/inward/cloth-only/starts-with/<str:letter>/",
         ItemClothOnlyStartsWithView.as_view(),
         name="item-cloth-only-starts-with",
     ),
     path(
-        "item/carpet-only/",
+        "item/inward/carpet-only/",
         ItemCarpetOnlyView.as_view(),
         name="item-carpet-only",
     ),
     path(
-        "item/carpet-only/pinned/",
+        "item/inward/carpet-only/pinned/",
         ItemCarpetOnlyPinnedView.as_view(),
         name="item-carpet-only-pinned",
     ),
     path(
-        "item/carpet-only/starts-with/<str:letter>/",
+        "item/inward/carpet-only/starts-with/<str:letter>/",
         ItemCarpetOnlyStartsWithView.as_view(),
         name="item-carpet-only-starts-with",
     ),
@@ -89,34 +92,34 @@ urlpatterns = [
         "cloth-types/", ClothTypeListCreateView.as_view(), name="cloth-type-list-create"
     ),
     path(
-        "cloth-types/cloth-only/",
+        "cloth-types/inward/cloth-only/",
         ClothTypeClothOnlyView.as_view(),
-        name="cloth-type-cloth-only",
+        name="cloth-type-inward-cloth-only",
     ),
     path(
-        "cloth-types/cloth/starts-with/<str:letter>/",
+        "cloth-types/inward/cloth/starts-with/<str:letter>/",
         ClothTypeStartsWithView.as_view(),
-        name="cloth-types-starts-with",
+        name="cloth-types-inward-starts-with",
     ),
     path(
-        "cloth-types/cloth/pinned/",
+        "cloth-types/inward/cloth/pinned/",
         ClothTypePinnedView.as_view(),
-        name="cloth-type-pinned",
+        name="cloth-type-inward-pinned",
     ),
     path(
-        "cloth-types/carpet-only/",
+        "cloth-types/inward/carpet-only/",
         ClothTypeCarpetOnlyView.as_view(),
-        name="cloth-type-carpet-only",
+        name="cloth-type-inward-carpet-only",
     ),
     path(
-        "cloth-types/carpet/starts-with/<str:letter>/",
+        "cloth-types/inward/carpet/starts-with/<str:letter>/",
         ClothTypeCarpetStartsWithView.as_view(),
-        name="cloth-types-carpet-starts-with",
+        name="cloth-types-inward-carpet-starts-with",
     ),
     path(
-        "cloth-types/carpet/pinned/",
+        "cloth-types/inward/carpet/pinned/",
         ClothTypeCarpetPinnedView.as_view(),
-        name="cloth-type-carpet-pinned",
+        name="cloth-type-inward-carpet-pinned",
     ),
     path(
         "cloth-types/<int:pk>/",
@@ -140,6 +143,11 @@ urlpatterns = [
         name="service-type-list-create",
     ),
     path(
+        "service-types/inward/list",
+        ServiceTypeListInwardView.as_view(),
+        name="service-type-inward-list",
+    ),
+    path(
         "service-types/<int:pk>/",
         ServiceTypeDetailView.as_view(),
         name="service-type-detail",
@@ -161,6 +169,11 @@ urlpatterns = [
         name="handling-type-list-create",
     ),
     path(
+        "handling-types/inward/list",
+        HandlingTypeListInwardView.as_view(),
+        name="handling-type-inward-list",
+    ),
+    path(
         "handling-types/<int:pk>/",
         HandlingTypeDetailView.as_view(),
         name="handling-type-detail",
@@ -180,6 +193,11 @@ urlpatterns = [
         "delivery-types/",
         DeliveryTypeListCreateView.as_view(),
         name="delivery-type-list-create",
+    ),
+    path(
+        "delivery-types/inward/list",
+        DeliveryTypeListInwardView.as_view(),
+        name="delivery-type-inward-list",
     ),
     path(
         "delivery-types/<int:pk>/",

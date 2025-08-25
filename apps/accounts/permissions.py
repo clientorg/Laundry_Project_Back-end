@@ -1,6 +1,7 @@
 from rest_framework import permissions
 from rest_framework.views import APIView
 from django.contrib.auth.models import Permission
+from rest_framework.exceptions import PermissionDenied
 from .models import PermissionDetail
 
 
@@ -35,5 +36,17 @@ class PermissionRequiredMixin(APIView):
         return self.permission_map.get(self.request.method)
 
     def initial(self, request, *args, **kwargs):
-        self.required_permission = self.get_required_permission()
+        required_perms = self.get_required_permission()
+
+        # allow None → no validation
+        if required_perms:
+            if isinstance(required_perms, str):
+                required_perms = [required_perms]  # convert to list
+
+            # user must have at least one of the permissions
+            if not any(request.user.has_perm(perm) for perm in required_perms):
+                raise PermissionDenied(
+                    f"Requires one of these permissions: {', '.join(required_perms)}"
+                )
+
         super().initial(request, *args, **kwargs)
