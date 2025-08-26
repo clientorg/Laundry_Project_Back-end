@@ -372,7 +372,7 @@ class ServiceTypeListInwardView(PermissionRequiredMixin, APIView):
         "GET": "orders.add_order",
     }
 
-    def get(self, request, letter, format=None):
+    def get(self, request, format=None):
         queryset = ServiceType.objects.all().order_by("name")
         serializer = ServiceTypeSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -445,7 +445,7 @@ class HandlingTypeListInwardView(PermissionRequiredMixin, APIView):
         "GET": "orders.add_order",
     }
 
-    def get(self, request, letter, format=None):
+    def get(self, request, format=None):
         queryset = HandlingType.objects.all().order_by("name")
         serializer = HandlingTypeSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -518,7 +518,7 @@ class DeliveryTypeListInwardView(PermissionRequiredMixin, APIView):
         "GET": "orders.add_order",
     }
 
-    def get(self, request, letter, format=None):
+    def get(self, request, format=None):
         queryset = DeliveryType.objects.all().order_by("name")
         serializer = DeliveryTypeSerializer(queryset, many=True)
         return Response(serializer.data)
