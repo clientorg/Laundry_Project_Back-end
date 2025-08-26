@@ -143,7 +143,7 @@ urlpatterns = [
         name="service-type-list-create",
     ),
     path(
-        "service-types/inward/list",
+        "service-types/inward/list/",
         ServiceTypeListInwardView.as_view(),
         name="service-type-inward-list",
     ),
@@ -169,7 +169,7 @@ urlpatterns = [
         name="handling-type-list-create",
     ),
     path(
-        "handling-types/inward/list",
+        "handling-types/inward/list/",
         HandlingTypeListInwardView.as_view(),
         name="handling-type-inward-list",
     ),
@@ -195,7 +195,7 @@ urlpatterns = [
         name="delivery-type-list-create",
     ),
     path(
-        "delivery-types/inward/list",
+        "delivery-types/inward/list/",
         DeliveryTypeListInwardView.as_view(),
         name="delivery-type-inward-list",
     ),
