@@ -2,6 +2,9 @@
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
+# laundry mixin imports
+from apps.organizations.mixins import OrgBranchAssignMixin
+
 # laundry model imports
 from .models import Country, Item, ClothType, ServiceType, HandlingType, DeliveryType
 
@@ -14,7 +17,7 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ItemSerializer(serializers.ModelSerializer):
+class ItemSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -72,6 +75,21 @@ class ItemSerializer(serializers.ModelSerializer):
 
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
+
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data = self.assign_org_branch_on_update(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["updated_by"] = user
+        return super().update(instance, validated_data)
 
 
 # cloth type serializers
