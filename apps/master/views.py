@@ -2,7 +2,6 @@ from django.shortcuts import render
 
 # package imports
 from rest_framework import status
-from rest_framework.views import ListAPIView
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions
@@ -33,7 +32,7 @@ from .serializers import (
 # Create your views here.
 # master views
 @extend_schema(tags=["Master"])
-class CountryMasterView(ListAPIView):
+class CountryMasterView(generics.ListAPIView):
     serializer_class = CountrySerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
@@ -101,7 +100,9 @@ class ItemRetrieveUpdateDestroyView(
 
 
 @extend_schema(tags=["Items"])
-class ItemClothOnlyView(PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPIView):
+class ItemClothOnlyView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -117,7 +118,7 @@ class ItemClothOnlyView(PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPI
 
 @extend_schema(tags=["Items"])
 class ItemClothOnlyPinnedView(
-    PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPIView
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
@@ -134,7 +135,7 @@ class ItemClothOnlyPinnedView(
 
 @extend_schema(tags=["Items"])
 class ItemClothOnlyStartsWithView(
-    PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPIView
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
@@ -151,7 +152,9 @@ class ItemClothOnlyStartsWithView(
 
 
 @extend_schema(tags=["Items"])
-class ItemCarpetOnlyView(PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPIView):
+class ItemCarpetOnlyView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -167,7 +170,7 @@ class ItemCarpetOnlyView(PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAP
 
 @extend_schema(tags=["Items"])
 class ItemCarpetOnlyPinnedView(
-    PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPIView
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
@@ -184,7 +187,7 @@ class ItemCarpetOnlyPinnedView(
 
 @extend_schema(tags=["Items"])
 class ItemCarpetOnlyStartsWithView(
-    PermissionRequiredMixin, OrgBranchQuerysetMixin, ListAPIView
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
@@ -218,7 +221,7 @@ class ClothTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIVie
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeClothOnlyView(PermissionRequiredMixin, ListAPIView):
+class ClothTypeClothOnlyView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
@@ -233,7 +236,7 @@ class ClothTypeClothOnlyView(PermissionRequiredMixin, ListAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeStartsWithView(PermissionRequiredMixin, ListAPIView):
+class ClothTypeStartsWithView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
@@ -248,7 +251,7 @@ class ClothTypeStartsWithView(PermissionRequiredMixin, ListAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypePinnedView(PermissionRequiredMixin, ListAPIView):
+class ClothTypePinnedView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
@@ -263,7 +266,7 @@ class ClothTypePinnedView(PermissionRequiredMixin, ListAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeCarpetOnlyView(PermissionRequiredMixin, ListAPIView):
+class ClothTypeCarpetOnlyView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
@@ -278,7 +281,7 @@ class ClothTypeCarpetOnlyView(PermissionRequiredMixin, ListAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeCarpetStartsWithView(PermissionRequiredMixin, ListAPIView):
+class ClothTypeCarpetStartsWithView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
@@ -293,7 +296,7 @@ class ClothTypeCarpetStartsWithView(PermissionRequiredMixin, ListAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeCarpetPinnedView(PermissionRequiredMixin, ListAPIView):
+class ClothTypeCarpetPinnedView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ClothTypeSerializer
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
@@ -365,7 +368,7 @@ class ServiceTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIV
 
 
 @extend_schema(tags=["Service Types"])
-class ServiceTypeListInwardView(PermissionRequiredMixin, ListAPIView):
+class ServiceTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -438,7 +441,7 @@ class HandlingTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPI
 
 
 @extend_schema(tags=["Handling Types"])
-class HandlingTypeListInwardView(PermissionRequiredMixin, ListAPIView):
+class HandlingTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -511,7 +514,7 @@ class DeliveryTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPI
 
 
 @extend_schema(tags=["Delivery Types"])
-class DeliveryTypeListInwardView(PermissionRequiredMixin, ListAPIView):
+class DeliveryTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
