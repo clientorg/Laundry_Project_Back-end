@@ -78,17 +78,13 @@ class ItemSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
-        request = self.context["request"]
-        user = request.user
-        validated_data["created_by"] = user
-        validated_data["updated_by"] = user
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        validated_data = self.assign_org_branch_on_update(validated_data)
+        instance = self.assign_org_branch_on_update(instance, validated_data)
         request = self.context["request"]
         user = request.user
-        validated_data["updated_by"] = user
+        instance.updated_by = user
         return super().update(instance, validated_data)
 
 
