@@ -34,20 +34,20 @@ class OrgBranchAssignMixin:
     def assign_org_branch_on_update(self, instance, validated_data):
         request = self.context.get("request")
         user = getattr(request, "user", None)
-        # Only set org/branches if provided in body
-        if "organization" in validated_data:
-            instance.organization = validated_data["organization"]
 
-        elif not instance.organization and user.organization:
-            # Only fallback if instance has nothing
+        has_org = "organization" in validated_data and validated_data["organization"]
+        has_branches = "branches" in validated_data and validated_data["branches"]
+
+        # Handle organization
+        if has_org:
+            instance.organization = validated_data["organization"]
+        elif not instance.organization and user and user.organization:
             instance.organization = user.organization
 
-        if "branches" in validated_data:
-            # Assign explicit branches from request
+        # Handle branches
+        if has_branches:
             instance.branches.set(validated_data["branches"])
-
-        elif not instance.branches.exists() and user.branches.exists():
-            # Only fallback if instance has no branches
+        elif not instance.branches.exists() and user and user.branches.exists():
             instance.branches.set([user.branches.first()])
 
         instance.updated_by = user
