@@ -48,6 +48,7 @@ class CountryMasterView(generics.ListAPIView):
 class ItemListCreateView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -71,7 +72,7 @@ class ItemRetrieveUpdateDestroyView(
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
     parser_classes = [MultiPartParser, FormParser]
 
     permission_map = {
@@ -103,6 +104,7 @@ class ItemRetrieveUpdateDestroyView(
 class ItemClothOnlyView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -120,6 +122,7 @@ class ItemClothOnlyView(
 class ItemClothOnlyPinnedView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -137,6 +140,7 @@ class ItemClothOnlyPinnedView(
 class ItemClothOnlyStartsWithView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -155,6 +159,7 @@ class ItemClothOnlyStartsWithView(
 class ItemCarpetOnlyView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -172,6 +177,7 @@ class ItemCarpetOnlyView(
 class ItemCarpetOnlyPinnedView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -189,6 +195,7 @@ class ItemCarpetOnlyPinnedView(
 class ItemCarpetOnlyStartsWithView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
