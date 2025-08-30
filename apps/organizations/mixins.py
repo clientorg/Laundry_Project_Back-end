@@ -11,12 +11,15 @@ class OrgBranchAssignMixin:
     def assign_org_branch_on_create(self, validated_data):
         request = self.context.get("request")
         user = getattr(request, "user", None)
-        # If request body already has org/branches, don't overwrite
-        if "organization" not in validated_data and "branches" not in validated_data:
-            if user.organization:
+
+        has_org = "organization" in validated_data and validated_data["organization"]
+        has_branches = "branches" in validated_data and validated_data["branches"]
+
+        if not has_org and not has_branches:
+            if user and user.organization:
                 validated_data["organization"] = user.organization
-                validated_data["branches"] = []  # clear branches
-            elif user.branches.exists():
+                validated_data["branches"] = []
+            elif user and user.branches.exists():
                 branch = user.branches.first()
                 validated_data["organization"] = None
                 validated_data["branches"] = [branch]
