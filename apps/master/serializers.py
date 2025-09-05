@@ -78,6 +78,10 @@ class ItemSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
@@ -150,6 +154,10 @@ class ClothTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
@@ -222,6 +230,10 @@ class ServiceTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
@@ -294,6 +306,10 @@ class HandlingTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
@@ -366,6 +382,10 @@ class DeliveryTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
         return super().create(validated_data)
 
     def update(self, instance, validated_data):

@@ -5,14 +5,16 @@ from django.contrib.auth.models import Permission, Group
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
+# laundry mixin imports
+from .mixins import GroupOrgBranchAssignMixin
+from apps.organizations.mixins import OrgBranchAssignMixin
+
 # laundry model imports
 from .models import AuthUser, GroupDetail
-
-
 from django.contrib.auth.models import Group
 
 
-class AuthUserSerializer(serializers.ModelSerializer):
+class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     organization_name = serializers.CharField(
         source="organization.name", read_only=True
     )
@@ -54,6 +56,21 @@ class AuthUserSerializer(serializers.ModelSerializer):
     def get_branch_names(self, obj):
         return [b.name for b in obj.branches.all()]
 
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        request = self.context["request"]
+        user = request.user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
+
 
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -71,7 +88,7 @@ class GroupDetailSerializer(serializers.ModelSerializer):
         ]
 
 
-class GroupSerializer(serializers.ModelSerializer):
+class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
     detail = GroupDetailSerializer(required=False)
     permissions = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Permission.objects.all()
@@ -98,11 +115,7 @@ class GroupSerializer(serializers.ModelSerializer):
         group = Group.objects.create(**validated_data)
         group.permissions.set(permissions_data)
 
-        if detail_data:
-            detail_instance, _ = GroupDetail.objects.get_or_create(group=group)
-            for attr, value in detail_data.items():
-                setattr(detail_instance, attr, value)
-            detail_instance.save()
+        self.assign_org_branch_on_create(group, {"detail": detail_data})
 
         group.refresh_from_db()
         return group
@@ -117,12 +130,9 @@ class GroupSerializer(serializers.ModelSerializer):
         if permissions_data is not None:
             instance.permissions.set(permissions_data)
 
-        if detail_data:
-            detail_instance, _ = GroupDetail.objects.get_or_create(group=instance)
-            for attr, value in detail_data.items():
-                setattr(detail_instance, attr, value)
-            detail_instance.save()
+        self.assign_org_branch_on_update(instance, {"detail": detail_data})
 
+        instance.refresh_from_db()
         return instance
 
 

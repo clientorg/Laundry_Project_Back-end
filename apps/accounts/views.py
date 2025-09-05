@@ -13,6 +13,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+# laundry mixin imports
+from apps.accounts.mixins import GroupOrgBranchQuerysetMixin
+from apps.organizations.mixins import OrgBranchQuerysetMixin
+
+# laundry permission validator
+from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
+
 # laundry model imports
 from .models import AuthUser
 
@@ -31,21 +38,42 @@ User = get_user_model()
 
 
 @extend_schema(tags=["Users"])
-class UserListCreateView(generics.ListCreateAPIView):
-    queryset = AuthUser.objects.all().order_by("id")
-    serializer_class = AuthUserSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
-
-
-@extend_schema(tags=["Users"])
-class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class UserListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
     queryset = AuthUser.objects.all()
     serializer_class = AuthUserSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
     parser_classes = [MultiPartParser, FormParser]
+
+    permission_map = {
+        "GET": "accounts.view_authuser",
+        "POST": "accounts.add_authuser",
+    }
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("id")
+
+
+@extend_schema(tags=["Users"])
+class UserRetrieveUpdateDestroyView(
+    PermissionRequiredMixin,
+    OrgBranchQuerysetMixin,
+    generics.RetrieveUpdateDestroyAPIView,
+):
+    queryset = AuthUser.objects.all()
+    serializer_class = AuthUserSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+    parser_classes = [MultiPartParser, FormParser]
+
+    permission_map = {
+        "GET": "accounts.view_authuser",
+        "PUT": "accounts.change_authuser",
+        "PATCH": "accounts.change_authuser",
+        "DELETE": "accounts.delete_authuser",
+    }
 
 
 @extend_schema(tags=["Permissions"])
@@ -64,27 +92,42 @@ class PermissionView(APIView):
 
 
 @extend_schema(tags=["Groups"])
-class GroupListCreateView(generics.ListCreateAPIView):
-    queryset = Group.objects.all().order_by("name")
-    serializer_class = GroupSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-    parser_classes = [JSONParser]
-
-    def perform_create(self, serializer):
-        serializer.save()
-
-
-@extend_schema(tags=["Groups"])
-class GroupRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class GroupListCreateView(
+    PermissionRequiredMixin, GroupOrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
     parser_classes = [JSONParser]
 
-    def perform_update(self, serializer):
-        serializer.save()
+    permission_map = {
+        "GET": "auth.view_group",  # list groups
+        "POST": "auth.add_group",  # create group
+    }
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
+
+
+@extend_schema(tags=["Groups"])
+class GroupRetrieveUpdateDestroyView(
+    PermissionRequiredMixin,
+    GroupOrgBranchQuerysetMixin,
+    generics.RetrieveUpdateDestroyAPIView,
+):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+    parser_classes = [JSONParser]
+
+    permission_map = {
+        "GET": "auth.view_group",
+        "PUT": "auth.change_group",
+        "PATCH": "auth.change_group",
+        "DELETE": "auth.delete_group",
+    }
 
 
 @extend_schema(tags=["Groups"])

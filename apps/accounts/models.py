@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
@@ -42,6 +43,23 @@ class AuthUser(AbstractUser):
         help_text="Branches the user is allowed to access",
     )
 
+    created_by = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="created_users",
+        help_text="The user who created this user record",
+    )
+    updated_by = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="updated_users",
+        help_text="The user who last updated this user record",
+    )
+
     def __str__(self):
         return self.username
 
@@ -65,6 +83,23 @@ class GroupDetail(models.Model):
         Organization,
         blank=True,
         related_name="group_details",
+    )
+
+    created_by = models.ForeignKey(
+        AuthUser,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="groupdetails_created",
+        help_text="The user who created this group detail record",
+    )
+    updated_by = models.ForeignKey(
+        AuthUser,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="groupdetails_updated",
+        help_text="The user who last updated this group detail record",
     )
 
     def __str__(self):

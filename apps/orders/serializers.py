@@ -197,7 +197,12 @@ class OrderSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         validated_data.pop("updated_by", None)
         user = self.context["request"].user
         validated_data = self.assign_org_branch_on_create(validated_data)
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+        branches = validated_data.pop("branches", [])
         order = Order.objects.create(**validated_data)
+        if branches:
+            order.branches.set(branches)
         for item_data in items_data:
             OrderItem.objects.create(
                 order=order, created_by=user, updated_by=user, **item_data
@@ -213,12 +218,15 @@ class OrderSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         instance = self.assign_org_branch_on_update(instance, validated_data)
 
         # Update order fields
+        branches = validated_data.pop("branches", None)
         validated_data.pop("organization", None)
-        validated_data.pop("branches", None)
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.updated_by = user
         instance.save()
+
+        if branches is not None:
+            instance.branches.set(branches)
 
         if items_data is not None:
             existing_items = {item.id: item for item in instance.items.all()}

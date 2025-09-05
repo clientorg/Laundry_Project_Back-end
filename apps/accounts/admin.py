@@ -48,6 +48,16 @@ class AuthUserAdmin(UserAdmin):
             "Contact Information",
             {"fields": ("address", "country_code", "mobile_number", "profile_picture")},
         ),
+        (
+            "Meta",
+            {
+                "fields": (
+                    "created_by",
+                    "updated_by",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
     )
     list_display = UserAdmin.list_display + (
         "is_super_admin",

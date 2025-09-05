@@ -27,8 +27,6 @@ class OrgBranchAssignMixin:
                 validated_data["organization"] = None
                 validated_data["branches"] = []
 
-        validated_data["created_by"] = user
-        validated_data["updated_by"] = user
         return validated_data
 
     def assign_org_branch_on_update(self, instance, validated_data):
@@ -49,8 +47,6 @@ class OrgBranchAssignMixin:
             instance.branches.set(validated_data["branches"])
         elif not instance.branches.exists() and user and user.branches.exists():
             instance.branches.set([user.branches.first()])
-
-        instance.updated_by = user
         return instance
 
 
