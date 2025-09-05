@@ -40,4 +40,20 @@ class BranchSerializer(serializers.ModelSerializer):
                 "Unable to determine parent organization from user."
             )
 
-        return Branch.objects.create(parent=parent, **validated_data)
+        return Branch.objects.create(
+            parent=parent,
+            created_by=user,
+            updated_by=user,
+            **validated_data,
+        )
+
+    def update(self, instance, validated_data):
+        request = self.context["request"]
+        user = request.user
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.updated_by = user
+        instance.save()
+        return instance

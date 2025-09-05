@@ -86,3 +86,21 @@ class OrgBranchQuerysetMixin:
             return qs.filter(filters).distinct()
 
         return qs.none()
+
+
+class BranchQuerysetMixin:
+    """Restricts branches based on the user's organization or branch membership."""
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.user
+
+        if user.organization:
+            # User belongs to an org → fetch its branches
+            return qs.filter(parent=user.organization)
+
+        elif user.branches.exists():
+            # User belongs only to a branch → restrict to their branch
+            return qs.filter(id__in=user.branches.values_list("id", flat=True))
+
+        return qs.none()
