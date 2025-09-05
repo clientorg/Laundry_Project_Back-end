@@ -212,113 +212,137 @@ class ItemCarpetOnlyStartsWithView(
 
 # cloth type views
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
-    queryset = ClothType.objects.all().order_by("name")
+class ClothTypeListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
     permission_map = {
         "GET": "master.view_clothtype",
         "POST": "master.add_clothtype",
     }
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user, updated_by=self.request.user)
-
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeClothOnlyView(PermissionRequiredMixin, generics.ListAPIView):
+class ClothTypeClothOnlyView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = ClothType.objects.filter(is_carpet=False)
-        serializer = ClothTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(is_carpet=False)
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeStartsWithView(PermissionRequiredMixin, generics.ListAPIView):
+class ClothTypeStartsWithView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "orders.add_order",
     }
 
-    def get(self, request, letter, format=None):
-        queryset = ClothType.objects.filter(name__istartswith=letter, is_carpet=False)
-        serializer = ClothTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        letter = self.kwargs.get("letter")
+        return qs.filter(name__istartswith=letter, is_carpet=False)
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypePinnedView(PermissionRequiredMixin, generics.ListAPIView):
+class ClothTypePinnedView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = ClothType.objects.filter(is_pinned=True, is_carpet=False)
-        serializer = ClothTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(is_pinned=True, is_carpet=False)
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeCarpetOnlyView(PermissionRequiredMixin, generics.ListAPIView):
+class ClothTypeCarpetOnlyView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = ClothType.objects.filter(is_carpet=True)
-        serializer = ClothTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(is_carpet=True)
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeCarpetStartsWithView(PermissionRequiredMixin, generics.ListAPIView):
+class ClothTypeCarpetStartsWithView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "orders.add_order",
     }
 
-    def get(self, request, letter, format=None):
-        queryset = ClothType.objects.filter(name__istartswith=letter, is_carpet=True)
-        serializer = ClothTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        letter = self.kwargs.get("letter")
+        return qs.filter(name__istartswith=letter, is_carpet=True)
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeCarpetPinnedView(PermissionRequiredMixin, generics.ListAPIView):
+class ClothTypeCarpetPinnedView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = ClothType.objects.filter(is_pinned=True, is_carpet=True)
-        serializer = ClothTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(is_pinned=True, is_carpet=True)
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeRetrieveView(PermissionRequiredMixin, generics.RetrieveAPIView):
+class ClothTypeRetrieveView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.RetrieveAPIView
+):
     queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -330,7 +354,9 @@ class ClothTypeRetrieveView(PermissionRequiredMixin, generics.RetrieveAPIView):
 
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeUpdateView(PermissionRequiredMixin, generics.UpdateAPIView):
+class ClothTypeUpdateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.UpdateAPIView
+):
     queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -341,12 +367,11 @@ class ClothTypeUpdateView(PermissionRequiredMixin, generics.UpdateAPIView):
         "PATCH": "master.change_clothtype",
     }
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
-
 
 @extend_schema(tags=["Cloth Types"])
-class ClothTypeDeleteView(PermissionRequiredMixin, generics.DestroyAPIView):
+class ClothTypeDeleteView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.DestroyAPIView
+):
     queryset = ClothType.objects.all()
     serializer_class = ClothTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -359,8 +384,10 @@ class ClothTypeDeleteView(PermissionRequiredMixin, generics.DestroyAPIView):
 
 # service type views
 @extend_schema(tags=["Service Types"])
-class ServiceTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
-    queryset = ServiceType.objects.all().order_by("name")
+class ServiceTypeListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
+    queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -370,12 +397,15 @@ class ServiceTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIV
         "POST": "master.add_servicetype",
     }
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Service Types"])
-class ServiceTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
+class ServiceTypeListInwardView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -384,14 +414,14 @@ class ServiceTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = ServiceType.objects.all().order_by("name")
-        serializer = ServiceTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Service Types"])
-class ServiceTypeDetailView(PermissionRequiredMixin, generics.RetrieveAPIView):
+class ServiceTypeDetailView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.RetrieveAPIView
+):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -403,7 +433,9 @@ class ServiceTypeDetailView(PermissionRequiredMixin, generics.RetrieveAPIView):
 
 
 @extend_schema(tags=["Service Types"])
-class ServiceTypeUpdateView(PermissionRequiredMixin, generics.UpdateAPIView):
+class ServiceTypeUpdateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.UpdateAPIView
+):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -414,12 +446,11 @@ class ServiceTypeUpdateView(PermissionRequiredMixin, generics.UpdateAPIView):
         "PATCH": "master.change_servicetype",
     }
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
-
 
 @extend_schema(tags=["Service Types"])
-class ServiceTypeDeleteView(PermissionRequiredMixin, generics.DestroyAPIView):
+class ServiceTypeDeleteView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.DestroyAPIView
+):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -432,8 +463,10 @@ class ServiceTypeDeleteView(PermissionRequiredMixin, generics.DestroyAPIView):
 
 # handling type views
 @extend_schema(tags=["Handling Types"])
-class HandlingTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
-    queryset = HandlingType.objects.all().order_by("name")
+class HandlingTypeListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
+    queryset = HandlingType.objects.all()
     serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -443,12 +476,15 @@ class HandlingTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPI
         "POST": "master.add_handlingtype",
     }
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Handling Types"])
-class HandlingTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
+class HandlingTypeListInwardView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = HandlingType.objects.all()
     serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -457,14 +493,14 @@ class HandlingTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = HandlingType.objects.all().order_by("name")
-        serializer = HandlingTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Handling Types"])
-class HandlingTypeDetailView(PermissionRequiredMixin, generics.RetrieveAPIView):
+class HandlingTypeDetailView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.RetrieveAPIView
+):
     queryset = HandlingType.objects.all()
     serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -476,7 +512,9 @@ class HandlingTypeDetailView(PermissionRequiredMixin, generics.RetrieveAPIView):
 
 
 @extend_schema(tags=["Handling Types"])
-class HandlingTypeUpdateView(generics.UpdateAPIView):
+class HandlingTypeUpdateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.UpdateAPIView
+):
     queryset = HandlingType.objects.all()
     serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -487,12 +525,11 @@ class HandlingTypeUpdateView(generics.UpdateAPIView):
         "PATCH": "master.change_handlingtype",
     }
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
-
 
 @extend_schema(tags=["Handling Types"])
-class HandlingTypeDeleteView(PermissionRequiredMixin, generics.DestroyAPIView):
+class HandlingTypeDeleteView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.DestroyAPIView
+):
     queryset = HandlingType.objects.all()
     serializer_class = HandlingTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -521,7 +558,10 @@ class DeliveryTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPI
 
 
 @extend_schema(tags=["Delivery Types"])
-class DeliveryTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
+class DeliveryTypeListInwardView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = DeliveryType.objects.all()
     serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -530,18 +570,18 @@ class DeliveryTypeListInwardView(PermissionRequiredMixin, generics.ListAPIView):
         "GET": "orders.add_order",
     }
 
-    def get(self, request, format=None):
-        queryset = DeliveryType.objects.all().order_by("name")
-        serializer = DeliveryTypeSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Delivery Types"])
-class DeliveryTypeDetailView(PermissionRequiredMixin, generics.RetrieveAPIView):
+class DeliveryTypeDetailView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.RetrieveAPIView
+):
     queryset = DeliveryType.objects.all()
     serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
         "GET": "master.view_deliverytype",
@@ -549,7 +589,9 @@ class DeliveryTypeDetailView(PermissionRequiredMixin, generics.RetrieveAPIView):
 
 
 @extend_schema(tags=["Delivery Types"])
-class DeliveryTypeUpdateView(PermissionRequiredMixin, generics.UpdateAPIView):
+class DeliveryTypeUpdateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.UpdateAPIView
+):
     queryset = DeliveryType.objects.all()
     serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -560,12 +602,11 @@ class DeliveryTypeUpdateView(PermissionRequiredMixin, generics.UpdateAPIView):
         "PATCH": "master.change_deliverytype",
     }
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
-
 
 @extend_schema(tags=["Delivery Types"])
-class DeliveryTypeDeleteView(PermissionRequiredMixin, generics.DestroyAPIView):
+class DeliveryTypeDeleteView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.DestroyAPIView
+):
     queryset = DeliveryType.objects.all()
     serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]

@@ -8,6 +8,9 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+# laundry mixin imports
+from apps.organizations.mixins import OrgBranchQuerysetMixin
+
 # laundry permission validator
 from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
 
@@ -22,9 +25,9 @@ from .serializers import CustomerCategorySerializer, CustomerSerializer
 # customer category views
 @extend_schema(tags=["Customer Categories"])
 class CustomerCategoryListCreateView(
-    PermissionRequiredMixin, generics.ListCreateAPIView
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
 ):
-    queryset = CustomerCategory.objects.all().order_by("name")
+    queryset = CustomerCategory.objects.all()
     serializer_class = CustomerCategorySerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -34,13 +37,15 @@ class CustomerCategoryListCreateView(
         "POST": "customers.add_customercategory",
     }
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Customer Categories"])
 class CustomerCategoryRetrieveUpdateDestroyView(
-    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+    PermissionRequiredMixin,
+    OrgBranchQuerysetMixin,
+    generics.RetrieveUpdateDestroyAPIView,
 ):
     queryset = CustomerCategory.objects.all()
     serializer_class = CustomerCategorySerializer
@@ -54,14 +59,13 @@ class CustomerCategoryRetrieveUpdateDestroyView(
         "DELETE": "customers.delete_customercategory",
     }
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
-
 
 # customer views
 @extend_schema(tags=["Customers"])
-class CustomerListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
-    queryset = Customer.objects.all().order_by("-created_at")
+class CustomerListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
+    queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -71,13 +75,15 @@ class CustomerListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView
         "POST": ["customers.add_customer", "orders.add_order"],
     }
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+    def get_queryset(self):
+        return super().get_queryset().order_by("-created_at")
 
 
 @extend_schema(tags=["Customers"])
 class CustomerRetrieveUpdateDestroyView(
-    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+    PermissionRequiredMixin,
+    OrgBranchQuerysetMixin,
+    generics.RetrieveUpdateDestroyAPIView,
 ):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
@@ -90,9 +96,6 @@ class CustomerRetrieveUpdateDestroyView(
         "PATCH": "customers.change_customer",
         "DELETE": "customers.delete_customer",
     }
-
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
 
     def destroy(self, request, *args, **kwargs):
         customer = self.get_object()

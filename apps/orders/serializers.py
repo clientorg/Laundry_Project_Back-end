@@ -10,6 +10,9 @@ from .models import Order, OrderItem, OrderPayment
 # laundry serializer imports
 from apps.customers.serializers import CustomerSerializer
 
+# laundry mixin imports
+from apps.organizations.mixins import OrgBranchAssignMixin
+
 
 class OrderItemSerializer(serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
@@ -117,7 +120,7 @@ class OrderPaymentInlineSerializer(serializers.ModelSerializer):
         return obj.updated_by.username if obj.updated_by else None
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     customer_name = serializers.SerializerMethodField()
     customer_mobile_number = serializers.SerializerMethodField()
     customer_country_code = serializers.SerializerMethodField()
@@ -193,7 +196,8 @@ class OrderSerializer(serializers.ModelSerializer):
         validated_data.pop("created_by", None)
         validated_data.pop("updated_by", None)
         user = self.context["request"].user
-        order = Order.objects.create(created_by=user, updated_by=user, **validated_data)
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        order = Order.objects.create(**validated_data)
         for item_data in items_data:
             OrderItem.objects.create(
                 order=order, created_by=user, updated_by=user, **item_data
@@ -206,8 +210,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
         items_data = validated_data.pop("items", None)
         user = self.context["request"].user
+        instance = self.assign_org_branch_on_update(instance, validated_data)
 
         # Update order fields
+        validated_data.pop("organization", None)
+        validated_data.pop("branches", None)
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.updated_by = user

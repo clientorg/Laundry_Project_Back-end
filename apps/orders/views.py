@@ -6,6 +6,9 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+# laundry mixin imports
+from apps.organizations.mixins import OrgBranchQuerysetMixin
+
 # laundry model imports
 from .models import Order, OrderItem, OrderPayment
 
@@ -25,8 +28,10 @@ from .serializers import (
 # Create your views here.
 # order views
 @extend_schema(tags=["Orders"])
-class OrderListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
-    queryset = Order.objects.all().order_by("-created_at")
+class OrderListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -36,13 +41,15 @@ class OrderListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
         "POST": "orders.add_order",
     }
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+    def get_queryset(self):
+        return super().get_queryset().order_by("-created_at")
 
 
 @extend_schema(tags=["Orders"])
 class OrderRetrieveUpdateDestroyView(
-    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+    PermissionRequiredMixin,
+    OrgBranchQuerysetMixin,
+    generics.RetrieveUpdateDestroyAPIView,
 ):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -61,12 +68,12 @@ class OrderRetrieveUpdateDestroyView(
             return OrderDetailSerializer
         return OrderSerializer
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
-
 
 @extend_schema(tags=["Orders"])
-class OrdersByCustomerView(PermissionRequiredMixin, generics.ListAPIView):
+class OrdersByCustomerView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -76,13 +83,14 @@ class OrdersByCustomerView(PermissionRequiredMixin, generics.ListAPIView):
     }
 
     def get_queryset(self):
+        qs = super().get_queryset()
         customer_id = self.kwargs.get("customer_id")
         try:
             customer = Customer.objects.get(id=customer_id)
         except Customer.DoesNotExist:
             raise NotFound("Customer not found")
 
-        return Order.objects.filter(customer__id=customer_id).order_by("-created_at")
+        return qs.filter(customer__id=customer_id).order_by("-created_at")
 
 
 # order item views
@@ -123,19 +131,33 @@ class OrderItemRetrieveUpdateDestroyView(
 
 
 @extend_schema(tags=["Order Payments"])
-class OrderPaymentListCreateView(generics.ListCreateAPIView):
+class OrderPaymentListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
     queryset = OrderPayment.objects.all().order_by("-created_at")
     serializer_class = OrderPaymentSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_orderpayment",
+        "POST": "orders.add_orderpayment",
+    }
 
 
 @extend_schema(tags=["Order Payments"])
-class OrderPaymentRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class OrderPaymentRetrieveUpdateDestroyView(
+    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+):
     queryset = OrderPayment.objects.all()
     serializer_class = OrderPaymentSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_orderpayment",
+        "PUT": "orders.change_orderpayment",
+        "PATCH": "orders.change_orderpayment",
+        "DELETE": "orders.delete_orderpayment",
+    }
 
 
 @extend_schema(tags=["Order Payments"])

@@ -89,7 +89,7 @@ class ItemSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
 
 # cloth type serializers
-class ClothTypeSerializer(serializers.ModelSerializer):
+class ClothTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -148,9 +148,20 @@ class ClothTypeSerializer(serializers.ModelSerializer):
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
 
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
+
 
 # service type serializer
-class ServiceTypeSerializer(serializers.ModelSerializer):
+class ServiceTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -209,9 +220,20 @@ class ServiceTypeSerializer(serializers.ModelSerializer):
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
 
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
+
 
 # handling type serializer
-class HandlingTypeSerializer(serializers.ModelSerializer):
+class HandlingTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -270,9 +292,20 @@ class HandlingTypeSerializer(serializers.ModelSerializer):
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
 
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
+
 
 # delivery type serializer
-class DeliveryTypeSerializer(serializers.ModelSerializer):
+class DeliveryTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -330,3 +363,14 @@ class DeliveryTypeSerializer(serializers.ModelSerializer):
 
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
+
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)

@@ -2,12 +2,15 @@
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
+# laundry mixin imports
+from apps.organizations.mixins import OrgBranchAssignMixin
+
 # laundry model imports
 from .models import Customer, CustomerCategory
 
 
 # customer category serializers
-class CustomerCategorySerializer(serializers.ModelSerializer):
+class CustomerCategorySerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -66,9 +69,20 @@ class CustomerCategorySerializer(serializers.ModelSerializer):
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
 
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
+
 
 # customer serializers
-class CustomerSerializer(serializers.ModelSerializer):
+class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
@@ -147,3 +161,14 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
+
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        request = self.context["request"]
+        user = request.user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
