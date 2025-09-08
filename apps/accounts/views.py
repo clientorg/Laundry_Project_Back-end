@@ -232,7 +232,13 @@ class LoginAPIView(APIView):
                 "user": {
                     "id": user.id,
                     "username": user.username,
+                    "profile_picture": (
+                        request.build_absolute_uri(user.profile_picture.url)
+                        if user.profile_picture
+                        else None
+                    ),
                     "email": user.email,
+                    "groups": list(user.groups.values_list("id", flat=True)),
                     "organization_name": org_name,
                     "organization_currency_code": currency_code,
                     "organization_service_vat_percent": vat_percent,
@@ -282,7 +288,13 @@ class UserTokenDetailAPIView(APIView):
             {
                 "id": user.id,
                 "username": user.username,
+                "profile_picture": (
+                    request.build_absolute_uri(user.profile_picture.url)
+                    if user.profile_picture
+                    else None
+                ),
                 "email": user.email,
+                "groups": list(user.groups.values_list("id", flat=True)),
                 "organization_name": org_name,
                 "organization_currency_code": currency_code,
                 "organization_service_vat_percent": vat_percent,

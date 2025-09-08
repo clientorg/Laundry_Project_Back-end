@@ -144,6 +144,8 @@ class LoginSerializer(serializers.Serializer):
 class UserTokenSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     username = serializers.CharField()
+    profile_picture = serializers.ImageField(required=False, allow_null=True)
+    groups = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     email = serializers.EmailField()
     organization_name = serializers.CharField(allow_null=True)
     organization_currency_code = serializers.CharField(allow_null=True)
