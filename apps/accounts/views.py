@@ -184,6 +184,10 @@ class LoginAPIView(APIView):
             )
 
         user = authenticate(request, username=username, password=password)
+        org = user.organization
+        currency_code = None
+        vat_percent = None
+        org_name = None
 
         if not user:
             return Response(
@@ -197,6 +201,28 @@ class LoginAPIView(APIView):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
+        if org:
+            # Case 1: user has root organization
+            currency_code = org.currency_code
+            vat_percent = org.service_vat_percent
+            org_name = org.name
+
+        elif user.branches.exists():
+            # Case 2: user has branches
+            branch = user.branches.first()
+            if branch:
+                org_name = branch.name  # branch name
+                # Prefer branch values if available
+                currency_code = branch.currency_code or (
+                    branch.parent.currency_code if branch.parent else None
+                )
+                vat_percent = branch.service_vat_percent or (
+                    branch.parent.service_vat_percent if branch.parent else None
+                )
+                # If parent exists, prefer parent name as organization name
+                if branch.parent:
+                    org_name = branch.parent.name
+
         refresh = RefreshToken.for_user(user)
 
         return Response(
@@ -207,17 +233,9 @@ class LoginAPIView(APIView):
                     "id": user.id,
                     "username": user.username,
                     "email": user.email,
-                    "organization_name": (
-                        user.organization.name if user.organization else None
-                    ),
-                    "organization_currency_code": (
-                        user.organization.currency_code if user.organization else None
-                    ),
-                    "organization_service_vat_percent": (
-                        user.organization.service_vat_percent
-                        if user.organization
-                        else None
-                    ),
+                    "organization_name": org_name,
+                    "organization_currency_code": currency_code,
+                    "organization_service_vat_percent": vat_percent,
                     "branches": list(user.branches.values("id", "name")),
                     "is_superuser": user.is_superuser,
                     "is_staff": user.is_staff,
@@ -233,20 +251,41 @@ class UserTokenDetailAPIView(APIView):
 
     def get(self, request):
         user = request.user
+        org = user.organization
+        currency_code = None
+        vat_percent = None
+        org_name = None
+
+        if org:
+            # Case 1: user has root organization
+            currency_code = org.currency_code
+            vat_percent = org.service_vat_percent
+            org_name = org.name
+
+        elif user.branches.exists():
+            # Case 2: user has branches
+            branch = user.branches.first()
+            if branch:
+                org_name = branch.name  # branch name
+                # Prefer branch values if available
+                currency_code = branch.currency_code or (
+                    branch.parent.currency_code if branch.parent else None
+                )
+                vat_percent = branch.service_vat_percent or (
+                    branch.parent.service_vat_percent if branch.parent else None
+                )
+                # If parent exists, prefer parent name as organization name
+                if branch.parent:
+                    org_name = branch.parent.name
+
         return Response(
             {
                 "id": user.id,
                 "username": user.username,
                 "email": user.email,
-                "organization_name": (
-                    user.organization.name if user.organization else None
-                ),
-                "organization_currency_code": (
-                    user.organization.currency_code if user.organization else None
-                ),
-                "organization_service_vat_percent": (
-                    user.organization.service_vat_percent if user.organization else None
-                ),
+                "organization_name": org_name,
+                "organization_currency_code": currency_code,
+                "organization_service_vat_percent": vat_percent,
                 "branches": list(user.branches.values("id", "name")),
                 "is_superuser": user.is_superuser,
                 "is_staff": user.is_staff,
