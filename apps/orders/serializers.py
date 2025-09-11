@@ -158,12 +158,7 @@ class OrderSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
     def get_amount_paid(self, obj):
-        return (
-            obj.payments.exclude(payment_type="credit").aggregate(
-                total=Sum("received_amount")
-            )["total"]
-            or 0
-        )
+        return obj.payments.aggregate(total=Sum("received_amount"))["total"] or 0
 
     @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
     def get_remaining_amount(self, obj):
