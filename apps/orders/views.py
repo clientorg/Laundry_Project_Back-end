@@ -161,6 +161,26 @@ class OrderPaymentRetrieveUpdateDestroyView(
 
 
 @extend_schema(tags=["Order Payments"])
+class OrderPaymentsByOrderView(PermissionRequiredMixin, generics.ListAPIView):
+    serializer_class = OrderPaymentSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": ["orders.view_orderpayment", "orders.view_order"],
+    }
+
+    def get_queryset(self):
+        order_id = self.kwargs.get("order_id")
+        try:
+            Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            raise NotFound("Order not found")
+
+        return OrderPayment.objects.filter(order__id=order_id).order_by("-created_at")
+
+
+@extend_schema(tags=["Order Payments"])
 class OrderPaymentsByCustomerView(PermissionRequiredMixin, generics.ListAPIView):
     serializer_class = OrderPaymentSerializer
     authentication_classes = [JWTAuthentication]
