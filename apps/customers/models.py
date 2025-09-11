@@ -149,17 +149,43 @@ class Customer(models.Model):
 
     def credit_used(self):
         OrderPayment = apps.get_model("orders", "OrderPayment")
-        return (
+        credit = (
             OrderPayment.objects.filter(
-                order__customer=self,
-                payment_type="credit",
+                order__customer=self, payment_type="credit"
             ).aggregate(total=Sum("received_amount"))["total"]
             or 0
         )
+        repayment = (
+            OrderPayment.objects.filter(
+                order__customer=self, payment_type="repayment"
+            ).aggregate(total=Sum("received_amount"))["total"]
+            or 0
+        )
+        return max(0, credit - repayment)
 
     def credit_remaining(self):
         credit_limit = self.credit_limit or 0
-        return max(credit_limit - self.credit_used(), 0)
+        return credit_limit - self.credit_used()
+
+    def balance(self):
+        OrderPayment = apps.get_model("orders", "OrderPayment")
+        Order = apps.get_model("orders", "Order")
+
+        # Sum of all payments except 'credit'
+        total_paid = (
+            OrderPayment.objects.filter(order__customer=self)
+            .exclude(payment_type="credit")
+            .aggregate(total=Sum("received_amount"))["total"]
+            or 0
+        )
+
+        # Sum of all order totals
+        total_orders = (
+            Order.objects.filter(customer=self).aggregate(total=Sum("total"))["total"]
+            or 0
+        )
+
+        return max(0, total_paid - total_orders)
 
     def save(self, *args, **kwargs):
         if not self.customer_id:

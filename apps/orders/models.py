@@ -247,6 +247,7 @@ class OrderPayment(models.Model):
         ("card", "Card"),
         ("upi", "UPI"),
         ("wallet", "Wallet"),
+        ("repayment", "Repayment"),
         ("credit", "Credit"),
         ("other", "Other"),
     ]

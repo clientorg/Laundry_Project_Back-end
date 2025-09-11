@@ -171,7 +171,9 @@ class OrderSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     @extend_schema_field(serializers.BooleanField())
     def get_is_paid(self, obj):
-        return self.get_remaining_amount(obj) <= 0
+        remaining = self.get_remaining_amount(obj)
+        tolerance = 0.50
+        return remaining <= tolerance
 
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):

@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission, Group
 
 # package imports
@@ -155,3 +156,7 @@ class UserTokenSerializer(serializers.Serializer):
     branches = serializers.ListField(child=serializers.DictField(), allow_empty=True)
     is_superuser = serializers.BooleanField()
     is_staff = serializers.BooleanField()
+
+    class Meta:
+        model = get_user_model()
+        fields = "__all__"
