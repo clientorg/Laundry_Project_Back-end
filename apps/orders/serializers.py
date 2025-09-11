@@ -166,7 +166,13 @@ class OrderSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     @extend_schema_field(serializers.BooleanField())
     def get_is_paid(self, obj):
-        remaining = self.get_remaining_amount(obj)
+        amount_paid = (
+            obj.payments.exclude(payment_type="credit").aggregate(
+                total=Sum("received_amount")
+            )["total"]
+            or 0
+        )
+        remaining = max(obj.total - amount_paid, 0)
         tolerance = 0.50
         return remaining <= tolerance
 
