@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models import Sum, Q, F
 from django.contrib.auth import get_user_model
+from django.db.models.functions import Coalesce
 
 # laundry model imports
 from apps.customers.models import Customer
@@ -7,6 +9,43 @@ from apps.organizations.models import Organization
 
 # Create your models here.
 User = get_user_model()
+
+
+class OrderQuerySet(models.QuerySet):
+    def with_unpaid_credit(self, tolerance=0.99):
+        """
+        Annotate orders with total credit & repayment,
+        and filter only those with unpaid balance.
+        """
+        return (
+            self.filter(payments__payment_type="credit")
+            .distinct()
+            .annotate(
+                total_credit=Coalesce(
+                    Sum(
+                        "payments__received_amount",
+                        filter=Q(payments__payment_type="credit"),
+                    ),
+                    0,
+                ),
+                total_repaid=Coalesce(
+                    Sum(
+                        "payments__received_amount",
+                        filter=Q(payments__payment_type="repayment"),
+                    ),
+                    0,
+                ),
+            )
+            .filter(total_credit__gt=F("total_repaid") + tolerance)
+        )
+
+
+class OrderManager(models.Manager):
+    def get_queryset(self):
+        return OrderQuerySet(self.model, using=self._db)
+
+    def with_unpaid_credit(self, tolerance=0.99):
+        return self.get_queryset().with_unpaid_credit(tolerance=tolerance)
 
 
 class Order(models.Model):
@@ -113,6 +152,8 @@ class Order(models.Model):
         related_name="orders_updated",
         on_delete=models.SET_NULL,
     )
+
+    objects = OrderManager()
 
     def save(self, *args, **kwargs):
         if not self.order_id:

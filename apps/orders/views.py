@@ -1,7 +1,9 @@
 # core imports
-from rest_framework.exceptions import NotFound
+from django.db.models import Sum, F, Q
+from django.db.models.functions import Coalesce
 
 # package imports
+from rest_framework.exceptions import NotFound
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -22,6 +24,7 @@ from .serializers import (
     OrderDetailSerializer,
     OrderItemSerializer,
     OrderPaymentSerializer,
+    UnpaidCreditOrderSerializer,
 )
 
 
@@ -91,6 +94,44 @@ class OrdersByCustomerView(
             raise NotFound("Customer not found")
 
         return qs.filter(customer__id=customer_id).order_by("-created_at")
+
+
+@extend_schema(tags=["Orders"])
+class OrdersWithUnpaidCreditView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    serializer_class = UnpaidCreditOrderSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_order",
+    }
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.with_unpaid_credit().order_by("-created_at")
+
+
+@extend_schema(tags=["Orders"])
+class OrdersWithUnpaidCreditByCustomerView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    serializer_class = UnpaidCreditOrderSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": ["orders.view_order", "customers.view_customer"],
+    }
+
+    def get_queryset(self):
+        customer_id = self.kwargs.get("customer_id")
+        return (
+            Order.objects.with_unpaid_credit()
+            .filter(customer_id=customer_id)
+            .order_by("-created_at")
+        )
 
 
 # order item views
