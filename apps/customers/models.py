@@ -164,7 +164,7 @@ class Customer(models.Model):
         return max(0, credit - repayment)
 
     def credit_remaining(self):
-        credit_limit = self.credit_limit or Decimal("0.000")
+        credit_limit = self.credit_limit or 0
         return credit_limit - self.credit_used()
 
     def balance(self):
