@@ -1,7 +1,8 @@
+from decimal import Decimal
 from django.db import models
-from django.db.models import Sum, Q, F
 from django.contrib.auth import get_user_model
 from django.db.models.functions import Coalesce
+from django.db.models import Sum, Q, F, DecimalField, ExpressionWrapper
 
 # laundry model imports
 from apps.customers.models import Customer
@@ -12,7 +13,7 @@ User = get_user_model()
 
 
 class OrderQuerySet(models.QuerySet):
-    def with_unpaid_credit(self, tolerance=0.99):
+    def with_unpaid_credit(self, tolerance=Decimal("0.99")):
         """
         Annotate orders with total credit & repayment,
         and filter only those with unpaid balance.
@@ -36,7 +37,12 @@ class OrderQuerySet(models.QuerySet):
                     0,
                 ),
             )
-            .filter(total_credit__gt=F("total_repaid") + tolerance)
+            .filter(
+                total_credit__gt=ExpressionWrapper(
+                    F("total_repaid") + tolerance,
+                    output_field=DecimalField(max_digits=12, decimal_places=3),
+                ),
+            )
         )
 
 
