@@ -27,14 +27,14 @@ class OrderQuerySet(models.QuerySet):
                         "payments__received_amount",
                         filter=Q(payments__payment_type="credit"),
                     ),
-                    0,
+                    Decimal("0.000"),
                 ),
                 total_repaid=Coalesce(
                     Sum(
                         "payments__received_amount",
                         filter=Q(payments__payment_type="repayment"),
                     ),
-                    0,
+                    Decimal("0.000"),
                 ),
             )
             .filter(
