@@ -129,16 +129,22 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     def get_category_discount(self, obj):
         return obj.category.discount_percent if obj.category else None
 
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    @extend_schema_field(serializers.CharField())
     def get_credit_used(self, obj):
-        return Decimal(obj.credit_used()).quantize(
-            Decimal("0.000"), rounding=ROUND_HALF_UP
+        return format(
+            Decimal(obj.credit_used()).quantize(
+                Decimal("0.000"), rounding=ROUND_HALF_UP
+            ),
+            ".3f",
         )
 
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    @extend_schema_field(serializers.CharField())
     def get_credit_remaining(self, obj):
-        return Decimal(obj.credit_remaining()).quantize(
-            Decimal("0.000"), rounding=ROUND_HALF_UP
+        return format(
+            Decimal(obj.credit_remaining()).quantize(
+                Decimal("0.000"), rounding=ROUND_HALF_UP
+            ),
+            ".3f",
         )
 
     @extend_schema_field(
