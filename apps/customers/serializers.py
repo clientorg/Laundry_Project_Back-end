@@ -1,3 +1,5 @@
+from decimal import Decimal, ROUND_HALF_UP
+
 # package imports
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
@@ -129,11 +131,15 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
     def get_credit_used(self, obj):
-        return obj.credit_used()
+        return Decimal(obj.credit_used()).quantize(
+            Decimal("0.000"), rounding=ROUND_HALF_UP
+        )
 
     @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
     def get_credit_remaining(self, obj):
-        return obj.credit_remaining()
+        return Decimal(obj.credit_remaining()).quantize(
+            Decimal("0.000"), rounding=ROUND_HALF_UP
+        )
 
     @extend_schema_field(
         serializers.ListSerializer(child=serializers.CharField()),
