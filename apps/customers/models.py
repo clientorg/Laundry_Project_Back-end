@@ -1,6 +1,7 @@
 from django.db import models
 from django.apps import apps
 from django.db.models import Sum
+from decimal import Decimal, ROUND_HALF_UP
 from django.contrib.auth import get_user_model
 from django.core.validators import EmailValidator
 
@@ -149,23 +150,21 @@ class Customer(models.Model):
 
     def credit_used(self):
         OrderPayment = apps.get_model("orders", "OrderPayment")
-        credit = (
-            OrderPayment.objects.filter(
-                order__customer=self, payment_type="credit"
-            ).aggregate(total=Sum("received_amount"))["total"]
-            or 0
-        )
-        repayment = (
-            OrderPayment.objects.filter(
-                order__customer=self, payment_type="repayment"
-            ).aggregate(total=Sum("received_amount"))["total"]
-            or 0
-        )
-        return max(0, credit - repayment)
+
+        credit = OrderPayment.objects.filter(
+            order__customer=self, payment_type="credit"
+        ).aggregate(total=Sum("received_amount"))["total"] or Decimal("0.000")
+        repayment = OrderPayment.objects.filter(
+            order__customer=self, payment_type="repayment"
+        ).aggregate(total=Sum("received_amount"))["total"] or Decimal("0.000")
+
+        used = max(0, credit - repayment)
+        return used.quantize(Decimal("0.000"), rounding=ROUND_HALF_UP)
 
     def credit_remaining(self):
-        credit_limit = self.credit_limit or 0
-        return credit_limit - self.credit_used()
+        credit_limit = self.credit_limit or Decimal("0.000")
+        remaining = credit_limit - self.credit_used()
+        return remaining.quantize(Decimal("0.000"), rounding=ROUND_HALF_UP)
 
     def balance(self):
         OrderPayment = apps.get_model("orders", "OrderPayment")
