@@ -299,6 +299,15 @@ class OrderPayment(models.Model):
         ("other", "Other"),
     ]
 
+    REPAYMENT_TYPES = [
+        ("cash", "Cash"),
+        ("card", "Card"),
+        ("upi", "UPI"),
+        ("wallet", "Wallet"),
+        ("credit", "Credit"),
+        ("other", "Other"),
+    ]
+
     note = models.TextField(blank=True, null=True)
     apply_rounding = models.BooleanField(default=False)
     rating = models.CharField(max_length=10, blank=True, null=True)
@@ -324,6 +333,13 @@ class OrderPayment(models.Model):
         max_length=20,
         choices=PAYMENT_TYPES,
         help_text="Payment method (cash, card, credit, etc.)",
+    )
+    repayment_type = models.CharField(
+        null=True,
+        blank=True,
+        max_length=20,
+        choices=REPAYMENT_TYPES,
+        help_text="Repayment method (cash, card, credit, etc.)",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
