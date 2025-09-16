@@ -19,7 +19,10 @@ class OrderQuerySet(models.QuerySet):
         and filter only those with unpaid balance.
         """
         return (
-            self.filter(payments__payment_type="credit")
+            self.filter(
+                Q(payments__payment_type="credit")
+                | Q(payments__payment_type="repayment")
+            )
             .distinct()
             .annotate(
                 total_credit=Coalesce(
