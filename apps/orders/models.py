@@ -13,7 +13,7 @@ User = get_user_model()
 
 
 class OrderQuerySet(models.QuerySet):
-    def with_unpaid_credit(self, tolerance=Decimal("0.99")):
+    def with_unpaid_credit(self, tolerance=Decimal("0.09")):
         """
         Annotate orders with total credit & repayment,
         and filter only those with unpaid balance.
