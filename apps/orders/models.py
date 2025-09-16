@@ -28,6 +28,7 @@ class OrderQuerySet(models.QuerySet):
                         filter=Q(payments__payment_type="credit"),
                     ),
                     Decimal("0.000"),
+                    output_field=DecimalField(max_digits=12, decimal_places=3),
                 ),
                 total_repaid=Coalesce(
                     Sum(
@@ -35,15 +36,16 @@ class OrderQuerySet(models.QuerySet):
                         filter=Q(payments__payment_type="repayment"),
                     ),
                     Decimal("0.000"),
+                    output_field=DecimalField(max_digits=12, decimal_places=3),
                 ),
             )
             .annotate(
-                unbaid_balance=ExpressionWrapper(
+                unpaid_balance=ExpressionWrapper(
                     (F("total_credit") - F("total_repaid")),
                     output_field=DecimalField(max_digits=12, decimal_places=3),
                 )
             )
-            .filter(unbaid_balance__gt=tolerance)
+            .filter(unpaid_balance__gt=tolerance)
         )
 
 
