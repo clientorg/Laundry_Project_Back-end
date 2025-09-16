@@ -311,9 +311,15 @@ class OrderDetailSerializer(OrderSerializer):
 
 class UnpaidCreditOrderSerializer(serializers.ModelSerializer):
     customer_name = serializers.SerializerMethodField()
-    credit_used = serializers.SerializerMethodField()
-    repaid_amount = serializers.SerializerMethodField()
-    remaining_credit = serializers.SerializerMethodField()
+    credit_used = serializers.DecimalField(
+        max_digits=12, decimal_places=3, source="total_credit", read_only=True
+    )
+    repaid_amount = serializers.DecimalField(
+        max_digits=12, decimal_places=3, source="total_repaid", read_only=True
+    )
+    remaining_credit = serializers.DecimalField(
+        max_digits=12, decimal_places=3, source="unpaid_balance", read_only=True
+    )
 
     class Meta:
         model = Order
@@ -332,31 +338,31 @@ class UnpaidCreditOrderSerializer(serializers.ModelSerializer):
     def get_customer_name(self, obj):
         return obj.customer.name if obj.customer else None
 
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
-    def get_credit_used(self, obj):
-        return (
-            obj.payments.filter(payment_type="credit").aggregate(
-                total=Sum("received_amount")
-            )["total"]
-            or 0
-        )
-
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
-    def get_repaid_amount(self, obj):
-        return (
-            obj.payments.filter(payment_type="repayment").aggregate(
-                total=Sum("received_amount")
-            )["total"]
-            or 0
-        )
-
-    @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
-    def get_remaining_credit(self, obj):
-        credit = self.get_credit_used(obj)
-        repaid = self.get_repaid_amount(obj)
-        remaining = credit - repaid
-
-        if abs(remaining) < 1:
-            return 0
-
-        return max(remaining, 0)
+    # @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    # def get_credit_used(self, obj):
+    #     return (
+    #         obj.payments.filter(payment_type="credit").aggregate(
+    #             total=Sum("received_amount")
+    #         )["total"]
+    #         or 0
+    #     )
+    #
+    # @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    # def get_repaid_amount(self, obj):
+    #     return (
+    #         obj.payments.filter(payment_type="repayment").aggregate(
+    #             total=Sum("received_amount")
+    #         )["total"]
+    #         or 0
+    #     )
+    #
+    # @extend_schema_field(serializers.DecimalField(max_digits=12, decimal_places=3))
+    # def get_remaining_credit(self, obj):
+    #     credit = self.get_credit_used(obj)
+    #     repaid = self.get_repaid_amount(obj)
+    #     remaining = credit - repaid
+    #
+    #     if abs(remaining) < 1:
+    #         return 0
+    #
+    #     return max(remaining, 0)
