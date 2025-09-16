@@ -37,12 +37,13 @@ class OrderQuerySet(models.QuerySet):
                     Decimal("0.000"),
                 ),
             )
-            .filter(
-                total_credit__gt=ExpressionWrapper(
-                    F("total_repaid") + tolerance,
+            .annotate(
+                unbaid_balance=ExpressionWrapper(
+                    (F("total_credit") - F("total_repaid")),
                     output_field=DecimalField(max_digits=12, decimal_places=3),
-                ),
+                )
             )
+            .filter(unbaid_balance__gt=tolerance)
         )
 
 
