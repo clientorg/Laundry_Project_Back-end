@@ -116,7 +116,7 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
         group = Group.objects.create(**validated_data)
         group.permissions.set(permissions_data)
 
-        self.assign_org_branch_on_create(group, {"detail": detail_data})
+        self.assign_org_branch_on_create(group, {"detail": detail_data or {}})
 
         group.refresh_from_db()
         return group
@@ -131,7 +131,7 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
         if permissions_data is not None:
             instance.permissions.set(permissions_data)
 
-        self.assign_org_branch_on_update(instance, {"detail": detail_data})
+        self.assign_org_branch_on_update(instance, {"detail": detail_data or {}})
 
         instance.refresh_from_db()
         return instance

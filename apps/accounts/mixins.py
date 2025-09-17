@@ -37,6 +37,10 @@ class GroupOrgBranchAssignMixin:
             if "branches" in detail_data:
                 detail.branches.set(detail_data["branches"])
 
+        for field, value in detail_data.items():
+            if field not in ["organization", "branches"]:  # already handled above
+                setattr(detail, field, value)
+
         # Audit fields
         if created:  # only set on first create
             detail.created_by = user
@@ -61,6 +65,10 @@ class GroupOrgBranchAssignMixin:
             detail.branches.set(detail_data["branches"])
         elif not detail.branches.exists() and user and user.branches.exists():
             detail.branches.set([user.branches.first()])
+
+        for field, value in detail_data.items():
+            if field not in ["organization", "branches"]:  # already handled above
+                setattr(detail, field, value)
 
         # Audit fields
         if not detail.created_by:
