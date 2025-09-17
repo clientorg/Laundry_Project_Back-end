@@ -89,6 +89,27 @@ class OrderPaymentSerializer(serializers.ModelSerializer):
     def get_updated_by_name(self, obj):
         return obj.updated_by.username if obj.updated_by else None
 
+    def create(self, validated_data):
+        request = self.context["request"]
+        user = request.user
+
+        return OrderPayment.objects.create(
+            created_by=user,
+            updated_by=user,
+            **validated_data,
+        )
+
+    def update(self, instance, validated_data):
+        request = self.context["request"]
+        user = request.user
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.updated_by = user
+        instance.save()
+        return instance
+
 
 class OrderPaymentInlineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)

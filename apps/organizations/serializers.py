@@ -1,11 +1,17 @@
 # package imports
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 
 # laundry model imports
 from .models import Branch
 
 
 class BranchSerializer(serializers.ModelSerializer):
+    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Branch
         fields = [
@@ -20,8 +26,20 @@ class BranchSerializer(serializers.ModelSerializer):
             "contact_email",
             "country",
             "country_code",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
         ]
         read_only_fields = ["id"]
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
 
     def create(self, validated_data):
         request = self.context["request"]

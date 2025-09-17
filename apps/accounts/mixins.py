@@ -42,7 +42,7 @@ class GroupOrgBranchAssignMixin:
                 setattr(detail, field, value)
 
         # Audit fields
-        if created:  # only set on first create
+        if not created:  # only set on first create
             detail.created_by = user
         detail.updated_by = user
 

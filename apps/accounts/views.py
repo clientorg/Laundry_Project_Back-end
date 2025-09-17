@@ -184,10 +184,6 @@ class LoginAPIView(APIView):
             )
 
         user = authenticate(request, username=username, password=password)
-        org = user.organization
-        currency_code = None
-        vat_percent = None
-        org_name = None
 
         if not user:
             return Response(
@@ -200,6 +196,11 @@ class LoginAPIView(APIView):
                 {"detail": "User account is disabled."},
                 status=status.HTTP_403_FORBIDDEN,
             )
+
+        org = user.organization
+        currency_code = None
+        vat_percent = None
+        org_name = None
 
         if org:
             # Case 1: user has root organization

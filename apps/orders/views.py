@@ -100,6 +100,7 @@ class OrdersByCustomerView(
 class OrdersWithUnpaidCreditView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Order.objects.all()
     serializer_class = UnpaidCreditOrderSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
@@ -117,6 +118,7 @@ class OrdersWithUnpaidCreditView(
 class OrdersWithUnpaidCreditByCustomerView(
     PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
 ):
+    queryset = Order.objects.all()
     serializer_class = UnpaidCreditOrderSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]

@@ -21,6 +21,10 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     )
     branch_names = serializers.SerializerMethodField()
     profile_picture = serializers.ImageField(required=False, allow_null=True)
+    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
 
     groups = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Group.objects.all(), required=False
@@ -44,6 +48,10 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
             "mobile_number",
             "profile_picture",
             "groups",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
         ]
         extra_kwargs = {
             "organization": {"required": False, "allow_null": True},
@@ -56,6 +64,14 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     )
     def get_branch_names(self, obj):
         return [b.name for b in obj.branches.all()]
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
@@ -80,13 +96,30 @@ class PermissionSerializer(serializers.ModelSerializer):
 
 
 class GroupDetailSerializer(serializers.ModelSerializer):
+    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
     class Meta:
         model = GroupDetail
         fields = [
             "description",
             "organization",
             "branches",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
         ]
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
 
 
 class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
