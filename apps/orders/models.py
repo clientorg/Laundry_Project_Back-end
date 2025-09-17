@@ -51,7 +51,7 @@ class OrderManager(models.Manager):
     def get_queryset(self):
         return OrderQuerySet(self.model, using=self._db)
 
-    def with_unpaid_credit(self, tolerance=0.99):
+    def with_unpaid_credit(self, tolerance=0.09):
         return self.get_queryset().with_unpaid_credit(tolerance=tolerance)
 
 
