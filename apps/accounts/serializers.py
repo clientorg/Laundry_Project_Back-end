@@ -135,6 +135,12 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
 
+        name = representation["name"]
+        if "_" in name:
+            base, suffix = name.rsplit("_", 1)
+            if suffix.isdigit() and int(suffix) == instance.pk:
+                representation["name"] = base
+
         filtered_permissions = instance.permissions.filter(
             Q(detail__isnull=True) | Q(detail__is_staff_only=False)
         ).values_list("id", flat=True)
@@ -146,8 +152,13 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
         detail_data = validated_data.pop("detail", None)
         permissions_data = validated_data.pop("permissions", [])
 
+        base_name = validated_data.get("name").strip()
+
         group = Group.objects.create(**validated_data)
         group.permissions.set(permissions_data)
+
+        group.name = f"{base_name}_{group.pk}"
+        group.save(update_fields=["name"])
 
         self.assign_org_branch_on_create(group, {"detail": detail_data or {}})
 
@@ -158,7 +169,10 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
         detail_data = validated_data.pop("detail", None)
         permissions_data = validated_data.pop("permissions", None)
 
-        instance.name = validated_data.get("name", instance.name)
+        if "name" in validated_data:
+            base_name = validated_data["name"].strip()
+            instance.name = f"{base_name}_{instance.pk}"
+
         instance.save()
 
         if permissions_data is not None:
