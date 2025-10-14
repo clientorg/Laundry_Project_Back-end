@@ -30,6 +30,8 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         many=True, queryset=Group.objects.all(), required=False
     )
 
+    password = serializers.CharField(write_only=True, required=False, allow_blank=True)
+
     class Meta:
         model = AuthUser
         fields = [
@@ -79,14 +81,26 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         user = request.user
         validated_data["created_by"] = user
         validated_data["updated_by"] = user
-        return super().create(validated_data)
+
+        password = validated_data.pop("password", None)
+        instance = super().create(validated_data)
+        if password:
+            instance.set_password(password)
+            instance.save()
+        return instance
 
     def update(self, instance, validated_data):
         instance = self.assign_org_branch_on_update(instance, validated_data)
         request = self.context["request"]
         user = request.user
         instance.updated_by = user
-        return super().update(instance, validated_data)
+
+        password = validated_data.pop("password", None)
+        instance = super().update(instance, validated_data)
+        if password:
+            instance.set_password(password)
+            instance.save()
+        return instance
 
 
 class PermissionSerializer(serializers.ModelSerializer):
