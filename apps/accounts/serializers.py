@@ -187,6 +187,7 @@ class UserTokenSerializer(serializers.Serializer):
         max_digits=5, decimal_places=2, allow_null=True
     )
     branches = serializers.ListField(child=serializers.DictField(), allow_empty=True)
+    is_org_user = serializers.BooleanField()
     is_superuser = serializers.BooleanField()
     is_staff = serializers.BooleanField()
 

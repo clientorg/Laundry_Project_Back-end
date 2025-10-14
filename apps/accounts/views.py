@@ -201,12 +201,14 @@ class LoginAPIView(APIView):
         currency_code = None
         vat_percent = None
         org_name = None
+        is_org_user = False
 
         if org:
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
             org_name = org.name
+            is_org_user = True
 
         elif user.branches.exists():
             # Case 2: user has branches
@@ -244,6 +246,7 @@ class LoginAPIView(APIView):
                     "organization_currency_code": currency_code,
                     "organization_service_vat_percent": vat_percent,
                     "branches": list(user.branches.values("id", "name")),
+                    "is_org_user": is_org_user,
                     "is_superuser": user.is_superuser,
                     "is_staff": user.is_staff,
                 },
@@ -262,12 +265,14 @@ class UserTokenDetailAPIView(APIView):
         currency_code = None
         vat_percent = None
         org_name = None
+        is_org_user = False
 
         if org:
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
             org_name = org.name
+            is_org_user = True
 
         elif user.branches.exists():
             # Case 2: user has branches
@@ -300,6 +305,7 @@ class UserTokenDetailAPIView(APIView):
                 "organization_currency_code": currency_code,
                 "organization_service_vat_percent": vat_percent,
                 "branches": list(user.branches.values("id", "name")),
+                "is_org_user": is_org_user,
                 "is_superuser": user.is_superuser,
                 "is_staff": user.is_staff,
             },
