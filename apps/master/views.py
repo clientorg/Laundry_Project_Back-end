@@ -115,7 +115,7 @@ class ItemClothOnlyView(
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(is_size_based_price=False)
+        return qs.filter(is_size_based_price=False, is_active=True)
 
 
 @extend_schema(tags=["Items"])
@@ -133,7 +133,7 @@ class ItemClothOnlyPinnedView(
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(is_pinned=True, is_size_based_price=False)
+        return qs.filter(is_pinned=True, is_size_based_price=False, is_active=True)
 
 
 @extend_schema(tags=["Items"])
@@ -152,7 +152,9 @@ class ItemClothOnlyStartsWithView(
     def get_queryset(self):
         qs = super().get_queryset()
         letter = self.kwargs.get("letter")
-        return qs.filter(name__istartswith=letter, is_size_based_price=False)
+        return qs.filter(
+            name__istartswith=letter, is_size_based_price=False, is_active=True
+        )
 
 
 @extend_schema(tags=["Items"])
@@ -170,7 +172,7 @@ class ItemCarpetOnlyView(
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(is_size_based_price=True)
+        return qs.filter(is_size_based_price=True, is_active=True)
 
 
 @extend_schema(tags=["Items"])
@@ -188,7 +190,7 @@ class ItemCarpetOnlyPinnedView(
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(is_pinned=True, is_size_based_price=True)
+        return qs.filter(is_pinned=True, is_size_based_price=True, is_active=True)
 
 
 @extend_schema(tags=["Items"])
@@ -207,7 +209,9 @@ class ItemCarpetOnlyStartsWithView(
     def get_queryset(self):
         qs = super().get_queryset()
         letter = self.kwargs.get("letter")
-        return qs.filter(name__istartswith=letter, is_size_based_price=True)
+        return qs.filter(
+            name__istartswith=letter, is_size_based_price=True, is_active=True
+        )
 
 
 # cloth type views
@@ -415,7 +419,7 @@ class ServiceTypeListInwardView(
     }
 
     def get_queryset(self):
-        return super().get_queryset().order_by("name")
+        return super().get_queryset().filter(is_active=True).order_by("name")
 
 
 @extend_schema(tags=["Service Types"])
@@ -494,7 +498,7 @@ class HandlingTypeListInwardView(
     }
 
     def get_queryset(self):
-        return super().get_queryset().order_by("name")
+        return super().get_queryset().filter(is_active=True).order_by("name")
 
 
 @extend_schema(tags=["Handling Types"])
@@ -542,7 +546,9 @@ class HandlingTypeDeleteView(
 
 # delivery type views
 @extend_schema(tags=["Delivery Types"])
-class DeliveryTypeListCreateView(PermissionRequiredMixin, generics.ListCreateAPIView):
+class DeliveryTypeListCreateView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListCreateAPIView
+):
     queryset = DeliveryType.objects.all().order_by("name")
     serializer_class = DeliveryTypeSerializer
     authentication_classes = [JWTAuthentication]
@@ -571,7 +577,7 @@ class DeliveryTypeListInwardView(
     }
 
     def get_queryset(self):
-        return super().get_queryset().order_by("name")
+        return super().get_queryset().filter(is_active=True).order_by("name")
 
 
 @extend_schema(tags=["Delivery Types"])
