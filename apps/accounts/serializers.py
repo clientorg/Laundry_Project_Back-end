@@ -154,7 +154,7 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
         name = representation["name"]
         if "_" in name:
             base, suffix = name.rsplit("_", 1)
-            if suffix.isdigit() and int(suffix) == instance.pk:
+            if suffix.isdigit() and len(suffix) >= 14:
                 representation["name"] = base
 
         filtered_permissions = instance.permissions.filter(
