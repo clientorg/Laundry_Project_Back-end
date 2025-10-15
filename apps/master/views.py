@@ -419,7 +419,7 @@ class ServiceTypeListInwardView(
     }
 
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True).order_by("name")
+        return super().get_queryset().order_by("name")
 
 
 @extend_schema(tags=["Service Types"])
