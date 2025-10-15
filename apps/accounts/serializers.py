@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission, Group
 
@@ -169,11 +170,10 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
 
         base_name = validated_data.get("name").strip()
 
+        timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
+        validated_data["name"] = f"{base_name}_{timestamp}"
         group = Group.objects.create(**validated_data)
         group.permissions.set(permissions_data)
-
-        group.name = f"{base_name}_{group.pk}"
-        group.save(update_fields=["name"])
 
         self.assign_org_branch_on_create(group, {"detail": detail_data or {}})
 
@@ -186,7 +186,8 @@ class GroupSerializer(serializers.ModelSerializer, GroupOrgBranchAssignMixin):
 
         if "name" in validated_data:
             base_name = validated_data["name"].strip()
-            instance.name = f"{base_name}_{instance.pk}"
+            timestamp = timezone.now().strftime("%Y%m%d%H%M%S")
+            instance.name = f"{base_name}_{timestamp}"
 
         instance.save()
 

@@ -13,7 +13,7 @@ User = get_user_model()
 
 
 class CustomerCategory(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_global = models.BooleanField(default=False)
