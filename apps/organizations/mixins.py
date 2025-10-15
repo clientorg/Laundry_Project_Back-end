@@ -79,9 +79,11 @@ class OrgBranchQuerysetMixin:
             # Add is_global=True only if the model has that field
             try:
                 model._meta.get_field("is_global")
+                first_branch = user.branches.first()
+                parent_org = first_branch.parent if first_branch else None
                 filters |= models.Q(is_global=True) & (
-                    models.Q(**{self.org_field: user.organization})
-                    | models.Q(**{f"{self.branch_field}__parent": user.organization})
+                    models.Q(**{self.org_field: parent_org})
+                    | models.Q(**{f"{self.branch_field}__parent": parent_org})
                 )
             except FieldDoesNotExist:
                 pass
