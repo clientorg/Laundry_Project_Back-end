@@ -86,29 +86,10 @@ class Item(models.Model):
     is_pinned = models.BooleanField(default=False)
     is_size_based_price = models.BooleanField(default=False)
 
-    is_laundry = models.BooleanField(default=False)
-    laundry_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=3,
-        default=0.000,
-    )
-    is_pressing = models.BooleanField(default=False)
-    pressing_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=3,
-        default=0.000,
-    )
-    is_dry_clean = models.BooleanField(default=False)
-    dry_clean_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=3,
-        default=0.000,
-    )
-    is_steam = models.BooleanField(default=False)
-    steam_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=3,
-        default=0.000,
+    extra_data = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Store extra details in JSON format (default = {})",
     )
 
     image = models.ImageField(

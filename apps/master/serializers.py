@@ -51,6 +51,11 @@ class ItemSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
 
+    def validate_extra_data(self, value):
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("extra_data must be a JSON object")
+        return value
+
     def validate(self, data):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
