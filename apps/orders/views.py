@@ -13,6 +13,7 @@ from apps.organizations.mixins import OrgBranchQuerysetMixin
 
 # laundry model imports
 from .models import Order, OrderItem, OrderPayment
+from apps.organizations.models import Branch
 
 # laundry permission validator
 from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
@@ -94,6 +95,50 @@ class OrdersByCustomerView(
             raise NotFound("Customer not found")
 
         return qs.filter(customer__id=customer_id).order_by("-created_at")
+
+
+@extend_schema(tags=["Orders"])
+class OrdersByOrganizationView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_order",
+    }
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(
+            Q(organization__parent__isnull=True) | Q(organization__parent="")
+        ).order_by("-created_at")
+
+
+@extend_schema(tags=["Orders"])
+class OrdersByBranchView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "orders.view_order",
+    }
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        branch_id = self.kwargs.get("branch_id")
+        try:
+            Branch.objects.get(id=branch_id)
+        except Branch.DoesNotExist:
+            raise NotFound("Branch not found")
+
+        return qs.filter(branches__id=branch_id).order_by("-created_at")
 
 
 @extend_schema(tags=["Orders"])

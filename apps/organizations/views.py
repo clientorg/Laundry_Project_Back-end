@@ -27,7 +27,7 @@ class BranchListCreateView(
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "organizations.view_branch",
+        "GET": ["organizations.view_branch", "orders.view_order"],
         "POST": "organizations.add_branch",
     }
 

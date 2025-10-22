@@ -4,6 +4,8 @@ from .views import (
     OrderListCreateView,
     OrderRetrieveUpdateDestroyView,
     OrdersByCustomerView,
+    OrdersByOrganizationView,
+    OrdersByBranchView,
     OrdersWithUnpaidCreditView,
     OrdersWithUnpaidCreditByCustomerView,
     # order item views
@@ -32,6 +34,16 @@ urlpatterns = [
         "orders/by-customer/<int:customer_id>/",
         OrdersByCustomerView.as_view(),
         name="orders-by-customer",
+    ),
+    path(
+        "orders/by-organization/",
+        OrdersByOrganizationView.as_view(),
+        name="orders-by-organization",
+    ),
+    path(
+        "orders/by-branch/<int:branch_id>/",
+        OrdersByBranchView.as_view(),
+        name="orders-by-branch",
     ),
     path(
         "orders/unpaid-credit/",
