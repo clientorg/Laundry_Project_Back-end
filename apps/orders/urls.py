@@ -41,7 +41,7 @@ urlpatterns = [
         name="orders-by-organization",
     ),
     path(
-        "orders/by-branch/<int:branch_id>/",
+        "orders/by-branch/<str:branch_id>/",
         OrdersByBranchView.as_view(),
         name="orders-by-branch",
     ),

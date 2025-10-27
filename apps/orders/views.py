@@ -133,9 +133,18 @@ class OrdersByBranchView(
     def get_queryset(self):
         qs = super().get_queryset()
         branch_id = self.kwargs.get("branch_id")
+
+        # if 'all' → return all branches’ orders
+        if branch_id == "all":
+            return qs.filter(organization__isnull=True).order_by("-created_at")
+
+        # otherwise, validate numeric branch id
         try:
-            Branch.objects.get(id=branch_id)
-        except Branch.DoesNotExist:
+            branch_id = int(branch_id)
+        except ValueError:
+            raise NotFound("Invalid branch ID")
+
+        if not Branch.objects.filter(id=branch_id).exists():
             raise NotFound("Branch not found")
 
         return qs.filter(branches__id=branch_id).order_by("-created_at")
