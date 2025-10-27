@@ -39,13 +39,23 @@ class OrgBranchAssignMixin:
         # Handle organization
         if has_org:
             instance.organization = validated_data["organization"]
-        elif not instance.organization and user and user.organization:
+        elif (
+            not instance.organization
+            and not not instance.branches.exists()
+            and user
+            and user.organization
+        ):
             instance.organization = user.organization
 
         # Handle branches
         if has_branches:
             instance.branches.set(validated_data["branches"])
-        elif not instance.branches.exists() and user and user.branches.exists():
+        elif (
+            not instance.organization
+            and not instance.branches.exists()
+            and user
+            and user.branches.exists()
+        ):
             instance.branches.set([user.branches.first()])
         return instance
 
