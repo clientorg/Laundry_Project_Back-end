@@ -113,7 +113,7 @@ class OrdersByOrganizationView(
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(
-            Q(organization__parent__isnull=True) | Q(organization__parent__exact=None)
+            organization__isnull=False, organization__parent__isnull=True
         ).order_by("-created_at")
 
 
