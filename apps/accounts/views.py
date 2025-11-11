@@ -2,6 +2,10 @@ from django.db.models import Q
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission, Group
+from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
+from random import randint
 
 # package imports
 from rest_framework.views import APIView
@@ -21,7 +25,7 @@ from apps.organizations.mixins import OrgBranchQuerysetMixin
 from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
 
 # laundry model imports
-from .models import AuthUser
+from .models import AuthUser, PasswordResetOTP
 
 # laundry serializer imports
 from .serializers import (
@@ -30,6 +34,10 @@ from .serializers import (
     GroupSerializer,
     LoginSerializer,
     UserTokenSerializer,
+    RequestPasswordResetOTPSerializer,
+    VerifyOTPSerializer,
+    SetNewPasswordSerializer,
+    ChangePasswordSerializer,
 )
 
 
@@ -311,3 +319,91 @@ class UserTokenDetailAPIView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+# ============================================================
+# PASSWORD RESET VIA OTP
+# ============================================================
+
+@extend_schema(tags=["Password Reset"])
+class RequestPasswordResetOTPView(APIView):
+    """
+    Step 1: User enters their email to get OTP.
+    """
+    serializer_class = RequestPasswordResetOTPSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.validated_data["email"]
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Avoid leaking existence of user
+            return Response({"detail": "If your email exists, OTP has been sent."}, status=200)
+
+        # Delete any existing unused OTPs for this user
+        PasswordResetOTP.objects.filter(user=user, is_used=False).delete()
+
+        # Generate a 6-digit OTP
+        otp = PasswordResetOTP.generate_otp()
+
+        # Save OTP to DB
+        PasswordResetOTP.objects.create(user=user, otp_code=otp)
+
+        # Send OTP to email
+        subject = "Your Password Reset OTP"
+        message = f"Hello {user.username},\n\nYour OTP for password reset is: {otp}\nIt will expire in 5 minutes.\n\nThanks,\nLaundry Team"
+        from_email = settings.DEFAULT_FROM_EMAIL
+
+        try:
+            send_mail(subject, message, from_email, [email])
+        except Exception as e:
+            return Response({"detail": f"Email send failed: {str(e)}"}, status=500)
+
+        return Response({"detail": "OTP sent to your email successfully."}, status=200)
+    
+
+#Verify OTP View
+@extend_schema(tags=["Password Reset"])
+class VerifyOTPView(APIView):
+    serializer_class = VerifyOTPSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        # Return user identifier so frontend can call "set new password"
+        return Response({"detail": "OTP verified successfully.", "user_id": user.id}, status=200)
+
+# Set New Password View after OTP verification
+@extend_schema(tags=["Password Reset"])
+class SetNewPasswordView(APIView):
+    serializer_class = SetNewPasswordSerializer
+
+    def post(self, request, user_id):
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=404)
+
+        serializer = self.serializer_class(data=request.data, context={"user": user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"detail": "Password reset successfully."}, status=200)
+
+# Change Password View for authenticated users using current password
+@extend_schema(tags=["Password Reset"])
+class ChangePasswordView(generics.UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"detail": "Password changed successfully."}, status=status.HTTP_200_OK)

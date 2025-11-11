@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -94,13 +95,24 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "laundry",
         "USER": "root",
-        "PASSWORD": "root",
+        "PASSWORD": config('DB_PASSWORD'),
         "HOST": "127.0.0.1",
         "PORT": "3306",
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# OTP will expire after 1 minutes
+OTP_EXPIRATION_MINUTES = 1
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.utils import timezone
+from datetime import timedelta
+import random
+import string
 
 # laundry model imports
 from apps.organizations.models import Organization
@@ -114,3 +118,25 @@ class PermissionDetail(models.Model):
 
     def __str__(self):
         return f"Detail for {self.permission.codename}"
+
+# Password Reset model
+class PasswordResetOTP(models.Model):
+    user = models.ForeignKey(
+        AuthUser, on_delete=models.CASCADE, related_name="password_reset_otps"
+    )
+    otp_code = models.CharField(max_length=6, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+
+    def is_valid(self):
+        """Check if OTP is within 1 minutes and not used"""
+        expiry_time = self.created_at + timedelta(minutes=1)
+        return timezone.now() <= expiry_time and not self.is_used
+
+    def __str__(self):
+        return f"OTP for {self.user.username} - {self.otp_code}"
+
+    @staticmethod
+    def generate_otp():
+        """Generate a random 6-digit OTP"""
+        return ''.join(random.choices(string.digits, k=6))

@@ -1,7 +1,7 @@
 from django.urls import path
 
 # package imports
-from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 # laundry view imports
 from .views import (
@@ -14,6 +14,10 @@ from .views import (
     GroupUnassignedPermissionsView,
     LoginAPIView,
     UserTokenDetailAPIView,
+    RequestPasswordResetOTPView,
+    VerifyOTPView,
+    SetNewPasswordView,
+    ChangePasswordView,
 )
 
 urlpatterns = [
@@ -45,4 +49,13 @@ urlpatterns = [
     path(
         "users/<int:pk>/", UserRetrieveUpdateDestroyView.as_view(), name="user-detail"
     ),
+
+    #Password Reset via OTP
+    path("password-reset/request-otp/", RequestPasswordResetOTPView.as_view(), name="request_password_reset_otp"),
+    path("password-reset/resend-otp/", RequestPasswordResetOTPView.as_view(), name="resend_password_reset_otp"),
+    path("password-reset/verify-otp/", VerifyOTPView.as_view(), name="verify_otp"),
+    path("password-reset/set-new-password/<int:user_id>/", SetNewPasswordView.as_view(), name="set_new_password"),
+
+    #Change Password (requires authentication)
+    path("change-password/", ChangePasswordView.as_view(), name="change_password"),
 ]
