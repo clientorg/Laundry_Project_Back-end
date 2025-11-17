@@ -230,7 +230,6 @@ class UserTokenSerializer(serializers.Serializer):
 
 # Password Reset Serializers
 # =======================
-
 class RequestPasswordResetOTPSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
@@ -240,21 +239,33 @@ class RequestPasswordResetOTPSerializer(serializers.Serializer):
         return value
 
 
-# Serializer for verifying OTP only
-class VerifyOTPSerializer(serializers.Serializer):
+# Serializer for verifying OTP and resetting password
+class OTPPasswordResetSerializer(serializers.Serializer):
     email = serializers.EmailField()
     otp = serializers.CharField(max_length=6)
+    new_password = serializers.CharField(write_only=True)
+    confirm_password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
         User = get_user_model()
+
         email = attrs.get("email")
         otp = attrs.get("otp")
+        new_password = attrs.get("new_password")
+        confirm_password = attrs.get("confirm_password")
 
+        # Check passwords match
+        if new_password != confirm_password:
+            raise serializers.ValidationError("New password and confirm password do not match.")
+
+        # Check user exists
         try:
             user = User.objects.get(email=email)
-            otp_obj = PasswordResetOTP.objects.filter(user=user, otp_code=otp).last()
         except User.DoesNotExist:
             raise serializers.ValidationError("Invalid email or OTP.")
+
+        # Get OTP object
+        otp_obj = PasswordResetOTP.objects.filter(user=user, otp_code=otp).last()
 
         if not otp_obj or not otp_obj.is_valid():
             raise serializers.ValidationError("OTP is invalid or expired.")
@@ -263,28 +274,19 @@ class VerifyOTPSerializer(serializers.Serializer):
         attrs["otp_obj"] = otp_obj
         return attrs
 
-    def save(self, **kwargs):
-        # Mark OTP as used but do not reset password here
+    def save(self):
+        user = self.validated_data["user"]
         otp_obj = self.validated_data["otp_obj"]
+        new_password = self.validated_data["new_password"]
+
+        # Update password
+        user.set_password(new_password)
+        user.save()
+
+        # Mark OTP as used
         otp_obj.is_used = True
         otp_obj.save()
-        return self.validated_data["user"]
-    
 
-#Serializer for setting new password after OTP verification
-class SetNewPasswordSerializer(serializers.Serializer):
-    new_password = serializers.CharField(write_only=True)
-    confirm_password = serializers.CharField(write_only=True)
-
-    def validate(self, data):
-        if data["new_password"] != data["confirm_password"]:
-            raise serializers.ValidationError("New password and confirm password do not match.")
-        return data
-
-    def save(self, **kwargs):
-        user = self.context.get("user")
-        user.set_password(self.validated_data["new_password"])
-        user.save()
         return user
 
 

@@ -35,8 +35,7 @@ from .serializers import (
     LoginSerializer,
     UserTokenSerializer,
     RequestPasswordResetOTPSerializer,
-    VerifyOTPSerializer,
-    SetNewPasswordSerializer,
+    OTPPasswordResetSerializer,
     ChangePasswordSerializer,
 )
 
@@ -325,7 +324,14 @@ class UserTokenDetailAPIView(APIView):
 # PASSWORD RESET VIA OTP
 # ============================================================
 
-@extend_schema(tags=["Password Reset"])
+@extend_schema(
+    tags=["Password Reset"],
+    summary="Request OTP for password reset",
+    description=(
+        "User enters email. If the email exists, a new OTP is sent. "
+        "Even if the email does not exist, same response is returned for security."
+    ),
+)
 class RequestPasswordResetOTPView(APIView):
     """
     Step 1: User enters their email to get OTP.
@@ -354,7 +360,7 @@ class RequestPasswordResetOTPView(APIView):
 
         # Send OTP to email
         subject = "Your Password Reset OTP"
-        message = f"Hello {user.username},\n\nYour OTP for password reset is: {otp}\nIt will expire in 5 minutes.\n\nThanks,\nLaundry Team"
+        message = f"Hello {user.username},\n\nYour OTP for password reset is: {otp}\nIt will expire in 10 minutes.\n\nThanks,\nLaundry Team"
         from_email = settings.DEFAULT_FROM_EMAIL
 
         try:
@@ -365,39 +371,33 @@ class RequestPasswordResetOTPView(APIView):
         return Response({"detail": "OTP sent to your email successfully."}, status=200)
     
 
-#Verify OTP View
-@extend_schema(tags=["Password Reset"])
-class VerifyOTPView(APIView):
-    serializer_class = VerifyOTPSerializer
+# OTP Verification View
+@extend_schema(
+    tags=["Password Reset"],
+    summary="Verify OTP and reset password",
+    description="User provides email, OTP, new password, and confirm password. If OTP is valid, password is reset.",
+)
+class ResetPasswordWithOTPView(APIView):
+    serializer_class = OTPPasswordResetSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        # Return user identifier so frontend can call "set new password"
-        return Response({"detail": "OTP verified successfully.", "user_id": user.id}, status=200)
-
-# Set New Password View after OTP verification
-@extend_schema(tags=["Password Reset"])
-class SetNewPasswordView(APIView):
-    serializer_class = SetNewPasswordSerializer
-
-    def post(self, request, user_id):
-        try:
-            user = User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            return Response({"detail": "User not found."}, status=404)
-
-        serializer = self.serializer_class(data=request.data, context={"user": user})
-        serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"detail": "Password reset successfully."}, status=200)
 
+
 # Change Password View for authenticated users using current password
-@extend_schema(tags=["Password Reset"])
+@extend_schema(
+    tags=["Password Reset"],
+    summary="Change password using current password",
+    description="Authenticated user enters current password + new password + confirm password.",
+)
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    http_method_names = ['patch'] 
 
     def get_object(self):
         return self.request.user
