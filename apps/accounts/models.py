@@ -130,7 +130,7 @@ class PasswordResetOTP(models.Model):
 
     def is_valid(self):
         """Check if OTP is within 1 minutes and not used"""
-        expiry_time = self.created_at + timedelta(minutes=1)
+        expiry_time = self.created_at + timedelta(minutes=10)
         return timezone.now() <= expiry_time and not self.is_used
 
     def __str__(self):

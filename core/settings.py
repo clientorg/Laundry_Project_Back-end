@@ -95,7 +95,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "laundry",
         "USER": "root",
-        "PASSWORD": config('DB_PASSWORD'),
+        "PASSWORD": "root",
         "HOST": "127.0.0.1",
         "PORT": "3306",
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
@@ -107,12 +107,12 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = "laundry123demo@gmail.com"
+EMAIL_HOST_PASSWORD = "fbatayyajescxbhf"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # OTP will expire after 1 minutes
-OTP_EXPIRATION_MINUTES = 1
+OTP_EXPIRATION_MINUTES = 10
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
