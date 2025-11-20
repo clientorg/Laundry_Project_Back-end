@@ -16,6 +16,7 @@ from .views import (
     UserTokenDetailAPIView,
     RequestPasswordResetOTPView,
     ResetPasswordWithOTPView,
+    ForgotUsernameView,
     ChangePasswordView,
 )
 
@@ -51,8 +52,8 @@ urlpatterns = [
 
     #Password Reset via OTP
     path("password-reset/request-otp/", RequestPasswordResetOTPView.as_view(), name="request_password_reset_otp"),
-    path("password-reset/resend-otp/", RequestPasswordResetOTPView.as_view(), name="resend_password_reset_otp"),
     path("password-reset/reset/", ResetPasswordWithOTPView.as_view(), name="reset_password_with_otp"),
+    path("password-reset/forgot-username/", ForgotUsernameView.as_view(), name="forgot_username"),
 
     #Change Password (requires authentication)
     path("change-password/", ChangePasswordView.as_view(), name="change_password"),

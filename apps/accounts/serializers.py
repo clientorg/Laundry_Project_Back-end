@@ -228,45 +228,43 @@ class UserTokenSerializer(serializers.Serializer):
         fields = "__all__"
 
 
-# Password Reset Serializers
+# Password Reset Serializers using username 
 # =======================
-class RequestPasswordResetOTPSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+class RequestPasswordResetByUsernameSerializer(serializers.Serializer):
+    username = serializers.CharField()
 
-    def validate_email(self, value):
-        if not User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("User with this email does not exist.")
+    def validate_username(self, value):
+        # username is unique in AbstractUser by default, so .get is fine
+        if not User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("User with this username does not exist.")
         return value
 
 
 # Serializer for verifying OTP and resetting password
 class OTPPasswordResetSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    username = serializers.CharField()
     otp = serializers.CharField(max_length=6)
     new_password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        User = get_user_model()
-
-        email = attrs.get("email")
+        username = attrs.get("username")
         otp = attrs.get("otp")
         new_password = attrs.get("new_password")
         confirm_password = attrs.get("confirm_password")
 
-        # Check passwords match
         if new_password != confirm_password:
             raise serializers.ValidationError("New password and confirm password do not match.")
 
-        # Check user exists
+        # Validate OTP
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(username=username)
         except User.DoesNotExist:
-            raise serializers.ValidationError("Invalid email or OTP.")
+            raise serializers.ValidationError("Invalid username or OTP.")
 
-        # Get OTP object
+        # Check if OTP exists and is valid
         otp_obj = PasswordResetOTP.objects.filter(user=user, otp_code=otp).last()
-
+        
         if not otp_obj or not otp_obj.is_valid():
             raise serializers.ValidationError("OTP is invalid or expired.")
 
@@ -279,7 +277,7 @@ class OTPPasswordResetSerializer(serializers.Serializer):
         otp_obj = self.validated_data["otp_obj"]
         new_password = self.validated_data["new_password"]
 
-        # Update password
+        # Set the new password
         user.set_password(new_password)
         user.save()
 
@@ -289,6 +287,13 @@ class OTPPasswordResetSerializer(serializers.Serializer):
 
         return user
 
+class ForgotUsernameSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        # Do not reveal whether the email exists in the system
+        return value
+    
 
 class ChangePasswordSerializer(serializers.Serializer):
     current_password = serializers.CharField(write_only=True)

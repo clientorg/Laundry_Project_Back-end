@@ -34,8 +34,9 @@ from .serializers import (
     GroupSerializer,
     LoginSerializer,
     UserTokenSerializer,
-    RequestPasswordResetOTPSerializer,
+    RequestPasswordResetByUsernameSerializer,
     OTPPasswordResetSerializer,
+    ForgotUsernameSerializer,
     ChangePasswordSerializer,
 )
 
@@ -323,59 +324,64 @@ class UserTokenDetailAPIView(APIView):
 # ============================================================
 # PASSWORD RESET VIA OTP
 # ============================================================
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
+# Request OTP (username -> send OTP to that user's email)
 @extend_schema(
     tags=["Password Reset"],
-    summary="Request OTP for password reset",
-    description=(
-        "User enters email. If the email exists, a new OTP is sent. "
-        "Even if the email does not exist, same response is returned for security."
-    ),
+    summary="Request OTP for password reset (by username)",
+    description="User provides username. OTP will be sent to the email associated with that username (if exists).",
 )
 class RequestPasswordResetOTPView(APIView):
-    """
-    Step 1: User enters their email to get OTP.
-    """
-    serializer_class = RequestPasswordResetOTPSerializer
+    serializer_class = RequestPasswordResetByUsernameSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        email = serializer.validated_data["email"]
+        username = serializer.validated_data["username"]
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(username=username)
         except User.DoesNotExist:
-            # Avoid leaking existence of user
-            return Response({"detail": "If your email exists, OTP has been sent."}, status=200)
+            # Dont reveal whether user exists
+            return Response({"detail": "If the username exists, an OTP has been sent to the associated email."}, status=200)
 
-        # Delete any existing unused OTPs for this user
+        # clear previous unused OTPs
         PasswordResetOTP.objects.filter(user=user, is_used=False).delete()
 
-        # Generate a 6-digit OTP
+        # generate and save new OTP
         otp = PasswordResetOTP.generate_otp()
 
-        # Save OTP to DB
         PasswordResetOTP.objects.create(user=user, otp_code=otp)
 
-        # Send OTP to email
+        # send email with OTP
         subject = "Your Password Reset OTP"
-        message = f"Hello {user.username},\n\nYour OTP for password reset is: {otp}\nIt will expire in 10 minutes.\n\nThanks,\nLaundry Team"
+        html_message = render_to_string(
+            "emails/otp_password_reset.html",
+            {
+                "username": user.username,
+                "otp": otp,
+                "expiry_minutes": 10,
+            }
+        )
+       
+        plain_message = strip_tags(html_message)
         from_email = settings.DEFAULT_FROM_EMAIL
 
         try:
-            send_mail(subject, message, from_email, [email])
+            send_mail(subject, plain_message, from_email, [user.email], html_message=html_message)
         except Exception as e:
             return Response({"detail": f"Email send failed: {str(e)}"}, status=500)
 
-        return Response({"detail": "OTP sent to your email successfully."}, status=200)
+        return Response({"detail": "OTP sent to the email linked with this username."}, status=200)
     
 
-# OTP Verification View
+# Reset password using username + otp + new passwords (single API)
 @extend_schema(
     tags=["Password Reset"],
-    summary="Verify OTP and reset password",
-    description="User provides email, OTP, new password, and confirm password. If OTP is valid, password is reset.",
+    summary="Verify OTP and reset password (username + otp + new password)",
+    description="Provide username, OTP (sent to user's email) and new password + confirm password in one request.",
 )
 class ResetPasswordWithOTPView(APIView):
     serializer_class = OTPPasswordResetSerializer
@@ -386,6 +392,41 @@ class ResetPasswordWithOTPView(APIView):
         serializer.save()
         return Response({"detail": "Password reset successfully."}, status=200)
 
+
+# Forgot username (send HTML email listing usernames tied to the email)
+@extend_schema(
+    tags=["Password Reset"],
+    summary="Forgot username - send usernames linked to an email",
+    description="User provides email. All usernames associated with that email will be sent to the email address (HTML).",
+)
+class ForgotUsernameView(APIView):
+    serializer_class = ForgotUsernameSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.validated_data["email"]
+        users = User.objects.filter(email=email)
+
+        # Compose HTML email
+        if users.exists():
+            usernames = [u.username for u in users]
+            html_message = render_to_string(
+                "emails/forgot_username.html",
+                {"usernames": usernames}
+            )
+            
+            plain_message = strip_tags(html_message)
+            subject = "Usernames linked to your email"
+            from_email = settings.DEFAULT_FROM_EMAIL
+            try:
+                send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+            except Exception as e:
+                return Response({"detail": f"Email send failed: {str(e)}"}, status=500)
+
+        return Response({"detail": "If any accounts are linked to this email, their username(s) have been sent."}, status=200)
+    
 
 # Change Password View for authenticated users using current password
 @extend_schema(
