@@ -66,6 +66,11 @@ class Country(models.Model):
         blank=True,
         null=True,
     )
+    tax_number_mask = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         verbose_name = "Country"
