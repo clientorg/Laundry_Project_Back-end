@@ -127,7 +127,11 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     @extend_schema_field(serializers.DecimalField(max_digits=5, decimal_places=2))
     def get_category_discount(self, obj):
-        return obj.category.discount_percent if obj.category else None
+        return (
+            obj.category.discount_percent
+            if obj.category and obj.category.is_active
+            else None
+        )
 
     @extend_schema_field(serializers.CharField())
     def get_credit_used(self, obj):
