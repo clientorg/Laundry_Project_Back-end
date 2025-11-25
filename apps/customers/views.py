@@ -107,3 +107,28 @@ class CustomerRetrieveUpdateDestroyView(
             )
 
         return super().destroy(request, *args, **kwargs)
+
+
+@extend_schema(tags=["Customer Categories"])
+class CategoryCustomerListView(
+    PermissionRequiredMixin, OrgBranchQuerysetMixin, generics.ListAPIView
+):
+    """
+    List customers that belong to a specific CustomerCategory (by category PK).
+    URL: /api/customers/categories/<pk>/customers/
+    """
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "customers.view_customer",
+    }
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        category_id = self.kwargs.get("pk")
+        if category_id is None:
+            return qs.none()
+        return qs.filter(category__id=category_id).order_by("-created_at")

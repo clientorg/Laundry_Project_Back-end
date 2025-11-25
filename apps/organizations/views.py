@@ -50,3 +50,48 @@ class BranchRetrieveUpdateDestroyView(
         "PATCH": "organizations.change_branch",
         "DELETE": "organizations.delete_branch",
     }
+
+
+#--------------- Organization Views ---------------#
+from .models import Organization
+from .serializers import OrganizationSerializer
+
+
+@extend_schema(tags=["Organizations"])
+class OrganizationListCreateView(
+    PermissionRequiredMixin, generics.ListCreateAPIView
+):
+    queryset = Organization.objects.filter(parent__isnull=True)
+    serializer_class = OrganizationSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": ["organizations.view_organization", "orders.view_order"],
+        "POST": "organizations.add_organization",
+    }
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("name")
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+@extend_schema(tags=["Organizations"])
+class OrganizationRetrieveUpdateDestroyView(
+    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+):
+    queryset = Organization.objects.filter(parent__isnull=True)
+    serializer_class = OrganizationSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "organizations.view_organization",
+        "PUT": "organizations.change_organization",
+        "PATCH": "organizations.change_organization",
+        "DELETE": "organizations.delete_organization",
+    }
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)

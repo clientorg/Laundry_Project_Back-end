@@ -8,6 +8,7 @@ from .views import (
     # customer views
     CustomerListCreateView,
     CustomerRetrieveUpdateDestroyView,
+    CategoryCustomerListView,
 )
 
 urlpatterns = [
@@ -33,4 +34,5 @@ urlpatterns = [
         CustomerRetrieveUpdateDestroyView.as_view(),
         name="customer-detail",
     ),
+    path("categories/<int:pk>/customers/", CategoryCustomerListView.as_view(), name="category-customers"),
 ]

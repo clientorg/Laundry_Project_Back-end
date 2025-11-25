@@ -75,3 +75,65 @@ class BranchSerializer(serializers.ModelSerializer):
         instance.updated_by = user
         instance.save()
         return instance
+
+
+# -------------------------Organization Serializer
+from .models import Organization
+
+class OrganizationSerializer(serializers.ModelSerializer):
+    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Organization
+        fields = [
+            "id",
+            "name",
+            "description",
+            "address",
+            "contact_name",
+            "contact_mobile_number",
+            "contact_email",
+            "country",
+            "country_code",
+            "currency_code",
+            "service_vat_percent",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
+        ]
+        read_only_fields = ["id"]
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+    def create(self, validated_data):
+        request = self.context["request"]
+        user = request.user
+
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+
+        return Organization.objects.create(**validated_data)
+
+        
+
+    def update(self, instance, validated_data):
+        request = self.context["request"]
+        user = request.user
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.updated_by = user
+        instance.save()
+        return instance
+
