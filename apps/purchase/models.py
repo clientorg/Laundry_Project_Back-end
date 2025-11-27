@@ -548,3 +548,611 @@ class UnitMap(models.Model):
 
     def __str__(self):
         return f"UnitMap for {self.item.itname}"
+
+
+# ----------------------- VR Type Master Model -----------------------
+class VRTypeMaster(models.Model):
+    STATUS_CHOICES = [
+        (0, "Inactive"),
+        (1, "Active"),
+    ]
+
+    vrname = models.CharField(max_length=100)
+    zipcode = models.CharField(max_length=10)
+
+    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="vrtype_org",
+        help_text="Top-level organization"
+    )
+
+    branch = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="vrtype_branch",
+        help_text="Branch under organization"
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="vrtype_created_by"
+    )
+
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="vrtype_updated_by"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.vrname
+
+
+# ----------------------- Inventory Transaction Model -----------------------
+class INV_TRAN(models.Model):
+    STATUS_CHOICES = [
+        (0, "Inactive"),
+        (1, "Active"),
+    ]
+
+    # Foreign Keys
+    item = models.ForeignKey(
+        ItemMaster,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="inv_transactions_item",
+    )
+
+    unit = models.ForeignKey(
+        UnitMaster,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="inv_transactions_unit",
+    )
+
+    vr_type = models.ForeignKey(
+        VRTypeMaster,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="inv_transactions_vrtype",
+    )
+
+    # Transaction fields
+    qty = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+    rate = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+    amount = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+
+    # Organization / Branch
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="purchase_inv_transactions_org",
+    )
+
+    branch = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="purchase_inv_transactions_branch",
+    )
+
+    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    # Audit fields
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="inv_transactions_created",
+    )
+
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="inv_transactions_updated",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Inventory Transaction"
+        verbose_name_plural = "Inventory Transactions"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"INV_TRAN #{self.id}"
+    
+
+# ----------------------- Account Transaction Model -----------------------
+from django.utils import timezone
+from django.db.models import Max
+import re
+
+class ACC_TRAN(models.Model):
+    PAYMODE_CHOICES = [
+        (0, "NULL"),
+        (1, "Cash"),
+        (2, "Bank"),
+    ]
+
+    STATUS_CHOICES = [
+        (0, "Inactive"),
+        (1, "Active"),
+    ]
+
+    # Django ID as PK
+    id = models.AutoField(primary_key=True)
+
+    # Auto-generated unique voucher number
+    vrno = models.CharField(max_length=80, unique=True, editable=False)
+
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_transactions_country"
+    )
+
+    serial_no = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+        default=None
+    )
+
+    voucher_date = models.DateField(default=timezone.now)
+
+    vr_type = models.ForeignKey(
+        VRTypeMaster,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_transactions_vrtype"
+    )
+
+    # Amounts
+    amount_ex_vat = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+    vat_amount = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+    amount_inc_vat = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+
+    reference_no = models.CharField(max_length=50, blank=True, null=True)
+    reference_date = models.DateField(blank=True, null=True)
+
+    paymode = models.IntegerField(choices=PAYMODE_CHOICES, default=0)
+    paid_to = models.CharField(max_length=191, blank=True, null=True)
+    vatin = models.CharField(max_length=50, blank=True, null=True)
+
+    vat = models.ForeignKey(
+        VATMaster,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_transactions_vat"
+    )
+
+    narration = models.CharField(max_length=200, blank=True, null=True)
+
+    # Organization / Branch
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_transactions_org"
+    )
+
+    branch = models.ForeignKey(
+        Organization,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_transactions_branch"
+    )
+
+    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    # Audit fields
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acc_transactions_created"
+    )
+
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acc_transactions_updated"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Account Transaction"
+        verbose_name_plural = "Account Transactions"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.vrno} - {self.paid_to or ''} - {self.amount_inc_vat}"
+
+    # ---------------- VRNO AUTO GENERATION ----------------
+    def save(self, *args, **kwargs):
+        if not self.vrno:
+            country_code = (self.country.iso_code if self.country else "01")[:2]
+            company_code = str(self.organization.id if self.organization else "01")
+            branch_code = str(self.branch.id if self.branch else "01")
+            year = timezone.now().year
+
+            # prefix from vr_type name
+            type_name = (self.vr_type.vrname.lower() if self.vr_type else "purchase")
+            prefix_map = {
+                "purchase": "PIV",
+                "material consumption": "RMC",
+                "damage": "DAM",
+            }
+            prefix = prefix_map.get(type_name, "PIV")
+
+            # last VRNO
+            last = ACC_TRAN.objects.filter(vrno__contains=prefix).order_by("-vrno").first()
+            if last:
+                match = re.search(r"(\d+)$", last.vrno)
+                last_series = int(match.group(1)) if match else 999
+                series = last_series + 1
+            else:
+                series = 1000
+
+            self.vrno = f"{country_code}{company_code}{branch_code}{year}{prefix}{series}"
+
+        # -------- SERIAL NO --------
+        if not self.serial_no:
+            last_sr = ACC_TRAN.objects.filter(vrno=self.vrno).aggregate(
+                Max("serial_no")
+            )["serial_no__max"] or 0
+            self.serial_no = last_sr + 1
+
+        # -------- VAT CALC --------
+        vat_rate = (self.vat.vatper / 100) if self.vat else 0
+        self.vat_amount = (self.amount_ex_vat or 0) * vat_rate
+        self.amount_inc_vat = (self.amount_ex_vat or 0) + self.vat_amount
+
+        super().save(*args, **kwargs)
+
+
+# ----------------------- Account Master Model -----------------------
+class ACCT_MAST(models.Model):
+    STATUS_CHOICES = [
+        (0, "Inactive"),
+        (1, "Active"),
+    ]
+
+    BAL_TYPE_CHOICES = [
+        (1, "Debit"),
+        (2, "Credit"),
+    ]
+
+    GRP_CODE_CHOICES = [
+        ("ASS", "ASSET"),
+        ("LIB", "LIABILITY"),
+        ("INC", "INCOME"),
+        ("EXP", "EXPENSE"),
+    ]
+
+    AC_TYPE_CHOICES = [
+        ("G", "General / Group"),
+        ("D", "Detail"),
+    ]
+
+    # Django PK
+    id = models.AutoField(primary_key=True)
+
+    # Auto-generated account number (OLD acno)
+    acno = models.PositiveIntegerField(editable=False, unique=True)
+
+    accname = models.CharField(max_length=200)
+    accname_ar = models.CharField(max_length=200, blank=True, null=True)
+
+    grpcode = models.CharField(
+        max_length=10,
+        choices=GRP_CODE_CHOICES,
+        null=True,
+        blank=True,
+    )
+
+    baltype = models.IntegerField(choices=BAL_TYPE_CHOICES)
+    actype = models.CharField(max_length=1, choices=AC_TYPE_CHOICES)
+
+    # Auto-generated mapping number
+    acmapno = models.PositiveIntegerField(editable=False)
+
+    opening_balance = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+    curbal = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+
+    # Organization / Branch
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acct_mast_org"
+    )
+
+    branch = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acct_mast_branch"
+    )
+
+    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    # Audit fields
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acct_mast_created"
+    )
+
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acct_mast_updated"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Account Master"
+        verbose_name_plural = "Account Masters"
+        ordering = ["acno"]
+
+    def save(self, *args, **kwargs):
+        # Auto increment acno
+        if not self.acno:
+            last = ACCT_MAST.objects.order_by("-acno").first()
+            self.acno = (last.acno + 1) if last else 200000
+
+        # Auto increment acmapno
+        if not self.acmapno:
+            last_map = ACCT_MAST.objects.order_by("-acmapno").first()
+            self.acmapno = (last_map.acmapno + 1) if last_map else 10000
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.acno} - {self.accname}"
+
+
+# ----------------------- Account Master Mapping Model -----------------------
+class ACCT_MAST_MAP(models.Model):
+    STATUS_CHOICES = [
+        (0, "Inactive"),
+        (1, "Active"),
+    ]
+
+    id = models.AutoField(primary_key=True)
+
+    # Auto-generated mapping number
+    acmapno = models.PositiveIntegerField(editable=False, unique=True)
+
+    # Total levels
+    totlev = models.PositiveIntegerField(default=1)
+
+    # Level mappings
+    lev1 = models.PositiveIntegerField(null=True, blank=True)
+    lev2 = models.PositiveIntegerField(null=True, blank=True)
+    lev3 = models.PositiveIntegerField(null=True, blank=True)
+    lev4 = models.PositiveIntegerField(null=True, blank=True)
+    lev5 = models.PositiveIntegerField(null=True, blank=True)
+    lev6 = models.PositiveIntegerField(null=True, blank=True)
+    lev7 = models.PositiveIntegerField(null=True, blank=True)
+    lev8 = models.PositiveIntegerField(null=True, blank=True)
+
+    # Organization / Branch
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acctmastmap_org"
+    )
+
+    branch = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acctmastmap_branch"
+    )
+
+    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    # Audit fields
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acctmastmap_created"
+    )
+
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acctmastmap_updated"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Account Master Mapping"
+        verbose_name_plural = "Account Master Mappings"
+        ordering = ["acmapno"]
+
+    def __str__(self):
+        return f"{self.acmapno} - Mapping Levels ({self.totlev})"
+
+    # Auto-generate mapping number like ACCT_MAST
+    def save(self, *args, **kwargs):
+        if not self.acmapno:
+            last = ACCT_MAST_MAP.objects.order_by("-acmapno").first()
+            self.acmapno = (last.acmapno + 1) if last else 10000
+
+        super().save(*args, **kwargs)
+
+
+# ----------------------- Account Transaction Detail Model -----------------------
+class ACC_TRAN_DETA(models.Model):
+
+    DCFLAG_CHOICES = [
+        (1, "Debit"),
+        (2, "Credit"),
+    ]
+
+    STATUS_CHOICES = [
+        (0, "Inactive"),
+        (1, "Active"),
+    ]
+
+    # Django ID (Primary Key)
+    id = models.AutoField(primary_key=True)
+
+    # Relation to ACC_TRAN (Voucher Header)
+    acc_tran = models.ForeignKey(
+        ACC_TRAN,
+        on_delete=models.CASCADE,
+        related_name="details"
+    )
+
+    voucher_date = models.DateField(default=timezone.localdate)
+
+    vr_type = models.ForeignKey(
+        VRTypeMaster,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_tran_details_vrtype"
+    )
+
+    # Auto-generated serial number inside voucher
+    serial_no = models.PositiveIntegerField(editable=False, null=True, blank=True)
+
+    dc_flag = models.IntegerField(choices=DCFLAG_CHOICES)
+
+    account = models.ForeignKey(
+        ACCT_MAST,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_tran_details_account"
+    )
+
+    list_code_ac = models.CharField(max_length=50, null=True, blank=True)
+
+    amount = models.DecimalField(max_digits=18, decimal_places=3, default=0.000)
+
+    remark = models.CharField(max_length=200, null=True, blank=True)
+
+    # Organization / Branch
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_tran_details_org"
+    )
+
+    branch = models.ForeignKey(
+        Organization,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="acc_tran_details_branch"
+    )
+
+    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+
+    # Audit fields
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acc_tran_details_created"
+    )
+
+    updated_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="acc_tran_details_updated"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Account Transaction Detail"
+        verbose_name_plural = "Account Transaction Details"
+        ordering = ["acc_tran", "serial_no"]
+
+    def __str__(self):
+        return f"{self.acc_tran.vrno} - {self.serial_no} - {self.account} - {self.amount}"
+
+    # ----------------- Auto Logic ------------------
+    def save(self, *args, **kwargs):
+
+        # Auto-assign serial number within voucher
+        if not self.serial_no:
+            last = (
+                ACC_TRAN_DETA.objects
+                .filter(acc_tran=self.acc_tran)
+                .order_by("-serial_no")
+                .first()
+            )
+            self.serial_no = (last.serial_no + 1) if last else 1
+
+        # Auto-derive account from list_code_ac
+        if not self.account and self.list_code_ac:
+            self.account = ACCT_MAST.objects.filter(listcode=self.list_code_ac).first()
+
+        super().save(*args, **kwargs)

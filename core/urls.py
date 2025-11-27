@@ -35,7 +35,7 @@ urlpatterns = [
     path("api/master/", include("apps.master.urls")),
     path("api/orders/", include("apps.orders.urls")),
     path("api/customers/", include("apps.customers.urls")),
-    path('purchase/', include('apps.purchase.urls')),
+    path("api/purchase/", include('apps.purchase.urls')),
     # Swagger UI:
     path(
         "",

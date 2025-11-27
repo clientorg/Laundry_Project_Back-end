@@ -9,7 +9,13 @@ from .views import (
     ITGRP_MAPViewSet,
     UnitMasterViewSet,
     ItemMasterViewSet,
-    UnitMapViewSet
+    UnitMapViewSet,
+    VRTypeMasterViewSet,
+    INVTRANViewSet,
+    ACC_TRANViewSet,
+    ACCTMASTViewSet,
+    ACCT_MAST_MAPViewSet,
+    ACC_TRAN_DETAViewSet,
 )
 
 
@@ -22,6 +28,12 @@ router.register("itgrp-map", ITGRP_MAPViewSet, basename="itgrp-map")
 router.register("unit-master", UnitMasterViewSet, basename="unit-master")
 router.register("itemmaster", ItemMasterViewSet, basename="itemmaster")
 router.register("unit-map", UnitMapViewSet, basename="unit-map")
+router.register("vr-type", VRTypeMasterViewSet, basename="vr-type")
+router.register("inv-tran", INVTRANViewSet, basename="inv-tran")
+router.register("acc-tran", ACC_TRANViewSet, basename="acc-tran")
+router.register("acct-mast", ACCTMASTViewSet, basename="acct-mast")
+router.register("acct-mast-map", ACCT_MAST_MAPViewSet, basename="acct-mast-map")
+router.register("acc-tran-deta", ACC_TRAN_DETAViewSet, basename="acc-tran-deta")
 
 
 urlpatterns = [
