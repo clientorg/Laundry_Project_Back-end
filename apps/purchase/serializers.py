@@ -11,7 +11,7 @@ class VATMasterSerializer(serializers.ModelSerializer):
             "vatname",
             "vatnamear",
             "vatper",
-            "accestat",
+            "is_active",
             "organization",
             "branch",
             "created_by",
@@ -90,7 +90,7 @@ class ItemMasterSerializer(serializers.ModelSerializer):
             "supplier",
             "vat",
 
-            "accestat",
+            "is_active",
 
             "organization",
             "branch",
@@ -146,7 +146,7 @@ class ACCTRANSerializer(serializers.ModelSerializer):
     class Meta:
         model = ACC_TRAN
         fields = "__all__"
-        read_only_fields = [ "id", "vrno", "srno", "vat_amount", "amount_inc_vat", "created_by", "updated_by", "created_at", "updated_at"]
+        read_only_fields = [ "id", "vrno", "serial_no", "vat_amount", "amount_inc_vat", "created_by", "updated_by", "created_at", "updated_at"]
 
 
 # ----------------------- Account Master Serializer -----------------------
@@ -215,7 +215,7 @@ class ACCTRANDETASerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = [
             "id",
-            "srno",
+            "serial_no",
             "created_by",
             "updated_by",
             "created_at",

@@ -23,7 +23,7 @@ class VATMaster(models.Model):
     vatnamear = models.CharField(max_length=191, blank=True, null=True)
     vatper = models.DecimalField(max_digits=5, decimal_places=2)
 
-    accestat = models.IntegerField(
+    is_active = models.IntegerField(
         choices=STATUS_CHOICES,
         default=1,
         help_text="0 = inactive, 1 = active"
@@ -91,15 +91,10 @@ class SupplierMaster(models.Model):
 
     address = models.TextField(null=True, blank=True)
 
-    country = models.ForeignKey(
-        Country,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_suppliers"
-    )
+    # UPDATED: FK → CharField
+    country = models.CharField(max_length=100, null=True, blank=True)
 
-    accestat = models.IntegerField(
+    is_active = models.IntegerField(
         choices=STATUS_CHOICES,
         default=1
     )
@@ -152,7 +147,7 @@ class GroupMaster(models.Model):
     name = models.CharField(max_length=191)
     name_ar = models.CharField(max_length=191, null=True, blank=True)
 
-    accestat = models.IntegerField(
+    is_active = models.IntegerField(
         choices=STATUS_CHOICES,
         default=1
     )
@@ -205,7 +200,7 @@ class BrandMaster(models.Model):
     name = models.CharField(max_length=191)
     name_ar = models.CharField(max_length=191, null=True, blank=True)
 
-    accestat = models.IntegerField(
+    is_active = models.IntegerField(
         choices=STATUS_CHOICES,
         default=1,
     )
@@ -292,7 +287,7 @@ class ITGRP_MAP(models.Model):
         verbose_name="Brand"
     )
 
-    accestat = models.IntegerField(
+    is_active = models.IntegerField(
         choices=STATUS_CHOICES,
         default=1,
         help_text="0 = inactive, 1 = active"
@@ -331,7 +326,7 @@ class UnitMaster(models.Model):
     unitname = models.CharField(max_length=191)
     unitnamear = models.CharField(max_length=191, blank=True, null=True)
 
-    accestat = models.IntegerField(
+    is_active = models.IntegerField(
         choices=STATUS_CHOICES,
         default=1,
         help_text="0 = inactive, 1 = active"
@@ -425,7 +420,7 @@ class ItemMaster(models.Model):
         related_name="items_vat"
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     organization = models.ForeignKey(
         Organization,
@@ -509,7 +504,7 @@ class UnitMap(models.Model):
         default=None
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     organization = models.ForeignKey(
         Organization,
@@ -560,7 +555,7 @@ class VRTypeMaster(models.Model):
     vrname = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=10)
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     organization = models.ForeignKey(
         Organization,
@@ -657,7 +652,7 @@ class INV_TRAN(models.Model):
         related_name="purchase_inv_transactions_branch",
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -711,13 +706,8 @@ class ACC_TRAN(models.Model):
     # Auto-generated unique voucher number
     vrno = models.CharField(max_length=80, unique=True, editable=False)
 
-    country = models.ForeignKey(
-        Country,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="acc_transactions_country"
-    )
+    # UPDATED: FK → CharField
+    country = models.CharField(max_length=100, blank=True, null=True)
 
     serial_no = models.PositiveIntegerField(
         null=True,
@@ -775,7 +765,7 @@ class ACC_TRAN(models.Model):
         related_name="acc_transactions_branch"
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -808,7 +798,7 @@ class ACC_TRAN(models.Model):
     # ---------------- VRNO AUTO GENERATION ----------------
     def save(self, *args, **kwargs):
         if not self.vrno:
-            country_code = (self.country.iso_code if self.country else "01")[:2]
+            country_code = (self.country if self.country else "01")[:2]
             company_code = str(self.organization.id if self.organization else "01")
             branch_code = str(self.branch.id if self.branch else "01")
             year = timezone.now().year
@@ -914,7 +904,7 @@ class ACCT_MAST(models.Model):
         related_name="acct_mast_branch"
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -1000,7 +990,7 @@ class ACCT_MAST_MAP(models.Model):
         related_name="acctmastmap_branch"
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -1108,7 +1098,7 @@ class ACC_TRAN_DETA(models.Model):
         related_name="acc_tran_details_branch"
     )
 
-    accestat = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     # Audit fields
     created_by = models.ForeignKey(
