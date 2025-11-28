@@ -23,11 +23,11 @@ class VATMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "purchase.view_vat",
-        "POST": "purchase.add_vat",
-        "PUT": "purchase.change_vat",
-        "PATCH": "purchase.change_vat",
-        "DELETE": "purchase.delete_vat",
+        "GET": "purchase.view_vatmaster",
+        "POST": "purchase.add_vatmaster",
+        "PUT": "purchase.change_vatmaster",
+        "PATCH": "purchase.change_vatmaster",
+        "DELETE": "purchase.delete_vatmaster",
     }
 
     def perform_create(self, serializer):
@@ -57,11 +57,11 @@ class SupplierMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "purchase.view_supplier",
-        "POST": "purchase.add_supplier",
-        "PUT": "purchase.change_supplier",
-        "PATCH": "purchase.change_supplier",
-        "DELETE": "purchase.delete_supplier",
+        "GET": "purchase.view_suppliermaster",
+        "POST": "purchase.add_suppliermaster",
+        "PUT": "purchase.change_suppliermaster",
+        "PATCH": "purchase.change_suppliermaster",
+        "DELETE": "purchase.delete_suppliermaster",
     }
 
     def perform_create(self, serializer):
@@ -159,11 +159,11 @@ class ITGRP_MAPViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "purchase.view_itgrpmap",
-        "POST": "purchase.add_itgrpmap",
-        "PUT": "purchase.change_itgrpmap",
-        "PATCH": "purchase.change_itgrpmap",
-        "DELETE": "purchase.delete_itgrpmap",
+        "GET": "purchase.view_itgrp_map",
+        "POST": "purchase.add_itgrp_map",
+        "PUT": "purchase.change_itgrp_map",
+        "PATCH": "purchase.change_itgrp_map",
+        "DELETE": "purchase.delete_itgrp_map",
     }
 
     def perform_create(self, serializer):
@@ -293,11 +293,11 @@ class VRTypeMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "purchase.view_vrtype",
-        "POST": "purchase.add_vrtype",
-        "PUT": "purchase.change_vrtype",
-        "PATCH": "purchase.change_vrtype",
-        "DELETE": "purchase.delete_vrtype",
+        "GET": "purchase.view_vrtypemaster",
+        "POST": "purchase.add_vrtypemaster",
+        "PUT": "purchase.change_vrtypemaster",
+        "PATCH": "purchase.change_vrtypemaster",
+        "DELETE": "purchase.delete_vrtypemaster",
     }
 
     def perform_create(self, serializer):
@@ -328,11 +328,11 @@ class INVTRANViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "purchase.view_invtran",
-        "POST": "purchase.add_invtran",
-        "PUT": "purchase.change_invtran",
-        "PATCH": "purchase.change_invtran",
-        "DELETE": "purchase.delete_invtran",
+        "GET": "purchase.view_inv_tran",
+        "POST": "purchase.add_inv_tran",
+        "PUT": "purchase.change_inv_tran",
+        "PATCH": "purchase.change_inv_tran",
+        "DELETE": "purchase.delete_inv_tran",
     }
 
     def perform_create(self, serializer):
@@ -362,11 +362,11 @@ class ACC_TRANViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
 
     permission_map = {
-        "GET": "purchase.view_acctran",
-        "POST": "purchase.add_acctran",
-        "PUT": "purchase.change_acctran",
-        "PATCH": "purchase.change_acctran",
-        "DELETE": "purchase.delete_acctran",
+        "GET": "purchase.view_acc_tran",
+        "POST": "purchase.add_acc_tran",
+        "PUT": "purchase.change_acc_tran",
+        "PATCH": "purchase.change_acc_tran",
+        "DELETE": "purchase.delete_acc_tran",
     }
 
     def perform_create(self, serializer):
