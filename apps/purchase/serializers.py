@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 
 #-------------------------- VAT Master Serializer --------------------------
 from .models import VATMaster
@@ -51,10 +52,34 @@ class BrandMasterSerializer(serializers.ModelSerializer):
 #----------------------- ITGRP_MAP Serializer -----------------------
 from .models import ITGRP_MAP
 class ITGRP_MAPSerializer(serializers.ModelSerializer):
+    grpname = serializers.SerializerMethodField()
+    brdname = serializers.SerializerMethodField()
+
     class Meta:
         model = ITGRP_MAP
-        fields = "__all__"
+        fields = [
+            "id",
+            "organization",
+            "branch",
+            "grpcode",
+            "grpname",
+            "brdcode",
+            "brdname",
+            "is_active",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
+    
+    @extend_schema_field(serializers.CharField())
+    def get_grpname(self, obj):
+        return obj.grpcode.name if obj.grpcode else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_brdname(self, obj):
+        return obj.brdcode.name if obj.brdcode else None
 
 
 #----------------------- Unit Master Serializer -----------------------
@@ -70,6 +95,12 @@ class UnitMasterSerializer(serializers.ModelSerializer):
 from .models import ItemMaster
 
 class ItemMasterSerializer(serializers.ModelSerializer):
+    unit_name = serializers.SerializerMethodField()
+    group_name = serializers.SerializerMethodField()
+    brand_name = serializers.SerializerMethodField()
+    supplier_name = serializers.SerializerMethodField()
+    vat_name = serializers.SerializerMethodField()
+
     class Meta:
         model = ItemMaster
         fields = [
@@ -86,9 +117,17 @@ class ItemMasterSerializer(serializers.ModelSerializer):
             "vatrate",
 
             "unit",
+            "unit_name",
+
             "group_map",
+            "group_name",
+            "brand_name",
+
             "supplier",
+            "supplier_name",
+
             "vat",
+            "vat_name",
 
             "is_active",
 
@@ -103,15 +142,72 @@ class ItemMasterSerializer(serializers.ModelSerializer):
 
         read_only_fields = ["id", "created_by", "updated_by", "created_at", "updated_at"]
 
+    @extend_schema_field(serializers.CharField())
+    def get_unit_name(self, obj):
+        return obj.unit.unitname if obj.unit else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_group_name(self, obj):
+        if obj.group_map and obj.group_map.grpcode:
+            return obj.group_map.grpcode.name
+        return None
+
+    @extend_schema_field(serializers.CharField())
+    def get_brand_name(self, obj):
+        if obj.group_map and obj.group_map.brdcode:
+            return obj.group_map.brdcode.name
+        return None
+
+    @extend_schema_field(serializers.CharField())
+    def get_supplier_name(self, obj):
+        return obj.supplier.name if obj.supplier else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_vat_name(self, obj):
+        return obj.vat.vatname if obj.vat else None
+
 
 # ----------------------- Unit Map Serializer -----------------------
 from .models import UnitMap
 
 class UnitMapSerializer(serializers.ModelSerializer):
+    item_name = serializers.SerializerMethodField()
+    unit_name = serializers.SerializerMethodField()
+    alt_unit_name = serializers.SerializerMethodField()
+
     class Meta:
         model = UnitMap
-        fields = "__all__"
+        fields = [
+            "id",
+            "item",
+            "item_name",
+            "unit",
+            "unit_name",
+            "alt_unit",
+            "alt_unit_name",
+            "qty",
+            "alt_qty",
+            "is_active",
+            "organization",
+            "branch",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
+    
+    @extend_schema_field(serializers.CharField())
+    def get_item_name(self, obj):
+        return obj.item.itname if obj.item else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_unit_name(self, obj):
+        return obj.unit.unitname if obj.unit else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_alt_unit_name(self, obj):
+        return obj.alt_unit.unitname if obj.alt_unit else None
 
 
 # ----------------------- VR Type Master Serializer -----------------------
@@ -130,10 +226,44 @@ class INVTRANSerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
+    item_name = serializers.SerializerMethodField()
+    unit_name = serializers.SerializerMethodField()
+    vr_type_name = serializers.SerializerMethodField()
+
     class Meta:
         model = INV_TRAN
-        fields = "__all__"
+        fields = [
+            "id",
+            "item",
+            "item_name",
+            "unit",
+            "unit_name",
+            "vr_type",
+            "vr_type_name",
+            "qty",
+            "rate",
+            "amount",
+            "organization",
+            "branch",
+            "is_active",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
+    
+    @extend_schema_field(serializers.CharField())
+    def get_item_name(self, obj):
+        return obj.item.itname if obj.item else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_unit_name(self, obj):
+        return obj.unit.unitname if obj.unit else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_vr_type_name(self, obj):
+        return obj.vr_type.vrname if obj.vr_type else None
 
 
 # ----------------------- Account Transaction Serializer -----------------------
@@ -143,10 +273,53 @@ class ACCTRANSerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
+    vr_type_name = serializers.SerializerMethodField()
+    vat_name = serializers.SerializerMethodField()
+
     class Meta:
         model = ACC_TRAN
-        fields = "__all__"
+        fields = [
+            "id",
+            "vrno",
+            "serial_no",
+            "voucher_date",
+
+            "vr_type",
+            "vr_type_name",
+
+            "amount_ex_vat",
+            "vat",
+            "vat_name",
+            "vat_amount",
+            "amount_inc_vat",
+
+            "reference_no",
+            "reference_date",
+
+            "paymode",
+            "paid_to",
+            "vatin",
+            "narration",
+
+            "organization",
+            "branch",
+            "country",
+
+            "is_active",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = [ "id", "vrno", "serial_no", "vat_amount", "amount_inc_vat", "created_by", "updated_by", "created_at", "updated_at"]
+    
+    @extend_schema_field(serializers.CharField())
+    def get_vr_type_name(self, obj):
+        return obj.vr_type.vrname if obj.vr_type else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_vat_name(self, obj):
+        return obj.vat.vatname if obj.vat else None
 
 
 # ----------------------- Account Master Serializer -----------------------
@@ -210,9 +383,35 @@ class ACCTRANDETASerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
+    vr_type_name = serializers.SerializerMethodField()
+    account_name = serializers.SerializerMethodField()
+    acc_tran_vrno = serializers.SerializerMethodField()
+
     class Meta:
         model = ACC_TRAN_DETA
-        fields = "__all__"
+        fields = [
+            "id",
+            "acc_tran",
+            "acc_tran_vrno",
+            "voucher_date",
+            "vr_type",
+            "vr_type_name",
+            "serial_no",
+            "dc_flag",
+            "account",
+            "account_name",
+            "list_code_ac",
+            "amount",
+            "remark",
+            "organization",
+            "branch",
+            "is_active",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
+
         read_only_fields = [
             "id",
             "serial_no",
@@ -222,6 +421,18 @@ class ACCTRANDETASerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+    @extend_schema_field(serializers.CharField())
+    def get_vr_type_name(self, obj):
+        return obj.vr_type.vrname if obj.vr_type else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_account_name(self, obj):
+        return obj.account.accname if obj.account else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_acc_tran_vrno(self, obj):
+        return obj.acc_tran.vrno if obj.acc_tran else None
+    
     # VALIDATION
     def validate(self, data):
 
