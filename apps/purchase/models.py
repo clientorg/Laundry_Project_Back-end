@@ -8,10 +8,6 @@ User = settings.AUTH_USER_MODEL
 
 # -------------------------- VAT Master Model --------------------------
 class VATMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     vatid = models.PositiveIntegerField(
         null=True,
@@ -23,11 +19,7 @@ class VATMaster(models.Model):
     vatnamear = models.CharField(max_length=191, blank=True, null=True)
     vatper = models.DecimalField(max_digits=5, decimal_places=2)
 
-    is_active = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=1,
-        help_text="0 = inactive, 1 = active"
-    )
+    is_active = models.BooleanField(default=True)
 
     #mapped from compname / branchname
     organization = models.ForeignKey(
@@ -78,10 +70,6 @@ class VATMaster(models.Model):
 
 # ----------------------- Supplier Master Model -----------------------
 class SupplierMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     name = models.CharField(max_length=191)
     name_ar = models.CharField(max_length=191, null=True, blank=True)
@@ -94,10 +82,7 @@ class SupplierMaster(models.Model):
     # UPDATED: FK → CharField
     country = models.CharField(max_length=100, null=True, blank=True)
 
-    is_active = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=1
-    )
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -139,18 +124,11 @@ class SupplierMaster(models.Model):
 
 # ----------------------- Group Master Model -----------------------
 class GroupMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     name = models.CharField(max_length=191)
     name_ar = models.CharField(max_length=191, null=True, blank=True)
 
-    is_active = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=1
-    )
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -192,18 +170,11 @@ class GroupMaster(models.Model):
     
 # ----------------------- Brand Master Model -----------------------
 class BrandMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     name = models.CharField(max_length=191)
     name_ar = models.CharField(max_length=191, null=True, blank=True)
 
-    is_active = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=1,
-    )
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -246,10 +217,6 @@ class BrandMaster(models.Model):
 
 # ----------------------- ITGRP_MAP Model -----------------------
 class ITGRP_MAP(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     organization = models.ForeignKey(
         Organization,
@@ -287,11 +254,7 @@ class ITGRP_MAP(models.Model):
         verbose_name="Brand"
     )
 
-    is_active = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=1,
-        help_text="0 = inactive, 1 = active"
-    )
+    is_active = models.BooleanField(default=True)
 
     created_by = models.ForeignKey(
         User,
@@ -318,19 +281,11 @@ class ITGRP_MAP(models.Model):
 
 # ----------------------- Unit Master Model -----------------------
 class UnitMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     unitname = models.CharField(max_length=191)
     unitnamear = models.CharField(max_length=191, blank=True, null=True)
 
-    is_active = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=1,
-        help_text="0 = inactive, 1 = active"
-    )
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -373,10 +328,6 @@ class UnitMaster(models.Model):
 
 # ----------------------- Item Master Model -----------------------
 class ItemMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     itname = models.CharField(max_length=191)
     itnamear = models.CharField(max_length=191, blank=True, null=True)
@@ -420,7 +371,7 @@ class ItemMaster(models.Model):
         related_name="items_vat"
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -463,10 +414,6 @@ class ItemMaster(models.Model):
 
 # ----------------------- Unit Map Model -----------------------
 class UnitMap(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     # default Django id will be used
 
@@ -504,7 +451,7 @@ class UnitMap(models.Model):
         default=None
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -547,15 +494,11 @@ class UnitMap(models.Model):
 
 # ----------------------- VR Type Master Model -----------------------
 class VRTypeMaster(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     vrname = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=10)
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     organization = models.ForeignKey(
         Organization,
@@ -600,10 +543,6 @@ class VRTypeMaster(models.Model):
 
 # ----------------------- Inventory Transaction Model -----------------------
 class INV_TRAN(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     # Foreign Keys
     item = models.ForeignKey(
@@ -652,7 +591,7 @@ class INV_TRAN(models.Model):
         related_name="purchase_inv_transactions_branch",
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -690,14 +629,9 @@ import re
 
 class ACC_TRAN(models.Model):
     PAYMODE_CHOICES = [
-        (0, "NULL"),
-        (1, "Cash"),
-        (2, "Bank"),
-    ]
-
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
+        ("NULL", "NULL"),
+        ("Cash", "Cash"),
+        ("Bank", "Bank"),
     ]
 
     # Django ID as PK
@@ -734,7 +668,7 @@ class ACC_TRAN(models.Model):
     reference_no = models.CharField(max_length=50, blank=True, null=True)
     reference_date = models.DateField(blank=True, null=True)
 
-    paymode = models.IntegerField(choices=PAYMODE_CHOICES, default=0)
+    paymode = models.CharField(max_length=10, choices=PAYMODE_CHOICES, default="NULL")
     paid_to = models.CharField(max_length=191, blank=True, null=True)
     vatin = models.CharField(max_length=50, blank=True, null=True)
 
@@ -765,7 +699,7 @@ class ACC_TRAN(models.Model):
         related_name="acc_transactions_branch"
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -840,26 +774,22 @@ class ACC_TRAN(models.Model):
 
 # ----------------------- Account Master Model -----------------------
 class ACCT_MAST(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     BAL_TYPE_CHOICES = [
-        (1, "Debit"),
-        (2, "Credit"),
+        ("Debit", "Debit"),
+        ("Credit", "Credit"),
     ]
 
     GRP_CODE_CHOICES = [
-        ("ASS", "ASSET"),
-        ("LIB", "LIABILITY"),
-        ("INC", "INCOME"),
-        ("EXP", "EXPENSE"),
+        ("ASSET", "ASSET"),
+        ("LIABILITY", "LIABILITY"),
+        ("INCOME", "INCOME"),
+        ("EXPENSE", "EXPENSE"),
     ]
 
     AC_TYPE_CHOICES = [
-        ("G", "General / Group"),
-        ("D", "Detail"),
+        ("General / Group", "General / Group"),
+        ("Detail", "Detail"),
     ]
 
     # Django PK
@@ -872,14 +802,14 @@ class ACCT_MAST(models.Model):
     accname_ar = models.CharField(max_length=200, blank=True, null=True)
 
     grpcode = models.CharField(
-        max_length=10,
+        max_length=20,
         choices=GRP_CODE_CHOICES,
         null=True,
         blank=True,
     )
 
-    baltype = models.IntegerField(choices=BAL_TYPE_CHOICES)
-    actype = models.CharField(max_length=1, choices=AC_TYPE_CHOICES)
+    baltype = models.CharField(max_length=10, choices=BAL_TYPE_CHOICES)
+    actype = models.CharField(max_length=20, choices=AC_TYPE_CHOICES)
 
     # Auto-generated mapping number
     acmapno = models.PositiveIntegerField(editable=False)
@@ -904,7 +834,7 @@ class ACCT_MAST(models.Model):
         related_name="acct_mast_branch"
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -950,10 +880,6 @@ class ACCT_MAST(models.Model):
 
 # ----------------------- Account Master Mapping Model -----------------------
 class ACCT_MAST_MAP(models.Model):
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
-    ]
 
     id = models.AutoField(primary_key=True)
 
@@ -990,7 +916,7 @@ class ACCT_MAST_MAP(models.Model):
         related_name="acctmastmap_branch"
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     # Audit fields
     created_by = models.ForeignKey(
@@ -1033,13 +959,8 @@ class ACCT_MAST_MAP(models.Model):
 class ACC_TRAN_DETA(models.Model):
 
     DCFLAG_CHOICES = [
-        (1, "Debit"),
-        (2, "Credit"),
-    ]
-
-    STATUS_CHOICES = [
-        (0, "Inactive"),
-        (1, "Active"),
+        ("Debit", "Debit"),
+        ("Credit", "Credit"),
     ]
 
     # Django ID (Primary Key)
@@ -1065,7 +986,7 @@ class ACC_TRAN_DETA(models.Model):
     # Auto-generated serial number inside voucher
     serial_no = models.PositiveIntegerField(editable=False, null=True, blank=True)
 
-    dc_flag = models.IntegerField(choices=DCFLAG_CHOICES)
+    dc_flag = models.CharField(max_length=10, choices=DCFLAG_CHOICES)
 
     account = models.ForeignKey(
         ACCT_MAST,
@@ -1098,7 +1019,7 @@ class ACC_TRAN_DETA(models.Model):
         related_name="acc_tran_details_branch"
     )
 
-    is_active = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    is_active = models.BooleanField(default=True)
 
     # Audit fields
     created_by = models.ForeignKey(

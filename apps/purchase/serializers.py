@@ -374,6 +374,22 @@ class ACCTMASTMAPSerializer(serializers.ModelSerializer):
             )
 
         return data
+    
+    def update(self, instance, validated_data):
+        totlev = validated_data.get("totlev", instance.totlev)
+
+        # Update normal fields
+        instance = super().update(instance, validated_data)
+
+        # Clear unused levels
+        level_fields = ["lev1","lev2","lev3","lev4","lev5","lev6","lev7","lev8"]
+
+        for idx, field in enumerate(level_fields):
+            if idx + 1 > totlev:
+                setattr(instance, field, None)
+
+        instance.save()
+        return instance
 
 
 # ----------------------- Account Transaction Detail Serializer -----------------------
