@@ -3,6 +3,8 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from apps.organizations.mixins import OrgBranchQuerysetMixin
+
 # ------------------------------- VAT Master ViewSet -------------------------------
 from .models import VATMaster
 from .serializers import VATMasterSerializer
@@ -15,7 +17,7 @@ from .serializers import VATMasterSerializer
     partial_update=extend_schema(summary="Partially Update VAT Master",description="Update specific fields of a VAT record.",tags=["Purchase: VAT Master"],),
     destroy=extend_schema(summary="Delete VAT Master",description="Delete a VAT record by ID.",tags=["Purchase: VAT Master"],),
 )
-class VATMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class VATMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = VATMaster.objects.all().order_by("-created_at")
     serializer_class = VATMasterSerializer
 
@@ -49,7 +51,7 @@ from .serializers import SupplierMasterSerializer
     partial_update=extend_schema(summary="Patch Supplier",tags=["Purchase: Supplier Master"]),
     destroy=extend_schema(summary="Delete Supplier",tags=["Purchase: Supplier Master"]),
 )
-class SupplierMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class SupplierMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = SupplierMaster.objects.all().order_by("-id")
     serializer_class = SupplierMasterSerializer
 
@@ -83,7 +85,7 @@ from .serializers import GroupMasterSerializer
     partial_update=extend_schema(summary="Partially Update Group Master",description="Update specific fields of a Group Master record.",tags=["Purchase: Group Master"],),
     destroy=extend_schema(summary="Delete Group Master",description="Delete a Group Master record by ID.",tags=["Purchase: Group Master"],),
 )
-class GroupMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class GroupMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = GroupMaster.objects.all().order_by("-id")
     serializer_class = GroupMasterSerializer
 
@@ -116,7 +118,7 @@ from .serializers import BrandMasterSerializer
     partial_update=extend_schema(summary="Partially Update Brand Master",description="Update specific fields of a Brand Master record.",tags=["Purchase: Brand Master"],),
     destroy=extend_schema(summary="Delete Brand Master",description="Delete a Brand Master record by ID.",tags=["Purchase: Brand Master"],),
 )
-class BrandMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class BrandMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = BrandMaster.objects.all().order_by("-id")
     serializer_class = BrandMasterSerializer
 
@@ -151,7 +153,7 @@ from .serializers import ITGRP_MAPSerializer
     partial_update=extend_schema(summary="Partially Update IT Group Mapping",description="Update selected fields of an ITGRP_MAP record.",tags=["Purchase: ITGRP_MAP"],),
     destroy=extend_schema(summary="Delete IT Group Mapping",description="Delete an ITGRP_MAP record by ID.",tags=["Purchase: ITGRP_MAP"],),
 )
-class ITGRP_MAPViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class ITGRP_MAPViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = ITGRP_MAP.objects.all().order_by("-id")
     serializer_class = ITGRP_MAPSerializer
 

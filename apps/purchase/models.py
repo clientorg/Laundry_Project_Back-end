@@ -30,12 +30,10 @@ class VATMaster(models.Model):
         related_name="purchase_vats_org"
     )
 
-    branch = models.ForeignKey(
+    branches = models.ManyToManyField(
         Organization,
-        null=True,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_vats_branch"
+        related_name="purchase_vats_branches"
     )
 
     created_by = models.ForeignKey(
@@ -92,12 +90,10 @@ class SupplierMaster(models.Model):
         related_name="suppliers_org"
     )
 
-    branch = models.ForeignKey(
+    branches = models.ManyToManyField(
         Organization,
-        null=True,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="suppliers_branch"
+        related_name="suppliers_branches"
     )
 
     created_by = models.ForeignKey(
@@ -138,12 +134,9 @@ class GroupMaster(models.Model):
         related_name="purchase_groups_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_groups_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="purchase_groups_branches"
     )
 
     created_by = models.ForeignKey(
@@ -184,12 +177,9 @@ class BrandMaster(models.Model):
         related_name="purchase_brands_org",
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_brands_branch",
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="purchase_brands_branches"
     )
 
     created_by = models.ForeignKey(
@@ -227,13 +217,9 @@ class ITGRP_MAP(models.Model):
         help_text="Main organization"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="itgrp_branches",
-        help_text="Branch / Division"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="itgrp_branches"
     )
 
     grpcode = models.ForeignKey(
@@ -295,12 +281,9 @@ class UnitMaster(models.Model):
         related_name="purchase_units_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_units_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="purchase_units_branches"
     )
 
     created_by = models.ForeignKey(
@@ -381,12 +364,9 @@ class ItemMaster(models.Model):
         related_name="purchase_items_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_items_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="purchase_items_branches"
     )
 
     created_by = models.ForeignKey(
@@ -461,12 +441,9 @@ class UnitMap(models.Model):
         related_name="unitmap_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="unitmap_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="unitmap_branches"
     )
 
     created_by = models.ForeignKey(
@@ -509,13 +486,9 @@ class VRTypeMaster(models.Model):
         help_text="Top-level organization"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="vrtype_branch",
-        help_text="Branch under organization"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="vrtype_branches"
     )
 
     created_by = models.ForeignKey(
@@ -583,12 +556,9 @@ class INV_TRAN(models.Model):
         related_name="purchase_inv_transactions_org",
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="purchase_inv_transactions_branch",
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="purchase_inv_transactions_branches",
     )
 
     is_active = models.BooleanField(default=True)
@@ -691,12 +661,9 @@ class ACC_TRAN(models.Model):
         related_name="acc_transactions_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="acc_transactions_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="acc_transactions_branches"
     )
 
     is_active = models.BooleanField(default=True)
@@ -734,7 +701,6 @@ class ACC_TRAN(models.Model):
         if not self.vrno:
             country_code = (self.country if self.country else "01")[:2]
             company_code = str(self.organization.id if self.organization else "01")
-            branch_code = str(self.branch.id if self.branch else "01")
             year = timezone.now().year
 
             # prefix from vr_type name
@@ -755,7 +721,7 @@ class ACC_TRAN(models.Model):
             else:
                 series = 1000
 
-            self.vrno = f"{country_code}{company_code}{branch_code}{year}{prefix}{series}"
+            self.vrno = f"{country_code}{company_code}{year}{prefix}{series}"
 
         # -------- SERIAL NO --------
         if not self.serial_no:
@@ -826,12 +792,9 @@ class ACCT_MAST(models.Model):
         related_name="acct_mast_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="acct_mast_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="acct_mast_branches"
     )
 
     is_active = models.BooleanField(default=True)
@@ -908,12 +871,9 @@ class ACCT_MAST_MAP(models.Model):
         related_name="acctmastmap_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="acctmastmap_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="acctmastmap_branches"
     )
 
     is_active = models.BooleanField(default=True)
@@ -1011,12 +971,9 @@ class ACC_TRAN_DETA(models.Model):
         related_name="acc_tran_details_org"
     )
 
-    branch = models.ForeignKey(
-        Organization,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="acc_tran_details_branch"
+    branches = models.ManyToManyField(
+        Organization, blank=True,
+        related_name="acc_tran_details_branches"
     )
 
     is_active = models.BooleanField(default=True)
