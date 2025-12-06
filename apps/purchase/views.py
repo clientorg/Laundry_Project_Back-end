@@ -186,7 +186,7 @@ from .serializers import UnitMasterSerializer
     partial_update=extend_schema(summary="Partially Update Unit",description="Update selected fields of a UnitMaster record.",tags=["Purchase: Unit Master"],),
     destroy=extend_schema(summary="Delete Unit",description="Delete a UnitMaster record by ID.",tags=["Purchase: Unit Master"],),
 )
-class UnitMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class UnitMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = UnitMaster.objects.all().order_by("-id")
     serializer_class = UnitMasterSerializer
 
@@ -220,7 +220,7 @@ from .serializers import ItemMasterSerializer
     partial_update=extend_schema(summary="Partially Update Item",description="Update selected fields of an ItemMaster record.",tags=["Purchase: Item Master"],),
     destroy=extend_schema(summary="Delete Item",description="Delete an ItemMaster record by ID.",tags=["Purchase: Item Master"],),
 )
-class ItemMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class ItemMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = ItemMaster.objects.all().order_by("-id")
     serializer_class = ItemMasterSerializer
 
@@ -254,7 +254,7 @@ from .serializers import UnitMapSerializer
     partial_update=extend_schema(summary="Partially Update Unit Map",description="Update selected fields of a UnitMap record.",tags=["Purchase: Unit Map"],),
     destroy=extend_schema(summary="Delete Unit Map",description="Delete a UnitMap record by ID.",tags=["Purchase: Unit Map"],),
 )
-class UnitMapViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class UnitMapViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = UnitMap.objects.all().order_by("-id")
     serializer_class = UnitMapSerializer
     authentication_classes = [JWTAuthentication]
@@ -287,7 +287,7 @@ from .serializers import VRTypeMasterSerializer
     partial_update=extend_schema(summary="Patch VR Type",description="Update specific VR Type fields.",tags=["Purchase: VRType Master"],),
     destroy=extend_schema(summary="Delete VR Type",description="Delete VR Type by ID.",tags=["Purchase: VRType Master"],),
 )
-class VRTypeMasterViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class VRTypeMasterViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = VRTypeMaster.objects.all().order_by("-id")
     serializer_class = VRTypeMasterSerializer
 
@@ -322,7 +322,7 @@ from .serializers import INVTRANSerializer
     partial_update=extend_schema(summary="Partially Update Inventory Transaction",description="Update selected fields.",tags=["Purchase: INV_TRAN"],),
     destroy=extend_schema(summary="Delete Inventory Transaction",description="Delete INV_TRAN by ID.",tags=["Purchase: INV_TRAN"],),
 )
-class INVTRANViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class INVTRANViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = INV_TRAN.objects.all().order_by("-id")
     serializer_class = INVTRANSerializer
 
@@ -356,7 +356,7 @@ from .serializers import ACCTRANSerializer
     partial_update=extend_schema(summary="Patch Account Transaction",description="Partially update an ACC_TRAN record.",tags=["Purchase: ACC_TRAN"],),
     destroy=extend_schema(summary="Delete Account Transaction",description="Delete an ACC_TRAN entry by ID.",tags=["Purchase: ACC_TRAN"],),
 )
-class ACC_TRANViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class ACC_TRANViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = ACC_TRAN.objects.all().order_by("-created_at")
     serializer_class = ACCTRANSerializer
 

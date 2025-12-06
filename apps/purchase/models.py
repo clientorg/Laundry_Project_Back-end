@@ -698,30 +698,54 @@ class ACC_TRAN(models.Model):
 
     # ---------------- VRNO AUTO GENERATION ----------------
     def save(self, *args, **kwargs):
+        # ---------------- COUNTRY CODE ----------------
+        country_code = (self.country if self.country else "01")[:2]
+
+        # ---------------- ENTITY CODE (ORG or BRANCH) ----------------
+        user = self.created_by or self.updated_by
+
+        if self.organization:
+            entity_code = str(self.organization.id)
+        else:
+            # Branch-only user → use branch ID
+            if user and user.branches.exists():
+                entity_code = str(user.branches.first().id)
+            else:
+                entity_code = "01"   # fallback
+        # Ensure minimum 2 digits
+        entity_code = entity_code.zfill(2)
+
+        # ---------------- YEAR ----------------
+        year = timezone.now().year
+
+        # ---------------- PREFIX FROM VR TYPE ----------------
+        type_name = (self.vr_type.vrname.lower() if self.vr_type else "purchase")
+        prefix_map = {
+            "purchase": "PIV",
+            "material consumption": "RMC",
+            "damage": "DAM",
+        }
+        prefix = prefix_map.get(type_name, "PIV")
+
+        # ---------------- VRNO GENERATION ----------------
         if not self.vrno:
-            country_code = (self.country if self.country else "01")[:2]
-            company_code = str(self.organization.id if self.organization else "01")
-            year = timezone.now().year
 
-            # prefix from vr_type name
-            type_name = (self.vr_type.vrname.lower() if self.vr_type else "purchase")
-            prefix_map = {
-                "purchase": "PIV",
-                "material consumption": "RMC",
-                "damage": "DAM",
-            }
-            prefix = prefix_map.get(type_name, "PIV")
+            # limit VRNO search **by entity**
+            qs = ACC_TRAN.objects.filter(
+                vrno__startswith=f"{country_code}{entity_code}{year}{prefix}"
+            ).order_by("-vrno")
 
-            # last VRNO
-            last = ACC_TRAN.objects.filter(vrno__contains=prefix).order_by("-vrno").first()
+            last = qs.first()
+
             if last:
+                # extract last number
                 match = re.search(r"(\d+)$", last.vrno)
                 last_series = int(match.group(1)) if match else 999
                 series = last_series + 1
             else:
-                series = 1000
+                series = 1000   # starting series
 
-            self.vrno = f"{country_code}{company_code}{year}{prefix}{series}"
+            self.vrno = f"{country_code}{entity_code}{year}{prefix}{series}"
 
         # -------- SERIAL NO --------
         if not self.serial_no:
