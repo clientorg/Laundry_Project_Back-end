@@ -390,7 +390,7 @@ from .serializers import ACCTMASTSerializer
     partial_update=extend_schema(summary="Partially Update Account Master",description="Update selected fields in account master.",tags=["Purchase: Account Master"]),
     destroy=extend_schema(summary="Delete Account Master",description="Delete an account master by ID.",tags=["Purchase: Account Master"]),
 )
-class ACCTMASTViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class ACCTMASTViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = ACCT_MAST.objects.all().order_by("acno")
     serializer_class = ACCTMASTSerializer
 
@@ -424,7 +424,7 @@ from .serializers import ACCTMASTMAPSerializer
     partial_update=extend_schema(summary="Patch Account Master Mapping",description="Partially update an ACCT_MAST_MAP entry.",tags=["Purchase: ACCT_MAST_MAP"],),
     destroy=extend_schema(summary="Delete Account Master Mapping",description="Delete an ACCT_MAST_MAP entry.",tags=["Purchase: ACCT_MAST_MAP"],),
 )
-class ACCT_MAST_MAPViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class ACCT_MAST_MAPViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = ACCT_MAST_MAP.objects.all().order_by("acmapno")
     serializer_class = ACCTMASTMAPSerializer
 
@@ -457,7 +457,7 @@ from apps.purchase.serializers import ACCTRANDETASerializer
     partial_update=extend_schema(summary="Patch ACC_TRAN_DETA",description="Partially update an account transaction detail line.",tags=["Purchase: ACC_TRAN_DETA"],),
     destroy=extend_schema(summary="Delete ACC_TRAN_DETA",description="Delete an account transaction detail line.",tags=["Purchase: ACC_TRAN_DETA"],),
 )
-class ACC_TRAN_DETAViewSet(PermissionRequiredMixin, viewsets.ModelViewSet):
+class ACC_TRAN_DETAViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
     queryset = ACC_TRAN_DETA.objects.all().order_by("-acc_tran__created_at")
     serializer_class = ACCTRANDETASerializer
 

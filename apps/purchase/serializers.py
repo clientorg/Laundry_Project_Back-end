@@ -1167,27 +1167,157 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 # ----------------------- Account Master Serializer -----------------------
 from .models import ACCT_MAST
 
-class ACCTMASTSerializer(serializers.ModelSerializer):
+class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+    organization_name = serializers.SerializerMethodField()
+    branch_names = serializers.SerializerMethodField()
+
     class Meta:
         model = ACCT_MAST
-        fields = "__all__"
+        fields = [
+            "id",
+            "acno",
+            "accname",
+            "accname_ar",
+            "grpcode",
+            "baltype",
+            "actype",
+            "acmapno",
+            "opening_balance",
+            "curbal",
+
+            "organization",
+            "organization_name",
+            "branches",
+            "branch_names",
+
+            "is_active",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = [ "id", "acno", "acmapno", "created_by", "updated_by", "created_at", "updated_at"]
+    
+        # ------------------ DISPLAY FIELDS ------------------
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_organization_name(self, obj):
+        return obj.organization.name if obj.organization else None
+
+    @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
+    def get_branch_names(self, obj):
+        return [branch.name for branch in obj.branches.all()]
+
+    # ------------------ VALIDATION ------------------
+    def validate(self, data):
+        organization = data.get("organization", getattr(self.instance, "organization", None))
+        branches = data.get("branches")
+
+        # convert to list if ManyToManyQuerySet
+        if branches and not isinstance(branches, list):
+            branches = list(branches.all())
+
+        if organization and branches:
+            invalid_branches = [
+                b for b in branches
+                if not self.branch_belongs_to_org(b, organization)
+            ]
+            if invalid_branches:
+                br_names = ", ".join([b.name for b in invalid_branches])
+                raise serializers.ValidationError(
+                    f"The following branches do NOT belong to organization '{organization.name}': {br_names}"
+                )
+
+        return data
+
+    def branch_belongs_to_org(self, branch, organization):
+        return branch.parent == organization
+
+    # ------------------ CREATE ------------------
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+
+        user = self.context["request"].user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+
+        return super().create(validated_data)
+
+    # ------------------ UPDATE ------------------
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+
+        user = self.context["request"].user
+        instance.updated_by = user
+
+        return super().update(instance, validated_data)
 
 
 # ----------------------- Account Master Mapping Serializer -----------------------
 from apps.purchase.models import ACCT_MAST_MAP
 
-class ACCTMASTMAPSerializer(serializers.ModelSerializer):
+class ACCTMASTMAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+    organization_name = serializers.SerializerMethodField()
+    branch_names = serializers.SerializerMethodField()
+
     class Meta:
         model = ACCT_MAST_MAP
-        fields = "__all__"
+        fields = [
+            "id",
+            "acmapno",
+            "totlev",
+            "lev1", "lev2", "lev3", "lev4", "lev5", "lev6", "lev7", "lev8",
+
+            "organization",
+            "organization_name",
+            "branches",
+            "branch_names",
+
+            "is_active",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = [ "id", "acmapno", "created_by", "updated_by", "created_at", "updated_at"]
+    
+        # ------------------ DISPLAY FIELDS ------------------
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_organization_name(self, obj):
+        return obj.organization.name if obj.organization else None
+
+    @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
+    def get_branch_names(self, obj):
+        return [branch.name for branch in obj.branches.all()]
 
     def validate(self, data):
         """
@@ -1214,16 +1344,51 @@ class ACCTMASTMAPSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 f"Levels lev1 to lev{totlev} must be provided when totlev = {totlev}"
             )
+        
+        #Organization and Branch validation
+        organization = data.get("organization", getattr(self.instance, "organization", None))
+        branches = data.get("branches")
+
+        # convert to list if ManyToManyQuerySet
+        if branches and not isinstance(branches, list):
+            branches = list(branches.all())
+        
+        if organization and branches:
+            invalid_branches = [
+                b for b in branches
+                if not self.branch_belongs_to_org(b, organization)
+            ]
+            if invalid_branches:
+                br_names = ", ".join([b.name for b in invalid_branches])
+                raise serializers.ValidationError(
+                    f"The following branches do NOT belong to organization '{organization.name}': {br_names}"
+                )
 
         return data
     
-    def update(self, instance, validated_data):
-        totlev = validated_data.get("totlev", instance.totlev)
+    def branch_belongs_to_org(self, branch, organization):
+        return branch.parent == organization
 
-        # Update normal fields
+    # ------------------ CREATE ------------------
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+
+        user = self.context["request"].user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+
+        user = self.context["request"].user
+        instance.updated_by = user
+
         instance = super().update(instance, validated_data)
 
-        # Clear unused levels
+        totlev = validated_data.get("totlev", instance.totlev)
+
         level_fields = ["lev1","lev2","lev3","lev4","lev5","lev6","lev7","lev8"]
 
         for idx, field in enumerate(level_fields):
@@ -1231,19 +1396,25 @@ class ACCTMASTMAPSerializer(serializers.ModelSerializer):
                 setattr(instance, field, None)
 
         instance.save()
+
         return instance
 
 
 # ----------------------- Account Transaction Detail Serializer -----------------------
 from .models import ACC_TRAN_DETA
 
-class ACCTRANDETASerializer(serializers.ModelSerializer):
+class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
     vr_type_name = serializers.SerializerMethodField()
     account_name = serializers.SerializerMethodField()
     acc_tran_vrno = serializers.SerializerMethodField()
+
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+    organization_name = serializers.SerializerMethodField()
+    branch_names = serializers.SerializerMethodField()
 
     class Meta:
         model = ACC_TRAN_DETA
@@ -1262,10 +1433,14 @@ class ACCTRANDETASerializer(serializers.ModelSerializer):
             "amount",
             "remark",
             "organization",
+            "organization_name",
             "branches",
+            "branch_names",
             "is_active",
             "created_by",
+            "created_by_name",
             "updated_by",
+            "updated_by_name",
             "created_at",
             "updated_at",
         ]
@@ -1291,7 +1466,25 @@ class ACCTRANDETASerializer(serializers.ModelSerializer):
     def get_acc_tran_vrno(self, obj):
         return obj.acc_tran.vrno if obj.acc_tran else None
     
-    # VALIDATION
+        # ------------------ DISPLAY FIELDS ------------------
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_organization_name(self, obj):
+        return obj.organization.name if obj.organization else None
+
+    @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
+    def get_branch_names(self, obj):
+        return [branch.name for branch in obj.branches.all()]
+    
+    
+    # ------------------ VALIDATION ------------------
     def validate(self, data):
 
         # Validate: acc_tran exists
@@ -1308,6 +1501,46 @@ class ACCTRANDETASerializer(serializers.ModelSerializer):
         acno = data.get("acno")
         if acno and not ACCT_MAST.objects.filter(id=acno.id).exists():
             raise serializers.ValidationError("Invalid ACCT_MAST (acno).")
+        
+        organization = data.get("organization", getattr(self.instance, "organization", None))
+        branches = data.get("branches")
+
+        # convert to list if ManyToManyQuerySet
+        if branches and not isinstance(branches, list):
+            branches = list(branches.all())
+
+        if organization and branches:
+            invalid_branches = [
+                b for b in branches
+                if not self.branch_belongs_to_org(b, organization)
+            ]
+            if invalid_branches:
+                br_names = ", ".join([b.name for b in invalid_branches])
+                raise serializers.ValidationError(
+                    f"The following branches do NOT belong to organization '{organization.name}': {br_names}"
+                )
 
         return data
+
+    def branch_belongs_to_org(self, branch, organization):
+        return branch.parent == organization
+
+    # ------------------ CREATE ------------------
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+
+        user = self.context["request"].user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+
+        return super().create(validated_data)
+
+    # ------------------ UPDATE ------------------
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+
+        user = self.context["request"].user
+        instance.updated_by = user
+
+        return super().update(instance, validated_data)
 
