@@ -41,7 +41,7 @@ class OrgBranchAssignMixin:
             instance.organization = validated_data["organization"]
         elif (
             not instance.organization
-            and not not instance.branches.exists()
+            and not instance.branches.exists()
             and user
             and user.organization
         ):
