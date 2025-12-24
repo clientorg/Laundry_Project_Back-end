@@ -34,6 +34,15 @@ class OrganizationAdmin(admin.ModelAdmin):
             if "parent" in form.base_fields:
                 form.base_fields.pop("parent")
         return form
+    
+    def save_model(self, request, obj, form, change):
+        if not change and not obj.created_by:
+            obj.created_by = request.user
+            obj.updated_by = request.user
+        elif change:
+            obj.updated_by = request.user
+
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Branch)
