@@ -66,3 +66,58 @@ class BranchAdmin(admin.ModelAdmin):
         if db_field.name == "parent":
             kwargs["queryset"] = Organization.objects.filter(parent__isnull=True)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+# Register Plan model in admin
+from .models import Plan, OrganizationSubscription
+
+@admin.register(Plan)
+class PlanAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "max_users",
+        "max_branches",
+        "duration_days",
+        "price",
+        "created_at",
+        "updated_at",
+    )
+    list_display_links = ("name",)
+    search_fields = ("name",)
+    list_filter = ("max_branches", "duration_days")
+
+# Register OrganizationSubscription model in admin
+@admin.register(OrganizationSubscription)
+class OrganizationSubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "organization",
+        "plan",
+        "started_at",
+        "expires_at",
+        "is_active",
+    )
+    list_filter = ("plan",)
+    search_fields = ("organization__name", "plan__name")
+    readonly_fields = (
+        "organization",
+        "plan",
+        "started_at",
+        "expires_at",
+    )
+
+    def is_active(self, obj):
+        return obj.is_active
+
+    is_active.boolean = True
+    is_active.short_description = "Active"
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

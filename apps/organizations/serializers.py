@@ -5,6 +5,12 @@ from drf_spectacular.utils import extend_schema_field
 # laundry model imports
 from .models import Branch
 
+# subscription service imports
+from apps.organizations.services.subscription_service import (
+    check_branch_limit,
+    BranchLimitExceeded,
+)
+
 
 class BranchSerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -57,7 +63,15 @@ class BranchSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Unable to determine parent organization from user."
             )
-
+        
+        # Check branch limit before creating a new branch
+        try:
+            check_branch_limit(parent)
+        except BranchLimitExceeded as e:
+            raise serializers.ValidationError({
+                "detail": str(e)
+            })  
+           
         return Branch.objects.create(
             parent=parent,
             created_by=user,
@@ -137,3 +151,64 @@ class OrganizationSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+# ------------------------- Plan Serializer
+from .models import Plan
+
+class PlanSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Plan
+        fields = [
+            "id",
+            "name",
+            "description",
+            "price",
+            "max_branches",
+            "duration_days",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = ["id", "created_at", "updated_at"]
+
+
+# -------------------------Change Plan Serializer
+class ChangePlanSerializer(serializers.Serializer):
+    plan_id = serializers.IntegerField()
+
+
+# ------------------------- Organization Subscription Serializer
+from .models import OrganizationSubscription
+
+
+class OrganizationSubscriptionSerializer(serializers.ModelSerializer):
+    organization_name = serializers.SerializerMethodField()
+    plan_name = serializers.SerializerMethodField()
+    is_active = serializers.SerializerMethodField()
+
+    class Meta:
+        model = OrganizationSubscription
+        fields = [
+            "id",
+            "organization",
+            "organization_name",
+            "plan",
+            "plan_name",
+            "started_at",
+            "expires_at",
+            "is_active",
+        ]
+        read_only_fields = [
+            "id",
+            "started_at",
+            "expires_at",
+            "is_active",
+        ]
+
+    def get_organization_name(self, obj):
+        return obj.organization.name if obj.organization else None
+
+    def get_plan_name(self, obj):
+        return obj.plan.name if obj.plan else None
+
+    def get_is_active(self, obj):
+        return obj.is_active

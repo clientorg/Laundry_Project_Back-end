@@ -95,3 +95,107 @@ class OrganizationRetrieveUpdateDestroyView(
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
+
+
+# --------------- Plan Views ---------------#
+from apps.organizations.models import Plan
+from apps.organizations.serializers import PlanSerializer
+
+
+@extend_schema(tags=["Plans"])
+class PlanListCreateView(
+    PermissionRequiredMixin, generics.ListCreateAPIView
+):
+    queryset = Plan.objects.all().order_by("id")
+    serializer_class = PlanSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "organizations.view_plan",
+        "POST": "organizations.add_plan",
+    }
+
+
+@extend_schema(tags=["Plans"])
+class PlanRetrieveUpdateDestroyView(
+    PermissionRequiredMixin, generics.RetrieveUpdateDestroyAPIView
+):
+    queryset = Plan.objects.all()
+    serializer_class = PlanSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "organizations.view_plan",
+        "PUT": "organizations.change_plan",
+        "PATCH": "organizations.change_plan",
+        "DELETE": "organizations.delete_plan",
+    }
+
+#--------------- Change Organization Plan View ---------------#
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+
+from apps.organizations.models import Plan
+from apps.organizations.serializers import ChangePlanSerializer
+from apps.organizations.services.subscription_service import (
+    change_organization_plan,
+    PlanDowngradeNotAllowed,
+    get_active_subscription
+)
+from rest_framework.permissions import IsAuthenticated
+
+@extend_schema(
+    tags=["Organizations"],
+    request=ChangePlanSerializer, 
+)
+class OrganizationChangePlanView(PermissionRequiredMixin, APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "POST": "organizations.change_organization",
+    }
+
+    def post(self, request, pk):
+        serializer = ChangePlanSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        organization = get_object_or_404(
+            Organization,
+            pk=pk,
+            parent__isnull=True
+        )
+
+        plan = get_object_or_404(
+            Plan,
+            pk=serializer.validated_data["plan_id"]
+        )
+
+        #prevent duplicate first subscription
+        active_subscription = get_active_subscription(organization)
+
+        try:
+            subscription = change_organization_plan(organization, plan)
+        except PlanDowngradeNotAllowed as e:
+            return Response(
+                {"detail": str(e)},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response(
+            {
+                "message": (
+                    "Subscription created successfully."
+                    if not active_subscription
+                    else "Plan changed successfully."
+                ),
+                "plan": plan.name,
+                "started_at": subscription.started_at,
+                "expires_at": subscription.expires_at,
+            },
+            status=status.HTTP_200_OK,
+        )
