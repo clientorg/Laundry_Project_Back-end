@@ -937,6 +937,9 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
 
+    supplier_id = serializers.SerializerMethodField()
+    supplier_name = serializers.SerializerMethodField()
+
     class Meta:
         model = INV_TRAN
         fields = [
@@ -954,6 +957,8 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "organization_name",
             "branches",
             "branch_names",
+            "supplier_id",         
+            "supplier_name",
             "is_active",
             "created_by",
             "created_by_name",
@@ -992,6 +997,14 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
+    
+    @extend_schema_field(serializers.IntegerField())
+    def get_supplier_id(self, obj):
+        return obj.item.supplier.id if obj.item and obj.item.supplier else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_supplier_name(self, obj):
+        return obj.item.supplier.name if obj.item and obj.item.supplier else None
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
