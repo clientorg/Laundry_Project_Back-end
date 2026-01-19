@@ -10,6 +10,7 @@ from .views import (
     OrganizationChangePlanView,
     PlanListCreateView,
     PlanRetrieveUpdateDestroyView,
+    OrganizationSetupView,
 )
 
 
@@ -29,6 +30,8 @@ urlpatterns = [
         OrganizationChangePlanView.as_view(),
         name="organization-change-plan",
     ),
+
+    path("OrganizationSetup/", OrganizationSetupView.as_view(), name="organization-setup"),
 
     #--------------- Plan URLs ---------------#
     path("plans/", PlanListCreateView.as_view(), name="plan-list-create"),

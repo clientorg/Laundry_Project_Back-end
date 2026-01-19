@@ -199,3 +199,111 @@ class OrganizationChangePlanView(PermissionRequiredMixin, APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+# --------------- Organization Setup View ---------------#
+from django.db import transaction
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+
+from apps.accounts.models import GroupDetail
+from apps.organizations.models import Plan, Organization, OrganizationSubscription
+from apps.organizations.serializers import OrganizationSetupSerializer
+
+User = get_user_model()
+
+@extend_schema(
+    tags=["Organizations"],
+    request=OrganizationSetupSerializer,
+    description="Setup a new Organization with Plan, Subscription, and Admin User.",
+    summary="Organization Setup (Plan + Org + Subscription + User)"
+)
+
+class OrganizationSetupView(APIView):
+    def post(self, request):
+        serializer = OrganizationSetupSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        plan_data = serializer.validated_data["plan"]
+        org_data = serializer.validated_data["organization"]
+        user_data = serializer.validated_data["user"]
+
+        try:
+            with transaction.atomic():
+                # 1. Create User first (no org yet)
+                user = User.objects.create(
+                    username=user_data["username"],
+                    password=make_password(user_data["password"])
+                )
+
+                # 2. Create Plan
+                plan = Plan.objects.create(
+                    name=plan_data["name"],
+                    description=plan_data.get("description", ""),
+                    price=plan_data["price"],
+                    max_users=plan_data.get("max_users", 1),  # optional
+                    max_branches=plan_data["max_branches"],
+                    duration_days=plan_data["duration_days"],
+                )
+
+                # 3. Create Organization (root)
+                organization = Organization.objects.create(
+                    name=org_data["name"],
+                    created_by=user,
+                    updated_by=user,
+                    parent=None
+                )
+                # SIGNALS WILL EXECUTE HERE 
+
+                # 4. Create Subscription
+                subscription = OrganizationSubscription.objects.create(
+                    organization=organization,
+                    plan=plan
+                )
+
+                # 5. Assign user to org + OrgAdmin group
+                user.organization = organization
+                user.save()
+
+                # find the OrgAdmin group created by signal automation
+                orgadmin_group_detail = GroupDetail.objects.filter(
+                    organization=organization,
+                    group__name__startswith="org_admin_"
+                ).first()
+
+                if not orgadmin_group_detail:
+                    return Response(
+                        {"detail": "OrgAdmin group not found after automation."},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    )
+
+                orgadmin_group_detail.group.user_set.add(user)
+
+                # Success Response
+                return Response(
+                    {
+                        "message": "Organization setup completed successfully.",
+                        "organization": {
+                            "id": organization.id,
+                            "name": organization.name
+                        },
+                        "plan": {
+                            "id": plan.id,
+                            "name": plan.name
+                        },
+                        "subscription": {
+                            "started_at": subscription.started_at,
+                            "expires_at": subscription.expires_at
+                        },
+                        "user": {
+                            "id": user.id,
+                            "username": user.username
+                        }
+                    },
+                    status=status.HTTP_201_CREATED
+                )
+
+        except Exception as e:
+            return Response(
+                {"detail": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
