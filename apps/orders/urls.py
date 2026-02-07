@@ -16,6 +16,8 @@ from .views import (
     OrderPaymentRetrieveUpdateDestroyView,
     OrderPaymentsByOrderView,
     OrderPaymentsByCustomerView,
+    # custom actions for orders mark ready button
+    MarkOrderReadyView,
 )
 
 urlpatterns = [
@@ -87,4 +89,6 @@ urlpatterns = [
         OrderPaymentsByCustomerView.as_view(),
         name="payments-by-customer",
     ),
+    # custom action to mark order as ready
+    path("orders/<int:order_id>/mark-ready/", MarkOrderReadyView.as_view(), name="order-mark-ready"),
 ]

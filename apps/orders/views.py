@@ -297,3 +297,43 @@ class OrderPaymentsByCustomerView(PermissionRequiredMixin, generics.ListAPIView)
         return OrderPayment.objects.filter(order__customer__id=customer_id).order_by(
             "-created_at"
         )
+
+
+# ---------------------------- Mark Order as Ready and send WhatsApp notification   ----------------------------  
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .services.whatsapp import send_whatsapp_template
+from rest_framework.exceptions import NotFound
+from django.conf import settings
+
+@extend_schema(
+    tags=["Orders"],
+    summary="Mark order as ready and send WhatsApp notification",
+    description="Updates order status to READY and sends WhatsApp template message.",
+)
+class MarkOrderReadyView(APIView):
+    def post(self, request, order_id):
+        from .models import Order
+        try:
+            order = Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            raise NotFound("Order not found")
+
+        # Update status
+        order.status = "READY"
+        order.save()
+
+        # Send WhatsApp Message
+        phone = f"{order.customer.country_code}{order.customer.mobile_number}"
+
+        send_whatsapp_template(
+            to=phone,
+            template_name="hello_world",   # your test template
+            params=[]                      # hello_world has no parameters
+        )
+
+        return Response(
+            {"message": "Order ready & WhatsApp notification sent"},
+            status=status.HTTP_200_OK,
+        )

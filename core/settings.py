@@ -115,6 +115,11 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # OTP will expire after 1 minutes
 OTP_EXPIRATION_MINUTES = 10
 
+# WhatsApp Business API Configuration
+WHATSAPP_TOKEN="TOKEN"
+WHATSAPP_PHONE_NUMBER_ID="PHONE_NUMBER_ID"
+WHATSAPP_BUSINESS_ID="BUSINESS_ID"
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
