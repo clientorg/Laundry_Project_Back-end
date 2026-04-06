@@ -16,6 +16,7 @@ from .views import (
     ACCTMASTViewSet,
     ACCT_MAST_MAPViewSet,
     ACC_TRAN_DETAViewSet,
+    PurchaseInvoiceViewSet,
 )
 
 
@@ -34,6 +35,7 @@ router.register("acc-tran", ACC_TRANViewSet, basename="acc-tran")
 router.register("acct-mast", ACCTMASTViewSet, basename="acct-mast")
 router.register("acct-mast-map", ACCT_MAST_MAPViewSet, basename="acct-mast-map")
 router.register("acc-tran-deta", ACC_TRAN_DETAViewSet, basename="acc-tran-deta")
+router.register("purchase-invoice", PurchaseInvoiceViewSet, basename="purchase-invoice")
 
 
 urlpatterns = [

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "apps.orders",
     "apps.customers",
     "apps.purchase",
+    "apps.expenses",
+    "apps.reports",
     # pip apps
     "rest_framework",
     "rest_framework_simplejwt",
@@ -96,8 +98,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "laundry",
         "USER": "root",
-        "PASSWORD": "root",
-        "HOST": "127.0.0.1",
+        "PASSWORD": "laundry@2026#",
+        "HOST": "3.110.162.63",
         "PORT": "3306",
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }

@@ -337,3 +337,61 @@ class MarkOrderReadyView(APIView):
             {"message": "Order ready & WhatsApp notification sent"},
             status=status.HTTP_200_OK,
         )
+
+
+@extend_schema(
+    tags=["Orders"],
+    summary="Mark order as delivered and send WhatsApp notification",
+    description="Updates order status to DELIVERED and sends WhatsApp notification to customer.",
+)
+class MarkOrderDeliveredView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, order_id):
+        from .models import Order
+        from .services.whatsapp import notify_order_delivered
+        try:
+            order = Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            raise NotFound("Order not found")
+
+        order.status = "DELIVERED"
+        order.save()
+
+        result = notify_order_delivered(order)
+        return Response(
+            {"message": "Order delivered & WhatsApp notification sent", "whatsapp": result},
+            status=status.HTTP_200_OK,
+        )
+
+
+@extend_schema(
+    tags=["Orders"],
+    summary="Send custom WhatsApp message to customer",
+    request={
+        "application/json": {
+            "type": "object",
+            "properties": {
+                "phone": {"type": "string", "description": "Phone number with country code"},
+                "message": {"type": "string", "description": "Free-form text message"},
+            },
+            "required": ["phone", "message"],
+        }
+    },
+)
+class SendCustomWhatsAppView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        from .services.whatsapp import send_custom_text
+        phone = request.data.get("phone")
+        message = request.data.get("message")
+        if not phone or not message:
+            return Response(
+                {"error": "Both 'phone' and 'message' are required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        result = send_custom_text(to=phone, message=message)
+        return Response({"message": "WhatsApp message sent", "whatsapp": result}, status=status.HTTP_200_OK)

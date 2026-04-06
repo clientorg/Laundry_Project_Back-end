@@ -477,3 +477,51 @@ class ACC_TRAN_DETAViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, view
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
+
+# ----------------------- Purchase Invoice ViewSet -----------------------
+from .models import PurchaseInvoice
+from .serializers import PurchaseInvoiceSerializer
+
+@extend_schema_view(
+    list=extend_schema(summary="List Purchase Invoices", tags=["Purchase: Invoice"]),
+    create=extend_schema(summary="Create Purchase Invoice (with lines)", tags=["Purchase: Invoice"]),
+    retrieve=extend_schema(summary="Get Purchase Invoice", tags=["Purchase: Invoice"]),
+    update=extend_schema(summary="Update Purchase Invoice", tags=["Purchase: Invoice"]),
+    partial_update=extend_schema(summary="Patch Purchase Invoice", tags=["Purchase: Invoice"]),
+    destroy=extend_schema(summary="Delete Purchase Invoice", tags=["Purchase: Invoice"]),
+)
+class PurchaseInvoiceViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
+    queryset = PurchaseInvoice.objects.prefetch_related("lines").all().order_by("-invoice_date", "-created_at")
+    serializer_class = PurchaseInvoiceSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, HasAccessPermission]
+
+    permission_map = {
+        "GET": "purchase.view_purchaseinvoice",
+        "POST": "purchase.add_purchaseinvoice",
+        "PUT": "purchase.change_purchaseinvoice",
+        "PATCH": "purchase.change_purchaseinvoice",
+        "DELETE": "purchase.delete_purchaseinvoice",
+    }
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        from_date = self.request.query_params.get("from_date")
+        to_date = self.request.query_params.get("to_date")
+        supplier_id = self.request.query_params.get("supplier")
+        status = self.request.query_params.get("status")
+        if from_date:
+            qs = qs.filter(invoice_date__gte=from_date)
+        if to_date:
+            qs = qs.filter(invoice_date__lte=to_date)
+        if supplier_id:
+            qs = qs.filter(supplier_id=supplier_id)
+        if status:
+            qs = qs.filter(status=status)
+        return qs
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def perform_update(self, serializer):
+        serializer.save()

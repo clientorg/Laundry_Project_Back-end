@@ -16,8 +16,10 @@ from .views import (
     OrderPaymentRetrieveUpdateDestroyView,
     OrderPaymentsByOrderView,
     OrderPaymentsByCustomerView,
-    # custom actions for orders mark ready button
+    # WhatsApp / status actions
     MarkOrderReadyView,
+    MarkOrderDeliveredView,
+    SendCustomWhatsAppView,
 )
 
 urlpatterns = [
@@ -91,4 +93,8 @@ urlpatterns = [
     ),
     # custom action to mark order as ready
     path("orders/<int:order_id>/mark-ready/", MarkOrderReadyView.as_view(), name="order-mark-ready"),
+    # custom action to mark order as delivered
+    path("orders/<int:order_id>/mark-delivered/", MarkOrderDeliveredView.as_view(), name="order-mark-delivered"),
+    # send custom WhatsApp message
+    path("whatsapp/send/", SendCustomWhatsAppView.as_view(), name="whatsapp-send-custom"),
 ]

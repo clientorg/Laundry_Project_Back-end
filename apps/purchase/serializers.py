@@ -1557,3 +1557,120 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         return super().update(instance, validated_data)
 
+
+
+# ----------------------- Purchase Invoice Line Serializer -----------------------
+from .models import PurchaseInvoiceLine
+
+class PurchaseInvoiceLineSerializer(serializers.ModelSerializer):
+    item_name = serializers.SerializerMethodField()
+    unit_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PurchaseInvoiceLine
+        fields = [
+            "id", "item", "item_name", "unit", "unit_name",
+            "qty", "rate", "amount",
+            "created_at", "updated_at",
+        ]
+        read_only_fields = ["id", "amount", "created_at", "updated_at"]
+
+    @extend_schema_field(serializers.CharField())
+    def get_item_name(self, obj):
+        return obj.item.itname if obj.item else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_unit_name(self, obj):
+        return obj.unit.unitname if obj.unit else None
+
+
+# ----------------------- Purchase Invoice Serializer -----------------------
+from .models import PurchaseInvoice
+
+class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
+    lines = PurchaseInvoiceLineSerializer(many=True, required=False)
+    supplier_name = serializers.SerializerMethodField()
+    organization_name = serializers.SerializerMethodField()
+    branch_names = serializers.SerializerMethodField()
+    created_by_name = serializers.SerializerMethodField()
+    updated_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PurchaseInvoice
+        fields = [
+            "id", "invoice_no", "supplier", "supplier_name",
+            "vr_type", "vat", "invoice_date", "due_date",
+            "reference_no", "paymode", "status",
+            "amount_ex_vat", "vat_amount", "amount_inc_vat",
+            "narration", "is_active", "lines",
+            "organization", "organization_name",
+            "branches", "branch_names",
+            "created_by", "created_by_name",
+            "updated_by", "updated_by_name",
+            "created_at", "updated_at",
+        ]
+        read_only_fields = [
+            "id", "invoice_no", "vat_amount", "amount_inc_vat",
+            "created_at", "updated_at", "created_by", "updated_by",
+        ]
+
+    @extend_schema_field(serializers.CharField())
+    def get_supplier_name(self, obj):
+        return obj.supplier.name if obj.supplier else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_organization_name(self, obj):
+        return obj.organization.name if obj.organization else None
+
+    @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
+    def get_branch_names(self, obj):
+        return [b.name for b in obj.branches.all()]
+
+    @extend_schema_field(serializers.CharField())
+    def get_created_by_name(self, obj):
+        return obj.created_by.username if obj.created_by else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_updated_by_name(self, obj):
+        return obj.updated_by.username if obj.updated_by else None
+
+    def create(self, validated_data):
+        from django.db import transaction
+        lines_data = validated_data.pop("lines", [])
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        user = self.context["request"].user
+        validated_data["created_by"] = user
+
+        with transaction.atomic():
+            invoice = PurchaseInvoice.objects.create(**validated_data)
+            for line in lines_data:
+                PurchaseInvoiceLine.objects.create(
+                    invoice=invoice,
+                    organization=invoice.organization,
+                    created_by=user,
+                    **line,
+                )
+        return invoice
+
+    def update(self, instance, validated_data):
+        from django.db import transaction
+        lines_data = validated_data.pop("lines", None)
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        user = self.context["request"].user
+        instance.updated_by = user
+
+        with transaction.atomic():
+            for attr, value in validated_data.items():
+                setattr(instance, attr, value)
+            instance.save()
+
+            if lines_data is not None:
+                instance.lines.all().delete()
+                for line in lines_data:
+                    PurchaseInvoiceLine.objects.create(
+                        invoice=instance,
+                        organization=instance.organization,
+                        updated_by=user,
+                        **line,
+                    )
+        return instance

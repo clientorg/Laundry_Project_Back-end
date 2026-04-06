@@ -6,6 +6,10 @@ from apps.master.models import Country
 
 User = settings.AUTH_USER_MODEL
 
+
+# ----------------------- Purchase Invoice (Purchase Entry) -----------------------
+# Defined before other models to avoid forward references; actual class bodies are at end of file.
+
 # -------------------------- VAT Master Model --------------------------
 class VATMaster(models.Model):
 
@@ -1048,3 +1052,133 @@ class ACC_TRAN_DETA(models.Model):
             self.account = ACCT_MAST.objects.filter(listcode=self.list_code_ac).first()
 
         super().save(*args, **kwargs)
+
+
+# ----------------------- Purchase Invoice Header -----------------------
+class PurchaseInvoice(models.Model):
+    STATUS_CHOICES = [
+        ("draft", "Draft"),
+        ("pending", "Pending"),
+        ("paid", "Paid"),
+        ("cancelled", "Cancelled"),
+    ]
+
+    PAYMODE_CHOICES = [
+        ("cash", "Cash"),
+        ("bank", "Bank"),
+        ("credit", "Credit"),
+    ]
+
+    invoice_no = models.CharField(max_length=50, unique=True, editable=False)
+    supplier = models.ForeignKey(
+        SupplierMaster, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoices"
+    )
+    vr_type = models.ForeignKey(
+        VRTypeMaster, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoices_vrtype"
+    )
+    vat = models.ForeignKey(
+        VATMaster, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoices_vat"
+    )
+    invoice_date = models.DateField()
+    due_date = models.DateField(null=True, blank=True)
+    reference_no = models.CharField(max_length=100, blank=True, null=True)
+    paymode = models.CharField(max_length=10, choices=PAYMODE_CHOICES, default="cash")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+
+    amount_ex_vat = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+    vat_amount = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+    amount_inc_vat = models.DecimalField(max_digits=18, decimal_places=3, default=0)
+
+    narration = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    organization = models.ForeignKey(
+        Organization, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoices_org"
+    )
+    branches = models.ManyToManyField(
+        Organization, blank=True, related_name="purchase_invoices_branches"
+    )
+    created_by = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoices_created"
+    )
+    updated_by = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoices_updated"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Purchase Invoice"
+        verbose_name_plural = "Purchase Invoices"
+        ordering = ["-invoice_date", "-created_at"]
+
+    def save(self, *args, **kwargs):
+        if not self.invoice_no:
+            last = PurchaseInvoice.objects.order_by("-id").first()
+            next_id = (last.id + 1) if last else 1
+            self.invoice_no = f"PIV{next_id:05d}"
+        # Recalculate VAT
+        vat_rate = (self.vat.vatper / 100) if self.vat else 0
+        self.vat_amount = (self.amount_ex_vat or 0) * vat_rate
+        self.amount_inc_vat = (self.amount_ex_vat or 0) + self.vat_amount
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.invoice_no} - {self.supplier}"
+
+
+# ----------------------- Purchase Invoice Line -----------------------
+class PurchaseInvoiceLine(models.Model):
+    invoice = models.ForeignKey(
+        PurchaseInvoice, on_delete=models.CASCADE,
+        related_name="lines"
+    )
+    item = models.ForeignKey(
+        ItemMaster, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="invoice_lines"
+    )
+    unit = models.ForeignKey(
+        UnitMaster, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="invoice_lines_unit"
+    )
+    qty = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+    rate = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+    amount = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+
+    organization = models.ForeignKey(
+        Organization, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoice_lines_org"
+    )
+    branches = models.ManyToManyField(
+        Organization, blank=True, related_name="purchase_invoice_lines_branches"
+    )
+    created_by = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoice_lines_created"
+    )
+    updated_by = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="purchase_invoice_lines_updated"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Purchase Invoice Line"
+        verbose_name_plural = "Purchase Invoice Lines"
+        ordering = ["invoice", "id"]
+
+    def save(self, *args, **kwargs):
+        # Auto-calculate amount if not provided
+        if self.qty and self.rate:
+            self.amount = self.qty * self.rate
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.invoice.invoice_no} - {self.item} x {self.qty}"
