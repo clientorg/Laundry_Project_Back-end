@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 from decimal import Decimal
 
+from django.core.exceptions import FieldDoesNotExist
 from django.db.models import Sum, Count, Q, F
 from django.db.models.functions import TruncDate, Coalesce
 from django.db.models import DecimalField, ExpressionWrapper
@@ -17,6 +18,7 @@ from apps.organizations.mixins import OrgBranchQuerysetMixin
 from apps.orders.models import Order, OrderPayment
 from apps.customers.models import Customer
 from apps.expenses.models import Expense
+from apps.purchase.models import PurchaseInvoice
 
 
 def _parse_date(value, fallback):
@@ -30,14 +32,38 @@ def _parse_date(value, fallback):
 
 
 def _filter_by_org_branch(qs, user, org_field="organization", branch_field="branches"):
-    """Replicates OrgBranchQuerysetMixin logic for raw querysets."""
+    """
+    Mirrors OrgBranchQuerysetMixin logic for APIView querysets.
+
+    - Org user  → records belonging to that org OR any of its branches.
+    - Branch user → records assigned to those branches; also includes
+      is_global records scoped to the parent org (when the model has that field).
+    - Neither   → empty queryset.
+    """
     if user.organization:
         return qs.filter(
             Q(**{org_field: user.organization})
             | Q(**{f"{branch_field}__parent": user.organization})
         ).distinct()
+
     elif user.branches.exists():
-        return qs.filter(**{f"{branch_field}__in": user.branches.all()}).distinct()
+        filters = Q(**{f"{branch_field}__in": user.branches.all()})
+
+        # Include is_global items scoped to the parent org when supported.
+        try:
+            qs.model._meta.get_field("is_global")
+            first_branch = user.branches.first()
+            parent_org = first_branch.parent if first_branch else None
+            if parent_org:
+                filters |= Q(is_global=True) & (
+                    Q(**{org_field: parent_org})
+                    | Q(**{f"{branch_field}__parent": parent_org})
+                )
+        except FieldDoesNotExist:
+            pass
+
+        return qs.filter(filters).distinct()
+
     return qs.none()
 
 
@@ -47,12 +73,12 @@ def _filter_by_org_branch(qs, user, org_field="organization", branch_field="bran
     tags=["Reports: Dashboard"],
     summary="Dashboard KPIs and revenue chart",
     description=(
-        "Returns KPI cards and daily revenue chart data.\n\n"
+        "Returns KPI cards and daily revenue/collection chart data.\n\n"
         "**KPIs returned:**\n"
-        "- today / this_month / this_year: orders count & revenue\n"
-        "- total_expenses_this_month\n"
-        "- unpaid_credit_total\n\n"
-        "**Chart:** last 30 days daily revenue"
+        "- `today` / `this_month` / `this_year`: orders count, revenue, collected_amount, credit_given\n"
+        "- `expenses_this_month`\n"
+        "- `unpaid_credit_total`\n\n"
+        "**Chart:** last 30 days — revenue (order totals) + collected (actual cash received) per day"
     ),
 )
 class DashboardKPIView(APIView):
@@ -68,18 +94,37 @@ class DashboardKPIView(APIView):
         year_start = today.replace(month=1, day=1)
         chart_start = today - timedelta(days=29)
 
+        D0 = Decimal("0.000")
+
         # Base querysets scoped to user's org/branch
         orders_qs = _filter_by_org_branch(Order.objects.all(), user)
         expenses_qs = _filter_by_org_branch(Expense.objects.all(), user)
 
-        def order_stats(qs):
-            result = qs.aggregate(
+        def _order_stats(qs):
+            """Revenue + collected + credit_given for a set of orders."""
+            revenue = qs.aggregate(
                 count=Count("id"),
-                revenue=Coalesce(Sum("total"), Decimal("0.000"), output_field=DecimalField()),
+                revenue=Coalesce(Sum("total"), D0, output_field=DecimalField()),
             )
-            return {"orders": result["count"], "revenue": result["revenue"]}
+            payments = OrderPayment.objects.filter(order__in=qs)
+            collected = float(
+                payments.exclude(payment_type__in=["credit"]).aggregate(
+                    t=Coalesce(Sum("received_amount"), D0, output_field=DecimalField())
+                )["t"]
+            )
+            credit_given = float(
+                payments.filter(payment_type="credit").aggregate(
+                    t=Coalesce(Sum("received_amount"), D0, output_field=DecimalField())
+                )["t"]
+            )
+            return {
+                "orders": revenue["count"],
+                "revenue": float(revenue["revenue"]),
+                "collected_amount": collected,
+                "credit_given": credit_given,
+            }
 
-        # KPIs
+        # ── KPI periods ────────────────────────────────────────────────
         today_qs = orders_qs.filter(inward_date=today)
         month_qs = orders_qs.filter(inward_date__gte=month_start)
         year_qs = orders_qs.filter(inward_date__gte=year_start)
@@ -87,47 +132,64 @@ class DashboardKPIView(APIView):
         expenses_this_month = expenses_qs.filter(
             expense_date__gte=month_start
         ).aggregate(
-            total=Coalesce(Sum("amount"), Decimal("0.000"), output_field=DecimalField())
+            total=Coalesce(Sum("amount"), D0, output_field=DecimalField())
         )["total"]
 
-        # Unpaid credit = sum of credit payments - sum of repayments
-        credit_total = OrderPayment.objects.filter(
-            order__in=orders_qs, payment_type="credit"
-        ).aggregate(
-            total=Coalesce(Sum("received_amount"), Decimal("0.000"), output_field=DecimalField())
-        )["total"]
-
-        repaid_total = OrderPayment.objects.filter(
-            order__in=orders_qs, payment_type="repayment"
-        ).aggregate(
-            total=Coalesce(Sum("received_amount"), Decimal("0.000"), output_field=DecimalField())
-        )["total"]
-
-        unpaid_credit = max(Decimal("0"), credit_total - repaid_total)
-
-        # Revenue chart: last 30 days
-        chart_data = (
-            orders_qs.filter(inward_date__gte=chart_start)
-            .annotate(day=TruncDate("inward_date"))
-            .values("day")
-            .annotate(revenue=Coalesce(Sum("total"), Decimal("0.000"), output_field=DecimalField()))
-            .order_by("day")
+        # All-time unpaid credit scoped to the user's org/branch
+        all_payments = OrderPayment.objects.filter(order__in=orders_qs)
+        credit_total = float(
+            all_payments.filter(payment_type="credit").aggregate(
+                t=Coalesce(Sum("received_amount"), D0, output_field=DecimalField())
+            )["t"]
         )
+        repaid_total = float(
+            all_payments.filter(payment_type="repayment").aggregate(
+                t=Coalesce(Sum("received_amount"), D0, output_field=DecimalField())
+            )["t"]
+        )
+        unpaid_credit = max(0.0, credit_total - repaid_total)
 
-        # Fill missing days with 0
-        revenue_map = {row["day"]: float(row["revenue"]) for row in chart_data}
+        # ── Revenue chart: last 30 days ────────────────────────────────
+        # Use inward_date directly (it is already a DateField — no TruncDate needed)
+        chart_orders = orders_qs.filter(inward_date__gte=chart_start)
+
+        revenue_rows = (
+            chart_orders
+            .values("inward_date")
+            .annotate(revenue=Coalesce(Sum("total"), D0, output_field=DecimalField()))
+            .order_by("inward_date")
+        )
+        revenue_map = {row["inward_date"]: float(row["revenue"]) for row in revenue_rows}
+
+        # Collected per day — group by the order's inward_date
+        collected_rows = (
+            OrderPayment.objects
+            .filter(order__in=chart_orders)
+            .exclude(payment_type="credit")
+            .values("order__inward_date")
+            .annotate(collected=Coalesce(Sum("received_amount"), D0, output_field=DecimalField()))
+        )
+        collected_map = {
+            row["order__inward_date"]: float(row["collected"])
+            for row in collected_rows
+        }
+
         chart = []
         for i in range(30):
             d = chart_start + timedelta(days=i)
-            chart.append({"date": str(d), "revenue": revenue_map.get(d, 0.0)})
+            chart.append({
+                "date": str(d),
+                "revenue": revenue_map.get(d, 0.0),
+                "collected": collected_map.get(d, 0.0),
+            })
 
         return Response({
             "kpis": {
-                "today": order_stats(today_qs),
-                "this_month": order_stats(month_qs),
-                "this_year": order_stats(year_qs),
+                "today": _order_stats(today_qs),
+                "this_month": _order_stats(month_qs),
+                "this_year": _order_stats(year_qs),
                 "expenses_this_month": float(expenses_this_month),
-                "unpaid_credit_total": float(unpaid_credit),
+                "unpaid_credit_total": round(unpaid_credit, 3),
             },
             "revenue_chart": chart,
         })
@@ -138,7 +200,15 @@ class DashboardKPIView(APIView):
 @extend_schema(
     tags=["Reports: P&L"],
     summary="Profit & Loss Report",
-    description="Returns revenue, expenses, and net profit for a date range.",
+    description=(
+        "Detailed P&L for a date range.\n\n"
+        "**Sections returned:**\n"
+        "- `order_revenue` — gross revenue, base price, VAT collected, discounts, delivery charges\n"
+        "- `payment_collections` — breakdown by payment type (cash/card/upi/wallet/credit/repaid)\n"
+        "- `purchase_cost` — purchase invoices (ex-VAT, VAT, inc-VAT)\n"
+        "- `direct_expenses` — total expenses with per-category breakdown\n"
+        "- `summary` — total_income, purchase_cost, gross_profit, direct_expenses, net_profit, profit_margin_%"
+    ),
     parameters=[
         OpenApiParameter("from_date", OpenApiTypes.DATE, description="Start date (YYYY-MM-DD)"),
         OpenApiParameter("to_date", OpenApiTypes.DATE, description="End date (YYYY-MM-DD)"),
@@ -156,59 +226,119 @@ class PnLReportView(APIView):
         from_date = _parse_date(request.query_params.get("from_date"), today.replace(day=1))
         to_date = _parse_date(request.query_params.get("to_date"), today)
 
+        D0 = Decimal("0.000")
+
         orders_qs = _filter_by_org_branch(Order.objects.all(), user)
         expenses_qs = _filter_by_org_branch(Expense.objects.all(), user)
+        purchase_qs = _filter_by_org_branch(PurchaseInvoice.objects.filter(is_active=True), user)
 
-        # Revenue
-        revenue_data = orders_qs.filter(
-            inward_date__gte=from_date, inward_date__lte=to_date
-        ).aggregate(
+        period_orders = orders_qs.filter(inward_date__gte=from_date, inward_date__lte=to_date)
+        period_expenses = expenses_qs.filter(expense_date__gte=from_date, expense_date__lte=to_date)
+        period_purchases = purchase_qs.filter(invoice_date__gte=from_date, invoice_date__lte=to_date)
+
+        # ── Order Revenue ──────────────────────────────────────────────
+        revenue_data = period_orders.aggregate(
             total_orders=Count("id"),
-            gross_revenue=Coalesce(Sum("total"), Decimal("0.000"), output_field=DecimalField()),
-            total_vat=Coalesce(Sum("vat_price"), Decimal("0.000"), output_field=DecimalField()),
-            total_discount=Coalesce(Sum("discount_price"), Decimal("0.000"), output_field=DecimalField()),
+            gross_revenue=Coalesce(Sum("total"), D0, output_field=DecimalField()),
+            order_price=Coalesce(Sum("price"), D0, output_field=DecimalField()),
+            vat_collected=Coalesce(Sum("vat_price"), D0, output_field=DecimalField()),
+            discount_given=Coalesce(Sum("discount_price"), D0, output_field=DecimalField()),
+            delivery_charges=Coalesce(Sum("delivery_charge_price"), D0, output_field=DecimalField()),
         )
 
-        # Expenses
-        expense_data = expenses_qs.filter(
-            expense_date__gte=from_date, expense_date__lte=to_date
-        ).aggregate(
-            total_expenses=Coalesce(Sum("amount"), Decimal("0.000"), output_field=DecimalField()),
+        # ── Payment Collections ────────────────────────────────────────
+        payments_qs = OrderPayment.objects.filter(order__in=period_orders)
+
+        def _pay_sum(ptype):
+            return float(
+                payments_qs.filter(payment_type=ptype).aggregate(
+                    t=Coalesce(Sum("received_amount"), D0, output_field=DecimalField())
+                )["t"]
+            )
+
+        payment_collections = {
+            "cash": _pay_sum("cash"),
+            "card": _pay_sum("card"),
+            "upi": _pay_sum("upi"),
+            "wallet": _pay_sum("wallet"),
+            "credit_given": _pay_sum("credit"),
+            "credit_repaid": _pay_sum("repayment"),
+            "other": _pay_sum("other"),
+        }
+        payment_collections["net_credit_outstanding"] = round(
+            payment_collections["credit_given"] - payment_collections["credit_repaid"], 3
+        )
+
+        # ── Purchase Cost ──────────────────────────────────────────────
+        purchase_data = period_purchases.aggregate(
+            invoice_count=Count("id"),
+            purchase_ex_vat=Coalesce(Sum("amount_ex_vat"), D0, output_field=DecimalField()),
+            purchase_vat=Coalesce(Sum("vat_amount"), D0, output_field=DecimalField()),
+            purchase_total=Coalesce(Sum("amount_inc_vat"), D0, output_field=DecimalField()),
+        )
+
+        # ── Direct Expenses ────────────────────────────────────────────
+        expense_data = period_expenses.aggregate(
             expense_count=Count("id"),
+            total_expenses=Coalesce(Sum("amount"), D0, output_field=DecimalField()),
         )
-
-        # Expense breakdown by category
-        category_breakdown = list(
-            expenses_qs.filter(expense_date__gte=from_date, expense_date__lte=to_date)
+        expense_by_category = list(
+            period_expenses
             .values("category__name")
-            .annotate(total=Sum("amount"))
+            .annotate(total=Coalesce(Sum("amount"), D0, output_field=DecimalField()))
             .order_by("-total")
         )
 
-        gross_revenue = revenue_data["gross_revenue"] or Decimal("0")
-        total_expenses = expense_data["total_expenses"] or Decimal("0")
-        net_profit = gross_revenue - total_expenses
+        # ── Summary ────────────────────────────────────────────────────
+        total_income = revenue_data["gross_revenue"] or D0
+        purchase_cost = purchase_data["purchase_total"] or D0
+        direct_expenses = expense_data["total_expenses"] or D0
+        gross_profit = total_income - purchase_cost
+        net_profit = gross_profit - direct_expenses
 
         return Response({
             "period": {"from": str(from_date), "to": str(to_date)},
-            "revenue": {
+
+            "order_revenue": {
                 "total_orders": revenue_data["total_orders"],
-                "gross_revenue": float(gross_revenue),
-                "total_vat": float(revenue_data["total_vat"] or 0),
-                "total_discount": float(revenue_data["total_discount"] or 0),
+                "gross_revenue": float(revenue_data["gross_revenue"]),
+                "order_price": float(revenue_data["order_price"]),
+                "vat_collected": float(revenue_data["vat_collected"]),
+                "discount_given": float(revenue_data["discount_given"]),
+                "delivery_charges": float(revenue_data["delivery_charges"]),
             },
-            "expenses": {
-                "total_expenses": float(total_expenses),
+
+            "payment_collections": payment_collections,
+
+            "purchase_cost": {
+                "invoice_count": purchase_data["invoice_count"],
+                "amount_ex_vat": float(purchase_data["purchase_ex_vat"]),
+                "vat_amount": float(purchase_data["purchase_vat"]),
+                "amount_inc_vat": float(purchase_data["purchase_total"]),
+            },
+
+            "direct_expenses": {
                 "expense_count": expense_data["expense_count"],
+                "total_expenses": float(direct_expenses),
                 "by_category": [
-                    {"category": r["category__name"] or "Uncategorized", "total": float(r["total"])}
-                    for r in category_breakdown
+                    {
+                        "category": r["category__name"] or "Uncategorized",
+                        "total": float(r["total"]),
+                    }
+                    for r in expense_by_category
                 ],
             },
-            "net_profit": float(net_profit),
-            "profit_margin_percent": (
-                round(float(net_profit / gross_revenue * 100), 2) if gross_revenue else 0.0
-            ),
+
+            "summary": {
+                "total_income": float(total_income),
+                "purchase_cost": float(purchase_cost),
+                "gross_profit": float(gross_profit),
+                "direct_expenses": float(direct_expenses),
+                "net_profit": float(net_profit),
+                "profit_margin_percent": (
+                    round(float(net_profit / total_income * 100), 2) if total_income else 0.0
+                ),
+            },
         })
 
 
@@ -281,7 +411,7 @@ class CustomerListReportView(APIView):
                 "name": c.name,
                 "mobile": f"{c.country_code or ''}{c.mobile_number or ''}",
                 "email": c.email,
-                "category": c.category.name if c.category else None,
+                "category": {"id": c.category.id, "name": c.category.name} if c.category else None,
                 "credit_limit": float(c.credit_limit or 0),
                 "total_orders": c.total_orders,
                 "total_amount": float(c.total_amount or 0),
@@ -343,7 +473,7 @@ class UnpaidCustomersReportView(APIView):
                 "name": c.name,
                 "mobile": f"{c.country_code or ''}{c.mobile_number or ''}",
                 "email": c.email,
-                "category": c.category.name if c.category else None,
+                "category": {"id": c.category.id, "name": c.category.name} if c.category else None,
                 "credit_limit": float(c.credit_limit or 0),
                 "credit_used": float(c.total_credit or 0),
                 "credit_repaid": float(c.total_repaid or 0),
