@@ -78,7 +78,7 @@ def _filter_by_org_branch(qs, user, org_field="organization", branch_field="bran
         "- `today` / `this_month` / `this_year`: orders count, revenue, collected_amount, credit_given\n"
         "- `expenses_this_month`\n"
         "- `unpaid_credit_total`\n\n"
-        "**Chart:** last 30 days — revenue (order totals) + collected (actual cash received) per day"
+        "**Chart:** last 30 days — orders count, revenue (order totals) + collected (actual cash received) per day"
     ),
 )
 class DashboardKPIView(APIView):
@@ -156,10 +156,14 @@ class DashboardKPIView(APIView):
         revenue_rows = (
             chart_orders
             .values("inward_date")
-            .annotate(revenue=Coalesce(Sum("total"), D0, output_field=DecimalField()))
+            .annotate(
+                orders=Count("id"),
+                revenue=Coalesce(Sum("total"), D0, output_field=DecimalField()),
+            )
             .order_by("inward_date")
         )
         revenue_map = {row["inward_date"]: float(row["revenue"]) for row in revenue_rows}
+        orders_map = {row["inward_date"]: row["orders"] for row in revenue_rows}
 
         # Collected per day — group by the order's inward_date
         collected_rows = (
@@ -179,6 +183,7 @@ class DashboardKPIView(APIView):
             d = chart_start + timedelta(days=i)
             chart.append({
                 "date": str(d),
+                "orders": orders_map.get(d, 0),
                 "revenue": revenue_map.get(d, 0.0),
                 "collected": collected_map.get(d, 0.0),
             })
