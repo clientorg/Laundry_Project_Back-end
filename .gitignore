@@ -8,6 +8,8 @@ __pycache__/
 *.pot
 *.pyc
 db.sqlite3
+build/
+dist/
 media/
 staticfiles/
 

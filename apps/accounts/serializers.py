@@ -5,18 +5,21 @@ from django.contrib.auth.models import Permission, Group
 from django.contrib.auth.hashers import make_password
 
 # package imports
-from rest_framework import serializers 
+from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from drf_spectacular.utils import extend_schema_field
 
 # laundry mixin imports
-from .mixins import GroupOrgBranchAssignMixin 
+from .mixins import GroupOrgBranchAssignMixin
 from apps.organizations.mixins import OrgBranchAssignMixin
 
 # laundry model imports
 from .models import AuthUser, GroupDetail, PasswordResetOTP
+from apps.organizations.models import OrganizationSubscription
 
 
 User = get_user_model()
+
 
 class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     organization_name = serializers.CharField(
@@ -81,6 +84,35 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+
+        organization = validated_data.get("organization")
+
+        if not organization:
+            raise ValidationError("Organization is required.")
+
+        root_org = organization.parent if organization.parent else organization
+
+        subscription = (
+            OrganizationSubscription.objects.filter(organization=root_org)
+            .order_by("-id")
+            .first()
+        )
+
+        if not subscription:
+            raise ValidationError("No active subscription found.")
+
+        max_users = subscription.plan.max_users
+
+        org_ids = list(root_org.branches.values_list("id", flat=True))
+        org_ids.append(root_org.id)
+
+        current_users = AuthUser.objects.filter(organization_id__in=org_ids).count()
+
+        if current_users >= max_users:
+            raise ValidationError(
+                f"User limit reached ({max_users}). Upgrade your plan."
+            )
+
         request = self.context["request"]
         user = request.user
         validated_data["created_by"] = user
@@ -228,7 +260,7 @@ class UserTokenSerializer(serializers.Serializer):
         fields = "__all__"
 
 
-# Password Reset Serializers using username 
+# Password Reset Serializers using username
 # =======================
 class RequestPasswordResetByUsernameSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -254,7 +286,9 @@ class OTPPasswordResetSerializer(serializers.Serializer):
         confirm_password = attrs.get("confirm_password")
 
         if new_password != confirm_password:
-            raise serializers.ValidationError("New password and confirm password do not match.")
+            raise serializers.ValidationError(
+                "New password and confirm password do not match."
+            )
 
         # Validate OTP
         try:
@@ -264,7 +298,7 @@ class OTPPasswordResetSerializer(serializers.Serializer):
 
         # Check if OTP exists and is valid
         otp_obj = PasswordResetOTP.objects.filter(user=user, otp_code=otp).last()
-        
+
         if not otp_obj or not otp_obj.is_valid():
             raise serializers.ValidationError("OTP is invalid or expired.")
 
@@ -287,13 +321,14 @@ class OTPPasswordResetSerializer(serializers.Serializer):
 
         return user
 
+
 class ForgotUsernameSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
     def validate_email(self, value):
         # Do not reveal whether the email exists in the system
         return value
-    
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     current_password = serializers.CharField(write_only=True)
@@ -308,7 +343,9 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data["new_password"] != data["confirm_password"]:
-            raise serializers.ValidationError("New password and confirm password do not match.")
+            raise serializers.ValidationError(
+                "New password and confirm password do not match."
+            )
         return data
 
     def save(self, **kwargs):
