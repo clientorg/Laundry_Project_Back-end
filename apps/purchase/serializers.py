@@ -1638,11 +1638,14 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
         from django.db import transaction
         lines_data = validated_data.pop("lines", [])
         validated_data = self.assign_org_branch_on_create(validated_data)
+        branches = validated_data.pop("branches", [])
         user = self.context["request"].user
         validated_data["created_by"] = user
 
         with transaction.atomic():
             invoice = PurchaseInvoice.objects.create(**validated_data)
+            if branches:
+                invoice.branches.set(branches)
             for line in lines_data:
                 PurchaseInvoiceLine.objects.create(
                     invoice=invoice,
