@@ -1570,10 +1570,10 @@ class PurchaseInvoiceLineSerializer(serializers.ModelSerializer):
         model = PurchaseInvoiceLine
         fields = [
             "id", "item", "item_name", "unit", "unit_name",
-            "qty", "rate", "amount",
+            "qty", "rate", "amount", "vat_per", "vat_amount",
             "created_at", "updated_at",
         ]
-        read_only_fields = ["id", "amount", "created_at", "updated_at"]
+        read_only_fields = ["id", "amount", "vat_amount", "created_at", "updated_at"]
 
     @extend_schema_field(serializers.CharField())
     def get_item_name(self, obj):

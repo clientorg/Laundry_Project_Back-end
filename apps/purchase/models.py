@@ -1063,12 +1063,6 @@ class PurchaseInvoice(models.Model):
         ("cancelled", "Cancelled"),
     ]
 
-    PAYMODE_CHOICES = [
-        ("cash", "Cash"),
-        ("bank", "Bank"),
-        ("credit", "Credit"),
-    ]
-
     invoice_no = models.CharField(max_length=50, unique=True, editable=False)
     supplier = models.ForeignKey(
         SupplierMaster, null=True, blank=True, on_delete=models.SET_NULL,
@@ -1085,7 +1079,7 @@ class PurchaseInvoice(models.Model):
     invoice_date = models.DateField()
     due_date = models.DateField(null=True, blank=True)
     reference_no = models.CharField(max_length=100, blank=True, null=True)
-    paymode = models.CharField(max_length=10, choices=PAYMODE_CHOICES, default="cash")
+    paymode = models.CharField(max_length=50, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
 
     amount_ex_vat = models.DecimalField(max_digits=18, decimal_places=3, default=0)
@@ -1150,6 +1144,8 @@ class PurchaseInvoiceLine(models.Model):
     qty = models.DecimalField(max_digits=12, decimal_places=3, default=0)
     rate = models.DecimalField(max_digits=12, decimal_places=3, default=0)
     amount = models.DecimalField(max_digits=12, decimal_places=3, default=0)
+    vat_per = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    vat_amount = models.DecimalField(max_digits=12, decimal_places=3, default=0)
 
     organization = models.ForeignKey(
         Organization, null=True, blank=True, on_delete=models.SET_NULL,
@@ -1175,9 +1171,9 @@ class PurchaseInvoiceLine(models.Model):
         ordering = ["invoice", "id"]
 
     def save(self, *args, **kwargs):
-        # Auto-calculate amount if not provided
         if self.qty and self.rate:
             self.amount = self.qty * self.rate
+        self.vat_amount = (self.amount or 0) * (self.vat_per or 0) / 100
         super().save(*args, **kwargs)
 
     def __str__(self):
