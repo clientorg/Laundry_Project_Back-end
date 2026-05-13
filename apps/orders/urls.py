@@ -20,6 +20,8 @@ from .views import (
     MarkOrderReadyView,
     MarkOrderDeliveredView,
     SendCustomWhatsAppView,
+    SendOrderPlacementWhatsAppView,
+    SendOrderStatusUpdateWhatsAppView,
 )
 
 urlpatterns = [
@@ -97,4 +99,8 @@ urlpatterns = [
     path("orders/<int:order_id>/mark-delivered/", MarkOrderDeliveredView.as_view(), name="order-mark-delivered"),
     # send custom WhatsApp message
     path("whatsapp/send/", SendCustomWhatsAppView.as_view(), name="whatsapp-send-custom"),
+    # order placement WhatsApp notification
+    path("whatsapp/order-placement/", SendOrderPlacementWhatsAppView.as_view(), name="whatsapp-order-placement"),
+    # order status update WhatsApp notification
+    path("whatsapp/order-status-update/", SendOrderStatusUpdateWhatsAppView.as_view(), name="whatsapp-order-status-update"),
 ]

@@ -395,3 +395,89 @@ class SendCustomWhatsAppView(APIView):
             )
         result = send_custom_text(to=phone, message=message)
         return Response({"message": "WhatsApp message sent", "whatsapp": result}, status=status.HTTP_200_OK)
+
+
+# ---------------------------- WhatsApp: Order Placement ----------------------------
+
+@extend_schema(
+    tags=["WhatsApp"],
+    summary="Send WhatsApp notification for order placement",
+    description="Sends an order placement confirmation message to the customer via WhatsApp.",
+    request={
+        "application/json": {
+            "type": "object",
+            "properties": {
+                "customer_name":  {"type": "string", "description": "Customer full name"},
+                "phone":          {"type": "string", "description": "Phone number with country code (e.g. 96599123456)"},
+                "voucher_number": {"type": "string", "description": "Order voucher/reference number"},
+                "status":         {"type": "string", "description": "Current order status"},
+            },
+            "required": ["customer_name", "phone", "voucher_number", "status"],
+        }
+    },
+)
+class SendOrderPlacementWhatsAppView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        from .services.whatsapp import notify_order_placement
+        customer_name  = request.data.get("customer_name")
+        phone          = request.data.get("phone")
+        voucher_number = request.data.get("voucher_number")
+        order_status   = request.data.get("status")
+
+        if not all([customer_name, phone, voucher_number, order_status]):
+            return Response(
+                {"error": "customer_name, phone, voucher_number and status are all required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        result = notify_order_placement(customer_name, phone, voucher_number, order_status)
+        return Response(
+            {"message": "Order placement WhatsApp notification sent", "whatsapp": result},
+            status=status.HTTP_200_OK,
+        )
+
+
+# ---------------------------- WhatsApp: Order Status Update ----------------------------
+
+@extend_schema(
+    tags=["WhatsApp"],
+    summary="Send WhatsApp notification for order status update",
+    description="Sends an order status update message to the customer via WhatsApp.",
+    request={
+        "application/json": {
+            "type": "object",
+            "properties": {
+                "customer_name":  {"type": "string", "description": "Customer full name"},
+                "phone":          {"type": "string", "description": "Phone number with country code (e.g. 96599123456)"},
+                "voucher_number": {"type": "string", "description": "Order voucher/reference number"},
+                "status":         {"type": "string", "description": "Updated order status"},
+            },
+            "required": ["customer_name", "phone", "voucher_number", "status"],
+        }
+    },
+)
+class SendOrderStatusUpdateWhatsAppView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        from .services.whatsapp import notify_order_status_update
+        customer_name  = request.data.get("customer_name")
+        phone          = request.data.get("phone")
+        voucher_number = request.data.get("voucher_number")
+        order_status   = request.data.get("status")
+
+        if not all([customer_name, phone, voucher_number, order_status]):
+            return Response(
+                {"error": "customer_name, phone, voucher_number and status are all required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        result = notify_order_status_update(customer_name, phone, voucher_number, order_status)
+        return Response(
+            {"message": "Order status update WhatsApp notification sent", "whatsapp": result},
+            status=status.HTTP_200_OK,
+        )
