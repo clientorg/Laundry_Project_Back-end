@@ -301,6 +301,34 @@ class HandlingType(models.Model):
         return self.name
 
 
+class AppSettings(models.Model):
+    """
+    Global key-value settings table.
+    Use this for runtime configuration that should be editable without a code deploy.
+    Example keys: whatsapp_number, sms_sender_id, etc.
+    """
+    key = models.CharField(max_length=100, unique=True)
+    value = models.TextField(blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "App Setting"
+        verbose_name_plural = "App Settings"
+        ordering = ["key"]
+
+    def __str__(self):
+        return f"{self.key} = {self.value}"
+
+    @classmethod
+    def get(cls, key, default=None):
+        try:
+            return cls.objects.get(key=key).value
+        except cls.DoesNotExist:
+            return default
+
+
 class DeliveryType(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)

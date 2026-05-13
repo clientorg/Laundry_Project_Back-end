@@ -10,6 +10,12 @@ from django.conf import settings
 MSG91_WHATSAPP_URL = "https://api.msg91.com/api/v5/whatsapp/whatsapp-outbound-message/bulk/"
 
 
+def _get_whatsapp_number():
+    """Fetch the integrated WhatsApp sender number from the DB AppSettings table."""
+    from apps.master.models import AppSettings
+    return AppSettings.get('whatsapp_number', default=settings.MSG91_WHATSAPP_NUMBER)
+
+
 def send_whatsapp_template(to, template_name, params=None, language_code="en"):
     """
     Send a WhatsApp template message via MSG91.
@@ -38,7 +44,7 @@ def send_whatsapp_template(to, template_name, params=None, language_code="en"):
         ]
 
     payload = {
-        "integrated_number": settings.MSG91_WHATSAPP_NUMBER,
+        "integrated_number": _get_whatsapp_number(),
         "content_type": "template",
         "payload": {
             "messaging_product": "whatsapp",
@@ -97,7 +103,7 @@ def notify_order_placement(customer_name, phone, voucher_number, status):
     """Send order placement confirmation via WhatsApp template."""
     return send_whatsapp_template(
         to=phone,
-        template_name="order_placement",
+        template_name="laundry_new_order",
         params=[customer_name, voucher_number, status],
     )
 
@@ -106,7 +112,7 @@ def notify_order_status_update(customer_name, phone, voucher_number, status):
     """Send order status update notification via WhatsApp template."""
     return send_whatsapp_template(
         to=phone,
-        template_name="order_status_update",
+        template_name="laundry_status_update",
         params=[customer_name, voucher_number, status],
     )
 
@@ -122,7 +128,7 @@ def send_custom_text(to, message):
     }
 
     payload = {
-        "integrated_number": settings.MSG91_WHATSAPP_NUMBER,
+        "integrated_number": _get_whatsapp_number(),
         "content_type": "text",
         "payload": {
             "messaging_product": "whatsapp",

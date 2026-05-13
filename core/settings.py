@@ -121,8 +121,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 OTP_EXPIRATION_MINUTES = 10
 
 # MSG91 WhatsApp API Configuration
-MSG91_AUTH_KEY = "your_msg91_auth_key"
-MSG91_WHATSAPP_NUMBER = "your_whatsapp_integrated_number"  # e.g. "919XXXXXXXXX"
+MSG91_AUTH_KEY = "366581AeNc1jQyEhb6a03fa62P1"
+MSG91_WHATSAPP_NUMBER = "916379758027"  # fallback — primary value is read from AppSettings DB table
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
