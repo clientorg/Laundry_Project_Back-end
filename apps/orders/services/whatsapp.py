@@ -11,9 +11,18 @@ MSG91_WHATSAPP_URL = "https://api.msg91.com/api/v5/whatsapp/whatsapp-outbound-me
 
 
 def _get_whatsapp_number():
-    """Fetch the integrated WhatsApp sender number from the DB AppSettings table."""
     from apps.master.models import AppSettings
     return AppSettings.get('whatsapp_number', default=settings.MSG91_WHATSAPP_NUMBER)
+
+
+def _get_auth_key():
+    from apps.master.models import AppSettings
+    return AppSettings.get('msg91_auth_key', default=settings.MSG91_AUTH_KEY)
+
+
+def _get_whatsapp_namespace():
+    from apps.master.models import AppSettings
+    return AppSettings.get('msg91_whatsapp_namespace', default=settings.MSG91_WHATSAPP_NAMESPACE)
 
 
 def send_whatsapp_template(to, template_name, params=None, language_code="en"):
@@ -23,25 +32,22 @@ def send_whatsapp_template(to, template_name, params=None, language_code="en"):
     Args:
         to:             Recipient phone number with country code (e.g. "96599123456")
         template_name:  Approved MSG91 / WhatsApp template name
-        params:         List of text strings for template body placeholders
+        params:         List of text strings for template body placeholders (body_1, body_2, ...)
         language_code:  Template language code (default: "en")
     """
     if params is None:
         params = []
 
     headers = {
-        "authkey": settings.MSG91_AUTH_KEY,
+        "authkey": _get_auth_key(),
         "Content-Type": "application/json",
     }
 
-    components = []
-    if params:
-        components = [
-            {
-                "type": "body",
-                "parameters": [{"type": "text", "text": str(p)} for p in params],
-            }
-        ]
+    # Build components as body_1, body_2, ... keyed dict
+    components = {
+        f"body_{i + 1}": {"type": "text", "value": str(p)}
+        for i, p in enumerate(params)
+    }
 
     payload = {
         "integrated_number": _get_whatsapp_number(),
@@ -51,10 +57,18 @@ def send_whatsapp_template(to, template_name, params=None, language_code="en"):
             "type": "template",
             "template": {
                 "name": template_name,
-                "language": {"code": language_code},
-                "components": components,
+                "language": {
+                    "code": language_code,
+                    "policy": "deterministic",
+                },
+                "namespace": _get_whatsapp_namespace(),
+                "to_and_components": [
+                    {
+                        "to": [to],
+                        "components": components,
+                    }
+                ],
             },
-            "to": to,
         },
     }
 
@@ -123,7 +137,7 @@ def send_custom_text(to, message):
     Uses MSG91 WhatsApp text payload.
     """
     headers = {
-        "authkey": settings.MSG91_AUTH_KEY,
+        "authkey": _get_auth_key(),
         "Content-Type": "application/json",
     }
 
