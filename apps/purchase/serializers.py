@@ -1636,6 +1636,7 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
 
     def create(self, validated_data):
         from django.db import transaction
+        from django.db.models import Sum
         lines_data = validated_data.pop("lines", [])
         validated_data = self.assign_org_branch_on_create(validated_data)
         branches = validated_data.pop("branches", [])
@@ -1653,10 +1654,27 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
                     created_by=user,
                     **line,
                 )
+            # Aggregate totals from lines
+            totals = invoice.lines.aggregate(
+                total_ex_vat=Sum("amount"),
+                total_vat=Sum("vat_amount"),
+            )
+            amount_ex_vat = totals["total_ex_vat"] or 0
+            vat_amount = totals["total_vat"] or 0
+            amount_inc_vat = amount_ex_vat + vat_amount
+            PurchaseInvoice.objects.filter(pk=invoice.pk).update(
+                amount_ex_vat=amount_ex_vat,
+                vat_amount=vat_amount,
+                amount_inc_vat=amount_inc_vat,
+            )
+            invoice.amount_ex_vat = amount_ex_vat
+            invoice.vat_amount = vat_amount
+            invoice.amount_inc_vat = amount_inc_vat
         return invoice
 
     def update(self, instance, validated_data):
         from django.db import transaction
+        from django.db.models import Sum
         lines_data = validated_data.pop("lines", None)
         instance = self.assign_org_branch_on_update(instance, validated_data)
         user = self.context["request"].user
@@ -1676,4 +1694,20 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
                         updated_by=user,
                         **line,
                     )
+            # Aggregate totals from lines
+            totals = instance.lines.aggregate(
+                total_ex_vat=Sum("amount"),
+                total_vat=Sum("vat_amount"),
+            )
+            amount_ex_vat = totals["total_ex_vat"] or 0
+            vat_amount = totals["total_vat"] or 0
+            amount_inc_vat = amount_ex_vat + vat_amount
+            PurchaseInvoice.objects.filter(pk=instance.pk).update(
+                amount_ex_vat=amount_ex_vat,
+                vat_amount=vat_amount,
+                amount_inc_vat=amount_inc_vat,
+            )
+            instance.amount_ex_vat = amount_ex_vat
+            instance.vat_amount = vat_amount
+            instance.amount_inc_vat = amount_inc_vat
         return instance

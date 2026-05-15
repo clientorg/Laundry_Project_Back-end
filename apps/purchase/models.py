@@ -1117,10 +1117,6 @@ class PurchaseInvoice(models.Model):
             last = PurchaseInvoice.objects.order_by("-id").first()
             next_id = (last.id + 1) if last else 1
             self.invoice_no = f"PIV{next_id:05d}"
-        # Recalculate VAT
-        vat_rate = (self.vat.vatper / 100) if self.vat else 0
-        self.vat_amount = (self.amount_ex_vat or 0) * vat_rate
-        self.amount_inc_vat = (self.amount_ex_vat or 0) + self.vat_amount
         super().save(*args, **kwargs)
 
     def __str__(self):
