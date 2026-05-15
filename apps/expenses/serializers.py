@@ -38,6 +38,19 @@ class ExpenseCategorySerializer(OrgBranchAssignMixin, serializers.ModelSerialize
     def get_branch_names(self, obj):
         return [b.name for b in obj.branches.all()]
 
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        user = self.context["request"].user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        user = self.context["request"].user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
+
 
 class ExpenseSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
@@ -95,3 +108,16 @@ class ExpenseSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_vat_name(self, obj):
         return obj.vat.vatname if obj.vat else None
+
+    def create(self, validated_data):
+        validated_data = self.assign_org_branch_on_create(validated_data)
+        user = self.context["request"].user
+        validated_data["created_by"] = user
+        validated_data["updated_by"] = user
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance = self.assign_org_branch_on_update(instance, validated_data)
+        user = self.context["request"].user
+        instance.updated_by = user
+        return super().update(instance, validated_data)
