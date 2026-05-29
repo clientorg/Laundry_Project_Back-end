@@ -1,3 +1,4 @@
+from .models import PrinterConfiguration
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
@@ -1711,3 +1712,13 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
             instance.vat_amount = vat_amount
             instance.amount_inc_vat = amount_inc_vat
         return instance
+# -----------------------PRINTER CONFIGURATION---------------------------
+class PrinterConfigurationSerializer(
+    serializers.ModelSerializer
+):
+
+    class Meta:
+
+        model = PrinterConfiguration
+
+        fields = '__all__'

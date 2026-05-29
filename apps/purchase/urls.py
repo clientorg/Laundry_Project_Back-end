@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from .views import printers, print_pdf
 
 from .views import (
     VATMasterViewSet,
@@ -17,6 +18,7 @@ from .views import (
     ACCT_MAST_MAPViewSet,
     ACC_TRAN_DETAViewSet,
     PurchaseInvoiceViewSet,
+    printer_configuration,
 )
 
 
@@ -40,4 +42,17 @@ router.register("purchase-invoice", PurchaseInvoiceViewSet, basename="purchase-i
 
 urlpatterns = [
     path("", include(router.urls)),
+     path(
+        "printer-configuration/",
+        printer_configuration
+    ),
+     path(
+        'printers/',
+        printers
+    ),
+
+    path(
+        'print-image-pdf/',
+        print_pdf
+    ),
 ]

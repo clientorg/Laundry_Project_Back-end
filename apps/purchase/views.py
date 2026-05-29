@@ -1,3 +1,35 @@
+from rest_framework.decorators import api_view
+from .serializers import PrinterConfigurationSerializer
+from .models import PrinterConfiguration
+from rest_framework.response import Response
+from .serializers import PurchaseInvoiceSerializer
+from .models import PurchaseInvoice
+from apps.purchase.serializers import ACCTRANDETASerializer
+from apps.purchase.models import ACC_TRAN_DETA
+from .serializers import ACCTMASTMAPSerializer
+from .models import ACCT_MAST_MAP
+from .serializers import ACCTMASTSerializer
+from .models import ACCT_MAST
+from .serializers import ACCTRANSerializer
+from .models import ACC_TRAN
+from .serializers import INVTRANSerializer
+from .models import INV_TRAN
+from .serializers import VRTypeMasterSerializer
+from .models import VRTypeMaster
+from .serializers import UnitMapSerializer
+from .models import UnitMap
+from .serializers import ItemMasterSerializer
+from .models import ItemMaster
+from .serializers import UnitMasterSerializer
+from .models import UnitMaster
+from .serializers import ITGRP_MAPSerializer
+from .models import ITGRP_MAP
+from .serializers import BrandMasterSerializer
+from .models import BrandMaster
+from .serializers import GroupMasterSerializer
+from .models import GroupMaster
+from .serializers import SupplierMasterSerializer
+from .models import SupplierMaster
 from rest_framework import viewsets, permissions
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
@@ -525,3 +557,56 @@ class PurchaseInvoiceViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, vi
 
     def perform_update(self, serializer):
         serializer.save()
+# ------------------------PRINTER CONFIGURATION-----------------------
+@api_view(['GET', 'POST'])
+def printer_configuration(request):
+
+    config = PrinterConfiguration.objects.first()
+
+    if request.method == 'GET':
+
+        serializer = PrinterConfigurationSerializer(config)
+
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+
+        serializer = PrinterConfigurationSerializer(
+            config,
+            data=request.data
+        )
+
+        if serializer.is_valid():
+
+            serializer.save()
+
+            return Response({
+                "success": True
+            })
+
+        return Response(serializer.errors)
+# printer 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from printer.printer_service import (
+    get_printers,
+    print_image_pdf
+)
+
+
+@api_view(['GET'])
+def printers(request):
+
+    return Response({
+        "success": True,
+        "printers": get_printers()
+    })
+
+
+@api_view(['POST'])
+def print_pdf(request):
+
+    result = print_image_pdf(request.data)
+
+    return Response(result)

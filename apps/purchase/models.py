@@ -1174,3 +1174,21 @@ class PurchaseInvoiceLine(models.Model):
 
     def __str__(self):
         return f"{self.invoice.invoice_no} - {self.item} x {self.qty}"
+    # ---------------------PRINTER CONFIGURATION-------------------------
+class PrinterConfiguration(models.Model):
+
+    thermal_printer = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    barcode_printer = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+
+        return "Printer Configuration"
