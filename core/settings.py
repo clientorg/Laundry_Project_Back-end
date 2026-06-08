@@ -122,7 +122,7 @@ OTP_EXPIRATION_MINUTES = 10
 
 # MSG91 WhatsApp API Configuration
 MSG91_AUTH_KEY = "366581AeNc1jQyEhb6a03fa62P1"              # fallback — primary value read from AppSettings DB table
-MSG91_WHATSAPP_NUMBER = "916379758027"                          # fallback — primary value read from AppSettings DB table
+MSG91_WHATSAPP_NUMBER = "15557491497"                           # fallback — primary value read from AppSettings DB table
 MSG91_WHATSAPP_NAMESPACE = "a044e060_d204_415a_9ac4_6933a8706e28"  # fallback — primary value read from AppSettings DB table
 
 # Password validation

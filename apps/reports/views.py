@@ -73,13 +73,20 @@ def _filter_by_org_branch(qs, user, org_field="organization", branch_field="bran
     tags=["Reports: Dashboard"],
     summary="Dashboard KPIs and revenue chart",
     description=(
-        "Returns KPI cards and daily revenue/collection chart data.\n\n"
+        "Returns KPI cards and order/revenue chart data.\n\n"
         "**KPIs returned:**\n"
         "- `today` / `this_month` / `this_year`: orders count, revenue, collected_amount, credit_given\n"
         "- `expenses_this_month`\n"
-        "- `unpaid_credit_total`\n\n"
-        "**Chart:** last 30 days — orders count, revenue (order totals) + collected (actual cash received) per day"
+        "- `unpaid_credit_total` — all-time outstanding credit (see `unpaid_credit_label` for period)\n\n"
+        "**Chart:** daily (≤30 days) or weekly (>30 days) order counts + revenue.\n"
+        "Use `chart_period` for a preset range or `chart_from`/`chart_to` for a custom range. "
+        "Defaults to last 30 days."
     ),
+    parameters=[
+        OpenApiParameter("chart_period", OpenApiTypes.INT, description="Preset range in days: 7, 14, 30 (default), 60, or 90"),
+        OpenApiParameter("chart_from", OpenApiTypes.DATE, description="Custom chart start date (YYYY-MM-DD)"),
+        OpenApiParameter("chart_to", OpenApiTypes.DATE, description="Custom chart end date (YYYY-MM-DD)"),
+    ],
 )
 class DashboardKPIView(APIView):
     authentication_classes = [JWTAuthentication]
@@ -92,7 +99,6 @@ class DashboardKPIView(APIView):
         today = date.today()
         month_start = today.replace(day=1)
         year_start = today.replace(month=1, day=1)
-        chart_start = today - timedelta(days=29)
 
         D0 = Decimal("0.000")
 
@@ -149,11 +155,30 @@ class DashboardKPIView(APIView):
         )
         unpaid_credit = max(0.0, credit_total - repaid_total)
 
-        # ── Revenue chart: last 30 days ────────────────────────────────
-        # Use inward_date directly (it is already a DateField — no TruncDate needed)
-        chart_orders = orders_qs.filter(inward_date__gte=chart_start)
+        # ── Revenue chart — dynamic period / grouping ──────────────────
+        chart_period_param = request.query_params.get("chart_period")
+        chart_from_param = request.query_params.get("chart_from")
+        chart_to_param = request.query_params.get("chart_to")
 
-        revenue_rows = (
+        if chart_from_param and chart_to_param:
+            chart_end = _parse_date(chart_to_param, today)
+            chart_start = _parse_date(chart_from_param, today - timedelta(days=29))
+        else:
+            try:
+                period_days = int(chart_period_param) if chart_period_param else 30
+                if period_days not in (7, 14, 30, 60, 90):
+                    period_days = 30
+            except (ValueError, TypeError):
+                period_days = 30
+            chart_end = today
+            chart_start = today - timedelta(days=period_days - 1)
+
+        days_span = (chart_end - chart_start).days + 1
+        grouping = "daily" if days_span <= 30 else "weekly"
+
+        chart_orders = orders_qs.filter(inward_date__gte=chart_start, inward_date__lte=chart_end)
+
+        revenue_rows = list(
             chart_orders
             .values("inward_date")
             .annotate(
@@ -162,31 +187,55 @@ class DashboardKPIView(APIView):
             )
             .order_by("inward_date")
         )
-        revenue_map = {row["inward_date"]: float(row["revenue"]) for row in revenue_rows}
-        orders_map = {row["inward_date"]: row["orders"] for row in revenue_rows}
-
-        # Collected per day — group by the order's inward_date
-        collected_rows = (
+        collected_rows = list(
             OrderPayment.objects
             .filter(order__in=chart_orders)
             .exclude(payment_type="credit")
             .values("order__inward_date")
             .annotate(collected=Coalesce(Sum("received_amount"), D0, output_field=DecimalField()))
         )
-        collected_map = {
-            row["order__inward_date"]: float(row["collected"])
-            for row in collected_rows
-        }
 
-        chart = []
-        for i in range(30):
-            d = chart_start + timedelta(days=i)
-            chart.append({
-                "date": str(d),
-                "orders": orders_map.get(d, 0),
-                "revenue": revenue_map.get(d, 0.0),
-                "collected": collected_map.get(d, 0.0),
-            })
+        if grouping == "daily":
+            revenue_map = {row["inward_date"]: float(row["revenue"]) for row in revenue_rows}
+            orders_map = {row["inward_date"]: row["orders"] for row in revenue_rows}
+            collected_map = {row["order__inward_date"]: float(row["collected"]) for row in collected_rows}
+
+            chart = []
+            for i in range(days_span):
+                d = chart_start + timedelta(days=i)
+                chart.append({
+                    "date": str(d),
+                    "orders": orders_map.get(d, 0),
+                    "revenue": revenue_map.get(d, 0.0),
+                    "collected": collected_map.get(d, 0.0),
+                })
+        else:
+            def _week_monday(d):
+                return d - timedelta(days=d.weekday())
+
+            weekly_orders = {}
+            weekly_revenue = {}
+            for row in revenue_rows:
+                wk = _week_monday(row["inward_date"])
+                weekly_orders[wk] = weekly_orders.get(wk, 0) + row["orders"]
+                weekly_revenue[wk] = weekly_revenue.get(wk, 0.0) + float(row["revenue"])
+
+            weekly_collected = {}
+            for row in collected_rows:
+                wk = _week_monday(row["order__inward_date"])
+                weekly_collected[wk] = weekly_collected.get(wk, 0.0) + float(row["collected"])
+
+            chart = []
+            wk = _week_monday(chart_start)
+            while wk <= chart_end:
+                chart.append({
+                    "date": str(wk),
+                    "week_end": str(min(wk + timedelta(days=6), chart_end)),
+                    "orders": weekly_orders.get(wk, 0),
+                    "revenue": weekly_revenue.get(wk, 0.0),
+                    "collected": weekly_collected.get(wk, 0.0),
+                })
+                wk += timedelta(weeks=1)
 
         return Response({
             "kpis": {
@@ -195,8 +244,15 @@ class DashboardKPIView(APIView):
                 "this_year": _order_stats(year_qs),
                 "expenses_this_month": float(expenses_this_month),
                 "unpaid_credit_total": round(unpaid_credit, 3),
+                "unpaid_credit_period": "all_time",
+                "unpaid_credit_label": "Total Outstanding (All Time)",
             },
-            "revenue_chart": chart,
+            "revenue_chart": {
+                "grouping": grouping,
+                "from": str(chart_start),
+                "to": str(chart_end),
+                "data": chart,
+            },
         })
 
 
@@ -339,6 +395,7 @@ class PnLReportView(APIView):
                 "purchase_cost": float(purchase_cost),
                 "gross_profit": float(gross_profit),
                 "direct_expenses": float(direct_expenses),
+                "total_cost": float(purchase_cost + direct_expenses),
                 "net_profit": float(net_profit),
                 "profit_margin_percent": (
                     round(float(net_profit / total_income * 100), 2) if total_income else 0.0
