@@ -78,7 +78,7 @@ def _filter_by_org_branch(qs, user, org_field="organization", branch_field="bran
         "- `today` / `this_month` / `this_year`: orders count, revenue, collected_amount, credit_given\n"
         "- `expenses_this_month`\n"
         "- `unpaid_credit_total` — all-time outstanding credit (see `unpaid_credit_label` for period)\n\n"
-        "**Chart:** daily (≤30 days) or weekly (>30 days) order counts + revenue.\n"
+        "**Chart:** daily (≤60 days) or weekly (>60 days) order counts + revenue.\n"
         "Use `chart_period` for a preset range or `chart_from`/`chart_to` for a custom range. "
         "Defaults to last 30 days."
     ),
@@ -174,7 +174,7 @@ class DashboardKPIView(APIView):
             chart_start = today - timedelta(days=period_days - 1)
 
         days_span = (chart_end - chart_start).days + 1
-        grouping = "daily" if days_span <= 30 else "weekly"
+        grouping = "daily" if days_span <= 60 else "weekly"
 
         chart_orders = orders_qs.filter(inward_date__gte=chart_start, inward_date__lte=chart_end)
 

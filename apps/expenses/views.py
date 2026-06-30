@@ -65,12 +65,15 @@ class ExpenseViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.M
         from_date = self.request.query_params.get("from_date")
         to_date = self.request.query_params.get("to_date")
         category_id = self.request.query_params.get("category")
+        payment_mode = self.request.query_params.get("payment_mode")
         if from_date:
             qs = qs.filter(expense_date__gte=from_date)
         if to_date:
             qs = qs.filter(expense_date__lte=to_date)
         if category_id:
             qs = qs.filter(category_id=category_id)
+        if payment_mode:
+            qs = qs.filter(payment_mode__iexact=payment_mode)
         return qs
 
     def perform_create(self, serializer):
