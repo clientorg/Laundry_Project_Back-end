@@ -1,4 +1,5 @@
 from django.urls import path
+from .qz_views import QZCertificateView, QZSignView
 
 # laundry view imports
 from .views import (
@@ -46,6 +47,16 @@ from .views import (
 
 # urls.py
 urlpatterns = [
+    path(
+        "qz/certificate/",
+        QZCertificateView.as_view(),
+        name="qz-certificate",
+    ),
+    path(
+        "qz/sign/",
+        QZSignView.as_view(),
+        name="qz-sign",
+    ),
     # master urls
     path(
         "countries/",
