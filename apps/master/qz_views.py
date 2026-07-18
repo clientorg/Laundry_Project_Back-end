@@ -1,5 +1,6 @@
 import base64
 from pathlib import Path
+from django.http import HttpResponse
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,7 +21,7 @@ class QZCertificateView(APIView):
 
     def get(self, request):
         with open(CERT_DIR / "qz-public.crt", "r") as f:
-            return Response(f.read())
+            return HttpResponse(f.read(), content_type="application/x-pem-file")
 
 
 @extend_schema(tags=["QZ"])
