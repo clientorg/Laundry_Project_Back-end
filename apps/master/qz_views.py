@@ -14,20 +14,14 @@ from cryptography.hazmat.primitives.asymmetric import padding
 CERT_DIR = Path("/opt/qz-certificates")
 
 
+@extend_schema(tags=["QZ"])
 class QZCertificateView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        with open(CERT_DIR / "qz-public.crt", "r") as leaf:
-            leaf_cert = leaf.read().strip()
-
-        with open(CERT_DIR / "root-ca.crt", "r") as root:
-            root_cert = root.read().strip()
-
-        pem_chain = f"{leaf_cert}\n{root_cert}\n"
-
-        return HttpResponse(pem_chain, content_type="application/x-pem-file")
+        with open(CERT_DIR / "qz-public.crt", "r") as f:
+            return HttpResponse(f.read(), content_type="application/x-pem-file")
 
 
 @extend_schema(tags=["QZ"])
