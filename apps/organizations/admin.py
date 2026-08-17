@@ -101,8 +101,6 @@ class OrganizationSubscriptionAdmin(admin.ModelAdmin):
     list_filter = ("plan",)
     search_fields = ("organization__name", "plan__name")
     readonly_fields = (
-        "organization",
-        "plan",
         "started_at",
         "expires_at",
     )
