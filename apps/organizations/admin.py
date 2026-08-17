@@ -112,12 +112,3 @@ class OrganizationSubscriptionAdmin(admin.ModelAdmin):
 
     is_active.boolean = True
     is_active.short_description = "Active"
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
