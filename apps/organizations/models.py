@@ -23,6 +23,11 @@ class Organization(models.Model):
         decimal_places=2,
         default=0.00,
     )
+    vat_registration_number = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

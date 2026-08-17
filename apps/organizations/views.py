@@ -2,6 +2,7 @@
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from drf_spectacular.utils import extend_schema
+from rest_framework.exceptions import PermissionDenied
 
 # laundry mixin imports
 from .mixins import BranchQuerysetMixin
@@ -75,6 +76,10 @@ class OrganizationListCreateView(
         return super().get_queryset().order_by("name")
 
     def perform_create(self, serializer):
+        if not self.request.user.is_superuser:
+            raise PermissionDenied(
+                "Only super administrators can create organizations."
+            )
         serializer.save()
 
 @extend_schema(tags=["Organizations"])
@@ -93,8 +98,13 @@ class OrganizationRetrieveUpdateDestroyView(
         "DELETE": "organizations.delete_organization",
     }
 
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
+    def perform_destroy(self, instance):
+        if not self.request.user.is_superuser:
+            raise PermissionDenied(
+                "Only super administrators can delete organizations."
+            )
+
+        instance.delete()
 
 
 # --------------- Plan Views ---------------#
@@ -116,6 +126,14 @@ class PlanListCreateView(
         "POST": "organizations.add_plan",
     }
 
+    def perform_create(self, serializer):
+        if not self.request.user.is_superuser:
+            raise PermissionDenied(
+                "Only super administrators can create plans."
+            )
+
+        serializer.save()
+
 
 @extend_schema(tags=["Plans"])
 class PlanRetrieveUpdateDestroyView(
@@ -132,6 +150,22 @@ class PlanRetrieveUpdateDestroyView(
         "PATCH": "organizations.change_plan",
         "DELETE": "organizations.delete_plan",
     }
+
+    def perform_update(self, serializer):
+        if not self.request.user.is_superuser:
+            raise PermissionDenied(
+                "Only super administrators can update plans."
+            )
+
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        if not self.request.user.is_superuser:
+            raise PermissionDenied(
+                "Only super administrators can delete plans."
+            )
+
+        instance.delete()
 
 #--------------- Change Organization Plan View ---------------#
 from rest_framework.views import APIView
@@ -161,6 +195,11 @@ class OrganizationChangePlanView(PermissionRequiredMixin, APIView):
     }
 
     def post(self, request, pk):
+        if not request.user.is_superuser:
+            raise PermissionDenied(
+                "Only super administrators can change an organization's plan."
+            )
+
         serializer = ChangePlanSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
