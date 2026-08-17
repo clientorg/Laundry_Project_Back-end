@@ -1,9 +1,12 @@
+from django.db import transaction
+
 # package imports
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
 # laundry model imports
 from .models import Branch
+from apps.accounts.models import GroupDetail
 
 # subscription service imports
 from apps.organizations.services.subscription_service import (
@@ -65,15 +68,13 @@ class BranchSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Unable to determine parent organization from user."
             )
-        
+
         # Check branch limit before creating a new branch
         try:
             check_branch_limit(parent)
         except BranchLimitExceeded as e:
-            raise serializers.ValidationError({
-                "detail": str(e)
-            })  
-           
+            raise serializers.ValidationError({"detail": str(e)})
+
         return Branch.objects.create(
             parent=parent,
             created_by=user,
@@ -96,6 +97,7 @@ class BranchSerializer(serializers.ModelSerializer):
 # -------------------------Organization Serializer
 from .models import Organization
 from .models import Plan
+
 
 class OrganizationSerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -152,7 +154,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             "started_at": subscription.started_at,
             "expires_at": subscription.expires_at,
         }
-    
+
     def create(self, validated_data):
         request = self.context["request"]
         user = request.user
@@ -161,8 +163,6 @@ class OrganizationSerializer(serializers.ModelSerializer):
         validated_data["updated_by"] = user
 
         return Organization.objects.create(**validated_data)
-
-        
 
     def update(self, instance, validated_data):
         request = self.context["request"]
@@ -175,8 +175,10 @@ class OrganizationSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 # ------------------------- Plan Serializer
 from .models import Plan
+
 
 class PlanSerializer(serializers.ModelSerializer):
 
@@ -236,7 +238,7 @@ class OrganizationSubscriptionSerializer(serializers.ModelSerializer):
 
     def get_is_active(self, obj):
         return obj.is_active
-    
+
 
 # --------------------- INPUT VALIDATION SERIALIZERS --------------------- #
 from django.contrib.auth import get_user_model
@@ -256,7 +258,9 @@ class UserInputSerializer(serializers.Serializer):
 
     def validate_password(self, value):
         if len(value) < 8:
-            raise serializers.ValidationError("Password must be at least 8 characters long.")
+            raise serializers.ValidationError(
+                "Password must be at least 8 characters long."
+            )
         return value
 
 
@@ -265,10 +269,10 @@ class PlanInputSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
     description = serializers.CharField(required=False, allow_blank=True)
     price = serializers.DecimalField(max_digits=10, decimal_places=2)
-    
+
     # max_users is optional as per Q1=B
     max_users = serializers.IntegerField(required=False, min_value=1)
-    
+
     max_branches = serializers.IntegerField(min_value=1)
     duration_days = serializers.IntegerField(min_value=1)
 
@@ -293,3 +297,126 @@ class OrganizationSetupSerializer(serializers.Serializer):
     plan = PlanInputSerializer()
     organization = OrganizationInputSerializer()
     user = UserInputSerializer()
+
+
+class OrganizationCreateSerializer(serializers.Serializer):
+    # Organization
+    name = serializers.CharField(max_length=255)
+    description = serializers.CharField(required=False, allow_blank=True)
+    address = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    contact_name = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    contact_mobile_number = serializers.CharField(
+        max_length=20,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    contact_email = serializers.EmailField(
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    country = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    country_code = serializers.CharField(
+        max_length=5,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    currency_code = serializers.CharField(
+        max_length=10,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    service_vat_percent = serializers.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        required=False,
+        default=0,
+    )
+    vat_registration_number = serializers.CharField(
+        max_length=50,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+
+    # Plan
+    plan_id = serializers.PrimaryKeyRelatedField(
+        queryset=Plan.objects.all(),
+        source="plan",
+    )
+
+    # Initial user
+    user_email = serializers.EmailField()
+    user_first_name = serializers.CharField(max_length=150)
+    user_last_name = serializers.CharField(
+        max_length=150,
+        required=False,
+        allow_blank=True,
+    )
+    user_mobile_number = serializers.CharField(
+        max_length=15,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+    user_country_code = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
+
+    @transaction.atomic
+    def create(self, validated_data):
+        plan = validated_data.pop("plan")
+
+        user_email = validated_data.pop("user_email")
+        user_first_name = validated_data.pop("user_first_name")
+        user_last_name = validated_data.pop("user_last_name", "")
+        user_mobile_number = validated_data.pop("user_mobile_number", None)
+        user_country_code = validated_data.pop("user_country_code", None)
+
+        created_by = self.context["request"].user
+
+        organization = Organization.objects.create(
+            created_by=created_by,
+            **validated_data,
+        )
+
+        OrganizationSubscription.objects.create(
+            organization=organization,
+            plan=plan,
+        )
+
+        user = User.objects.create_user(
+            username=user_email,
+            email=user_email,
+            first_name=user_first_name,
+            last_name=user_last_name,
+            mobile_number=user_mobile_number,
+            country_code=user_country_code,
+            organization=organization,
+            created_by=created_by,
+        )
+
+        group_detail = GroupDetail.objects.get(
+            organization=organization,
+            group__name__startswith="org_admin_",
+        )
+
+        user.groups.add(group_detail.group)
+
+        return organization

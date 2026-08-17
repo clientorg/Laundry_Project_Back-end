@@ -99,7 +99,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "laundry",
+        "NAME": "laundry_backup",
         "USER": "root",
         "PASSWORD": "root",
         "HOST": "127.0.0.1",
