@@ -87,12 +87,26 @@ class OrganizationListCreateView(PermissionRequiredMixin, generics.ListCreateAPI
 
         return OrganizationSerializer
 
-    def perform_create(self, serializer):
-        if not self.request.user.is_superuser:
+    def create(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
             raise PermissionDenied(
                 "Only super administrators can create organizations."
             )
-        serializer.save()
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        organization = serializer.save()
+
+        response_serializer = OrganizationSerializer(
+            organization,
+            context=self.get_serializer_context(),
+        )
+
+        return Response(
+            response_serializer.data,
+            status=status.HTTP_201_CREATED,
+        )
 
 
 @extend_schema(tags=["Organizations"])

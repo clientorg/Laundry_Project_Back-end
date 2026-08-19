@@ -359,7 +359,9 @@ class OrganizationCreateSerializer(serializers.Serializer):
     )
 
     # Initial user
+    user_username = serializers.CharField(max_length=150)
     user_email = serializers.EmailField()
+    user_password = serializers.CharField(write_only=True, required=True, allow_blank=False)
     user_first_name = serializers.CharField(max_length=150)
     user_last_name = serializers.CharField(
         max_length=150,
@@ -383,7 +385,9 @@ class OrganizationCreateSerializer(serializers.Serializer):
     def create(self, validated_data):
         plan = validated_data.pop("plan")
 
+        user_username = validated_data.pop("user_username")
         user_email = validated_data.pop("user_email")
+        user_password = validated_data.pop("user_password")
         user_first_name = validated_data.pop("user_first_name")
         user_last_name = validated_data.pop("user_last_name", "")
         user_mobile_number = validated_data.pop("user_mobile_number", None)
@@ -402,8 +406,9 @@ class OrganizationCreateSerializer(serializers.Serializer):
         )
 
         user = User.objects.create_user(
-            username=user_email,
+            username=user_username,
             email=user_email,
+            password=user_password,
             first_name=user_first_name,
             last_name=user_last_name,
             mobile_number=user_mobile_number,
