@@ -153,6 +153,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             "max_branches": plan.max_branches,
             "started_at": subscription.started_at,
             "expires_at": subscription.expires_at,
+            "is_active": subscription.is_active,
         }
 
     def create(self, validated_data):

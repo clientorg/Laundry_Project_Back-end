@@ -208,6 +208,7 @@ class LoginAPIView(APIView):
         org = user.organization
         currency_code = None
         vat_percent = None
+        vat_registration_number = None
         org_name = None
         is_org_user = False
 
@@ -215,6 +216,7 @@ class LoginAPIView(APIView):
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
+            vat_registration_number = org.vat_registration_number
             org_name = org.name
             is_org_user = True
 
@@ -229,6 +231,9 @@ class LoginAPIView(APIView):
                 )
                 vat_percent = branch.service_vat_percent or (
                     branch.parent.service_vat_percent if branch.parent else None
+                )
+                vat_registration_number = branch.vat_registration_number or (
+                    branch.parent.vat_registration_number if branch.parent else None
                 )
                 # If parent exists, prefer parent name as organization name
                 if branch.parent:
@@ -253,6 +258,7 @@ class LoginAPIView(APIView):
                     "organization_name": org_name,
                     "organization_currency_code": currency_code,
                     "organization_service_vat_percent": vat_percent,
+                    "organization_vat_registration_number": vat_registration_number,
                     "branches": list(user.branches.values("id", "name")),
                     "is_org_user": is_org_user,
                     "is_superuser": user.is_superuser,
@@ -298,6 +304,7 @@ class SuperAdminLoginAPIView(APIView):
         org = user.organization
         currency_code = None
         vat_percent = None
+        vat_registration_number = None
         org_name = None
         is_org_user = False
 
@@ -305,6 +312,7 @@ class SuperAdminLoginAPIView(APIView):
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
+            vat_registration_number = org.vat_registration_number
             org_name = org.name
             is_org_user = True
 
@@ -319,6 +327,9 @@ class SuperAdminLoginAPIView(APIView):
                 )
                 vat_percent = branch.service_vat_percent or (
                     branch.parent.service_vat_percent if branch.parent else None
+                )
+                vat_registration_number = branch.vat_registration_number or (
+                     branch.parent.vat_registration_number if branch.parent else None
                 )
                 # If parent exists, prefer parent name as organization name
                 if branch.parent:
@@ -343,6 +354,7 @@ class SuperAdminLoginAPIView(APIView):
                     "organization_name": org_name,
                     "organization_currency_code": currency_code,
                     "organization_service_vat_percent": vat_percent,
+                    "organization_vat_registration_number": vat_registration_number,
                     "branches": list(user.branches.values("id", "name")),
                     "is_org_user": is_org_user,
                     "is_superuser": user.is_superuser,
@@ -369,6 +381,7 @@ class UserTokenDetailAPIView(APIView):
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
+            vat_registration_number = org.vat_registration_number
             org_name = org.name
             is_org_user = True
 
@@ -383,6 +396,9 @@ class UserTokenDetailAPIView(APIView):
                 )
                 vat_percent = branch.service_vat_percent or (
                     branch.parent.service_vat_percent if branch.parent else None
+                )
+                vat_percent = branch.vat_registration_number or (
+                    branch.parent.vat_registration_number if branch.parent else None
                 )
                 # If parent exists, prefer parent name as organization name
                 if branch.parent:
@@ -402,6 +418,7 @@ class UserTokenDetailAPIView(APIView):
                 "organization_name": org_name,
                 "organization_currency_code": currency_code,
                 "organization_service_vat_percent": vat_percent,
+                "organization_vat_registration_number": vat_registration_number,
                 "branches": list(user.branches.values("id", "name")),
                 "is_org_user": is_org_user,
                 "is_superuser": user.is_superuser,
