@@ -374,6 +374,7 @@ class UserTokenDetailAPIView(APIView):
         org = user.organization
         currency_code = None
         vat_percent = None
+        vat_registration_number = None
         org_name = None
         is_org_user = False
 
