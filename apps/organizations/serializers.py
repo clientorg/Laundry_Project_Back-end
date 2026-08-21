@@ -192,6 +192,7 @@ class PlanSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "price",
+            "max_users",
             "max_branches",
             "duration_days",
             "organization_count",
