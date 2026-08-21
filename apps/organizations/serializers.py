@@ -203,7 +203,6 @@ class PlanSerializer(serializers.ModelSerializer):
         read_only_fields = [
             "id",
             "organization_count",
-            "is_active",
             "created_at",
             "updated_at",
         ]

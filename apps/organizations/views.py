@@ -179,6 +179,24 @@ class PlanRetrieveUpdateDestroyView(
         if not self.request.user.is_superuser:
             raise PermissionDenied("Only super administrators can update plans.")
 
+        instance = self.get_object()
+
+        new_is_active = serializer.validated_data.get(
+            "is_active",
+            instance.is_active,
+        )
+
+        # Deactivating an active plan
+        if instance.is_active and not new_is_active:
+            if instance.subscriptions.filter(
+                started_at__lte=timezone.now(),
+                expires_at__gte=timezone.now(),
+            ).exists():
+                raise ValidationError(
+                    "This plan cannot be deactivated because it is currently "
+                    "being used by one or more organizations."
+                )
+
         serializer.save()
 
     def perform_destroy(self, instance):
