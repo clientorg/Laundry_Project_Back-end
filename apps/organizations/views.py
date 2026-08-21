@@ -2,7 +2,7 @@
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from drf_spectacular.utils import extend_schema
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 
 # laundry mixin imports
 from .mixins import BranchQuerysetMixin
@@ -183,6 +183,11 @@ class PlanRetrieveUpdateDestroyView(
     def perform_destroy(self, instance):
         if not self.request.user.is_superuser:
             raise PermissionDenied("Only super administrators can delete plans.")
+
+        if instance.subscriptions.exists():
+            raise ValidationError(
+                "This plan cannot be deleted because it is currently used by one or more organizations."
+            )
 
         instance.delete()
 

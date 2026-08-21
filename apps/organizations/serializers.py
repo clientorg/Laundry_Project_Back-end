@@ -182,6 +182,7 @@ from .models import Plan
 
 
 class PlanSerializer(serializers.ModelSerializer):
+    organization_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Plan
@@ -196,6 +197,9 @@ class PlanSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
         read_only_fields = ["id", "created_at", "updated_at"]
+
+    def get_organization_count(self, obj):
+        return obj.subscriptions.values("organization").distinct().count()
 
 
 # -------------------------Change Plan Serializer
@@ -362,7 +366,9 @@ class OrganizationCreateSerializer(serializers.Serializer):
     # Initial user
     user_username = serializers.CharField(max_length=150)
     user_email = serializers.EmailField()
-    user_password = serializers.CharField(write_only=True, required=True, allow_blank=False)
+    user_password = serializers.CharField(
+        write_only=True, required=True, allow_blank=False
+    )
     user_first_name = serializers.CharField(max_length=150)
     user_last_name = serializers.CharField(
         max_length=150,
