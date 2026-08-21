@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.utils import timezone
 
 # package imports
 from rest_framework import serializers
@@ -200,7 +201,17 @@ class PlanSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at"]
 
     def get_organization_count(self, obj):
-        return obj.subscriptions.values("organization").distinct().count()
+        now = timezone.now()
+
+        return (
+            obj.subscriptions.filter(
+                started_at__lte=now,
+                expires_at__gte=now,
+            )
+            .values("organization")
+            .distinct()
+            .count()
+        )
 
 
 # -------------------------Change Plan Serializer
