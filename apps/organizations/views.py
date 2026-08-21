@@ -1,4 +1,5 @@
 # package imports
+from django.utils import timezone
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from drf_spectacular.utils import extend_schema
@@ -184,12 +185,17 @@ class PlanRetrieveUpdateDestroyView(
         if not self.request.user.is_superuser:
             raise PermissionDenied("Only super administrators can delete plans.")
 
-        if instance.subscriptions.exists():
+        if instance.subscriptions.filter(
+            started_at__lte=timezone.now(),
+            expires_at__gte=timezone.now(),
+        ).exists():
             raise ValidationError(
-                "This plan cannot be deleted because it is currently used by one or more organizations."
+                "This plan cannot be deactivated because it is currently "
+                "being used by one or more organizations."
             )
 
-        instance.delete()
+        instance.is_active = False
+        instance.save(update_fields=["is_active", "updated_at"])
 
 
 # --------------- Change Organization Plan View ---------------#

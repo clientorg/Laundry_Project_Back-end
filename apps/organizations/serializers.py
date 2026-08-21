@@ -195,10 +195,17 @@ class PlanSerializer(serializers.ModelSerializer):
             "max_branches",
             "duration_days",
             "organization_count",
+            "is_active",
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["id", "created_at", "updated_at"]
+        read_only_fields = [
+            "id",
+            "organization_count",
+            "is_active",
+            "created_at",
+            "updated_at",
+        ]
 
     def get_organization_count(self, obj):
         now = timezone.now()
@@ -371,7 +378,7 @@ class OrganizationCreateSerializer(serializers.Serializer):
 
     # Plan
     plan_id = serializers.PrimaryKeyRelatedField(
-        queryset=Plan.objects.all(),
+        queryset=Plan.objects.filter(is_active=True),
         source="plan",
     )
 

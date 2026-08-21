@@ -78,6 +78,8 @@ class Plan(models.Model):
 
     duration_days = models.PositiveIntegerField(default=30)
 
+    is_active = models.BooleanField(default=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
