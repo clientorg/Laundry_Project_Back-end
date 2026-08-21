@@ -193,6 +193,7 @@ class PlanSerializer(serializers.ModelSerializer):
             "price",
             "max_branches",
             "duration_days",
+            "organization_count",
             "created_at",
             "updated_at",
         ]
