@@ -1259,6 +1259,7 @@ class ACCT_MASTForm(forms.ModelForm):
             "actype": "Account Type",
             "curbal": "Current Balance",
             "acmapno": "Account Map No",
+            "parent": "Parent Account (must be a Group account)",
         }
 
 @admin.register(ACCT_MAST)
@@ -1266,12 +1267,13 @@ class ACCTMASTAdmin(admin.ModelAdmin):
     form = ACCT_MASTForm 
     # ---------- TABLE VIEW ----------
     list_display = (
-        "acno",                
-        "account_name",         
-        "balance_type",         
-        "account_type",         
+        "acno",
+        "account_name",
+        "balance_type",
+        "account_type",
+        "parent",
         "opening_balance",
-        "current_balance",     
+        "current_balance",
         "organization",
         "branches_count",
         "is_active",
@@ -1318,6 +1320,7 @@ class ACCTMASTAdmin(admin.ModelAdmin):
                 "grpcode",
                 "baltype",
                 "actype",
+                "parent",
             )
         }),
 
@@ -1373,6 +1376,8 @@ class ACCTMASTAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "organization":
             kwargs["queryset"] = Organization.objects.filter(parent__isnull=True)
+        elif db_field.name == "parent":
+            kwargs["queryset"] = ACCT_MAST.objects.filter(actype=ACCT_MAST.GROUP)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
@@ -1382,7 +1387,7 @@ class ACCTMASTAdmin(admin.ModelAdmin):
 
     # ---------- AUTO SET CREATED / UPDATED BY ----------
     def save_model(self, request, obj, form, change):
-        if not obj.pk:  
+        if not obj.pk:
             obj.created_by = request.user
         obj.updated_by = request.user
         super().save_model(request, obj, form, change)
@@ -1393,15 +1398,19 @@ from .models import ACCT_MAST_MAP
 
 @admin.register(ACCT_MAST_MAP)
 class ACCTMASTMAPAdmin(admin.ModelAdmin):
+    """
+    Read-only: rows are auto-derived from ACCT_MAST.parent (see ACCT_MAST._cascade_level_map).
+    To change the hierarchy, edit `parent` on the Account Master record instead.
+    """
 
     # ---------- TABLE VIEW ----------
     list_display = (
         "acmapno",
+        "acct_mast",
         "totlev",
         "organization",
         "branches_count",
         "is_active",
-        "created_by",
         "created_at",
     )
 
@@ -1413,25 +1422,16 @@ class ACCTMASTMAPAdmin(admin.ModelAdmin):
 
     search_fields = (
         "acmapno",
+        "acct_mast__accname",
         "organization__name",
         "branches__name",
-    )
-
-    filter_horizontal = ("branches",)
-
-    # ---------- READONLY FIELDS ----------
-    readonly_fields = (
-        "acmapno",
-        "created_by",
-        "updated_by",
-        "created_at",
-        "updated_at",
     )
 
     # ---------- FORM LAYOUT ----------
     fieldsets = (
         ("Mapping Info", {
             "fields": (
+                "acct_mast",
                 "acmapno",
                 "totlev",
                 "lev1",
@@ -1469,23 +1469,17 @@ class ACCTMASTMAPAdmin(admin.ModelAdmin):
         return obj.branches.count()
     branches_count.short_description = "Branches"
 
-    # ---------- ORG / BRANCH FILTERING ----------
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "organization":
-            kwargs["queryset"] = Organization.objects.filter(parent__isnull=True)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+    def has_add_permission(self, request):
+        return False
 
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == "branches":
-            kwargs["queryset"] = Organization.objects.filter(parent__isnull=False)
-        return super().formfield_for_manytomany(db_field, request, **kwargs)
+    def has_change_permission(self, request, obj=None):
+        return False
 
-    # ---------- AUTO SET CREATED/UPDATED BY ----------
-    def save_model(self, request, obj, form, change):
-        if not obj.pk:
-            obj.created_by = request.user
-        obj.updated_by = request.user
-        super().save_model(request, obj, form, change)
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def get_readonly_fields(self, request, obj=None):
+        return [f.name for f in self.model._meta.fields]
 
 
 # --------------------ACC TRAN DETA ADMIN --------------------

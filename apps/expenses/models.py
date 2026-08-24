@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from apps.organizations.models import Organization
-from apps.purchase.models import VRTypeMaster, VATMaster
+from apps.purchase.models import VRTypeMaster, VATMaster, ACCT_MAST
 
 User = settings.AUTH_USER_MODEL
 
@@ -43,6 +43,12 @@ class Expense(models.Model):
     category = models.ForeignKey(
         ExpenseCategory, null=True, blank=True, on_delete=models.SET_NULL,
         related_name="expenses"
+    )
+    # GL account this expense posts to. Must be an active Detail/Posting ACCT_MAST
+    # account (enforced in ExpenseSerializer.validate) - Group accounts can't be posted to.
+    gl_account = models.ForeignKey(
+        ACCT_MAST, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="expenses_gl_account"
     )
     vr_type = models.ForeignKey(
         VRTypeMaster, null=True, blank=True, on_delete=models.SET_NULL,

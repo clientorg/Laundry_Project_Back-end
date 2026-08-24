@@ -60,11 +60,13 @@ class ExpenseSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()
     vr_type_name = serializers.SerializerMethodField()
     vat_name = serializers.SerializerMethodField()
+    gl_account_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Expense
         fields = [
             "id", "expense_no", "category", "category_name",
+            "gl_account", "gl_account_name",
             "vr_type", "vr_type_name", "vat", "vat_name",
             "amount", "amount_ex_vat", "vat_amount", "total_incl_vat",
             "paid_to", "narration",
@@ -108,6 +110,24 @@ class ExpenseSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_vat_name(self, obj):
         return obj.vat.vatname if obj.vat else None
+
+    @extend_schema_field(serializers.CharField())
+    def get_gl_account_name(self, obj):
+        return obj.gl_account.accname if obj.gl_account else None
+
+    def validate(self, data):
+        gl_account = data.get("gl_account", getattr(self.instance, "gl_account", None))
+        if gl_account:
+            if gl_account.actype != gl_account.DETAIL:
+                raise serializers.ValidationError(
+                    f"Only Detail/Posting accounts can be selected for an expense; "
+                    f"'{gl_account.accname}' is a Group account."
+                )
+            if not gl_account.is_active:
+                raise serializers.ValidationError(
+                    f"GL account '{gl_account.accname}' is inactive and cannot be used for new expenses."
+                )
+        return data
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)

@@ -1,4 +1,6 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -404,27 +406,85 @@ class ACCTMASTViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.
         "PATCH": "purchase.change_acct_mast",
         "DELETE": "purchase.delete_acct_mast",
     }
-    
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        search = self.request.query_params.get("search")
+        if search:
+            qs = qs.filter(accname__icontains=search)
+        return qs
+
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
-    
+
+    def destroy(self, request, *args, **kwargs):
+        from .models import ACC_TRAN_DETA
+        from apps.expenses.models import Expense
+
+        instance = self.get_object()
+
+        if instance.children.exists():
+            return Response(
+                {"detail": "Cannot delete this account. It has child accounts; remove or reassign them first."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        is_used = (
+            ACC_TRAN_DETA.objects.filter(account=instance).exists()
+            or Expense.objects.filter(gl_account=instance).exists()
+        )
+        if is_used:
+            return Response(
+                {"detail": "Cannot delete this account. It is used in one or more transactions. Deactivate it instead."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return super().destroy(request, *args, **kwargs)
+
+    @extend_schema(summary="Chart of Accounts Tree", description="Return the account hierarchy as a nested tree.", tags=["Purchase: Account Master"])
+    @action(detail=False, methods=["get"], url_path="tree")
+    def tree(self, request, *args, **kwargs):
+        accounts = list(self.filter_queryset(self.get_queryset()))
+
+        by_parent = {}
+        for acc in accounts:
+            by_parent.setdefault(acc.parent_id, []).append(acc)
+
+        def serialize(acc):
+            return {
+                "id": acc.id,
+                "acno": acc.acno,
+                "accname": acc.accname,
+                "accname_ar": acc.accname_ar,
+                "grpcode": acc.grpcode,
+                "actype": acc.actype,
+                "baltype": acc.baltype,
+                "is_active": acc.is_active,
+                "opening_balance": acc.opening_balance,
+                "curbal": acc.curbal,
+                "children": [serialize(child) for child in by_parent.get(acc.id, [])],
+            }
+
+        roots = by_parent.get(None, [])
+        return Response([serialize(root) for root in roots])
+
 
 # ----------------------- ACCT_MAST_MAP ViewSet -----------------------
 from .models import ACCT_MAST_MAP
 from .serializers import ACCTMASTMAPSerializer
 
 @extend_schema_view(
-    list=extend_schema(summary="List Account Master Mappings",description="Fetch all ACCT_MAST_MAP entries.",tags=["Purchase: ACCT_MAST_MAP"],),
+    list=extend_schema(summary="List Account Master Mappings",description="Fetch all ACCT_MAST_MAP entries (read-only, derived from ACCT_MAST.parent).",tags=["Purchase: ACCT_MAST_MAP"],),
     retrieve=extend_schema(summary="Retrieve Account Master Mapping",description="Get a single ACCT_MAST_MAP record.",tags=["Purchase: ACCT_MAST_MAP"],),
-    create=extend_schema(summary="Create Account Master Mapping",description="Insert a new ACCT_MAST_MAP record.",tags=["Purchase: ACCT_MAST_MAP"],),
-    update=extend_schema(summary="Update Account Master Mapping",description="Update an ACCT_MAST_MAP entry.",tags=["Purchase: ACCT_MAST_MAP"],),
-    partial_update=extend_schema(summary="Patch Account Master Mapping",description="Partially update an ACCT_MAST_MAP entry.",tags=["Purchase: ACCT_MAST_MAP"],),
-    destroy=extend_schema(summary="Delete Account Master Mapping",description="Delete an ACCT_MAST_MAP entry.",tags=["Purchase: ACCT_MAST_MAP"],),
 )
-class ACCT_MAST_MAPViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ModelViewSet):
+class ACCT_MAST_MAPViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, viewsets.ReadOnlyModelViewSet):
+    """
+    Read-only: these rows are auto-derived from ACCT_MAST.parent (see ACCT_MAST._cascade_level_map).
+    To change the hierarchy, set `parent` on the account via /api/purchase/acct-mast/.
+    """
     queryset = ACCT_MAST_MAP.objects.all().order_by("acmapno")
     serializer_class = ACCTMASTMAPSerializer
 
@@ -433,16 +493,7 @@ class ACCT_MAST_MAPViewSet(PermissionRequiredMixin, OrgBranchQuerysetMixin, view
 
     permission_map = {
         "GET": "purchase.view_acct_mast_map",
-        "POST": "purchase.add_acct_mast_map",
-        "PUT": "purchase.change_acct_mast_map",
-        "PATCH": "purchase.change_acct_mast_map",
-        "DELETE": "purchase.delete_acct_mast_map",
     }
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
-
-    def perform_update(self, serializer):
-        serializer.save(updated_by=self.request.user)
 
 
 # ----------------------- ACC_TRAN_DETA ViewSet -----------------------

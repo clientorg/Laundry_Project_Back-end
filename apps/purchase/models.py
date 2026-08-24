@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError as DjangoValidationError
 
 from apps.organizations.models import Organization
 from apps.master.models import Country
@@ -781,13 +782,28 @@ class ACCT_MAST(models.Model):
         ("EXPENSE", "EXPENSE"),
     ]
 
+    GROUP = "General / Group"
+    DETAIL = "Detail"
+
     AC_TYPE_CHOICES = [
-        ("General / Group", "General / Group"),
-        ("Detail", "Detail"),
+        (GROUP, "General / Group"),
+        (DETAIL, "Detail"),
     ]
+
+    # Maximum hierarchy depth, matches ACCT_MAST_MAP.lev1..lev8
+    MAX_LEVELS = 8
 
     # Django PK
     id = models.AutoField(primary_key=True)
+
+    # Chart of Accounts hierarchy: only GROUP accounts may be a parent (see clean()).
+    parent = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="children",
+    )
 
     # Auto-generated account number (OLD acno)
     acno = models.PositiveIntegerField(editable=False, unique=True)
@@ -852,6 +868,52 @@ class ACCT_MAST(models.Model):
         verbose_name_plural = "Account Masters"
         ordering = ["acno"]
 
+    # ----------------- Hierarchy helpers ------------------
+    def get_ancestors(self):
+        """Root-first list of ancestor accounts, not including self."""
+        ancestors = []
+        node = self.parent
+        seen = set()
+        while node is not None and node.pk not in seen:
+            seen.add(node.pk)
+            ancestors.append(node)
+            node = node.parent
+        ancestors.reverse()
+        return ancestors
+
+    def is_ancestor_of(self, other):
+        node = other.parent
+        while node is not None:
+            if node.pk == self.pk:
+                return True
+            node = node.parent
+        return False
+
+    def clean(self):
+        super().clean()
+
+        if self.parent_id:
+            if self.pk and self.parent_id == self.pk:
+                raise DjangoValidationError({"parent": "An account cannot be its own parent."})
+
+            if self.parent.actype != self.GROUP:
+                raise DjangoValidationError({"parent": "Only Group accounts can be selected as a parent."})
+
+            if self.pk and self.is_ancestor_of(self.parent):
+                raise DjangoValidationError({"parent": "Invalid parent: this would create a circular hierarchy."})
+
+            if self.grpcode and self.parent.grpcode and self.grpcode != self.parent.grpcode:
+                raise DjangoValidationError({
+                    "grpcode": f"Child account's group code must match its parent's group code ({self.parent.grpcode})."
+                })
+
+            depth = len(self.parent.get_ancestors()) + 2  # parent's ancestors + parent + self
+            if depth > self.MAX_LEVELS:
+                raise DjangoValidationError({"parent": f"Maximum hierarchy depth of {self.MAX_LEVELS} levels exceeded."})
+
+        if self.actype == self.DETAIL and self.pk and self.children.exists():
+            raise DjangoValidationError({"actype": "Cannot mark as Detail/Posting: this account already has child accounts."})
+
     def save(self, *args, **kwargs):
         # Auto increment acno
         if not self.acno:
@@ -864,6 +926,30 @@ class ACCT_MAST(models.Model):
             self.acmapno = (last_map.acmapno + 1) if last_map else 10000
 
         super().save(*args, **kwargs)
+        self._cascade_level_map()
+
+    def _sync_level_map(self):
+        """Recompute this account's ACCT_MAST_MAP breadcrumb from its parent chain."""
+        path = self.get_ancestors() + [self]
+        level_values = [acc.id for acc in path]
+
+        level_map, _ = ACCT_MAST_MAP.objects.get_or_create(
+            acct_mast=self,
+            defaults={"organization": self.organization},
+        )
+
+        level_fields = ["lev1", "lev2", "lev3", "lev4", "lev5", "lev6", "lev7", "lev8"]
+        for idx, field in enumerate(level_fields):
+            setattr(level_map, field, level_values[idx] if idx < len(level_values) else None)
+
+        level_map.totlev = len(level_values)
+        level_map.save()
+
+    def _cascade_level_map(self):
+        """Resync this account's breadcrumb and every descendant's (a reparent shifts whole subtrees)."""
+        self._sync_level_map()
+        for child in self.children.all():
+            child._cascade_level_map()
 
     def __str__(self):
         return f"{self.acno} - {self.accname}"
@@ -871,8 +957,22 @@ class ACCT_MAST(models.Model):
 
 # ----------------------- Account Master Mapping Model -----------------------
 class ACCT_MAST_MAP(models.Model):
+    """
+    Derived breadcrumb of an ACCT_MAST account's ancestor chain (root=lev1 ... self=levN).
+    Auto-maintained by ACCT_MAST.save() via `acct_mast` - not meant to be edited directly.
+    """
 
     id = models.AutoField(primary_key=True)
+
+    # Explicit link to the account this breadcrumb describes (the real join key -
+    # acmapno below is NOT a shared key with ACCT_MAST, each model auto-increments it independently).
+    acct_mast = models.OneToOneField(
+        "ACCT_MAST",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="level_map",
+    )
 
     # Auto-generated mapping number
     acmapno = models.PositiveIntegerField(editable=False, unique=True)
@@ -1046,10 +1146,6 @@ class ACC_TRAN_DETA(models.Model):
                 .first()
             )
             self.serial_no = (last.serial_no + 1) if last else 1
-
-        # Auto-derive account from list_code_ac
-        if not self.account and self.list_code_ac:
-            self.account = ACCT_MAST.objects.filter(listcode=self.list_code_ac).first()
 
         super().save(*args, **kwargs)
 

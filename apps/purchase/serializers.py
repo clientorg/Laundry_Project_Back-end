@@ -1178,6 +1178,7 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
 
 # ----------------------- Account Master Serializer -----------------------
+from django.core.exceptions import ValidationError as DjangoValidationError
 from .models import ACCT_MAST
 
 class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
@@ -1188,6 +1189,8 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     updated_by_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
+    parent_name = serializers.SerializerMethodField()
+    hierarchy_path = serializers.SerializerMethodField()
 
     class Meta:
         model = ACCT_MAST
@@ -1199,6 +1202,9 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "grpcode",
             "baltype",
             "actype",
+            "parent",
+            "parent_name",
+            "hierarchy_path",
             "acmapno",
             "opening_balance",
             "curbal",
@@ -1217,7 +1223,7 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "updated_at",
         ]
         read_only_fields = [ "id", "acno", "acmapno", "created_by", "updated_by", "created_at", "updated_at"]
-    
+
         # ------------------ DISPLAY FIELDS ------------------
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
@@ -1234,6 +1240,15 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
+
+    @extend_schema_field(serializers.CharField())
+    def get_parent_name(self, obj):
+        return obj.parent.accname if obj.parent else None
+
+    @extend_schema_field(serializers.ListField(child=serializers.DictField()))
+    def get_hierarchy_path(self, obj):
+        path = obj.get_ancestors() + [obj]
+        return [{"id": acc.id, "acno": acc.acno, "accname": acc.accname} for acc in path]
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
@@ -1254,6 +1269,22 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     f"The following branches do NOT belong to organization '{organization.name}': {br_names}"
                 )
+
+        # Reuse ACCT_MAST.clean() (parent must be Group, no cycles, grpcode
+        # must match parent's, max depth, Detail accounts can't have children)
+        # against a transient instance carrying the proposed values.
+        check = ACCT_MAST(
+            pk=self.instance.pk if self.instance else None,
+            parent=data.get("parent", getattr(self.instance, "parent", None)),
+            grpcode=data.get("grpcode", getattr(self.instance, "grpcode", None)),
+            actype=data.get("actype", getattr(self.instance, "actype", None)),
+        )
+        try:
+            check.clean()
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(
+                exc.message_dict if hasattr(exc, "message_dict") else exc.messages
+            )
 
         return data
 
@@ -1283,12 +1314,13 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 # ----------------------- Account Master Mapping Serializer -----------------------
 from apps.purchase.models import ACCT_MAST_MAP
 
-class ACCTMASTMAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
-    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
-    updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
-
-    created_by_name = serializers.SerializerMethodField()
-    updated_by_name = serializers.SerializerMethodField()
+class ACCTMASTMAPSerializer(serializers.ModelSerializer):
+    """
+    Read-only view of an account's derived hierarchy breadcrumb.
+    totlev/lev1..lev8/acct_mast are auto-maintained by ACCT_MAST.save() -
+    this endpoint no longer accepts create/update (see ACCT_MAST_MAPViewSet).
+    """
+    acct_mast_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
 
@@ -1296,6 +1328,8 @@ class ACCTMASTMAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         model = ACCT_MAST_MAP
         fields = [
             "id",
+            "acct_mast",
+            "acct_mast_name",
             "acmapno",
             "totlev",
             "lev1", "lev2", "lev3", "lev4", "lev5", "lev6", "lev7", "lev8",
@@ -1306,23 +1340,14 @@ class ACCTMASTMAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "branch_names",
 
             "is_active",
-            "created_by",
-            "created_by_name",
-            "updated_by",
-            "updated_by_name",
             "created_at",
             "updated_at",
         ]
-        read_only_fields = [ "id", "acmapno", "created_by", "updated_by", "created_at", "updated_at"]
-    
-        # ------------------ DISPLAY FIELDS ------------------
-    @extend_schema_field(serializers.CharField())
-    def get_created_by_name(self, obj):
-        return obj.created_by.username if obj.created_by else None
+        read_only_fields = fields
 
     @extend_schema_field(serializers.CharField())
-    def get_updated_by_name(self, obj):
-        return obj.updated_by.username if obj.updated_by else None
+    def get_acct_mast_name(self, obj):
+        return obj.acct_mast.accname if obj.acct_mast else None
 
     @extend_schema_field(serializers.CharField())
     def get_organization_name(self, obj):
@@ -1331,86 +1356,6 @@ class ACCTMASTMAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
-
-    def validate(self, data):
-        """
-        Ensure totlev matches levels provided.
-        Example: If totlev=3 → lev1, lev2, lev3 must be present.
-        """
-        totlev = data.get("totlev", getattr(self.instance, "totlev", 1))
-
-        # Collect all level values
-        levels = [
-            data.get("lev1"),
-            data.get("lev2"),
-            data.get("lev3"),
-            data.get("lev4"),
-            data.get("lev5"),
-            data.get("lev6"),
-            data.get("lev7"),
-            data.get("lev8"),
-        ]
-
-        # Required levels must not be None
-        required_levels = levels[:totlev]
-        if any(l is None for l in required_levels):
-            raise serializers.ValidationError(
-                f"Levels lev1 to lev{totlev} must be provided when totlev = {totlev}"
-            )
-        
-        #Organization and Branch validation
-        organization = data.get("organization", getattr(self.instance, "organization", None))
-        branches = data.get("branches")
-
-        # convert to list if ManyToManyQuerySet
-        if branches and not isinstance(branches, list):
-            branches = list(branches.all())
-        
-        if organization and branches:
-            invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
-            ]
-            if invalid_branches:
-                br_names = ", ".join([b.name for b in invalid_branches])
-                raise serializers.ValidationError(
-                    f"The following branches do NOT belong to organization '{organization.name}': {br_names}"
-                )
-
-        return data
-    
-    def branch_belongs_to_org(self, branch, organization):
-        return branch.parent == organization
-
-    # ------------------ CREATE ------------------
-    def create(self, validated_data):
-        validated_data = self.assign_org_branch_on_create(validated_data)
-
-        user = self.context["request"].user
-        validated_data["created_by"] = user
-        validated_data["updated_by"] = user
-
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        instance = self.assign_org_branch_on_update(instance, validated_data)
-
-        user = self.context["request"].user
-        instance.updated_by = user
-
-        instance = super().update(instance, validated_data)
-
-        totlev = validated_data.get("totlev", instance.totlev)
-
-        level_fields = ["lev1","lev2","lev3","lev4","lev5","lev6","lev7","lev8"]
-
-        for idx, field in enumerate(level_fields):
-            if idx + 1 > totlev:
-                setattr(instance, field, None)
-
-        instance.save()
-
-        return instance
 
 
 # ----------------------- Account Transaction Detail Serializer -----------------------
@@ -1510,11 +1455,19 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         if vr_type and not VRTypeMaster.objects.filter(id=vr_type.id).exists():
             raise serializers.ValidationError("Invalid VR Type.")
 
-        # Validate Account Master (acno)
-        acno = data.get("acno")
-        if acno and not ACCT_MAST.objects.filter(id=acno.id).exists():
-            raise serializers.ValidationError("Invalid ACCT_MAST (acno).")
-        
+        # Validate Account Master: only active Detail/Posting accounts can receive postings
+        account = data.get("account", getattr(self.instance, "account", None))
+        if account:
+            if account.actype != ACCT_MAST.DETAIL:
+                raise serializers.ValidationError(
+                    "Only Detail/Posting accounts can be selected for a transaction; "
+                    f"'{account.accname}' is a Group account."
+                )
+            if not account.is_active:
+                raise serializers.ValidationError(
+                    f"Account '{account.accname}' is inactive and cannot be used for new transactions."
+                )
+
         organization = data.get("organization", getattr(self.instance, "organization", None))
         branches = data.get("branches")
 
