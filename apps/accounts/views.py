@@ -208,6 +208,7 @@ class LoginAPIView(APIView):
         org = user.organization
         currency_code = None
         vat_percent = None
+        vat_registration_number = None
         org_name = None
         is_org_user = False
 
@@ -215,6 +216,7 @@ class LoginAPIView(APIView):
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
+            vat_registration_number = org.vat_registration_number
             org_name = org.name
             is_org_user = True
 
@@ -229,6 +231,9 @@ class LoginAPIView(APIView):
                 )
                 vat_percent = branch.service_vat_percent or (
                     branch.parent.service_vat_percent if branch.parent else None
+                )
+                vat_registration_number = branch.vat_registration_number or (
+                    branch.parent.vat_registration_number if branch.parent else None
                 )
                 # If parent exists, prefer parent name as organization name
                 if branch.parent:
@@ -253,6 +258,103 @@ class LoginAPIView(APIView):
                     "organization_name": org_name,
                     "organization_currency_code": currency_code,
                     "organization_service_vat_percent": vat_percent,
+                    "organization_vat_registration_number": vat_registration_number,
+                    "branches": list(user.branches.values("id", "name")),
+                    "is_org_user": is_org_user,
+                    "is_superuser": user.is_superuser,
+                    "is_staff": user.is_staff,
+                },
+            }
+        )
+
+
+class SuperAdminLoginAPIView(APIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        if not username or not password:
+            return Response(
+                {"detail": "Username and password required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = authenticate(request, username=username, password=password)
+
+        if not user.is_superuser:
+            return Response(
+                {"detail": "Invalid credentials."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        if not user:
+            return Response(
+                {"detail": "Invalid credentials."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        if not user.is_active:
+            return Response(
+                {"detail": "User account is disabled."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        org = user.organization
+        currency_code = None
+        vat_percent = None
+        vat_registration_number = None
+        org_name = None
+        is_org_user = False
+
+        if org:
+            # Case 1: user has root organization
+            currency_code = org.currency_code
+            vat_percent = org.service_vat_percent
+            vat_registration_number = org.vat_registration_number
+            org_name = org.name
+            is_org_user = True
+
+        elif user.branches.exists():
+            # Case 2: user has branches
+            branch = user.branches.first()
+            if branch:
+                org_name = branch.name  # branch name
+                # Prefer branch values if available
+                currency_code = branch.currency_code or (
+                    branch.parent.currency_code if branch.parent else None
+                )
+                vat_percent = branch.service_vat_percent or (
+                    branch.parent.service_vat_percent if branch.parent else None
+                )
+                vat_registration_number = branch.vat_registration_number or (
+                     branch.parent.vat_registration_number if branch.parent else None
+                )
+                # If parent exists, prefer parent name as organization name
+                if branch.parent:
+                    org_name = branch.parent.name
+
+        refresh = RefreshToken.for_user(user)
+
+        return Response(
+            {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "user": {
+                    "id": user.id,
+                    "username": user.username,
+                    "profile_picture": (
+                        request.build_absolute_uri(user.profile_picture.url)
+                        if user.profile_picture
+                        else None
+                    ),
+                    "email": user.email,
+                    "groups": list(user.groups.values_list("id", flat=True)),
+                    "organization_name": org_name,
+                    "organization_currency_code": currency_code,
+                    "organization_service_vat_percent": vat_percent,
+                    "organization_vat_registration_number": vat_registration_number,
                     "branches": list(user.branches.values("id", "name")),
                     "is_org_user": is_org_user,
                     "is_superuser": user.is_superuser,
@@ -272,6 +374,7 @@ class UserTokenDetailAPIView(APIView):
         org = user.organization
         currency_code = None
         vat_percent = None
+        vat_registration_number = None
         org_name = None
         is_org_user = False
 
@@ -279,6 +382,7 @@ class UserTokenDetailAPIView(APIView):
             # Case 1: user has root organization
             currency_code = org.currency_code
             vat_percent = org.service_vat_percent
+            vat_registration_number = org.vat_registration_number
             org_name = org.name
             is_org_user = True
 
@@ -293,6 +397,9 @@ class UserTokenDetailAPIView(APIView):
                 )
                 vat_percent = branch.service_vat_percent or (
                     branch.parent.service_vat_percent if branch.parent else None
+                )
+                vat_percent = branch.vat_registration_number or (
+                    branch.parent.vat_registration_number if branch.parent else None
                 )
                 # If parent exists, prefer parent name as organization name
                 if branch.parent:
@@ -312,6 +419,7 @@ class UserTokenDetailAPIView(APIView):
                 "organization_name": org_name,
                 "organization_currency_code": currency_code,
                 "organization_service_vat_percent": vat_percent,
+                "organization_vat_registration_number": vat_registration_number,
                 "branches": list(user.branches.values("id", "name")),
                 "is_org_user": is_org_user,
                 "is_superuser": user.is_superuser,
@@ -326,6 +434,7 @@ class UserTokenDetailAPIView(APIView):
 # ============================================================
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+
 
 # Request OTP (username -> send OTP to that user's email)
 @extend_schema(
@@ -345,7 +454,12 @@ class RequestPasswordResetOTPView(APIView):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             # Dont reveal whether user exists
-            return Response({"detail": "If the username exists, an OTP has been sent to the associated email."}, status=200)
+            return Response(
+                {
+                    "detail": "If the username exists, an OTP has been sent to the associated email."
+                },
+                status=200,
+            )
 
         # clear previous unused OTPs
         PasswordResetOTP.objects.filter(user=user, is_used=False).delete()
@@ -363,19 +477,27 @@ class RequestPasswordResetOTPView(APIView):
                 "username": user.username,
                 "otp": otp,
                 "expiry_minutes": 10,
-            }
+            },
         )
-       
+
         plain_message = strip_tags(html_message)
         from_email = settings.DEFAULT_FROM_EMAIL
 
         try:
-            send_mail(subject, plain_message, from_email, [user.email], html_message=html_message)
+            send_mail(
+                subject,
+                plain_message,
+                from_email,
+                [user.email],
+                html_message=html_message,
+            )
         except Exception as e:
             return Response({"detail": f"Email send failed: {str(e)}"}, status=500)
 
-        return Response({"detail": "OTP sent to the email linked with this username."}, status=200)
-    
+        return Response(
+            {"detail": "OTP sent to the email linked with this username."}, status=200
+        )
+
 
 # Reset password using username + otp + new passwords (single API)
 @extend_schema(
@@ -413,20 +535,30 @@ class ForgotUsernameView(APIView):
         if users.exists():
             usernames = [u.username for u in users]
             html_message = render_to_string(
-                "emails/forgot_username.html",
-                {"usernames": usernames}
+                "emails/forgot_username.html", {"usernames": usernames}
             )
-            
+
             plain_message = strip_tags(html_message)
             subject = "Usernames linked to your email"
             from_email = settings.DEFAULT_FROM_EMAIL
             try:
-                send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+                send_mail(
+                    subject,
+                    plain_message,
+                    from_email,
+                    [email],
+                    html_message=html_message,
+                )
             except Exception as e:
                 return Response({"detail": f"Email send failed: {str(e)}"}, status=500)
 
-        return Response({"detail": "If any accounts are linked to this email, their username(s) have been sent."}, status=200)
-    
+        return Response(
+            {
+                "detail": "If any accounts are linked to this email, their username(s) have been sent."
+            },
+            status=200,
+        )
+
 
 # Change Password View for authenticated users using current password
 @extend_schema(
@@ -438,13 +570,17 @@ class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    http_method_names = ['patch'] 
+    http_method_names = ["patch"]
 
     def get_object(self):
         return self.request.user
 
     def update(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={'request': request})
+        serializer = self.get_serializer(
+            data=request.data, context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"detail": "Password changed successfully."}, status=status.HTTP_200_OK)
+        return Response(
+            {"detail": "Password changed successfully."}, status=status.HTTP_200_OK
+        )

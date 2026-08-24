@@ -23,6 +23,11 @@ class Organization(models.Model):
         decimal_places=2,
         default=0.00,
     )
+    vat_registration_number = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -72,6 +77,8 @@ class Plan(models.Model):
     max_branches = models.PositiveIntegerField(default=1)
 
     duration_days = models.PositiveIntegerField(default=30)
+
+    is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
