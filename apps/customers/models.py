@@ -84,6 +84,14 @@ class Customer(models.Model):
         unique=True,
         blank=True,
     )
+    opening_due = models.DecimalField(
+        max_digits=12,
+        decimal_places=3,
+        default=0.000,
+        null=True,
+        blank=True,
+        help_text="Opening outstanding amount for this customer.",
+    )
     credit_limit = models.DecimalField(
         max_digits=12,
         decimal_places=3,
@@ -161,7 +169,8 @@ class Customer(models.Model):
             ).aggregate(total=Sum("received_amount"))["total"]
             or 0
         )
-        return max(0, credit - repayment)
+        opening_due = self.opening_due or 0
+        return max(0, opening_due + credit - repayment)
 
     def credit_remaining(self):
         credit_limit = self.credit_limit or 0
