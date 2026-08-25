@@ -1271,7 +1271,6 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     branch_names = serializers.SerializerMethodField()
     parent_name = serializers.SerializerMethodField()
     hierarchy_path = serializers.SerializerMethodField()
-    children = serializers.SerializerMethodField()
 
     class Meta:
         model = ACCT_MAST
@@ -1286,7 +1285,6 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "parent",
             "parent_name",
             "hierarchy_path",
-            "children",
             "acmapno",
             "opening_balance",
             "curbal",
@@ -1313,13 +1311,6 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         ]
 
         # ------------------ DISPLAY FIELDS ------------------
-
-    def get_children(self, obj):
-        return ACCTMASTSerializer(
-            obj.children.all(),
-            many=True,
-            context=self.context,
-        ).data
 
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
