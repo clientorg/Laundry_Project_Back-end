@@ -2,8 +2,11 @@ from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 
 from apps.organizations.mixins import OrgBranchAssignMixin
-#-------------------------- VAT Master Serializer --------------------------
+
+# -------------------------- VAT Master Serializer --------------------------
 from .models import VATMaster
+
+
 class VATMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -13,7 +16,7 @@ class VATMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     class Meta:
         model = VATMaster
         fields = [
-            'id',
+            "id",
             "vatid",
             "vatname",
             "vatnamear",
@@ -30,8 +33,15 @@ class VATMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ['id', "vatid","created_at","updated_at","created_by","updated_by",]
-    
+        read_only_fields = [
+            "id",
+            "vatid",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
     # ---------- GETTERS ----------
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
@@ -51,7 +61,9 @@ class VATMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ---------- VALIDATION  ----------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         if branches and not isinstance(branches, list):
@@ -59,8 +71,7 @@ class VATMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid:
                 names = ", ".join([b.name for b in invalid])
@@ -88,8 +99,11 @@ class VATMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         instance.updated_by = user
         return super().update(instance, validated_data)
 
-#----------------------- Supplier Master Serializer -----------------------
+
+# ----------------------- Supplier Master Serializer -----------------------
 from .models import SupplierMaster
+
+
 class SupplierMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -107,13 +121,10 @@ class SupplierMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer
             "address",
             "country",
             "is_active",
-
             "organization",
             "organization_name",
-
             "branches",
             "branch_names",
-
             "created_by",
             "created_by_name",
             "updated_by",
@@ -122,9 +133,16 @@ class SupplierMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer
             "updated_at",
         ]
 
-        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'updated_by']
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
 
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -143,7 +161,9 @@ class SupplierMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -152,8 +172,7 @@ class SupplierMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -186,8 +205,10 @@ class SupplierMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer
         return super().update(instance, validated_data)
 
 
-#----------------------- Group Master Serializer -----------------------
+# ----------------------- Group Master Serializer -----------------------
 from .models import GroupMaster
+
+
 class GroupMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -201,13 +222,10 @@ class GroupMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "name",
             "name_ar",
             "is_active",
-
             "organization",
             "organization_name",
-
             "branches",
             "branch_names",
-
             "created_by",
             "created_by_name",
             "updated_by",
@@ -215,9 +233,16 @@ class GroupMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'updated_by']
-    
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -236,7 +261,9 @@ class GroupMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -245,8 +272,7 @@ class GroupMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -279,8 +305,10 @@ class GroupMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-#----------------------- Brand Master Serializer -----------------------
+# ----------------------- Brand Master Serializer -----------------------
 from .models import BrandMaster
+
+
 class BrandMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -294,13 +322,10 @@ class BrandMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "name",
             "name_ar",
             "is_active",
-
             "organization",
             "organization_name",
-
             "branches",
             "branch_names",
-
             "created_by",
             "created_by_name",
             "updated_by",
@@ -308,9 +333,16 @@ class BrandMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'updated_by']
-    
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -329,7 +361,9 @@ class BrandMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -338,8 +372,7 @@ class BrandMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -372,8 +405,10 @@ class BrandMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-#----------------------- ITGRP_MAP Serializer -----------------------
+# ----------------------- ITGRP_MAP Serializer -----------------------
 from .models import ITGRP_MAP
+
+
 class ITGRP_MAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     grpname = serializers.SerializerMethodField()
     brdname = serializers.SerializerMethodField()
@@ -402,8 +437,14 @@ class ITGRP_MAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
-    
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
     @extend_schema_field(serializers.CharField())
     def get_grpname(self, obj):
         return obj.grpcode.name if obj.grpcode else None
@@ -411,8 +452,9 @@ class ITGRP_MAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_brdname(self, obj):
         return obj.brdcode.name if obj.brdcode else None
-    
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -431,7 +473,9 @@ class ITGRP_MAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -440,8 +484,7 @@ class ITGRP_MAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -474,8 +517,10 @@ class ITGRP_MAPSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-#----------------------- Unit Master Serializer -----------------------
+# ----------------------- Unit Master Serializer -----------------------
 from .models import UnitMaster
+
+
 class UnitMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -489,24 +534,27 @@ class UnitMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "unitname",
             "unitnamear",
             "is_active",
-
             "organization",
             "organization_name",
-
             "branches",
             "branch_names",
-
             "created_by",
             "created_by_name",
             "updated_by",
             "updated_by_name",
-
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
-    
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -525,7 +573,9 @@ class UnitMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -534,8 +584,7 @@ class UnitMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -571,6 +620,7 @@ class UnitMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 # ----------------------- Item Master Serializer -----------------------
 from .models import ItemMaster
 
+
 class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     unit_name = serializers.SerializerMethodField()
     group_name = serializers.SerializerMethodField()
@@ -587,37 +637,27 @@ class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         model = ItemMaster
         fields = [
             "id",
-
             "itname",
             "itnamear",
-
             "dubcost",
             "impcost",
             "itcost",
-
             "rtrate",
             "vatrate",
-
             "unit",
             "unit_name",
-
             "group_map",
             "group_name",
             "brand_name",
-
             "supplier",
             "supplier_name",
-
             "vat",
             "vat_name",
-
             "is_active",
-
             "organization",
             "organization_name",
             "branches",
             "branch_names",
-
             "created_by",
             "created_by_name",
             "updated_by",
@@ -626,7 +666,13 @@ class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "updated_at",
         ]
 
-        read_only_fields = ["id", "created_by", "updated_by", "created_at", "updated_at"]
+        read_only_fields = [
+            "id",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
 
     @extend_schema_field(serializers.CharField())
     def get_unit_name(self, obj):
@@ -653,6 +699,7 @@ class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         return obj.vat.vatname if obj.vat else None
 
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -671,7 +718,9 @@ class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -680,8 +729,7 @@ class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -712,10 +760,11 @@ class ItemMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         instance.updated_by = user
 
         return super().update(instance, validated_data)
-    
+
 
 # ----------------------- Unit Map Serializer -----------------------
 from .models import UnitMap
+
 
 class UnitMapSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     item_name = serializers.SerializerMethodField()
@@ -751,8 +800,14 @@ class UnitMapSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
-    
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
     @extend_schema_field(serializers.CharField())
     def get_item_name(self, obj):
         return obj.item.itname if obj.item else None
@@ -764,8 +819,9 @@ class UnitMapSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_alt_unit_name(self, obj):
         return obj.alt_unit.unitname if obj.alt_unit else None
-    
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -784,7 +840,9 @@ class UnitMapSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -793,8 +851,7 @@ class UnitMapSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -829,6 +886,8 @@ class UnitMapSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
 # ----------------------- VR Type Master Serializer -----------------------
 from .models import VRTypeMaster
+
+
 class VRTypeMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by_name = serializers.SerializerMethodField()
     updated_by_name = serializers.SerializerMethodField()
@@ -842,24 +901,27 @@ class VRTypeMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "vrname",
             "zipcode",
             "is_active",
-
             "organization",
             "organization_name",
-
             "branches",
             "branch_names",
-
             "created_by",
             "created_by_name",
             "updated_by",
             "updated_by_name",
-
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ("id", "created_at", "created_by", "updated_by", "updated_at")
-    
+        read_only_fields = (
+            "id",
+            "created_at",
+            "created_by",
+            "updated_by",
+            "updated_at",
+        )
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -878,7 +940,9 @@ class VRTypeMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -887,8 +951,7 @@ class VRTypeMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -924,6 +987,7 @@ class VRTypeMasterSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 # ----------------------- Inventory Transaction Serializer -----------------------
 from .models import INV_TRAN
 
+
 class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -957,7 +1021,7 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "organization_name",
             "branches",
             "branch_names",
-            "supplier_id",         
+            "supplier_id",
             "supplier_name",
             "is_active",
             "created_by",
@@ -967,8 +1031,14 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
-    
+        read_only_fields = [
+            "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
+        ]
+
     @extend_schema_field(serializers.CharField())
     def get_item_name(self, obj):
         return obj.item.itname if obj.item else None
@@ -980,8 +1050,9 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_vr_type_name(self, obj):
         return obj.vr_type.vrname if obj.vr_type else None
-    
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -997,7 +1068,7 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
-    
+
     @extend_schema_field(serializers.IntegerField())
     def get_supplier_id(self, obj):
         return obj.item.supplier.id if obj.item and obj.item.supplier else None
@@ -1008,7 +1079,9 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -1017,8 +1090,7 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -1054,6 +1126,7 @@ class INVTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 # ----------------------- Account Transaction Serializer -----------------------
 from .models import ACC_TRAN
 
+
 class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -1073,30 +1146,24 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "vrno",
             "serial_no",
             "voucher_date",
-
             "vr_type",
             "vr_type_name",
-
             "amount_ex_vat",
             "vat",
             "vat_name",
             "vat_amount",
             "amount_inc_vat",
-
             "reference_no",
             "reference_date",
-
             "paymode",
             "paid_to",
             "vatin",
             "narration",
-
             "organization",
             "organization_name",
             "branches",
             "branch_names",
             "country",
-
             "is_active",
             "created_by",
             "created_by_name",
@@ -1105,8 +1172,18 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = [ "id", "vrno", "serial_no", "vat_amount", "amount_inc_vat", "created_by", "updated_by", "created_at", "updated_at"]
-    
+        read_only_fields = [
+            "id",
+            "vrno",
+            "serial_no",
+            "vat_amount",
+            "amount_inc_vat",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
+
     @extend_schema_field(serializers.CharField())
     def get_vr_type_name(self, obj):
         return obj.vr_type.vrname if obj.vr_type else None
@@ -1116,6 +1193,7 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         return obj.vat.vatname if obj.vat else None
 
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -1134,7 +1212,9 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -1143,8 +1223,7 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -1181,6 +1260,7 @@ class ACCTRANSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 from django.core.exceptions import ValidationError as DjangoValidationError
 from .models import ACCT_MAST
 
+
 class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -1191,6 +1271,7 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     branch_names = serializers.SerializerMethodField()
     parent_name = serializers.SerializerMethodField()
     hierarchy_path = serializers.SerializerMethodField()
+    children = serializers.SerializerMethodField()
 
     class Meta:
         model = ACCT_MAST
@@ -1205,15 +1286,14 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "parent",
             "parent_name",
             "hierarchy_path",
+            "children",
             "acmapno",
             "opening_balance",
             "curbal",
-
             "organization",
             "organization_name",
             "branches",
             "branch_names",
-
             "is_active",
             "created_by",
             "created_by_name",
@@ -1222,9 +1302,25 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
-        read_only_fields = [ "id", "acno", "acmapno", "created_by", "updated_by", "created_at", "updated_at"]
+        read_only_fields = [
+            "id",
+            "acno",
+            "acmapno",
+            "created_by",
+            "updated_by",
+            "created_at",
+            "updated_at",
+        ]
 
         # ------------------ DISPLAY FIELDS ------------------
+
+    def get_children(self, obj):
+        return ACCTMASTSerializer(
+            obj.children.all(),
+            many=True,
+            context=self.context,
+        ).data
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -1248,11 +1344,15 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField(child=serializers.DictField()))
     def get_hierarchy_path(self, obj):
         path = obj.get_ancestors() + [obj]
-        return [{"id": acc.id, "acno": acc.acno, "accname": acc.accname} for acc in path]
+        return [
+            {"id": acc.id, "acno": acc.acno, "accname": acc.accname} for acc in path
+        ]
 
     # ------------------ VALIDATION ------------------
     def validate(self, data):
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -1261,8 +1361,7 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -1314,12 +1413,14 @@ class ACCTMASTSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 # ----------------------- Account Master Mapping Serializer -----------------------
 from apps.purchase.models import ACCT_MAST_MAP
 
+
 class ACCTMASTMAPSerializer(serializers.ModelSerializer):
     """
     Read-only view of an account's derived hierarchy breadcrumb.
     totlev/lev1..lev8/acct_mast are auto-maintained by ACCT_MAST.save() -
     this endpoint no longer accepts create/update (see ACCT_MAST_MAPViewSet).
     """
+
     acct_mast_name = serializers.SerializerMethodField()
     organization_name = serializers.SerializerMethodField()
     branch_names = serializers.SerializerMethodField()
@@ -1332,13 +1433,18 @@ class ACCTMASTMAPSerializer(serializers.ModelSerializer):
             "acct_mast_name",
             "acmapno",
             "totlev",
-            "lev1", "lev2", "lev3", "lev4", "lev5", "lev6", "lev7", "lev8",
-
+            "lev1",
+            "lev2",
+            "lev3",
+            "lev4",
+            "lev5",
+            "lev6",
+            "lev7",
+            "lev8",
             "organization",
             "organization_name",
             "branches",
             "branch_names",
-
             "is_active",
             "created_at",
             "updated_at",
@@ -1360,6 +1466,7 @@ class ACCTMASTMAPSerializer(serializers.ModelSerializer):
 
 # ----------------------- Account Transaction Detail Serializer -----------------------
 from .models import ACC_TRAN_DETA
+
 
 class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -1423,8 +1530,9 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.CharField())
     def get_acc_tran_vrno(self, obj):
         return obj.acc_tran.vrno if obj.acc_tran else None
-    
+
         # ------------------ DISPLAY FIELDS ------------------
+
     @extend_schema_field(serializers.CharField())
     def get_created_by_name(self, obj):
         return obj.created_by.username if obj.created_by else None
@@ -1440,15 +1548,16 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     @extend_schema_field(serializers.ListSerializer(child=serializers.CharField()))
     def get_branch_names(self, obj):
         return [branch.name for branch in obj.branches.all()]
-    
-    
+
     # ------------------ VALIDATION ------------------
     def validate(self, data):
 
         # Validate: acc_tran exists
         acc_tran = data.get("acc_tran")
         if not acc_tran:
-            raise serializers.ValidationError("acc_tran (Account Transaction) is required.")
+            raise serializers.ValidationError(
+                "acc_tran (Account Transaction) is required."
+            )
 
         # Validate VR Type
         vr_type = data.get("vr_type")
@@ -1468,7 +1577,9 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
                     f"Account '{account.accname}' is inactive and cannot be used for new transactions."
                 )
 
-        organization = data.get("organization", getattr(self.instance, "organization", None))
+        organization = data.get(
+            "organization", getattr(self.instance, "organization", None)
+        )
         branches = data.get("branches")
 
         # convert to list if ManyToManyQuerySet
@@ -1477,8 +1588,7 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
 
         if organization and branches:
             invalid_branches = [
-                b for b in branches
-                if not self.branch_belongs_to_org(b, organization)
+                b for b in branches if not self.branch_belongs_to_org(b, organization)
             ]
             if invalid_branches:
                 br_names = ", ".join([b.name for b in invalid_branches])
@@ -1511,9 +1621,9 @@ class ACCTRANDETASerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-
 # ----------------------- Purchase Invoice Line Serializer -----------------------
 from .models import PurchaseInvoiceLine
+
 
 class PurchaseInvoiceLineSerializer(serializers.ModelSerializer):
     item_name = serializers.SerializerMethodField()
@@ -1522,9 +1632,18 @@ class PurchaseInvoiceLineSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseInvoiceLine
         fields = [
-            "id", "item", "item_name", "unit", "unit_name",
-            "qty", "rate", "amount", "vat_per", "vat_amount",
-            "created_at", "updated_at",
+            "id",
+            "item",
+            "item_name",
+            "unit",
+            "unit_name",
+            "qty",
+            "rate",
+            "amount",
+            "vat_per",
+            "vat_amount",
+            "created_at",
+            "updated_at",
         ]
         read_only_fields = ["id", "amount", "vat_amount", "created_at", "updated_at"]
 
@@ -1540,6 +1659,7 @@ class PurchaseInvoiceLineSerializer(serializers.ModelSerializer):
 # ----------------------- Purchase Invoice Serializer -----------------------
 from .models import PurchaseInvoice
 
+
 class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerializer):
     lines = PurchaseInvoiceLineSerializer(many=True, required=False)
     supplier_name = serializers.SerializerMethodField()
@@ -1551,20 +1671,43 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
     class Meta:
         model = PurchaseInvoice
         fields = [
-            "id", "invoice_no", "supplier", "supplier_name",
-            "vr_type", "vat", "invoice_date", "due_date",
-            "reference_no", "paymode", "status",
-            "amount_ex_vat", "vat_amount", "amount_inc_vat",
-            "narration", "is_active", "lines",
-            "organization", "organization_name",
-            "branches", "branch_names",
-            "created_by", "created_by_name",
-            "updated_by", "updated_by_name",
-            "created_at", "updated_at",
+            "id",
+            "invoice_no",
+            "supplier",
+            "supplier_name",
+            "vr_type",
+            "vat",
+            "invoice_date",
+            "due_date",
+            "reference_no",
+            "paymode",
+            "status",
+            "amount_ex_vat",
+            "vat_amount",
+            "amount_inc_vat",
+            "narration",
+            "is_active",
+            "lines",
+            "organization",
+            "organization_name",
+            "branches",
+            "branch_names",
+            "created_by",
+            "created_by_name",
+            "updated_by",
+            "updated_by_name",
+            "created_at",
+            "updated_at",
         ]
         read_only_fields = [
-            "id", "invoice_no", "vat_amount", "amount_inc_vat",
-            "created_at", "updated_at", "created_by", "updated_by",
+            "id",
+            "invoice_no",
+            "vat_amount",
+            "amount_inc_vat",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "updated_by",
         ]
 
     @extend_schema_field(serializers.CharField())
@@ -1590,6 +1733,7 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
     def create(self, validated_data):
         from django.db import transaction
         from django.db.models import Sum
+
         lines_data = validated_data.pop("lines", [])
         validated_data = self.assign_org_branch_on_create(validated_data)
         branches = validated_data.pop("branches", [])
@@ -1628,6 +1772,7 @@ class PurchaseInvoiceSerializer(OrgBranchAssignMixin, serializers.ModelSerialize
     def update(self, instance, validated_data):
         from django.db import transaction
         from django.db.models import Sum
+
         lines_data = validated_data.pop("lines", None)
         instance = self.assign_org_branch_on_update(instance, validated_data)
         user = self.context["request"].user
