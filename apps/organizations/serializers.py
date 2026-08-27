@@ -185,6 +185,13 @@ from .models import Plan
 class PlanSerializer(serializers.ModelSerializer):
     organization_count = serializers.SerializerMethodField()
 
+    price = serializers.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        required=False,
+        default=0,
+    )
+
     class Meta:
         model = Plan
         fields = [

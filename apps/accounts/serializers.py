@@ -86,14 +86,28 @@ class AuthUserSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         validated_data = self.assign_org_branch_on_create(validated_data)
 
         organization = validated_data.get("organization")
+        branches = validated_data.get("branches")
 
-        if not organization:
-            raise ValidationError("Organization is required.")
+        # User must belong to either an organization or at least one branch
+        if not organization and not branches:
+            raise ValidationError(
+                "Either an organization or at least one branch is required."
+            )
 
-        root_org = organization.parent if organization.parent else organization
+        # Determine the root organization for subscription/plan checks
+        if organization:
+            root_org = organization.parent if organization.parent else organization
+        else:
+            # If only branches are assigned, get the root organization
+            branch = branches[0]
+            root_org = branch.parent
 
         subscription = (
-            OrganizationSubscription.objects.filter(organization=root_org)
+            OrganizationSubscription.objects.filter(
+                organization=root_org,
+                started_at__lte=timezone.now(),
+                expires_at__gte=timezone.now(),
+            )
             .order_by("-id")
             .first()
         )

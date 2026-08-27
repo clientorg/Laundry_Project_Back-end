@@ -71,7 +71,7 @@ class Branch(Organization):
 class Plan(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=3)
+    price = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
     max_users = models.PositiveIntegerField(default=1)
     max_branches = models.PositiveIntegerField(default=1)
