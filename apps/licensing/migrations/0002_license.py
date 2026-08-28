@@ -52,7 +52,12 @@ class Migration(migrations.Migration):
                     "admin_email",
                     models.EmailField(blank=True, max_length=254, null=True),
                 ),
-                ("license_key", models.TextField(editable=False, unique=True)),
+                (
+                    "license_key",
+                    models.CharField(
+                        blank=True, editable=False, max_length=2048, unique=True
+                    ),
+                ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 (
