@@ -210,7 +210,8 @@ class License(models.Model):
         null=True,
     )
 
-    license_key = models.TextField(
+    license_key = models.CharField(
+        max_length=2048,
         unique=True,
         blank=True,
         editable=False,
