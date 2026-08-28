@@ -10,6 +10,7 @@ from apps.accounts.models import GroupDetail, PermissionDetail
 from .models import Organization
 from apps.master.models import Item, ServiceType, HandlingType, DeliveryType
 
+
 # AUTO CREATE GROUPS & PERMISSIONS
 def create_default_groups_for_org(user, organization):
     """
@@ -46,17 +47,32 @@ def create_default_groups_for_org(user, organization):
     orgadmin_exclude = {"add_organization", "delete_organization"}
     admin_exclude = {
         # user management (accounts app likely uses 'authuser' or 'user' codename; we exclude generic codenames)
-        "add_authuser", "change_authuser", "delete_authuser", "view_authuser",
-        "add_group", "change_group", "delete_group", "view_group",
-        "add_branch", "change_branch", "delete_branch", "view_branch",  # if branch perms exist
-        "add_permission", "change_permission", "delete_permission", "view_permission",
-        "add_organization", "change_organization", "delete_organization", "view_organization",
+        "add_authuser",
+        "change_authuser",
+        "delete_authuser",
+        "view_authuser",
+        "add_group",
+        "change_group",
+        "delete_group",
+        "view_group",
+        "add_branch",
+        "change_branch",
+        "delete_branch",
+        "view_branch",  # if branch perms exist
+        "add_permission",
+        "change_permission",
+        "delete_permission",
+        "view_permission",
+        "add_organization",
+        "change_organization",
+        "delete_organization",
+        "view_organization",
     }
 
     # iterate all permissions and assign respecting exclusions
     all_perms = Permission.objects.all()
     for perm in all_perms:
-        codename = perm.codename 
+        codename = perm.codename
 
         # OrgAdmin: all except org create/delete
         if codename not in orgadmin_exclude:
@@ -81,6 +97,13 @@ def create_default_master_data_for_org(user, organization):
     for the new organization.
     """
 
+    DEFAULT_SERVICE_PRICES = {
+        "Steam": 1,
+        "Laundry": 1,
+        "Pressing": 1,
+        "Dry Clean": 1,
+    }
+
     DEFAULT_ITEMS = [
         "Abaya",
         "Carpet or Rugs",
@@ -92,25 +115,28 @@ def create_default_master_data_for_org(user, organization):
     ]
 
     for idx, name in enumerate(DEFAULT_ITEMS):
+        extra_data = (
+            {
+                service_name: {
+                    "price": price,
+                    "enabled": True,
+                }
+                for service_name, price in DEFAULT_SERVICE_PRICES.items()
+            }
+            if name == "Carpet or Rugs"
+            else {}
+        )
+
         Item.objects.get_or_create(
             name=name,
             organization=organization,
             defaults={
                 "secondary_name": "",
                 "description": "",
-                "is_pinned": True if idx < 6 else False,  # first 6 pinned
+                "is_pinned": idx < 6,  # first 6 pinned
                 "is_global": True,
-                "is_size_based_price": True
-                if name == "Carpet or Rugs"
-                else False,
-                "extra_data": {
-                    "Laundry": {
-                        "price": 2,
-                        "enabled": True,
-                    }
-                }
-                if name == "Carpet or Rugs"
-                else {},
+                "is_size_based_price": name == "Carpet or Rugs",
+                "extra_data": extra_data,
                 "created_by": user,
                 "updated_by": user,
             },
@@ -151,6 +177,7 @@ def create_default_master_data_for_org(user, organization):
                 "updated_by": user,
             },
         )
+
 
 @receiver(post_save, sender=Organization)
 def organization_post_create(sender, instance, created, **kwargs):

@@ -93,6 +93,21 @@ def periodic_license_check():
         time.sleep(300)
 
 
+# cspell: ignore superadmin
+def create_superadmin():
+    from django.contrib.auth import get_user_model
+
+    User = get_user_model()
+
+    if not User.objects.filter(username="superadmin").exists():
+        User.objects.create_superuser(
+            username="superadmin",
+            email="superadmin@example.com",
+            password="Superadmin@123",
+        )
+        print("Superadmin created.")
+
+
 def prepare():
     system = platform.system()
     print(f"Running on {system}")
@@ -101,6 +116,7 @@ def prepare():
 
     run_migrations()
     load_countries()
+    create_superadmin()
     check_license()
 
 
@@ -117,7 +133,7 @@ def run_server():
         daemon=True,
     ).start()
 
-    serve(application, host="127.0.0.1", port=8000)
+    serve(application, host="127.0.0.1", port=8000, threading=4, expose_tracebacks=True)
 
 
 if __name__ == "__main__":

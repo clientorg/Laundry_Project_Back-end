@@ -1,14 +1,21 @@
 from datetime import date
 
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from drf_spectacular.utils import extend_schema
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import PermissionDenied
 
 from apps.licensing.models import AppliedLicense, apply_license_key
 from apps.licensing.serializers import LicenseStatusSerializer, ApplyLicenseSerializer
 from apps.accounts.models import AuthUser
+
+from apps.accounts.permissions import HasAccessPermission, PermissionRequiredMixin
+
+from .models import License
+from .serializers import LicenseSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 @extend_schema(tags=["License"])
@@ -96,3 +103,28 @@ class ApplyLicenseView(generics.GenericAPIView):
                 {"detail": str(exc)},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+
+@extend_schema(tags=["License"])
+class LicenseListCreateView(
+    PermissionRequiredMixin,
+    generics.ListCreateAPIView,
+):
+    queryset = License.objects.all()
+    serializer_class = LicenseSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        HasAccessPermission,
+    ]
+
+    permission_map = {
+        "GET": "licensing.view_license",
+        "POST": "licensing.add_license",
+    }
+
+    def perform_create(self, serializer):
+        if not self.request.user.is_superuser:
+            raise PermissionDenied("Only super administrators can create licenses.")
+
+        serializer.save()

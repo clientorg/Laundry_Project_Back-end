@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date, datetime
+from django.contrib.auth import get_user_model
 
 from apps.licensing.utils import verify_license
 
@@ -10,6 +11,8 @@ from apps.organizations.models import (
     Plan,
     OrganizationSubscription,
 )
+
+User = get_user_model()
 
 
 # Create your models here.
@@ -161,3 +164,70 @@ def apply_license_key(token):
     )
 
     return organization
+
+
+class License(models.Model):
+    ACTIVATION = "activation"
+    RENEWAL = "renewal"
+
+    LICENSE_TYPE_CHOICES = [
+        (ACTIVATION, "Activation"),
+        (RENEWAL, "Renewal"),
+    ]
+
+    license_id = models.CharField(max_length=100, unique=True)
+    license_type = models.CharField(
+        max_length=20,
+        choices=LICENSE_TYPE_CHOICES,
+    )
+
+    company_name = models.CharField(max_length=255)
+    plan_name = models.CharField(max_length=100)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        default=0,
+    )
+
+    max_branches = models.PositiveIntegerField(default=1)
+    max_users = models.PositiveIntegerField(default=5)
+    duration_days = models.PositiveIntegerField()
+
+    expires_on = models.DateField()
+
+    admin_username = models.CharField(
+        max_length=150,
+        blank=True,
+        null=True,
+    )
+    admin_name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+    admin_email = models.EmailField(
+        blank=True,
+        null=True,
+    )
+
+    license_key = models.TextField(
+        unique=True,
+        editable=False,
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="licenses_created",
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.license_id} - {self.company_name}"
