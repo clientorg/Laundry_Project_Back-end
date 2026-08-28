@@ -39,6 +39,7 @@ class LicenseSerializer(serializers.ModelSerializer):
             "admin_username",
             "admin_name",
             "admin_email",
+            "admin_password",
             "license_key",
             "created_at",
             "updated_at",
@@ -58,7 +59,12 @@ class LicenseSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs["license_type"] == License.ACTIVATION:
-            required_fields = ["admin_username", "admin_name", "admin_email"]
+            required_fields = [
+                "admin_username",
+                "admin_name",
+                "admin_email",
+                "admin_password",
+            ]
 
             for field in required_fields:
                 if not attrs.get(field):
@@ -94,6 +100,7 @@ class LicenseSerializer(serializers.ModelSerializer):
                     "admin_username": validated_data.get("admin_username"),
                     "admin_name": validated_data.get("admin_name"),
                     "admin_email": validated_data.get("admin_email"),
+                    "admin_password": validated_data.get("admin_password"),
                 }
             )
 

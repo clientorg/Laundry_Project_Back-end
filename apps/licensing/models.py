@@ -200,6 +200,12 @@ class License(models.Model):
         blank=True,
         null=True,
     )
+    admin_password = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+
     admin_name = models.CharField(
         max_length=255,
         blank=True,

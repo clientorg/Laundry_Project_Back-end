@@ -104,6 +104,7 @@ class LicenseAdmin(admin.ModelAdmin):
                     "admin_username",
                     "admin_name",
                     "admin_email",
+                    "admin_password",
                 )
             },
         ),

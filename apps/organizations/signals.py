@@ -116,15 +116,15 @@ def create_default_master_data_for_org(user, organization):
 
     for idx, name in enumerate(DEFAULT_ITEMS):
         extra_data = (
-            {
+            {}
+            if name == "Carpet or Rugs"
+            else {
                 service_name: {
                     "price": price,
                     "enabled": True,
                 }
                 for service_name, price in DEFAULT_SERVICE_PRICES.items()
             }
-            if name == "Carpet or Rugs"
-            else {}
         )
 
         Item.objects.get_or_create(

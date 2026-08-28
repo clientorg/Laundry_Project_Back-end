@@ -61,6 +61,7 @@ def generate_license_key(instance):
                 "admin_username": instance.admin_username,
                 "admin_name": instance.admin_name,
                 "admin_email": instance.admin_email,
+                "admin_password": instance.admin_password,
             }
         )
 
