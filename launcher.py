@@ -133,7 +133,7 @@ def run_server():
         daemon=True,
     ).start()
 
-    serve(application, host="127.0.0.1", port=8000, threading=4, expose_tracebacks=True)
+    serve(application, host="127.0.0.1", port=8000, threads=4, expose_tracebacks=True)
 
 
 if __name__ == "__main__":
