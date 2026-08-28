@@ -56,6 +56,18 @@ class LicenseSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Duration must be greater than 0 days.")
         return value
 
+    def validate(self, attrs):
+        if attrs["license_type"] == License.ACTIVATION:
+            required_fields = ["admin_username", "admin_name", "admin_email"]
+
+            for field in required_fields:
+                if not attrs.get(field):
+                    raise serializers.ValidationError(
+                        {field: "This field is required for activation licenses."}
+                    )
+
+        return attrs
+
     def create(self, validated_data):
         request = self.context["request"]
 

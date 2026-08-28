@@ -212,6 +212,7 @@ class License(models.Model):
 
     license_key = models.TextField(
         unique=True,
+        blank=True,
         editable=False,
     )
 

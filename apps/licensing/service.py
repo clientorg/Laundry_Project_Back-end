@@ -7,6 +7,8 @@ from pathlib import Path
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 
+from .models import License
+
 CERT_DIR = Path("/etc/keys")
 PRIVATE_KEY_FILE = CERT_DIR / "private.pem"
 
@@ -38,3 +40,28 @@ def sign_payload(payload):
         + "."
         + base64.urlsafe_b64encode(signature).decode()
     )
+
+
+def generate_license_key(instance):
+    payload = {
+        "type": instance.license_type,
+        "license_id": instance.license_id,
+        "company_name": instance.company_name,
+        "plan_name": instance.plan_name,
+        "price": float(instance.price),
+        "max_branches": instance.max_branches,
+        "max_users": instance.max_users,
+        "duration_days": instance.duration_days,
+        "expires_on": instance.expires_on.isoformat(),
+    }
+
+    if instance.license_type == License.ACTIVATION:
+        payload.update(
+            {
+                "admin_username": instance.admin_username,
+                "admin_name": instance.admin_name,
+                "admin_email": instance.admin_email,
+            }
+        )
+
+    return sign_payload(payload)
