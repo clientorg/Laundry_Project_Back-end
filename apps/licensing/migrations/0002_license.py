@@ -54,9 +54,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "license_key",
-                    models.CharField(
-                        blank=True, editable=False, max_length=2048, unique=True
-                    ),
+                    models.CharField(blank=True, editable=False),
                 ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
