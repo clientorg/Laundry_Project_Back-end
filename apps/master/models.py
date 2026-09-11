@@ -77,6 +77,25 @@ class Country(models.Model):
         verbose_name_plural = "Countries"
         ordering = ["name"]
 
+        permissions = [
+            (
+                "api_add_database_backup",
+                "Can create database backups via API",
+            ),
+            (
+                "api_view_database_backup",
+                "Can view database backups via API",
+            ),
+            (
+                "api_restore_database_backup",
+                "Can restore database backups via API",
+            ),
+            (
+                "api_delete_database_backup",
+                "Can delete database backups via API",
+            ),
+        ]
+
     def __str__(self):
         return f"{self.flag_emoji} {self.name} ({self.dial_code})"
 
@@ -307,6 +326,7 @@ class AppSettings(models.Model):
     Use this for runtime configuration that should be editable without a code deploy.
     Example keys: whatsapp_number, sms_sender_id, etc.
     """
+
     key = models.CharField(max_length=100, unique=True)
     value = models.TextField(blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)

@@ -43,6 +43,9 @@ from .views import (
     DeliveryTypeDetailView,
     DeliveryTypeUpdateView,
     DeliveryTypeDeleteView,
+    DatabaseBackupView,
+    DatabaseBackupRestoreView,
+    DatabaseBackupDeleteView,
 )
 
 # urls.py
@@ -224,5 +227,20 @@ urlpatterns = [
         "delivery-types/<int:pk>/delete/",
         DeliveryTypeDeleteView.as_view(),
         name="delivery-type-delete",
+    ),
+    path(
+        "system/backup/",
+        DatabaseBackupView.as_view(),
+        name="database-backup",
+    ),
+    path(
+        "system/backup/restore/",
+        DatabaseBackupRestoreView.as_view(),
+        name="database-backup-restore",
+    ),
+    path(
+        "system/backup/<str:filename>/",
+        DatabaseBackupDeleteView.as_view(),
+        name="database-backup-delete",
     ),
 ]

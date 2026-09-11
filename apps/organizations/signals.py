@@ -67,6 +67,10 @@ def create_default_groups_for_org(user, organization):
         "change_organization",
         "delete_organization",
         "view_organization",
+        "api_add_database_backup",
+        "api_view_database_backup",
+        "api_restore_database_backup",
+        "api_delete_database_backup",
     }
 
     # iterate all permissions and assign respecting exclusions

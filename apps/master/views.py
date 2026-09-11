@@ -9,6 +9,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # laundry mixin imports
+from apps.master.backup_service import DatabaseBackupService
 from apps.organizations.mixins import OrgBranchQuerysetMixin
 
 # laundry permission validator
@@ -621,3 +622,170 @@ class DeliveryTypeDeleteView(
     permission_map = {
         "DELETE": "master.delete_deliverytype",
     }
+
+
+@extend_schema(tags=["Database Backup"])
+class DatabaseBackupView(
+    PermissionRequiredMixin,
+    generics.ListCreateAPIView,
+):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        HasAccessPermission,
+    ]
+
+    permission_map = {
+        "GET": "api_view_database_backup",
+        "POST": "api_add_database_backup",
+    }
+
+    def list(self, request, *args, **kwargs):
+        try:
+            backups = DatabaseBackupService.list_backups()
+
+            return Response(
+                {
+                    "status": 1,
+                    "message": "Backups retrieved successfully.",
+                    "backup_directory": str(DatabaseBackupService.get_backup_dir()),
+                    "count": len(backups),
+                    "backups": backups,
+                }
+            )
+
+        except Exception as exc:
+            return Response(
+                {
+                    "status": 0,
+                    "message": str(exc),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def create(self, request, *args, **kwargs):
+        try:
+            backup = DatabaseBackupService.create_backup()
+
+            return Response(
+                {
+                    "status": 1,
+                    "message": "Database backup created successfully.",
+                    "backup": backup,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        except Exception as exc:
+            return Response(
+                {
+                    "status": 0,
+                    "message": str(exc),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+@extend_schema(tags=["Database Backup"])
+class DatabaseBackupRestoreView(
+    PermissionRequiredMixin,
+    generics.GenericAPIView,
+):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        HasAccessPermission,
+    ]
+
+    permission_map = {
+        "POST": "api_restore_database_backup",
+    }
+
+    def post(self, request, *args, **kwargs):
+        filename = request.data.get("filename")
+
+        if not filename:
+            return Response(
+                {
+                    "status": 0,
+                    "message": "Backup filename is required.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            DatabaseBackupService.restore_backup(filename)
+
+            return Response(
+                {
+                    "status": 1,
+                    "message": "Database restored successfully.",
+                    "filename": filename,
+                }
+            )
+
+        except FileNotFoundError as exc:
+            return Response(
+                {
+                    "status": 0,
+                    "message": str(exc),
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        except Exception as exc:
+            return Response(
+                {
+                    "status": 0,
+                    "message": str(exc),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+@extend_schema(tags=["Database Backup"])
+class DatabaseBackupDeleteView(
+    PermissionRequiredMixin,
+    generics.DestroyAPIView,
+):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        HasAccessPermission,
+    ]
+
+    permission_map = {
+        "DELETE": "api_delete_database_backup",
+    }
+
+    def destroy(self, request, *args, **kwargs):
+        filename = kwargs.get("filename")
+
+        try:
+            DatabaseBackupService.delete_backup(filename)
+
+            return Response(
+                {
+                    "status": 1,
+                    "message": "Backup deleted successfully.",
+                    "filename": filename,
+                }
+            )
+
+        except FileNotFoundError as exc:
+            return Response(
+                {
+                    "status": 0,
+                    "message": str(exc),
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        except Exception as exc:
+            return Response(
+                {
+                    "status": 0,
+                    "message": str(exc),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
