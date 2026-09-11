@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Username Recovery</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f3f5;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 35px 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+    }
+
+    .title {
+      font-size: 24px;
+      color: #043069;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .message {
+      font-size: 15px;
+      color: #636e72;
+      line-height: 22px;
+      margin-bottom: 18px;
+    }
+
+    .username-box {
+      background: #f1f8ff;
+      padding: 12px 15px;
+      font-size: 20px;
+      border-radius: 8px;
+      margin: 10px 0;
+      color: #0984e3;
+      border: 1px solid #dfe6e9;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #838586;
+      text-align: center; 
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <h2 class="title">Username Recovery</h2>
+
+    <p class="message">
+      Hello,<br>
+      Below are the usernames linked with your email:
+    </p>
+
+    {% for username in usernames %}
+    <div class="username-box">{{ username }}</div>
+    {% endfor %}
+
+    <p class="message">
+      Use these usernames to log in or reset your password if needed.
+    </p>
+
+    <div class="footer">
+      Thanks,<br>
+      <strong>Laundry Team</strong>
+    </div>
+
+  </div>
+
+</body>
+</html>
