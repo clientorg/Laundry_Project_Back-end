@@ -22,6 +22,7 @@ from .models import Country, Item, ClothType, ServiceType, HandlingType, Deliver
 # laundry serializer imports
 from .serializers import (
     CountrySerializer,
+    DatabaseBackupRestoreSerializer,
     ItemSerializer,
     ClothTypeSerializer,
     ServiceTypeSerializer,
@@ -686,7 +687,10 @@ class DatabaseBackupView(
             )
 
 
-@extend_schema(tags=["Database Backup"])
+@extend_schema(
+    tags=["Database Backup"],
+    request=DatabaseBackupRestoreSerializer,
+)
 class DatabaseBackupRestoreView(
     PermissionRequiredMixin,
     generics.GenericAPIView,
@@ -700,6 +704,8 @@ class DatabaseBackupRestoreView(
     permission_map = {
         "POST": "api_restore_database_backup",
     }
+
+    serializer_class = DatabaseBackupRestoreSerializer
 
     def post(self, request, *args, **kwargs):
         filename = request.data.get("filename")

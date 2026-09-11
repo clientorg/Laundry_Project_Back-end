@@ -399,3 +399,7 @@ class DeliveryTypeSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         user = request.user
         instance.updated_by = user
         return super().update(instance, validated_data)
+
+
+class DatabaseBackupRestoreSerializer(serializers.Serializer):
+    filename = serializers.CharField(required=True)
