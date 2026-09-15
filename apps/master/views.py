@@ -637,8 +637,8 @@ class DatabaseBackupView(
     ]
 
     permission_map = {
-        "GET": "api_view_database_backup",
-        "POST": "api_add_database_backup",
+        "GET": "master.api_view_database_backup",
+        "POST": "master.api_add_database_backup",
     }
 
     def list(self, request, *args, **kwargs):
@@ -702,7 +702,7 @@ class DatabaseBackupRestoreView(
     ]
 
     permission_map = {
-        "POST": "api_restore_database_backup",
+        "POST": "master.api_restore_database_backup",
     }
 
     serializer_class = DatabaseBackupRestoreSerializer
@@ -761,7 +761,7 @@ class DatabaseBackupDeleteView(
     ]
 
     permission_map = {
-        "DELETE": "api_delete_database_backup",
+        "DELETE": "master.api_delete_database_backup",
     }
 
     def destroy(self, request, *args, **kwargs):
