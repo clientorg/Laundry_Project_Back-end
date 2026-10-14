@@ -398,7 +398,7 @@ class UserTokenDetailAPIView(APIView):
                 vat_percent = branch.service_vat_percent or (
                     branch.parent.service_vat_percent if branch.parent else None
                 )
-                vat_percent = branch.vat_registration_number or (
+                vat_registration_number = branch.vat_registration_number or (
                     branch.parent.vat_registration_number if branch.parent else None
                 )
                 # If parent exists, prefer parent name as organization name
