@@ -256,6 +256,13 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def create(self, validated_data):
         validated_data = self.assign_org_branch_on_create(validated_data)
+
+        self.validate_customer_name_unique(
+            name=validated_data.get("name"),
+            organization=validated_data.get("organization"),
+            branches=validated_data.get("branches", []),
+        )
+
         request = self.context["request"]
         user = request.user
         validated_data["created_by"] = user
@@ -264,6 +271,13 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
 
     def update(self, instance, validated_data):
         instance = self.assign_org_branch_on_update(instance, validated_data)
+
+        self.validate_customer_name_unique(
+            name=validated_data.get("name", instance.name),
+            organization=validated_data.get("organization", instance.organization),
+            branches=validated_data.get("branches", list(instance.branches.all())),
+        )
+
         request = self.context["request"]
         user = request.user
         instance.updated_by = user
