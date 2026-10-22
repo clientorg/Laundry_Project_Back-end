@@ -1,3 +1,4 @@
+import unicodedata
 from decimal import Decimal, ROUND_HALF_UP
 
 # package imports
@@ -161,10 +162,17 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         organization = data.get(
             "organization", getattr(self.instance, "organization", None)
         )
-        branches = data.get("branches")
+        # branches = data.get("branches")
 
-        if branches and not isinstance(branches, list):
-            branches = list(branches.all())
+        #  if branches and not isinstance(branches, list):
+        #             branches = list(branches.all())
+
+        if "branches" in data:
+            branches = data["branches"]
+        elif self.instance:
+            branches = list(self.instance.branches.all())
+        else:
+            branches = []
 
         if organization and branches:
             invalid_branches = [
@@ -177,7 +185,71 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
                 raise serializers.ValidationError(
                     f"The following branches do not belong to the organization '{organization.name}': {branch_names}"
                 )
+
+        self.validate_customer_name_unique(
+            name=data.get("name", getattr(self.instance, "name", None)),
+            organization=organization,
+            branches=branches,
+        )
         return data
+
+    def validate_customer_name_unique(self, name, organization, branches):
+        if not name or not name.strip():
+            return
+
+        normalized_name = unicodedata.normalize(
+            "NFKC", name
+        ).strip().casefold()
+
+        customers = Customer.objects.exclude(
+            pk=self.instance.pk if self.instance else None
+        )
+
+        # Organization-level uniqueness
+        if organization:
+            existing_customers = customers.filter(
+                organization=organization,
+                name__isnull=False,
+            ).only("id", "name")
+
+            for customer in existing_customers:
+                existing_name = unicodedata.normalize(
+                    "NFKC", customer.name
+                ).strip().casefold()
+
+                if existing_name == normalized_name:
+                    raise serializers.ValidationError({
+                        "name": (
+                            "A customer with this name already exists "
+                            "in this organization."
+                        )
+                    })
+
+        # Branch-level uniqueness
+        branch_ids = [branch.pk for branch in (branches or [])]
+
+        if branch_ids:
+            existing_customers = (
+                customers.filter(
+                    branches__in=branch_ids,
+                    name__isnull=False,
+                )
+                .distinct()
+                .only("id", "name")
+            )
+
+            for customer in existing_customers:
+                existing_name = unicodedata.normalize(
+                    "NFKC", customer.name
+                ).strip().casefold()
+
+                if existing_name == normalized_name:
+                    raise serializers.ValidationError({
+                        "name": (
+                            "A customer with this name already exists "
+                            "in one of the selected branches."
+                        )
+                    })
 
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
