@@ -182,57 +182,68 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
                 raise serializers.ValidationError(
                     f"The following branches do not belong to the organization '{organization.name}': {branch_names}"
                 )
+
+        country_code = data.get(
+            "country_code",
+            getattr(self.instance, "country_code", None),
+        )
+        mobile_number = data.get(
+            "mobile_number",
+            getattr(self.instance, "mobile_number", None),
+        )
+
+        self.validate_customer_mobile_unique(
+            country_code=country_code,
+            mobile_number=mobile_number,
+            organization=organization,
+            branches=branches,
+        )
+
         return data
-        
-    def _to_digits(self, value):
-        if not value:
-            return None
-        value = unicodedata.normalize("NFKC", value)
-        digits = "".join(str(unicodedata.decimal(ch)) for ch in value if ch.isdecimal())
-        return digits or None
-
-    def validate_mobile_number(self, value):
-        if not value:
-            return None
-        digits = self._to_digits(value)
-        if not digits:
-            raise serializers.ValidationError("Enter a valid mobile number.")
-        return digits
-
-    def validate_country_code(self, value):
-        if not value:
-            return None
-        digits = self._to_digits(value)
-        if not digits:
-            raise serializers.ValidationError("Enter a valid country code.")
-        return digits.lstrip("0") or None
     
-    def validate_customer_mobile_unique(self, mobile_number, country_code, organization, branches):
-        if not mobile_number:
+    def validate_customer_mobile_unique(
+        self,
+        country_code,
+        mobile_number,
+        organization,
+        branches,
+    ):
+        if not mobile_number or not country_code:
             return
 
-        customers = Customer.objects.filter(mobile_number=mobile_number)
+        customers = Customer.objects.filter(
+            country_code=country_code,
+            mobile_number=mobile_number,
+        )
+
         if self.instance:
             customers = customers.exclude(pk=self.instance.pk)
 
-        if country_code:
-            customers = customers.filter(country_code=country_code)
-        else:
-            customers = customers.filter(Q(country_code__isnull=True) | Q(country_code=""))
-
         # Organization-level uniqueness
-        if organization and customers.filter(organization=organization).exists():
-            raise serializers.ValidationError(
-                {"mobile_number": "A customer with this mobile number already exists in this organization."}
-            )
+        if (
+            organization
+            and customers.filter(organization=organization).exists()
+        ):
+            raise serializers.ValidationError({
+                "mobile_number": (
+                    "A customer with this country code and mobile number "
+                    "already exists in this organization."
+                )
+            })
 
         # Branch-level uniqueness
-        branch_ids = [b.pk for b in (branches or [])]
-        if branch_ids and customers.filter(branches__in=branch_ids).exists():
-            raise serializers.ValidationError(
-                {"mobile_number": "A customer with this mobile number already exists in one of the selected branches."}
-            )
+        branch_ids = [branch.pk for branch in (branches or [])]
 
+        if (
+            branch_ids
+            and customers.filter(branches__in=branch_ids).exists()
+        ):
+            raise serializers.ValidationError({
+                "mobile_number": (
+                    "A customer with this country code and mobile number "
+                    "already exists in one of the selected branches."
+                )
+            })     
     def branch_belongs_to_org(self, branch, organization):
         return branch.parent == organization
 
@@ -240,8 +251,8 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
         validated_data = self.assign_org_branch_on_create(validated_data)
 
         self.validate_customer_mobile_unique(
-            mobile_number=validated_data.get("mobile_number"),
             country_code=validated_data.get("country_code"),
+            mobile_number=validated_data.get("mobile_number"),
             organization=validated_data.get("organization"),
             branches=validated_data.get("branches", []),
         )
@@ -255,12 +266,25 @@ class CustomerSerializer(serializers.ModelSerializer, OrgBranchAssignMixin):
     def update(self, instance, validated_data):
         instance = self.assign_org_branch_on_update(instance, validated_data)
 
-        if {"mobile_number", "country_code", "organization", "branches"} & validated_data.keys():
+        if {
+            "country_code",
+            "mobile_number",
+            "organization",
+            "branches",
+        } & validated_data.keys():
             self.validate_customer_mobile_unique(
-                mobile_number=validated_data.get("mobile_number", instance.mobile_number),
-                country_code=validated_data.get("country_code", instance.country_code),
-                organization=validated_data.get("organization", instance.organization),
-                branches=validated_data.get("branches", list(instance.branches.all())),
+                country_code=validated_data.get(
+                    "country_code", instance.country_code
+                ),
+                mobile_number=validated_data.get(
+                    "mobile_number", instance.mobile_number
+                ),
+                organization=validated_data.get(
+                    "organization", instance.organization
+                ),
+                branches=validated_data.get(
+                    "branches", list(instance.branches.all())
+                ),
             )
 
         request = self.context["request"]
