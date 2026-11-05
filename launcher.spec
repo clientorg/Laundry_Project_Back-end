@@ -1,30 +1,25 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import (
-    collect_submodules,
-    collect_data_files,
-)
+from PyInstaller.utils.hooks import collect_all
 
-hiddenimports = (
-    collect_submodules("whitenoise")
-    + collect_submodules("drf_spectacular")
-    + collect_submodules("corsheaders")
-    + collect_submodules("rest_framework")
-    + collect_submodules("rest_framework_simplejwt")
-)
+datas = [('apps/master/fixtures', 'apps/master/fixtures'), ('apps/master/qz', 'apps/master/qz'), ('license_keys', 'license_keys')]
+binaries = []
+hiddenimports = []
+tmp_ret = collect_all('whitenoise')
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
+tmp_ret = collect_all('drf_spectacular')
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
+tmp_ret = collect_all('corsheaders')
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
+tmp_ret = collect_all('rest_framework')
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
+tmp_ret = collect_all('rest_framework_simplejwt')
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 
-datas = (
-    collect_data_files("drf_spectacular")
-    + collect_data_files("rest_framework")
-    + [
-        ("apps/master/fixtures", "apps/master/fixtures"),
-        ("license_keys", "license_keys"),
-    ]
-)
 
 a = Analysis(
     ['launcher.py'],
     pathex=[],
-    binaries=[],
+    binaries=binaries,
     datas=datas,
     hiddenimports=hiddenimports,
     hookspath=[],

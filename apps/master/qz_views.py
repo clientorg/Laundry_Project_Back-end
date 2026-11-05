@@ -11,7 +11,7 @@ from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.hazmat.primitives.asymmetric import padding
 
 # Use the self-signed certificate for testing
-CERT_DIR = Path("/etc/qz")
+CERT_DIR = Path(__file__).resolve().parent / "qz"
 
 
 @extend_schema(tags=["QZ"])
